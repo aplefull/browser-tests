@@ -1,0 +1,36 @@
+.foreign-object-svg *:not(button) {
+  font-family: monospace;
+}
+
+.foreign-object-svg h1 {
+  font-family: sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.foreign-object-svg p {
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #666;
+}
+
+.foreign-object-svg button {
+  background-color: #333;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.foreign-object-svg form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.foreign-object-svg form input {
+  margin-left: 10px;
+}

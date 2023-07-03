@@ -1,0 +1,18 @@
+.selection {
+  #selection-color {
+    &::selection {
+      background-color: #cc3838;
+      color: #1e1e1e;
+    }
+  }
+
+  #selection-shadow {
+    &::selection {
+      text-shadow: 0 0 15px #fff;
+    }
+  }
+
+  #selection-none {
+    user-select: none;
+  }
+}

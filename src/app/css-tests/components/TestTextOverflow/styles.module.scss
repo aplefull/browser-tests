@@ -1,0 +1,29 @@
+.textOverflow {
+  div {
+    width: 150px;
+    overflow: hidden;
+
+    p {
+      margin: 0;
+      padding: 0;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .textOverflowEllipsis {
+      text-overflow: ellipsis;
+    }
+
+    .textOverflowClip {
+      text-overflow: clip;
+    }
+
+    .textOverflowString {
+      text-overflow: '---';
+    }
+
+    .textOverflowFade {
+      text-overflow: fade;
+    }
+  }
+}

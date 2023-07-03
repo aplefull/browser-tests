@@ -1,0 +1,45 @@
+.testLargeImage {
+  > div {
+    input[type='checkbox'] {
+      margin-bottom: 15px;
+
+      + label {
+        cursor: pointer;
+      }
+
+      &:not(:checked) + label + div {
+        animation: none;
+      }
+    }
+
+    > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30%;
+      height: 300px;
+      margin-inline: auto;
+      animation: resize 5s ease-in-out infinite;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+@keyframes resize {
+  0% {
+    width: 30%;
+  }
+
+  50% {
+    width: 100%;
+  }
+
+  100% {
+    width: 30%;
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "browser-tests",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "prettier": "prettier -w ./src/**/*.{ts,tsx,js,jsx,json,css,scss,html}"
+  },
+  "dependencies": {
+    "@types/node": "20.2.1",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "classnames": "^2.3.2",
+    "prettier": "^2.8.8",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "^6.14.1",
+    "sass": "^1.62.1"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react-swc": "^3.3.2",
+    "typescript": "^5.1.6",
+    "vite": "^4.3.9",
+    "vite-tsconfig-paths": "^4.2.0"
+  }
+}

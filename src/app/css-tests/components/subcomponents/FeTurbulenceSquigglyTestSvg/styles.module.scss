@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700');
+
+.squigglyTextContainer {
+  width: 800px;
+  height: 300px;
+
+  .editable {
+    font-size: 2.5rem;
+    font-family: 'Amatic SC', cursive, sans-serif;
+
+    p {
+      font-size: 1.5rem;
+      font-family: 'Amatic SC', cursive, sans-serif;
+    }
+  }
+
+  svg {
+    display: none;
+  }
+}
+
+.squiggly {
+  animation: squiggly-anim 0.34s linear infinite;
+}
+
+@keyframes squiggly-anim {
+  0% {
+    filter: url('#squiggly-0');
+  }
+  25% {
+    filter: url('#squiggly-1');
+  }
+  50% {
+    filter: url('#squiggly-2');
+  }
+  75% {
+    filter: url('#squiggly-3');
+  }
+  100% {
+    filter: url('#squiggly-4');
+  }
+}

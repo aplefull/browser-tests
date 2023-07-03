@@ -1,0 +1,14 @@
+.cssFunctions {
+  .trigFunctions {
+    > div {
+      height: 20px;
+      background-color: #38cc76;
+    }
+
+    + div {
+      :first-child {
+        width: calc(10px * exp(pi));
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@import '@mixins';
+
+.mediaQueries {
+  h2 {
+    @include subtitle;
+  }
+
+  .rangeSyntax {
+    @media (400px < width <= 2000px) {
+      span {
+        color: #38cc76;
+      }
+    }
+  }
+}

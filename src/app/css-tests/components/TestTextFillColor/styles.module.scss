@@ -1,0 +1,79 @@
+.textFillColor {
+  p {
+    width: fit-content;
+    font-weight: bold;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-size: 1.1rem;
+  }
+
+  .plainColor {
+    -webkit-text-fill-color: #cc3838;
+    -moz-text-fill-color: #cc3838;
+    text-fill-color: #cc3838;
+  }
+
+  .gradient {
+    background: linear-gradient(
+      45deg,
+      red 0%,
+      hsl(120, 100%, calc(90% - 10%)) 25%,
+      #00ff00 50%,
+      rgb(calc(0% + 10%), 0, 255) 75%,
+      rgba(255, 0, 0, 1) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .animatedGradient {
+    background: linear-gradient(90deg, rgb(0, 8, 227) 0%, rgb(255, 0, 189) 50%, rgb(0, 8, 227) 100%);
+    animation: animatedGradient 5s linear infinite;
+    background-size: 200%;
+    background-position-x: 0;
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @keyframes animatedGradient {
+      0% {
+        background-position-x: 0;
+      }
+
+      50% {
+        background-position-x: 100%;
+      }
+
+      100% {
+        background-position-x: 200%;
+      }
+    }
+  }
+
+  .animatedColor {
+    animation: colorAnimation 10s linear infinite;
+
+    @keyframes colorAnimation {
+      0% {
+        color: hsl(0, 70%, 50%);
+      }
+
+      50% {
+        color: hsl(180, 70%, 50%);
+      }
+
+      100% {
+        color: hsl(360, 70%, 50%);
+      }
+    }
+  }
+
+  .imageFill {
+    font-weight: 1000;
+    background-image: url('/assets/images/flying-cat.jpg');
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

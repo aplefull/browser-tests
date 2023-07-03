@@ -1,0 +1,103 @@
+import styles from './styles.module.scss';
+import classNames from 'classnames';
+
+export default function TestCssGrid() {
+  return (
+    <section className={styles.cssGrid}>
+      <h1>Difficult CSS Grid layouts</h1>
+      <div>
+        <h2>Grid areas</h2>
+        <div className={styles.gridTemplateAreas}>
+          <div className={classNames(styles.gridItem, styles.a)}>Item a</div>
+          <div className={classNames(styles.gridItem, styles.b)}>Item b</div>
+          <div className={classNames(styles.gridItem, styles.c)}>Item c</div>
+        </div>
+      </div>
+      <div>
+        <h2>Auto-fit minmax</h2>
+        <input type="checkbox" id="animation-grid-minmax" defaultChecked={false} />
+        <label htmlFor="animation-grid-minmax">Enable animation</label>
+        <div className={styles.gridAutoFitMinmax}>
+          <div className={styles.gridItem}>1</div>
+          <div className={styles.gridItem}>2</div>
+          <div className={styles.gridItem}>3</div>
+          <div className={styles.gridItem}>4</div>
+          <div className={styles.gridItem}>5</div>
+        </div>
+      </div>
+      <div>
+        <h2>Subgrid columns</h2>
+        <div className={styles.subgridColumns}>
+          <div className={styles.subgridItem}>
+            <h2>Lorem ipsum</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda recusandae maxime distinctio quos ullam
+              incidunt.
+            </p>
+            <img src="/assets/images/flying-cat.jpg" alt="" />
+          </div>
+          <div className={styles.subgridItem}>
+            <h2>Omnis, veritatis odio.</h2>
+            <p>
+              Enim molestiae recusandae ut dolor sit amet consectetur adipisicing. odit possimus eius inventore. Quasi
+              illo unde neque? Itaque, deleniti adipisci?
+            </p>
+            <img src="/assets/images/space-cat.jpg" alt="" />
+          </div>
+          <div className={styles.subgridItem}>
+            <h2>Exercitationem, libero quam!</h2>
+            <p>Error maiores culpa eaque. Quam quisquam quae nostrum ipsa dolorum atque aperiam fugit soluta error!</p>
+            <img src="/assets/images/space-cat.jpg" alt="" />
+          </div>
+          <div className={styles.subgridItem}>
+            <h2>Quibusdam, recusandae odio.</h2>
+            <p>
+              Corporis laboriosam, neque est commodi architecto voluptatem, ipsam corrupti ullam similique eligendi hic
+              qui natus?
+            </p>
+            <img src="/assets/images/space-cat.jpg" alt="" />
+          </div>
+          <div className={styles.subgridItem}>
+            <h2>Modi, exer citat ionem dicta.</h2>
+            <p>
+              Laboriosam, aliquam tempore minus dolorem ullam et veniam asperiores, eveniet vitae odit itaque eligendi
+              ducimus?
+            </p>
+            <img src="/assets/images/flying-cat.jpg" alt="" />
+          </div>
+          <div className={styles.subgridItem}>
+            <h2>Dolore.</h2>
+            <p>
+              Reprehenderit, labore. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt, aut. harum vitae
+              voluptate alias saepe debitis quo perspiciatis, delectus fugiat modi eveniet.
+            </p>
+            <img src="/assets/images/flying-cat.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Subgrid rows</h2>
+        <div className={styles.subgridRows}>
+          <ul>
+            <li>Lorem ipsum dolor sit.</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores?</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing.</li>
+            <li>Lorem ipsum dolor sit.</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing.</li>
+            <li>Lorem ipsum dolor.</li>
+          </ul>
+          <ul>
+            <li>Lorem ipsum dolor sit.</li>
+            <li>Lorem ipsum dolor sit.</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, molestiae.</li>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor.</li>
+            <li>Lorem ipsum dolor sit amet.</li>
+            <li>Lorem ipsum.</li>
+            <li>Lorem ipsum.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}

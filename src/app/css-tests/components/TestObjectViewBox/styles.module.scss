@@ -1,0 +1,27 @@
+.objectViewBox {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  div {
+    width: 300px;
+  }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1;
+  }
+
+  .inset:hover {
+    img {
+      object-view-box: inset(10px -31% 10% 3.5px);
+    }
+  }
+
+  .zoomOut:hover {
+    img {
+      object-view-box: inset(-50%);
+    }
+  }
+}

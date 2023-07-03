@@ -1,0 +1,62 @@
+@import '@mixins';
+
+.shapeOutside {
+  img {
+    float: left;
+    margin: 0.5rem;
+    width: 200px;
+  }
+
+  p {
+    width: 550px;
+  }
+
+  h2 {
+    @include subtitle;
+  }
+
+  .circle {
+    shape-outside: circle(50% at 50% 50%);
+  }
+
+  .ellipse {
+    shape-outside: ellipse(calc(100px) calc(000% + 51%) at 50% 50%);
+  }
+
+  .inset {
+    shape-outside: inset(0rem 2rem 1rem round 45% 0.8rem);
+  }
+
+  .polygon {
+    shape-outside: polygon(0 0, 10% 0, 85% 25%, 75% 50%, 70% 80%, 0 60%);
+  }
+
+  .url {
+    shape-outside: url('/assets/images/black-cat.png');
+    padding: 5px;
+  }
+
+  .margin-box {
+    shape-outside: margin-box;
+  }
+
+  .animation {
+    shape-outside: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    animation: shape-outside-animation 5s infinite;
+    transition: shape-outside 1s ease-in-out;
+
+    @keyframes shape-outside-animation {
+      0% {
+        shape-outside: inset(0rem 0rem 1rem round 20% 0.3rem);
+      }
+
+      50% {
+        shape-outside: inset(0rem 2rem 1rem round 45% 0.8rem);
+      }
+
+      100% {
+        shape-outside: inset(0rem 0rem 1rem round 20% 0.3rem);
+      }
+    }
+  }
+}

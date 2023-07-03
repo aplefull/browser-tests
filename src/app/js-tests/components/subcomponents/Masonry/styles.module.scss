@@ -1,0 +1,14 @@
+.masonryContainer {
+  position: relative;
+
+  .item {
+    position: absolute;
+    transform-origin: top left;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+}

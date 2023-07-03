@@ -1,0 +1,14 @@
+.tabInteractions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    background-color: #171717;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+}

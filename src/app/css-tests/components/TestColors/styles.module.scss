@@ -1,0 +1,93 @@
+.colors {
+  h2 {
+    width: 100%;
+    border-bottom: 1px solid aliceblue;
+    font-weight: normal;
+  }
+
+  .color {
+    > div {
+      display: flex;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+
+      input {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+
+      &:last-of-type {
+        margin-bottom: 20px;
+      }
+    }
+
+    .colorSquare {
+      width: 80px;
+      aspect-ratio: 1;
+      position: relative;
+
+      pre {
+        position: absolute;
+        bottom: 0;
+        transform: translateY(100%);
+        font-size: 0.6rem;
+        margin: 0;
+      }
+    }
+  }
+
+  .wideGamut {
+    > div {
+      display: flex;
+    }
+
+    .colorSpaceBlock {
+      width: 80px;
+      aspect-ratio: 1;
+      position: relative;
+
+      pre {
+        position: absolute;
+        bottom: 0;
+        transform: translateY(100%);
+        font-size: 0.6rem;
+        margin: 0;
+      }
+    }
+  }
+
+  .relativeColors {
+    .relativeColorsContainer {
+      display: flex;
+      margin-bottom: 20px;
+
+      > div {
+        width: 80px;
+        aspect-ratio: 1;
+
+        &:nth-of-type(1) {
+          background-color: color-mix(in hsl longer hue, rgb(60 189 68) 20%, oklab(0.72 0.13 0.16) 80%);
+        }
+
+        &:nth-of-type(2) {
+          background-color: color-mix(in lch, lab(70 193 200 / 1) 20%, oklch(0.67 0.23 0.16 / 1) 50%);
+        }
+
+        &:nth-of-type(3) {
+          background-color: color-mix(in srgb, rgb(179 103 87) 70%, lch(60 180 20 / 1) 30%);
+        }
+
+        &:nth-of-type(4) {
+          background-color: color-contrast(oklab(0.72 0.13 0.16) vs crimson, oklch(0.67 0.23 0.16));
+        }
+
+        &:nth-of-type(5) {
+          background-color: oklab(from var(--relative-color-test-1) r g 70%);
+        }
+      }
+    }
+  }
+}
