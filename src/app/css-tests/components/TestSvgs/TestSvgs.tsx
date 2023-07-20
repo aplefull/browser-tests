@@ -8,8 +8,12 @@ import { AnimateMotionSvg } from '@/app/css-tests/components/subcomponents/Anima
 import { MixedFeaturesSvg } from '@/app/css-tests/components/subcomponents/MixedFeaturesSvg/MixedFeaturesSvg';
 import { BlendSvg } from '@/app/css-tests/components/subcomponents/BlendSvg/BlendSvg';
 import { FeTurbulenceSquigglyTestSvg } from '@/app/css-tests/components/subcomponents/FeTurbulenceSquigglyTestSvg/FeTurbulenceSquigglyTestSvg';
-import { LightsSvg } from '@/app/css-tests/components/subcomponents/LightsSvg/LightsSvg';
+import { LightningsSvg } from '@/app/css-tests/components/subcomponents/LightsSvg/LightningsSvg';
 import catsVideo from '@assets/videos/cats_h264.mp4';
+import { SpotLightSvg } from '@/app/css-tests/components/subcomponents/SpotLightSvg/SpotLightSvg';
+import { PointLightSvg } from '@/app/css-tests/components/subcomponents/PointLightSvg/PointLightSvg';
+import { DistantLightSvg } from '@/app/css-tests/components/subcomponents/DistantLightSvg/DistantLightSvg';
+import { NoiseSvg } from '@/app/css-tests/components/subcomponents/NoiseSvg/NoiseSvg';
 
 /*
  * TODO cleanup:
@@ -40,34 +44,28 @@ export default function TestSvgs() {
           <ForeignObjectSvg />
         </div>
         <div>
-          <h2>Good luck</h2>
+          <h2>Squiggly filter</h2>
           <FeTurbulenceSquigglyTestSvg />
-          <svg width={500} height={500}>
-            <filter id="noise" x="0%" y="0%" width="100%" height="100%">
-              <feTurbulence baseFrequency="0.01 0.4" result="NOISE" numOctaves="2" />
-              <feDisplacementMap
-                in="SourceGraphic"
-                in2="NOISE"
-                scale="5"
-                xChannelSelector="R"
-                yChannelSelector="R"
-              ></feDisplacementMap>
-            </filter>
-
-            {/*<image
-              xlinkHref="/assets/images/flying-cat.jpg"
-              x="0"
-              y="0"
-              width="100%"
-              height="100%"
-              filter="url(#noise)"
-            ></image>*/}
-            <foreignObject x="0" y="0" width="100%" height="100%" filter={'url(#noise)'}>
-              <video controls width="100%" src={catsVideo} />
-            </foreignObject>
-          </svg>
-
-          <LightsSvg />
+        </div>
+        <div>
+          <h2>Noise</h2>
+          <NoiseSvg />
+        </div>
+        <div>
+          <h2>feDistantLight</h2>
+          <DistantLightSvg />
+        </div>
+        <div>
+          <h2>fePointLight</h2>
+          <PointLightSvg />
+        </div>
+        <div>
+          <h2>feSpotLight</h2>
+          <SpotLightSvg />
+        </div>
+        <div>
+          <h2>feDiffuseLighting and feSpecularLighting</h2>
+          <LightningsSvg />
         </div>
         <div>
           <h2>Component transfer</h2>
@@ -83,6 +81,7 @@ export default function TestSvgs() {
         </div>
         <div>
           <h2>Blend</h2>
+          <p>Hover over rectangle to see what blend mode is used</p>
           <BlendSvg />
         </div>
       </div>

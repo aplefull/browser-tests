@@ -6,6 +6,7 @@ import { HTMLTestsPage } from './html-tests/HTMLTestsPage';
 import { CSSTestsPage } from '@/app/css-tests/page';
 import { JSTestsPage } from '@/app/js-tests/page';
 import { MiscTestsPage } from '@/app/misc-tests/page';
+import { OthersProjectsPage } from '@/app/others-projects/page';
 
 const routes = [
   {
@@ -28,6 +29,10 @@ const routes = [
     path: '/misc-tests',
     element: <MiscTestsPage />,
   },
+  {
+    path: '/others-projects',
+    element: <OthersProjectsPage />,
+  }
 ];
 
 const RootLayout = () => {
@@ -46,6 +51,9 @@ const RootLayout = () => {
           </Link>
           <Link to="/misc-tests">
             <div>MISC</div>
+          </Link>
+          <Link to="/others-projects">
+            <div>HEY</div>
           </Link>
         </nav>
       </header>

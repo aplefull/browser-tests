@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>🐈</title>
+        <link rel="shortcut icon" href="assets/cat-main.svg" type="image/x-icon" />
+        <link rel="stylesheet" href="index.css" />
+
+        <script type="text/javascript" src="phaser.min.js"></script>
+        <script type="text/javascript" src="platform.js"></script>
+        <script type="text/javascript" src="matching.js"></script>
+        <script type="text/javascript" src="music.js"></script>
+        <script defer src="index.js"></script>
+    </head>
+    <body>
+        <div id="scene0" style="z-index: 8888">
+            <img id="scene-1-img" src="ui/main-menu.png" alt="" />
+            <div>
+                <button id="start-game">
+                    <img src="ui/play-small.png" alt="button play" />
+                </button>
+                <button id="continue-game">
+                    <img src="ui/continue-small.png" alt="button continue" />
+                </button>
+                <button id="journal">
+                    <img src="ui/journal-small.png" alt="button journal" />
+                </button>
+            </div>
+            <style>
+                #scene0 > div {
+                    position: absolute;
+                    top: 70%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                #scene0 > div > button {
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+                    padding: 0;
+                    margin: -10px;
+                    width: 250px;
+                }
+
+                #scene0 > div > button > img {
+                    cursor: pointer;
+                }
+
+                #scene0 #journal {
+                    transform: translate(-120%, -120%) scale(1.2);
+                }
+
+                body > div:not(.hidden) > img + p {
+                    position: absolute;
+                    bottom: 10%;
+                    font-size: 20px;
+                    color: #fff;
+                    animation: slide 2s ease-in-out 0s 1 normal forwards;
+                    width: 80vw;
+                    background-color: #1e112240;
+                    padding: 15px;
+                    border-radius: 10px;
+                    backdrop-filter: blur(10px);
+                }
+
+                button:hover img {
+                    transform: scale(1.1);
+                }
+
+                @keyframes slide {
+                    0% {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    100% {
+                        transform: translateX(0%);
+                        opacity: 1;
+                    }
+                }
+            </style>
+        </div>
+        <div id="scene1">
+            <img id="scene1-img" src="assets/scene1.JPG" alt="" />
+        </div>
+        <div id="scene2">
+            <img id="scene2-img" src="assets/scene2.JPG" alt="" />
+        </div>
+        <div id="scene3">
+            <img id="scene3-img" src="assets/story-4.png" alt="" />
+        </div>
+        <div id="scene4">
+            <!--<p>platform game</p>-->
+        </div>
+        <div id="scene5">
+            <div class="new-record">
+                <img src="ui/journal-new-1.png" alt="">
+            </div>
+            <img id="qr1-5" src="assets/qr/qr-code-01.png" alt="" />
+        </div>
+        <div id="scene6">
+            <img id="scene6-img" src="assets/story-5.png" alt="" />
+        </div>
+        <div id="scene7">
+            <img id="scene7-img" src="assets/loading-1.png" alt="" />
+        </div>
+        <div id="scene8">
+            <img id="scene8-img" src="assets/memory-bg.png" alt="">
+            <audio id="audio1" src="assets3/Cardflip.mp3"></audio>
+            <audio id="audio2" src="assets3/wrongmatch.mp3"></audio>
+            <audio id="audio3" src="assets3/cardmatch.mp3"></audio>
+            <div id="over" style="display: none;">Конец игры!</div>
+            <section id="container" class="contain">
+                <table>
+                    <tr>
+                        <td id="cRound">Раунд: 1</td>
+                        <td id="cMatch">Найдено пар: 0</td>
+                    </tr>
+                </table>
+                <style>
+                    .contain > table tr {
+                        display: flex;
+                        width: 100%;
+                        justify-content: center;
+                        gap: 350px;
+                    }
+
+                    #cRound {
+                        font-size: 1.6rem;
+                        border: none;
+                        display: flex;
+                        justify-content: end;
+                        transform: translateX(120%);
+                    }
+
+                    #cMatch {
+                        font-size: 1.6rem;
+                        border: none;
+                        display: flex;
+                        justify-content: start;
+                    }
+                </style>
+                <section class="inUse">
+                    <!--Game set as section of web page-->
+                    <div class="memory-card" id="0" data-framework="Pair1">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat1.jpg" alt="1" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="1" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card" id="1" data-framework="Pair1">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat1.jpg" alt="1" /><!--charcoal for test-->
+                        <img class="back" src="ui/card_bg.png" alt="1" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card" id="2" data-framework="Pair2">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat2.jpg" alt="2" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="2" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card" id="3" data-framework="Pair2">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat2.jpg" alt="2" /><!--orange for test-->
+                        <img class="back" src="ui/card_bg.png" alt="2" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="4" data-framework="Pair3">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat3.jpg" alt="3" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="3" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="5" data-framework="Pair3">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat3.jpg" alt="3" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="3" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="6" data-framework="Pair4">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat4.jpg" alt="4" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="4" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="7" data-framework="Pair4">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat4.jpg" alt="4" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="4" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="8" data-framework="Pair5">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat5.jpg" alt="5" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="5" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="9" data-framework="Pair5">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat5.jpg" alt="5" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="5" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="10" data-framework="Pair6">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat6.jpg" alt="6" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="6" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="11" data-framework="Pair6">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat6.jpg" alt="6" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="6" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="12" data-framework="Pair7">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat7.jpg" alt="7" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="7" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="13" data-framework="Pair7">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat7.jpg" alt="7" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="7" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="14" data-framework="Pair8">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat8.jpg" alt="8" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="8" /><!--sets card's back side-->
+                    </div>
+                    <div class="memory-card noUse" id="15" data-framework="Pair8">
+                        <!--sets up card-->
+                        <img class="front" src="assets3/cat8.jpg" alt="8" /><!--sets card's front side-->
+                        <img class="back" src="ui/card_bg.png" alt="8" /><!--sets card's back side-->
+                    </div>
+                </section>
+            </section>
+        </div>
+        <div id="scene9">
+            <div class="new-record">
+                <img src="ui/journal-new-2.png" alt="">
+            </div>
+            <img id="qr1-9" src="assets/qr/qr-code-01.png" alt="" />
+            <img id="qr2-9" src="assets/qr/qr-code-02.png" alt="" />
+        </div>
+        <div id="scene10">
+            <img id="scene10-img" src="assets/story-6.png" alt="" />
+        </div>
+        <div id="scene11">
+            <img id="scene11-img" src="assets/loading-2.png" alt="" />
+        </div>
+        <div id="scene12">
+            <!--<p>rhythm game</p>-->
+        </div>
+        <div id="scene13">
+            <div class="merging">
+                <img src="ui/planet-memo.png" alt="">
+                <img src="ui/planet-music.png" alt="">
+                <img src="ui/planet-ostro.png" alt="">
+                <img width="100%" class="no-opacity" src="ui/journal-bg-1.png" alt="">
+            </div>
+            <div id="qr-left-wrapepr">
+                <img id="qr1-13" src="assets/qr/qr-code-01.png" alt="" />
+                <img id="qr2-13" src="assets/qr/qr-code-02.png" alt="" />
+            </div>
+            <img id="qr3" src="assets/qr/qr-code-03.png" alt="" />
+        </div>
+        <div id="scene14">
+            <img id="scene14-img" src="assets/final.png" alt="" />
+        </div> 
+        <div id="scene15">
+            <!--<p>final page</p>-->
+            <button type="button" onClick="window.location.reload();">Сыграть ещё раз?</button>
+        </div>
+        <!-- global back button -->
+        <div id="back-button"><img src="ui/home-small.png" alt="home button" /></div>
+        <!-- global next button -->
+        <div id="next-button"><img src="ui/next-small.png" alt="next button" /></div>
+        <!-- global help button -->
+        <div id="help-button"><img src="ui/help.png" alt="help button" /></div>
+        <!-- journal -->
+        <div id="scene-10">
+            <div>
+                <div id="journal-bg-container">
+                    <img id="journal-bg" src="ui/journal-bg-1.png" />
+                    <img class="planet-img" src="ui/planet-ostro.png" alt="planet image" />
+                    <img class="planet-img" src="ui/planet-memo.png" alt="planet image" />
+                    <img class="planet-img" src="ui/planet-music.png" alt="planet image" />
+                </div>
+                <div style="display: none;">Назад</div>
+            </div>
+            <style>
+                #scene-10 > div {
+                    display: grid;
+                    place-items: center;
+                    width: 100%;
+                    min-height: 100vh;
+                }
+
+                #journal-bg-container {
+                    width: 100%;
+                    position: fixed;
+                }
+
+                #journal-bg-container + div {
+                    position: fixed;
+                    bottom: 30px;
+                    left: 20px;
+                    width: 60px;
+                    height: 30px;
+                    background-color: #000000;
+                    color: #ffffff;
+                    display: grid;
+                    place-items: center;
+                    cursor: pointer;
+                    user-select: none;
+                }
+
+                .planet-img {
+                    position: absolute;
+                    width: 200px;
+                    cursor: pointer;
+                }
+
+                .planet-img:hover {
+                    transform: scale(1.1);
+                }
+
+                .planet-img:nth-of-type(2) {
+                    width: 270px;
+                    top: 130px;
+                    left: 665px;
+                }
+
+                .planet-img:nth-of-type(3) {
+                    width: 279px;
+                    top: 276px;
+                    left: 235px;
+                }
+
+                .planet-img:nth-of-type(4) {
+                    width: 262px;
+                    top: 440px;
+                    left: 679px;
+                }
+
+                /*  #scene-10 > div > div {
+                    margin: 10px;
+                    padding: 10px;
+                    border: 1px solid black;
+                    border-radius: 10px;
+                    background-color: white;
+                    text-align: center;
+                    cursor: pointer;
+                } */
+            </style>
+        </div>
+        <audio
+            loop
+            id="background-audio"
+            src="https://www.chosic.com/wp-content/uploads/2021/08/Epic-Trailer.mp3?__cf_chl_tk=bftdaARcc1bbvoQSvH1et2__2dc9X7M_.KVeJhAmQTc-1684693513-0-gaNycGzNC-U"
+        ></audio>
+    </body>
+    <div id="help-modal" class="hidden no-opacity">
+        <div>
+            <p>
+                
+            </p>
+        </div>
+    </div>
+    <style>
+        #help-modal {
+            backdrop-filter: blur(10px);
+            width: 100%;
+            min-height: 100vh;
+            z-index: 9999;
+            display: grid;
+            place-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        #help-modal > div {
+            width: 600px;
+            height: fit-content;
+            /* background-color: #1e1e1e; */
+            border-radius: 10px;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        #help-modal > div > p {
+            text-align: left;
+            font-size: 1.45rem;
+        }
+    </style>
+</html>

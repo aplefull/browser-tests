@@ -1,13 +1,42 @@
 .cssFunctions {
-  .trigFunctions {
-    > div {
+  .hiddenContainer {
+    // making sure the container is weeeeel hidden :D
+    position: relative;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    left: -99999px;
+    top: -99999px;
+    transform: translate(-99999px, -99999px) scale(0);
+    z-index: -99999;
+
+    * {
+      position: absolute;
       height: 20px;
-      background-color: #38cc76;
+    }
+  }
+
+  .table {
+    .tableHeaderCell {
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 20px;
     }
 
-    + div {
-      :first-child {
-        width: calc(10px * exp(pi));
+    .tableBody {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 40px;
+      row-gap: 5px;
+
+      .expression {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
   }

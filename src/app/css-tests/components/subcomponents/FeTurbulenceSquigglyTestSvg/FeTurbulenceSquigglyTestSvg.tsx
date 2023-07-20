@@ -5,7 +5,7 @@ export const FeTurbulenceSquigglyTestSvg = () => {
   return (
     <div className={classNames(styles.squigglyTextContainer, styles.squiggly)}>
       <div className={styles.editable} contentEditable suppressContentEditableWarning>
-        Editable squiggly text using SVG filters
+        Editable squiggly text using 💕SVG filters💕
         <p>Try to edit it!</p>
       </div>
 

@@ -1,27 +1,33 @@
 .objectViewBox {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-
-  div {
-    width: 300px;
+  p {
+    text-align: center;
   }
 
-  img {
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 1;
-  }
+  > div {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 
-  .inset:hover {
-    img {
-      object-view-box: inset(10px -31% 10% 3.5px);
+    div {
+      width: 300px;
     }
-  }
 
-  .zoomOut:hover {
     img {
-      object-view-box: inset(-50%);
+      width: 100%;
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+
+    .inset:hover {
+      img {
+        object-view-box: inset(10px -31% 10% 3.5px);
+      }
+    }
+
+    .zoomOut:hover {
+      img {
+        object-view-box: inset(-50%);
+      }
     }
   }
 }

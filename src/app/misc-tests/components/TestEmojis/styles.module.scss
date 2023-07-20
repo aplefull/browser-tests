@@ -1,0 +1,11 @@
+.emojis {
+  .container {
+    word-break: break-all;
+    max-height: 500px;
+    overflow-y: auto;
+
+    .emoji {
+      cursor: pointer;
+    }
+  }
+}
