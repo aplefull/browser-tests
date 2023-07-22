@@ -270,7 +270,7 @@ export default function TestCssFunctions() {
 
             const getJsResult = (res: number, type: string) => {
               if (Number.isNaN(res)) return 'NaN';
-              if (type === 'angle') return `${res * 180 / Math.PI}deg`;
+              if (type === 'angle') return `${(res * 180) / Math.PI}deg`;
 
               return `${res}px`;
             };

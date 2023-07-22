@@ -1,6 +1,7 @@
 import styles from './styles.module.scss';
 import { lorem } from '@/utils/utils';
 import { Fragment } from 'react';
+import blackCat from '@assets/images/cats/black-cat.png';
 
 export default function TestShapeOutside() {
   const text = lorem(4);
@@ -15,7 +16,7 @@ export default function TestShapeOutside() {
           <Fragment key={testCase}>
             <h2>{`Shape: ${testCase.replace('-', ' ')}`}</h2>
             <div key={testCase}>
-              <img className={styles[testCase]} src="/assets/images/black-cat.png" alt="black cat" />
+              <img className={styles[testCase]} src={blackCat} alt="black cat" />
               <p>{text}</p>
             </div>
           </Fragment>

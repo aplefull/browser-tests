@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import flyingCat from '@assets/images/flying-cat.jpg';
+import flyingCat from '@assets/images/cats/flying-cat.png';
 
 export default function TestObjectViewBox() {
   return (
@@ -8,10 +8,10 @@ export default function TestObjectViewBox() {
       <p>Hover over images</p>
       <div>
         <div className={styles.inset}>
-          <img src="/assets/images/flying-cat.jpg" alt="cat" />
+          <img src={flyingCat} alt="cat" />
         </div>
         <div className={styles.zoomOut}>
-          <img src="/assets/images/flying-cat.jpg" alt="cat" />
+          <img src={flyingCat} alt="cat" />
         </div>
       </div>
     </section>

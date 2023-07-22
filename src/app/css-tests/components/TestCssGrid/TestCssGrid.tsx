@@ -1,5 +1,7 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
+import spaceCat from '@assets/images/cats/space-cat.jpg';
+import flyingCat from '@assets/images/cats/flying-cat.png';
 
 export default function TestCssGrid() {
   return (
@@ -34,7 +36,7 @@ export default function TestCssGrid() {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda recusandae maxime distinctio quos ullam
               incidunt.
             </p>
-            <img src="/assets/images/flying-cat.jpg" alt="" />
+            <img src={flyingCat} alt="" />
           </div>
           <div className={styles.subgridItem}>
             <h2>Omnis, veritatis odio.</h2>
@@ -42,12 +44,12 @@ export default function TestCssGrid() {
               Enim molestiae recusandae ut dolor sit amet consectetur adipisicing. odit possimus eius inventore. Quasi
               illo unde neque? Itaque, deleniti adipisci?
             </p>
-            <img src="/assets/images/space-cat.jpg" alt="" />
+            <img src={spaceCat} alt="" />
           </div>
           <div className={styles.subgridItem}>
             <h2>Exercitationem, libero quam!</h2>
             <p>Error maiores culpa eaque. Quam quisquam quae nostrum ipsa dolorum atque aperiam fugit soluta error!</p>
-            <img src="/assets/images/space-cat.jpg" alt="" />
+            <img src={spaceCat} alt="" />
           </div>
           <div className={styles.subgridItem}>
             <h2>Quibusdam, recusandae odio.</h2>
@@ -55,7 +57,7 @@ export default function TestCssGrid() {
               Corporis laboriosam, neque est commodi architecto voluptatem, ipsam corrupti ullam similique eligendi hic
               qui natus?
             </p>
-            <img src="/assets/images/space-cat.jpg" alt="" />
+            <img src={spaceCat} alt="" />
           </div>
           <div className={styles.subgridItem}>
             <h2>Modi, exer citat ionem dicta.</h2>
@@ -63,7 +65,7 @@ export default function TestCssGrid() {
               Laboriosam, aliquam tempore minus dolorem ullam et veniam asperiores, eveniet vitae odit itaque eligendi
               ducimus?
             </p>
-            <img src="/assets/images/flying-cat.jpg" alt="" />
+            <img src={flyingCat} alt="" />
           </div>
           <div className={styles.subgridItem}>
             <h2>Dolore.</h2>
@@ -71,7 +73,7 @@ export default function TestCssGrid() {
               Reprehenderit, labore. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt, aut. harum vitae
               voluptate alias saepe debitis quo perspiciatis, delectus fugiat modi eveniet.
             </p>
-            <img src="/assets/images/flying-cat.jpg" alt="" />
+            <img src={flyingCat} alt="" />
           </div>
         </div>
       </div>

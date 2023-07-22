@@ -31,7 +31,7 @@ const reducer = (state: typeof initialValues, action: TAction<number>): TState =
   }
 };
 
-export const DistantLightSvg = ({ width, height}: TDimensions) => {
+export const DistantLightSvg = ({ width, height }: TDimensions) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
 
   const { azimuth, elevation } = state;
@@ -54,7 +54,7 @@ export const DistantLightSvg = ({ width, height}: TDimensions) => {
   ];
 
   return (
-    <div style={{width}} className={styles.container}>
+    <div style={{ width }} className={styles.container}>
       <div className={styles.controls}>
         {distantLightControls.map((control) => (
           <div key={control.label} className={styles.input}>

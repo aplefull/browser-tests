@@ -1,8 +1,7 @@
-import catGif from '@assets/images/cat-vibing.gif';
+import catGif from '@assets/images/gifs/cat-vibing.gif';
 import { TDimensions } from '@/types';
 
 export const ComponentTransferSvg = ({ width, height }: TDimensions) => {
-
   const images = [
     {
       x: 0,

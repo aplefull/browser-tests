@@ -1,5 +1,5 @@
 import catsVideo from '@assets/videos/cats_h264.mp4';
-import bgImage from '@assets/images/cat-2.jpg';
+import bgImage from '@assets/images/cats/cat-2.jpg';
 
 export const NoiseSvg = ({ width, height }) => {
   return (

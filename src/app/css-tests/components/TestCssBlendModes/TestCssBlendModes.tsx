@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
-import { range } from '@/utils/utils';
+import flyingCat from '@assets/images/cats/flying-cat.png';
+import spaceCat from '@assets/images/cats/space-cat.jpg';
 
 export default function TestCssBlendModes() {
   const modes = [
@@ -27,8 +28,8 @@ export default function TestCssBlendModes() {
         {modes.map((mode) => {
           return (
             <div key={mode}>
-              <img src="/assets/images/flying-cat.jpg" alt="random image" />
-              <img src="/assets/images/space-cat.jpg" alt="random image" />
+              <img src={flyingCat} alt="random image" />
+              <img src={spaceCat} alt="random image" />
               <span>{mode}</span>
             </div>
           );

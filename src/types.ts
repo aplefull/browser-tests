@@ -7,3 +7,7 @@ export type TDimensions = {
   width: number;
   height: number;
 };
+
+export type TImageModule = {
+  default: string;
+};

@@ -3,8 +3,13 @@ import tableData from '@/assets/data/data.json';
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import CSSMasonry from '../../../css-tests/components/subcomponents/CSSMasonry/CSSMasonry';
+import { TImageModule } from '@/types';
+
+const images = import.meta.glob<TImageModule>('/src/assets/images/cats/*.*', { eager: true });
 
 export default function TestLayouts() {
+  const imagePaths = Object.values(images).map((image) => image.default);
+
   const headCaptions = [
     'Name',
     'Size',
@@ -17,24 +22,9 @@ export default function TestLayouts() {
     'Audio codec',
   ];
 
-  const catsPool = [
-    '/assets/images/cat-1.jpeg',
-    '/assets/images/cat-2.jpg',
-    '/assets/images/cat-3.png',
-    '/assets/images/cat-4.jpeg',
-    '/assets/images/cat-5.jpg',
-    '/assets/images/cat-6.png',
-    '/assets/images/cat-7.jpg',
-    '/assets/images/cat-8.jpg',
-    '/assets/images/cat-9.jpg',
-    '/assets/images/black-cat.png',
-    '/assets/images/flying-cat.png',
-    '/assets/images/space-cat.jpg',
-  ];
-
   const urls = [];
   for (let i = 1; i <= 100; i++) {
-    const url = catsPool[Math.floor(Math.random() * catsPool.length)];
+    const url = imagePaths[Math.floor(Math.random() * imagePaths.length)];
     urls.push(url);
   }
 

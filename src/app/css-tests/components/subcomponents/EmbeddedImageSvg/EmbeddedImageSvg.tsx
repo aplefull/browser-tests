@@ -1,4 +1,4 @@
-import catGif from '@assets/images/cat-vibing.gif';
+import catGif from '@assets/images/gifs/cat-vibing.gif';
 import { TDimensions } from '@/types';
 
 export const EmbeddedImageSvg = ({ width, height }: TDimensions) => {

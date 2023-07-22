@@ -32,7 +32,7 @@ const routes = [
   {
     path: '/others-projects',
     element: <OthersProjectsPage />,
-  }
+  },
 ];
 
 const RootLayout = () => {

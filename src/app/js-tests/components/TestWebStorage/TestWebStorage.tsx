@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import catImage from '@assets/images/cat-vibing.gif';
+import catImage from '@assets/images/gifs/cat-vibing.gif';
 import styles from './styles.module.scss';
 
 type IDBOpenSuccessEvent = Event & {

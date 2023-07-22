@@ -1,4 +1,4 @@
-import catGif from '@assets/images/cat-vibing.gif';
+import catGif from '@assets/images/gifs/cat-vibing.gif';
 import catsVideo from '@assets/videos/cats_vp8.webm';
 import { TDimensions } from '@/types';
 

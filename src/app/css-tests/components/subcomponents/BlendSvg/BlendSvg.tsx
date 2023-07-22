@@ -1,5 +1,5 @@
-import flyingCat from '@assets/images/flying-cat.webp';
-import catGif from '@assets/images/cat-1.jpeg';
+import flyingCat from '@assets/images/flying_cat/flying-cat.webp';
+import catImage from '@assets/images/cats/cat-1.jpeg';
 import { TDimensions } from '@/types';
 
 export const BlendSvg = ({ width, height }: TDimensions) => {
@@ -65,7 +65,7 @@ export const BlendSvg = ({ width, height }: TDimensions) => {
             y="0"
             width="100%"
             height="100%"
-            xlinkHref={catGif}
+            xlinkHref={catImage}
           />
           <feComposite result="photo-clip" in="raw-photo" in2="SourceGraphic" operator="in" />
           <feColorMatrix
@@ -85,7 +85,7 @@ export const BlendSvg = ({ width, height }: TDimensions) => {
               y="0"
               width="100%"
               height="100%"
-              xlinkHref={catGif}
+              xlinkHref={catImage}
             />
             <feImage
               preserveAspectRatio="xMidYMid slice"
@@ -123,7 +123,7 @@ export const BlendSvg = ({ width, height }: TDimensions) => {
         const currentCol = index % 4;
         const currentRow = Math.floor(index / 4);
 
-        const rectX = currentCol * width / 4;
+        const rectX = (currentCol * width) / 4;
         const rectY = (currentRow * height) / 4 + height / 4;
         const rectWidth = width / 4;
         const rectHeight = height / 4;

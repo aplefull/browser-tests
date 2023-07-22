@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import catImage from '@assets/images/space-cat.jpg';
+import catImage from '@assets/images/cats/space-cat.jpg';
 
 export default function TestCssFilters() {
   const filters = [

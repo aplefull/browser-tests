@@ -1,6 +1,7 @@
 import styles from './styles.module.scss';
 import { lorem } from '@/utils/utils';
 import { Br } from '@/app/css-tests/components/subcomponents/Br/Br';
+import flyingCat from '@assets/images/cats/flying-cat.png';
 
 export default function TestScrollBehaviours() {
   return (
@@ -20,9 +21,9 @@ export default function TestScrollBehaviours() {
         <div className={styles.scrollSnap}>
           <h2>Scroll snap</h2>
           <div>
-            <img src="/assets/images/flying-cat.jpg" alt="cat image" />
-            <img src="/assets/images/flying-cat.jpg" alt="cat image" />
-            <img src="/assets/images/flying-cat.jpg" alt="cat image" />
+            <img src={flyingCat} alt="cat image" />
+            <img src={flyingCat} alt="cat image" />
+            <img src={flyingCat} alt="cat image" />
           </div>
         </div>
         <div className={styles.nestedScrolls}>

@@ -1,4 +1,5 @@
 import styles from './styles.module.scss';
+import spaceCat from '@assets/images/cats/space-cat.jpg';
 
 type TInputSkeleton = {
   title: string;
@@ -50,7 +51,7 @@ export default function TestInputs() {
       type: 'image',
       attributes: {
         alt: 'image',
-        src: '/assets/images/space-cat.jpg',
+        src: spaceCat,
       },
     },
     {
