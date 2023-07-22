@@ -1,7 +1,6 @@
-export const LightningsSvg = () => {
-  const width = 800;
-  const height = 300;
+import { TDimensions } from '@/types';
 
+export const LightningsSvg = ({ width, height }: TDimensions) => {
   return (
     <div>
       <svg width={width} height={height}>

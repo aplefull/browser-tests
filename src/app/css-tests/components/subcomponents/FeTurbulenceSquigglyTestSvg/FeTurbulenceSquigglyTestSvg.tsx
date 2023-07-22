@@ -1,9 +1,10 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
+import { TDimensions } from '@/types';
 
-export const FeTurbulenceSquigglyTestSvg = () => {
+export const FeTurbulenceSquigglyTestSvg = ({ width, height }: TDimensions) => {
   return (
-    <div className={classNames(styles.squigglyTextContainer, styles.squiggly)}>
+    <div style={{ width, height }} className={classNames(styles.squigglyTextContainer, styles.squiggly)}>
       <div className={styles.editable} contentEditable suppressContentEditableWarning>
         Editable squiggly text using 💕SVG filters💕
         <p>Try to edit it!</p>

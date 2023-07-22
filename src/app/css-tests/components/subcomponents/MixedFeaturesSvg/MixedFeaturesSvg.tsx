@@ -1,19 +1,19 @@
 import catGif from '@assets/images/cat-vibing.gif';
 import catsVideo from '@assets/videos/cats_vp8.webm';
+import { TDimensions } from '@/types';
 
-export const MixedFeaturesSvg = () => {
-  const width = 800;
-  const height = 300;
+export const MixedFeaturesSvg = ({ width, height }: TDimensions) => {
+  const videoAspectRatio = 1.7777777778;
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
       <defs>
         <clipPath id="clip-path">
-          <circle cx={height / 2} cy="50%" r={height / 2} />
+          <circle cx={Math.min(height / 2, width / 4)} cy="50%" r={Math.min(height / 2, width / 4)} />
         </clipPath>
 
         <clipPath id="clip-path-2">
-          <circle cx={height / 2} cy={height / 2} r="50" />
+          <circle cx={Math.min(height / 2, width / 4)} cy={height / 2} r="50" />
         </clipPath>
 
         <pattern id="pattern" patternUnits="userSpaceOnUse" width="70" height="8" patternTransform="scale(2) rotate(0)">
@@ -39,7 +39,7 @@ export const MixedFeaturesSvg = () => {
 
       <rect width="50%" height="100%" transform="translate(0,0)" fill="url(#pattern)" clipPath={`url(#clip-path)`} />
 
-      <foreignObject width={height} height={height} clipPath={`url(#clip-path-2)`}>
+      <foreignObject width={Math.min(height, width / 2)} height={height} clipPath={`url(#clip-path-2)`}>
         <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center' }}>
           <video autoPlay muted loop style={{ width: '100%' }}>
             <source src={catsVideo} type="video/webm" />
@@ -48,7 +48,17 @@ export const MixedFeaturesSvg = () => {
       </foreignObject>
       <foreignObject x={width / 2} width={width / 2} height={height}>
         <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center' }}>
-          <img src={catGif} alt="cat vibing" style={{ width: '100%', height: '70%', objectFit: 'cover', zIndex: -1 }} />
+          <img
+            src={catGif}
+            alt="cat vibing"
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: `${width / 2 / videoAspectRatio}px`,
+              objectFit: 'cover',
+              zIndex: -1,
+            }}
+          />
         </div>
       </foreignObject>
       <foreignObject x={width / 2} width={width / 2} height={height} mask="url(#fade)">

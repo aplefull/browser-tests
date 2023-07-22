@@ -5,6 +5,7 @@ import TestTabInteractions from '@/app/js-tests/components/TestTabInteractions/T
 import TestMasonry from '@/app/js-tests/components/TestMasonry/TestMasonry';
 import { TestEvents } from '@/app/js-tests/components/TestEvents/TestEvents';
 import { TestNavigatorFeatures } from '@/app/js-tests/components/TestNavigatorFeatures/TestNavigatorFeatures';
+import { TestWebStorage } from '@/app/js-tests/components/TestWebStorage/TestWebStorage';
 
 export const JSTestsPage = () => {
   return (
@@ -14,6 +15,7 @@ export const JSTestsPage = () => {
       <TestMasonry />
       <TestEvents />
       <TestNavigatorFeatures />
+      <TestWebStorage />
     </main>
   );
 };

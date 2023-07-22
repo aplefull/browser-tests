@@ -1,6 +1,6 @@
 import styles from './style.module.scss';
 import { useReducer } from 'react';
-import { TAction } from '@/types';
+import { TAction, TDimensions } from '@/types';
 
 enum actionTypes {
   CHANGE_AZIMUTH = 'CHANGE_AZIMUTH',
@@ -31,11 +31,8 @@ const reducer = (state: typeof initialValues, action: TAction<number>): TState =
   }
 };
 
-export const DistantLightSvg = () => {
+export const DistantLightSvg = ({ width, height}: TDimensions) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
-
-  const width = 800;
-  const height = 300;
 
   const { azimuth, elevation } = state;
 
@@ -57,7 +54,7 @@ export const DistantLightSvg = () => {
   ];
 
   return (
-    <div className={styles.container}>
+    <div style={{width}} className={styles.container}>
       <div className={styles.controls}>
         {distantLightControls.map((control) => (
           <div key={control.label} className={styles.input}>

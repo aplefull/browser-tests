@@ -1,12 +1,30 @@
+import styles from './styles.module.scss';
 import { CSS } from '@/utils/utils';
+import { TDimensions } from '@/types';
+import { useState } from 'react';
 
-export const TextPathSvg = () => {
-  const width = 800;
-  const height = 300;
-
-  const hieroglyphs =
+const SpiralText = ({ width }: TDimensions) => {
+  const text =
     '田中さんにあげて下さい パーティーへ行かないか 和製漢語 部落格 사회과학원 어학연구소 찦차를 타고 온 펲시맨과 쑛다리 똠방각하 社會科學院語學研究所 울란바토르 𠜎𠜱𠝹𠱓𠱸𠲖𠳏';
 
+  const scale = 2.7;
+
+  return (
+    <text
+      style={{
+        fontSize: '4px',
+        transform: `scale(${scale}) translateX(${width / (2 * scale)}px) translateX(-50%)`,
+        transformBox: 'fill-box',
+      }}
+    >
+      <textPath fill="aliceblue" href="#text-path-1">
+        {text}
+      </textPath>
+    </text>
+  );
+};
+
+const PathText = ({ width }: TDimensions) => {
   const nonStandardUnicode = '𐐜 𐐔𐐇𐐝𐐀𐐡𐐇𐐓 𐐙𐐊𐐡𐐝𐐓/𐐝𐐇𐐗𐐊𐐤𐐔 𐐒𐐋𐐗';
   const emojis = '💔 💌 💕 💞 💓 💗 💖 💘';
   const drawing = '᚛ᚄᚓᚐᚋᚒᚄ ᚑᚄᚂᚑᚏᚅ᚜';
@@ -15,48 +33,103 @@ export const TextPathSvg = () => {
     '̟ด้้้้้็็็็็้้้้้็็็็็้้้้้้้้็็็็็้้้้้็็็็็้้้้้้้้็็็็็้้้้้็็็็็้้้้้้้้็็็็็้้้้้็็็็ด้้้้้็็็็็้้้้้็็็็็้้้้้้้้็็็็็้้้้้็็็็็้้้้้้้้็็็็็้้้้้็็็็็้้้้้้้้็็็็็้้้้้็็็็ด้้้้้็็็็็้้้้้็็็็็้้้้้้้้็็็็็้้้้้็็็็็้้้้้้้้็็็็็้้้้้็็็็็้้้้้้้้็็็็็้้้้้็็็็';
   const biDirectionalText = 'שלום עולם';
   const biDirectionalText2 = ' ­؀؁؂؃؄؅؜۝܏᠎​‌‍‎‏‪‫‬‭‮⁠⁡⁢⁣⁤⁦⁧⁨⁩⁪⁫⁬⁭';
-  return (
-    <svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <path
-          id="text-path-1"
-          fill="none"
-          d="M10,90 Q90,90 90,45 Q90,10 50,10 Q10,10 10,40 Q10,70 45,70 Q70,70 75,50"
-        />
-        <path
-          id="text-path-2"
-          fill="none"
-          d="M 0 20 A 50 50 0 1 1 150 350 Q 250 550 300 300 Q 350 50 400 350 C 450 350 450 50 500 250 C 500 300 550 550 650 300 A 50 50 0 1 1 700 300 "
-        />
-      </defs>
 
-      <text style={{ fontSize: '4px', transform: 'scale(3)' }}>
-        <textPath fill="aliceblue" href="#text-path-1">
-          {hieroglyphs}
-        </textPath>
-      </text>
-      <text
-        style={{
-          fontSize: CSS.px(22),
-          transform: 'translate(340px, 20%) scale(0.5)',
-        }}
+  const mapWidthToScale = (width: number) => {
+    if (width <= 270) return 0.2;
+    if (width >= 659) return 0.5;
+
+
+    const width1 = 659;
+    const scale1 = 0.5;
+    const width2 = 270;
+    const scale2 = 0.2;
+
+    const slope = (scale2 - scale1) / (width2 - width1);
+    const yIntercept = scale1 - slope * width1;
+
+    return slope * width + yIntercept;
+  };
+
+  const scale = mapWidthToScale(width);
+
+
+  return (
+    <text
+      style={{
+        fontSize: CSS.px(22),
+        transform: `scale(${scale}) translate(${width / (2 * scale)}px, 20%) translateX(-50%)`,
+        transformBox: 'fill-box',
+      }}
+    >
+      <textPath fill="aliceblue" href="#text-path-2">
+        {nonStandardUnicode}
+        {emojis}
+        {drawing}
+        {obfuscatedText}
+        {biDirectionalText}
+        {biDirectionalText2}
+        {outBoxCharacters}
+      </textPath>
+    </text>
+  );
+};
+
+const CircleText = ({ width, height }: TDimensions) => {
+
+  const scale = 1;
+
+  return (
+    <text style={{ fontSize: 10, transform: `scale(${scale}) translate(${width / (2 * scale)}px, 20%)` }}>
+      <textPath fill="aliceblue" href="#text-path-3">
+        ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+      </textPath>
+    </text>
+  );
+};
+
+export const TextPathSvg = ({ width, height }: TDimensions) => {
+  const [option, setOption] = useState<'1' | '2' | '3'>('1');
+
+  return (
+    <div>
+      <div className={styles.inputs}>
+        <form>
+          <label>
+            <input type="radio" name="options" value="1" checked={option === '1'} onChange={(e) => setOption('1')} />1
+          </label>
+          <label>
+            <input type="radio" name="options" value="2" checked={option === '2'} onChange={(e) => setOption('2')} />2
+          </label>
+          <label>
+            <input type="radio" name="options" value="3" checked={option === '3'} onChange={(e) => setOption('3')} />3
+          </label>
+        </form>
+      </div>
+      <svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <textPath fill="aliceblue" href="#text-path-2">
-          {nonStandardUnicode}
-          {emojis}
-          {drawing}
-          {obfuscatedText}
-          {biDirectionalText}
-          {biDirectionalText2}
-          {outBoxCharacters}
-        </textPath>
-      </text>
-    </svg>
+        <defs>
+          <path
+            id="text-path-1"
+            fill="none"
+            d="M0,90 Q90,90 90,45 Q90,10 50,10 Q10,10 10,40 Q10,70 45,70 Q70,70 75,50"
+          />
+          <path
+            id="text-path-2"
+            fill="none"
+            d="M 0 20 A 50 50 0 1 1 150 350 Q 250 550 300 300 Q 350 50 400 350 C 450 350 450 50 500 250 C 500 300 550 550 650 300 A 50 50 0 1 1 700 300 "
+          />
+          <circle id="text-path-3" fill="none" r="10" />
+        </defs>
+
+        {option === '1' && <SpiralText width={width} height={height} />}
+        {option === '2' && <CircleText width={width} height={height} />}
+        {option === '3' && <PathText width={width} height={height} />}
+      </svg>
+    </div>
   );
 };

@@ -1,3 +1,7 @@
+.foreign-object-svg > div {
+  container-type: inline-size;
+}
+
 .foreign-object-svg *:not(button) {
   font-family: monospace;
 }
@@ -31,6 +35,34 @@
   gap: 10px;
 }
 
+.foreign-object-svg form label {
+  display: flex;
+  align-items: center;
+}
+
 .foreign-object-svg form input {
   margin-left: 10px;
+  max-width: 70%;
+}
+
+@container (width < 150px) {
+  .foreign-object-svg h1 {
+    font-size: 14px;
+  }
+
+  .foreign-object-svg p {
+    font-size: 12px;
+  }
+
+  .foreign-object-svg form label {
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+  }
+
+  .foreign-object-svg form input {
+    margin: 5px 0 0 0;
+    width: 100%;
+    max-width: unset;
+  }
 }

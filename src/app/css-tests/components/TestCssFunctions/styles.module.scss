@@ -20,6 +20,8 @@
   }
 
   .table {
+    overflow-x: auto;
+
     .tableHeaderCell {
       font-weight: bold;
       font-size: 1.1rem;

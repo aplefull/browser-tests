@@ -1,7 +1,6 @@
-export const AnimateMotionSvg = () => {
-  const width = 800;
-  const height = 300;
+import { TDimensions } from '@/types';
 
+export const AnimateMotionSvg = ({ width, height }: TDimensions) => {
   return (
     <svg width={width} height={height} viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
       <path

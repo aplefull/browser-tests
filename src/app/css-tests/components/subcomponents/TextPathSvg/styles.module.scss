@@ -1,0 +1,13 @@
+.inputs {
+  margin-bottom: 10px;
+
+  form {
+    display: flex;
+    gap: 10px;
+
+    label,
+    input {
+      cursor: pointer;
+    }
+  }
+}

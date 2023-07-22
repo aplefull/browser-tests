@@ -1,17 +1,15 @@
 import catGif from '@assets/images/cat-vibing.gif';
+import { TDimensions } from '@/types';
 
-export const EmbeddedImageSvg = () => {
-  const width = 800;
-  const height = 300;
-
+export const EmbeddedImageSvg = ({ width, height }: TDimensions) => {
   return (
     <svg width={width} height={height}>
       <defs>
         <clipPath id="circleView">
-          <circle cx="400" cy="150" r="100" fill="#FFFFFF" />
+          <circle cx={width / 2} cy="150" r="100" fill="#FFFFFF" />
         </clipPath>
       </defs>
-      <image x="200" height="300" xlinkHref={catGif} clipPath="url(#circleView)" />
+      <image x={(width - 447) / 2} height="100%" xlinkHref={catGif} clipPath="url(#circleView)" />
     </svg>
   );
 };

@@ -14,6 +14,7 @@ import { SpotLightSvg } from '@/app/css-tests/components/subcomponents/SpotLight
 import { PointLightSvg } from '@/app/css-tests/components/subcomponents/PointLightSvg/PointLightSvg';
 import { DistantLightSvg } from '@/app/css-tests/components/subcomponents/DistantLightSvg/DistantLightSvg';
 import { NoiseSvg } from '@/app/css-tests/components/subcomponents/NoiseSvg/NoiseSvg';
+import { useEffect, useState } from 'react';
 
 /*
  * TODO cleanup:
@@ -23,66 +24,82 @@ import { NoiseSvg } from '@/app/css-tests/components/subcomponents/NoiseSvg/Nois
  *  - make h2's consistent
  * */
 export default function TestSvgs() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const svgWidth = Math.min(windowWidth - 50, 800);
+
+  useEffect(() => {
+    const handleResize = (e) => {
+      setWindowWidth(e.target.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <section className={styles.svgs}>
       <h1>Different svg features</h1>
       <div className={styles.svgsContainer}>
         <div>
           <h2>Text path</h2>
-          <TextPathSvg />
+          <TextPathSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>Embedded image</h2>
-          <EmbeddedImageSvg />
+          <EmbeddedImageSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>Mask</h2>
-          <MaskSvg />
+          <MaskSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>Foreign object</h2>
-          <ForeignObjectSvg />
+          <ForeignObjectSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>Squiggly filter</h2>
-          <FeTurbulenceSquigglyTestSvg />
+          <FeTurbulenceSquigglyTestSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>Noise</h2>
-          <NoiseSvg />
+          <NoiseSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>feDistantLight</h2>
-          <DistantLightSvg />
+          <DistantLightSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>fePointLight</h2>
-          <PointLightSvg />
+          <PointLightSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>feSpotLight</h2>
-          <SpotLightSvg />
+          <SpotLightSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>feDiffuseLighting and feSpecularLighting</h2>
-          <LightningsSvg />
+          <LightningsSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>Component transfer</h2>
-          <ComponentTransferSvg />
+          <ComponentTransferSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>Animate motion</h2>
-          <AnimateMotionSvg />
+          <AnimateMotionSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>Clip-path and mask</h2>
-          <MixedFeaturesSvg />
+          <MixedFeaturesSvg width={svgWidth} height={300} />
         </div>
         <div>
           <h2>Blend</h2>
           <p>Hover over rectangle to see what blend mode is used</p>
-          <BlendSvg />
+          <BlendSvg width={svgWidth} height={300} />
         </div>
       </div>
     </section>

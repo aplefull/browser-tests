@@ -1,9 +1,7 @@
 import foreignObjectStyle from './style.scss?raw';
+import { TDimensions } from '@/types';
 
-export const ForeignObjectSvg = () => {
-  const width = 800;
-  const height = 300;
-
+export const ForeignObjectSvg = ({ width, height }: TDimensions) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
       <foreignObject className="foreign-object-svg" x="25%" y="10%" width="50%" height="80%">

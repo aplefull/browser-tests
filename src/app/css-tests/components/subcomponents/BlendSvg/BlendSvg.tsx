@@ -1,10 +1,8 @@
 import flyingCat from '@assets/images/flying-cat.webp';
 import catGif from '@assets/images/cat-1.jpeg';
+import { TDimensions } from '@/types';
 
-export const BlendSvg = () => {
-  const width = 800;
-  const height = 300;
-
+export const BlendSvg = ({ width, height }: TDimensions) => {
   const blendingModes = [
     'normal',
     'multiply',
@@ -125,7 +123,7 @@ export const BlendSvg = () => {
         const currentCol = index % 4;
         const currentRow = Math.floor(index / 4);
 
-        const rectX = currentCol * 200;
+        const rectX = currentCol * width / 4;
         const rectY = (currentRow * height) / 4 + height / 4;
         const rectWidth = width / 4;
         const rectHeight = height / 4;

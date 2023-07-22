@@ -1,7 +1,7 @@
 import styles from './style.module.scss';
 
 import { useReducer } from 'react';
-import { TAction } from '@/types';
+import { TAction, TDimensions } from '@/types';
 
 enum actionTypes {
   CHANGE_SPOT_LIGHT_X = 'CHANGE_SPOT_LIGHT_X',
@@ -74,11 +74,8 @@ const reducer = (state: typeof initialValues, action: TAction<number>): TState =
   }
 };
 
-export const SpotLightSvg = () => {
+export const SpotLightSvg = ({ width, height }: TDimensions) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
-
-  const width = 800;
-  const height = 300;
 
   const {
     spotLightX,
@@ -151,7 +148,7 @@ export const SpotLightSvg = () => {
   ];
 
   return (
-    <div className={styles.container}>
+    <div style={{ width }} className={styles.container}>
       <div className={styles.controls}>
         {spotLightControls.map((control) => (
           <div key={control.label} className={styles.input}>

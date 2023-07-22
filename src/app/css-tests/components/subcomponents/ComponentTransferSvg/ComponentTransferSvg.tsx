@@ -1,8 +1,7 @@
 import catGif from '@assets/images/cat-vibing.gif';
+import { TDimensions } from '@/types';
 
-export const ComponentTransferSvg = () => {
-  const width = 800;
-  const height = 300;
+export const ComponentTransferSvg = ({ width, height }: TDimensions) => {
 
   const images = [
     {
@@ -111,7 +110,7 @@ export const ComponentTransferSvg = () => {
 
       <text x={(width / 3) * 2} y={height / 2}>
         {spans.map((span, index) => (
-          <tspan key={index} x={span.x + 10} dy="20" filter={`url(#${span.filter})`} stroke="aliceblue">
+          <tspan key={index} x={span.x + 10} dy="20" filter={`url(#${span.filter})`} fill="aliceblue" stroke="none">
             {index + 1}. {span.filter}
           </tspan>
         ))}
