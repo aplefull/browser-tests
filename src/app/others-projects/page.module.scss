@@ -1,5 +1,12 @@
+@import '@mixins';
+
 .container {
   width: 100%;
+  padding: 20px;
+
+  h2 {
+    @include subtitle;
+  }
 
   h1 {
     width: 100%;
@@ -10,10 +17,42 @@
     margin-bottom: 80px;
   }
 
-  .iframe {
-    width: 100%;
-    height: 500px;
-    display: block;
-    border: none;
+  .iframesContainer {
+    padding: 0 50px;
+
+    a {
+      text-decoration: none;
+      color: aliceblue;
+      cursor: pointer;
+      width: fit-content;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      border: none;
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    a {
+      text-decoration: none;
+      color: aliceblue;
+      cursor: pointer;
+      width: fit-content;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }

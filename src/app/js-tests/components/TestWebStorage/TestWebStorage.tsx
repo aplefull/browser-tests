@@ -97,6 +97,10 @@ const deleteDB = async (dbName: string) => {
     deleteRequest.onsuccess = () => {
       resolve('Database deleted successfully');
     };
+
+    deleteRequest.onblocked = () => {
+      reject('Database blocked from deletion');
+    };
   });
 };
 

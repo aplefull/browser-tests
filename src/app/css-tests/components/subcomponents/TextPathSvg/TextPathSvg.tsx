@@ -24,7 +24,7 @@ const SpiralText = ({ width }: TDimensions) => {
   );
 };
 
-const PathText = ({ width }: TDimensions) => {
+const PathText = ({ width, height }: TDimensions) => {
   const nonStandardUnicode = '𐐜 𐐔𐐇𐐝𐐀𐐡𐐇𐐓 𐐙𐐊𐐡𐐝𐐓/𐐝𐐇𐐗𐐊𐐤𐐔 𐐒𐐋𐐗';
   const emojis = '💔 💌 💕 💞 💓 💗 💖 💘';
   const drawing = '᚛ᚄᚓᚐᚋᚒᚄ ᚑᚄᚂᚑᚏᚅ᚜';
@@ -37,7 +37,6 @@ const PathText = ({ width }: TDimensions) => {
   const mapWidthToScale = (width: number) => {
     if (width <= 270) return 0.2;
     if (width >= 659) return 0.5;
-
 
     const width1 = 659;
     const scale1 = 0.5;
@@ -52,12 +51,12 @@ const PathText = ({ width }: TDimensions) => {
 
   const scale = mapWidthToScale(width);
 
-
   return (
     <text
       style={{
         fontSize: CSS.px(22),
-        transform: `scale(${scale}) translate(${width / (2 * scale)}px, 20%) translateX(-50%)`,
+        transformOrigin: 'center',
+        transform: `translate(${width / 2}px, ${height / 2}px) translate(-50%, -50%) scale(${scale})`,
         transformBox: 'fill-box',
       }}
     >
@@ -75,13 +74,21 @@ const PathText = ({ width }: TDimensions) => {
 };
 
 const CircleText = ({ width, height }: TDimensions) => {
-
-  const scale = 1;
+  const scale = 1.8;
 
   return (
-    <text style={{ fontSize: 10, transform: `scale(${scale}) translate(${width / (2 * scale)}px, 20%)` }}>
+    <text
+      style={{
+        fontSize: 12.7,
+        transformBox: 'fill-box',
+        transformOrigin: 'center',
+        transform: `translateY(-50px) translate(${width / 2}px, ${
+          height / 2
+        }px) translate(-50%, -50%) scale(${scale}) rotate(-90deg)`,
+      }}
+    >
       <textPath fill="aliceblue" href="#text-path-3">
-        ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+        abcdefghijklmnopqrstuvwxyzyxwvutsrqponmlkjihgfedcb
       </textPath>
     </text>
   );
@@ -95,13 +102,13 @@ export const TextPathSvg = ({ width, height }: TDimensions) => {
       <div className={styles.inputs}>
         <form>
           <label>
-            <input type="radio" name="options" value="1" checked={option === '1'} onChange={(e) => setOption('1')} />1
+            <input type="radio" name="options" value="1" checked={option === '1'} onChange={() => setOption('1')} />1
           </label>
           <label>
-            <input type="radio" name="options" value="2" checked={option === '2'} onChange={(e) => setOption('2')} />2
+            <input type="radio" name="options" value="2" checked={option === '2'} onChange={() => setOption('2')} />2
           </label>
           <label>
-            <input type="radio" name="options" value="3" checked={option === '3'} onChange={(e) => setOption('3')} />3
+            <input type="radio" name="options" value="3" checked={option === '3'} onChange={() => setOption('3')} />3
           </label>
         </form>
       </div>
@@ -123,7 +130,7 @@ export const TextPathSvg = ({ width, height }: TDimensions) => {
             fill="none"
             d="M 0 20 A 50 50 0 1 1 150 350 Q 250 550 300 300 Q 350 50 400 350 C 450 350 450 50 500 250 C 500 300 550 550 650 300 A 50 50 0 1 1 700 300 "
           />
-          <circle id="text-path-3" fill="none" r="10" />
+          <path id="text-path-3" fill="none" d="M 100 100 A 50 50 0 1 1 100 99 Z" />
         </defs>
 
         {option === '1' && <SpiralText width={width} height={height} />}

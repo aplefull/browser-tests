@@ -11,9 +11,10 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
+      width: min(400px, 100%);
 
       video {
-        width: 400px;
+        width: 100%;
       }
     }
   }

@@ -62,7 +62,10 @@ export default function TestDifficultStrings() {
   return (
     <section className={styles.testDifficultStrings}>
       <h1>Difficult strings</h1>
-      <input type="checkbox" onChange={toggleSvg} checked={showSvg} />
+      <label>
+        <input type="checkbox" onChange={toggleSvg} checked={showSvg} />
+        Show SVG
+      </label>
       <div className={styles.stringsContainer}>
         {preparedGroups.map(({ description, strings }) => {
           return (

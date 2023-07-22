@@ -29,16 +29,16 @@ export default function TestCssGradients() {
                 <filter id="a" width="120%" height="120%" x="-10%" y="-10%">
                   <feFlood floodOpacity="0" result="BackgroundImageFix" />
                   <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                  <feGaussianBlur result="effect1_foregroundBlur" stdDeviation="86" />
+                  <feGaussianBlur stdDeviation="40" />
                 </filter>
               </defs>
               <g filter="url(#a)">
-                <circle cx="444" cy="221" r="192" fill="#0C9" />
-                <circle cx="196" cy="203" r="192" fill="#60F" />
-                <circle cx="312" cy="56" r="192" fill="#0C9" />
-                <circle cx="114" cy="292" r="192" fill="#0C9" />
-                <circle cx="37" cy="75" r="192" fill="color(prophoto-rgb 0.42 0.17 0.92)" />
-                <circle cx="368" cy="285" r="192" fill="oklab(0.75 -0.15 0.03)" />
+                <circle cx="82.22%" cy="68.2%" r="49.259259259259%" fill="color(prophoto-rgb 0.42 0.17 0.92)" />
+                <circle cx="36.29%" cy="62.65%" r="49.259259259259%" fill="#60F" />
+                <circle cx="57.77%" cy="17.28%" r="49.259259259259%" fill="#0C9" />
+                <circle cx="21.11%" cy="90.12%" r="49.259259259259%" fill="#0C9" />
+                <circle cx="6.85%" cy="23.14%" r="49.259259259259%" fill="color(prophoto-rgb 0.42 0.17 0.92)" />
+                <circle cx="68.14%" cy="87.96%" r="49.259259259259%" fill="oklab(0.75 -0.15 0.03)" />
               </g>
             </svg>
           </div>
