@@ -1,4 +1,16 @@
 import styles from './styles.module.scss';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
+
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements {
+      marquee: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+      font: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+      strike: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+      dir: DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
+    }
+  }
+}
 
 export default function TestOldTags() {
   return (

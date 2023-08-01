@@ -27,7 +27,7 @@ const redirectsPlugin = (): Plugin => {
 
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), redirectsPlugin()],
-  assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.tiff', '**/*.bmp', '**/*.html'],
+  assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.tiff', '**/*.bmp'],
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',

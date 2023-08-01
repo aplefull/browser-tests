@@ -1,11 +1,7 @@
 import styles from './styles.module.scss';
 import { MikuArt } from '@/app/misc-tests/components/subcomponents/MikuArt/MikuArt';
 import { CssVideo } from '@/app/misc-tests/components/subcomponents/CssVideo/CssVideo';
-
-// TODO utils
-const map = (value: number, inMin: number, inMax: number, outMin: number, outMax: number) => {
-  return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
-};
+import { map } from '@/utils/utils';
 
 const Glow = ({ brightness }: { shadowRadius: number; brightness: number; opacity: number }) => {
   const getRGBComponents = (color: string) => {

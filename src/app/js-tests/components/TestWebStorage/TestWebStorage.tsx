@@ -2,13 +2,8 @@ import { useState } from 'react';
 import catImage from '@assets/images/gifs/cat-vibing.gif';
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
+import { getErrorMessage, wait } from '@/utils/utils';
 
-// TODO move
-declare global {
-  interface IDBVersionChangeEvent extends Event {
-    target: IDBOpenDBRequest;
-  }
-}
 
 const generateRandomString = (length: number) => {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -24,21 +19,6 @@ const generateRandomString = (length: number) => {
   }
 
   return result;
-};
-
-// TODO to utils
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const getErrorMessage = (error: unknown, defaultError?: string) => {
-  if (typeof error === 'string') {
-    return error;
-  }
-
-  if (error instanceof Object && 'message' in error && typeof error.message === 'string' && error.message !== '') {
-    return error.message;
-  }
-
-  return defaultError || 'Unknown error';
 };
 
 const testStorage = async (storage: Storage, data: { data: string }) => {

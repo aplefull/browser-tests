@@ -20,6 +20,6 @@
       "@mixins": ["./src/app/mixins.scss"]
     }
   },
-  "exclude": ["node_modules", "dist", "./src/assets"],
+  "exclude": ["node_modules", "dist", "./src/assets", "./public"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

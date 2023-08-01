@@ -1,13 +1,6 @@
 import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
 
-// TODO move to separate file
-declare global {
-  interface Navigator {
-    getBattery: () => Promise<BatteryManager>;
-  }
-}
-
 type BatteryManagerHandlers = {
   onchargingchange: () => void;
   onchargingtimechange: () => void;

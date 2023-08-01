@@ -37,8 +37,8 @@ const KeyboardEvents = () => {
     setPasteEvent(e.clipboardData.getData('text'));
   };
 
-  const handleBeforeInput = (e) => {
-    setBeforeInputEvent(e.data);
+  const handleBeforeInput = (e: InputEvent) => {
+    setBeforeInputEvent(e.data || '');
   };
 
   const handleInput = (e: FormEvent<HTMLInputElement>) => {
@@ -61,6 +61,7 @@ const KeyboardEvents = () => {
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener('beforeinput', handleBeforeInput);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
@@ -78,7 +79,6 @@ const KeyboardEvents = () => {
         onCut={handleCut}
         onCopy={handleCopy}
         onPaste={handlePaste}
-        onBeforeInput={handleBeforeInput}
         onInput={handleInput}
         onCompositionStart={handleCompositionStart}
         onCompositionUpdate={handleCompositionUpdate}

@@ -164,7 +164,7 @@ const splitExpression = (expression: string) => {
   return parts.map((part) => part.trim());
 };
 
-const parseExpression = (expression: string) => {
+const parseExpression = (expression: string): number => {
   const trimmedExpression = clearExpression(expression);
 
   const parts = splitExpression(trimmedExpression);
@@ -176,7 +176,7 @@ const parseExpression = (expression: string) => {
       const func = part.split('(')[0];
       const args = part.slice(func.length + 1, -1);
 
-      const parsedArgs = [];
+      const parsedArgs: number[] = [];
       let numberOfOpenBrackets = 0;
       let currentArg = '';
       for (let i = 0; i < args.length; i++) {
@@ -198,10 +198,27 @@ const parseExpression = (expression: string) => {
 
       const isKeyOfMathMap = (key: string): key is keyof typeof MATH_MAP => key in MATH_MAP;
 
+      type TSingleArgFunction = (a: number) => number;
+      type TDoubleArgFunction = (a: number, b: number) => number;
+
+      const isOneArgFunc = (func: TSingleArgFunction | TDoubleArgFunction): func is TSingleArgFunction =>
+        func.length === 1;
+      const isSingleArg = (arr: number[]): arr is [number] => arr.length === 1;
+      const isDoubleArg = (arr: number[]): arr is [number, number] => arr.length === 2;
+
       if (isKeyOfMathMap(func)) {
         const mappedFunc = MATH_MAP[func];
 
-        return `${mappedFunc.apply(null, parsedArgs)}`;
+        if (isOneArgFunc(mappedFunc) && isSingleArg(parsedArgs)) {
+          return `${mappedFunc.apply(null, parsedArgs)}`;
+        }
+
+        if (isDoubleArg(parsedArgs)) {
+          return `${mappedFunc.apply(null, parsedArgs)}`;
+        }
+
+        console.error(`Function ${func} does not support ${parsedArgs.length} arguments.`);
+        return NaN;
       }
     }
 
