@@ -1,0 +1,26 @@
+.loading {
+  width: 100%;
+  height: 200px;
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  width: 100%;
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.component {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  animation-duration: 219.05s;
+  animation-delay: 15s;
+}
+
+@for $i from 0 through 293 {
+  .component-#{$i} {
+    animation-name: play-#{$i};
+  }
+}

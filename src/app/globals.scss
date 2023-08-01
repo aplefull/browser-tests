@@ -9,12 +9,12 @@
 
 html,
 body {
-  background-color: #1e1e1e;
-  color: aliceblue;
-  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin: 0;
+  background-color: #1e1e1e;
+  color: aliceblue;
   scroll-behavior: smooth;
 }
 

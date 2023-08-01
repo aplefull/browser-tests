@@ -27,7 +27,12 @@ const redirectsPlugin = (): Plugin => {
 
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), redirectsPlugin()],
-  assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.tiff', '**/*.bmp'],
+  assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.tiff', '**/*.bmp', '**/*.html'],
+  css: {
+    modules: {
+      localsConvention: 'camelCaseOnly',
+    },
+  },
   resolve: {
     alias: {
       '@mixins': './src/app/mixins.scss',

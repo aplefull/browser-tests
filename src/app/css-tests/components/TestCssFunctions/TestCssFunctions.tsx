@@ -59,6 +59,10 @@ const parseSingleMathValue = (value: string) => {
     return parseFloat(trimmedArg.replace('e', '1')) * Math.E;
   }
 
+  if (trimmedArg.includes('infinity')) {
+    return parseFloat(trimmedArg.replace('infinity', '1')) * Infinity;
+  }
+
   return parseFloat(trimmedArg);
 };
 
@@ -97,7 +101,7 @@ const isFunction = (chars: string) => {
 };
 
 const splitExpression = (expression: string) => {
-  const parts = [];
+  const parts: string[] = [];
   let currentPart = '';
 
   for (let i = 0; i < expression.length; i++) {
@@ -192,7 +196,13 @@ const parseExpression = (expression: string) => {
 
       parsedArgs.push(parseExpression(currentArg));
 
-      return `${MATH_MAP[func].apply(null, parsedArgs)}`;
+      const isKeyOfMathMap = (key: string): key is keyof typeof MATH_MAP => key in MATH_MAP;
+
+      if (isKeyOfMathMap(func)) {
+        const mappedFunc = MATH_MAP[func];
+
+        return `${mappedFunc.apply(null, parsedArgs)}`;
+      }
     }
 
     return parseSingleMathValue(part);
@@ -208,12 +218,19 @@ export default function TestCssFunctions() {
 
   const functions = [
     { func: 'sin', value: '30deg', type: 'number' },
+    { func: 'sin', value: 'infinity', type: 'number' },
+    { func: 'sin', value: 'asin(0.5)', type: 'number' },
     { func: 'cos', value: 'e / pi', type: 'number' },
     { func: 'tan', value: 'calc(0.3turn + 10009221420deg)', type: 'number' },
+    { func: 'tan', value: '90deg', type: 'number' },
     { func: 'asin', value: '0.3', type: 'angle' },
+    { func: 'asin', value: 'sin(33deg)', type: 'angle' },
     { func: 'acos', value: '-0.965', type: 'angle' },
     { func: 'atan', value: 'e / 2', type: 'angle' },
-    { func: 'atan2', value: '7rem, -43px', type: 'angle' },
+    { func: 'atan', value: 'infinity', type: 'angle' },
+    { func: 'atan', value: 'tan(90deg)', type: 'angle' },
+    { func: 'atan2', value: '7, -43', type: 'angle' },
+    { func: 'atan2', value: 'infinity, infinity', type: 'angle' },
     { func: 'sin', value: 'cos(tan(cos(cos(sin(sin(cos(sin(cos(tan(tan(1 / cos(56deg))))))))))))', type: 'number' },
     { func: 'exp', value: 'pi', type: 'number' },
     { func: 'log', value: '8, 2', type: 'number' },
@@ -280,7 +297,7 @@ export default function TestCssFunctions() {
             return (
               <Fragment key={index}>
                 <span className={styles.expression} title={expression}>
-                  {expression}
+                  {clearExpression(expression)}
                 </span>
                 <span>{measurements[index]}</span>
                 <span>{jsResult}</span>

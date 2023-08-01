@@ -1,6 +1,6 @@
 import styles from './style.module.scss';
 
-import { useReducer } from 'react';
+import { ChangeEvent, useReducer } from 'react';
 import { TAction, TDimensions } from '@/types';
 
 enum actionTypes {
@@ -50,21 +50,24 @@ export const PointLightSvg = ({ width, height }: TDimensions) => {
       min: 0,
       max: width,
       value: pointLightX,
-      onChange: (e) => dispatch({ type: 'CHANGE_POINT_LIGHT_X', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_POINT_LIGHT_X', payload: Number(e.target.value) }),
     },
     {
       label: 'Y',
       min: 0,
       max: height,
       value: pointLightY,
-      onChange: (e) => dispatch({ type: 'CHANGE_POINT_LIGHT_Y', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_POINT_LIGHT_Y', payload: Number(e.target.value) }),
     },
     {
       label: 'Z',
       min: -200,
       max: 200,
       value: pointLightZ,
-      onChange: (e) => dispatch({ type: 'CHANGE_POINT_LIGHT_Z', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_POINT_LIGHT_Z', payload: Number(e.target.value) }),
     },
   ];
 

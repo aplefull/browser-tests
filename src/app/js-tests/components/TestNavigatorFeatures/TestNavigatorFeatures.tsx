@@ -24,7 +24,7 @@ type BatteryManagerInfo = {
 type BatteryManager = BatteryManagerInfo & BatteryManagerHandlers;
 
 export const TestNavigatorFeatures = () => {
-  const [batteryManager, setBatteryManager] = useState<BatteryManagerInfo>(null);
+  const [batteryManager, setBatteryManager] = useState<BatteryManagerInfo | null>(null);
 
   const updateBatteryInfo = async () => {
     const battery = await navigator.getBattery();

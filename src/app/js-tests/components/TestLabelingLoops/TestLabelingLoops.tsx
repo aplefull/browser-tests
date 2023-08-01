@@ -24,7 +24,7 @@ export default function TestLabelingLoops() {
     }
   };
 
-  const getResultText = (result) => {
+  const getResultText = (result: boolean | null) => {
     if (result === null) {
       return 'Waiting...';
     }

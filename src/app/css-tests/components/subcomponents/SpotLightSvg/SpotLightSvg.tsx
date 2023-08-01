@@ -1,6 +1,6 @@
 import styles from './style.module.scss';
 
-import { useReducer } from 'react';
+import { ChangeEvent, useReducer } from 'react';
 import { TAction, TDimensions } from '@/types';
 
 enum actionTypes {
@@ -94,56 +94,64 @@ export const SpotLightSvg = ({ width, height }: TDimensions) => {
       min: 0,
       max: width,
       value: spotLightX,
-      onChange: (e) => dispatch({ type: 'CHANGE_SPOT_LIGHT_X', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_SPOT_LIGHT_X', payload: Number(e.target.value) }),
     },
     {
       label: 'Y',
       min: 0,
       max: height,
       value: spotLightY,
-      onChange: (e) => dispatch({ type: 'CHANGE_SPOT_LIGHT_Y', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_SPOT_LIGHT_Y', payload: Number(e.target.value) }),
     },
     {
       label: 'Z',
       min: 0,
       max: 1000,
       value: spotLightZ,
-      onChange: (e) => dispatch({ type: 'CHANGE_SPOT_LIGHT_Z', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_SPOT_LIGHT_Z', payload: Number(e.target.value) }),
     },
     {
       label: 'Points At X',
       min: 0,
       max: width,
       value: spotLightPointsAtX,
-      onChange: (e) => dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_X', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_X', payload: Number(e.target.value) }),
     },
     {
       label: 'Points At Y',
       min: 0,
       max: height,
       value: spotLightPointsAtY,
-      onChange: (e) => dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_Y', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_Y', payload: Number(e.target.value) }),
     },
     {
       label: 'Points At Z',
       min: 0,
       max: 1000,
       value: spotLightPointsAtZ,
-      onChange: (e) => dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_Z', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_Z', payload: Number(e.target.value) }),
     },
     {
       label: 'Specular Exponent',
       min: 0,
       max: 128,
       value: specularExponent,
-      onChange: (e) => dispatch({ type: 'CHANGE_SPECULAR_EXPONENT', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_SPECULAR_EXPONENT', payload: Number(e.target.value) }),
     },
     {
       label: 'Limiting Cone Angle',
       min: 0.001,
       max: 90,
       value: limitingConeAngle,
-      onChange: (e) => dispatch({ type: 'CHANGE_LIMITING_CONE_ANGLE', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_LIMITING_CONE_ANGLE', payload: Number(e.target.value) }),
     },
   ];
 

@@ -5,7 +5,7 @@ export const ForeignObjectSvg = ({ width, height }: TDimensions) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
       <foreignObject className="foreign-object-svg" x="25%" y="10%" width="50%" height="80%">
-        <div xmlns="http://www.w3.org/1999/xhtml" style={{ backgroundColor: '#f2f2f2', padding: '20px' }}>
+        <div style={{ backgroundColor: '#f2f2f2', padding: '20px' }}>
           <h1>SVG + HTML</h1>
           <p>Some interactive HTML:</p>
 

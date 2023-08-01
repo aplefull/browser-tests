@@ -1,69 +1,40 @@
+import { createBrowserRouter, Link, Outlet, RouterProvider } from 'react-router-dom';
+import { Button } from '@/app/components/Button/Button';
+import { routes } from '@/utils/routes';
 import './globals.scss';
 import styles from './home/styles.module.scss';
-import { createBrowserRouter, Link, Route, RouterProvider, Routes } from 'react-router-dom';
-import { IndexPage } from './home/page';
-import { HTMLTestsPage } from './html-tests/HTMLTestsPage';
-import { CSSTestsPage } from '@/app/css-tests/page';
-import { JSTestsPage } from '@/app/js-tests/page';
-import { MiscTestsPage } from '@/app/misc-tests/page';
-import { OthersProjectsPage } from '@/app/others-projects/page';
 
-const routes = [
-  {
-    path: '/',
-    element: <IndexPage />,
-  },
-  {
-    path: '/html-tests',
-    element: <HTMLTestsPage />,
-  },
-  {
-    path: '/css-tests',
-    element: <CSSTestsPage />,
-  },
-  {
-    path: '/js-tests',
-    element: <JSTestsPage />,
-  },
-  {
-    path: '/misc-tests',
-    element: <MiscTestsPage />,
-  },
-  {
-    path: '/others-projects',
-    element: <OthersProjectsPage />,
-  },
-];
+// TODO separate header to another component
+const Header = () => {
+  return (
+    <header className={styles.header}>
+      <nav>
+        <Link to="/html-tests">
+          <Button text="HTML" variant="dark" width={100} textVariant="large" />
+        </Link>
+        <Link to="/css-tests">
+          <Button text="CSS" variant="dark" width={100} textVariant="large" />
+        </Link>
+        <Link to="/js-tests">
+          <Button text="JS" variant="dark" width={100} textVariant="large" />
+        </Link>
+        <Link to="/misc-tests">
+          <Button text="MISC" variant="dark" width={100} textVariant="large" />
+        </Link>
+        <Link to="/others-projects">
+          <Button text="HEY" variant="dark" width={100} textVariant="large" />
+        </Link>
+      </nav>
+    </header>
+  );
+};
 
 const RootLayout = () => {
   return (
     <>
-      <header className={styles.header}>
-        <nav>
-          <Link to="/html-tests">
-            <div>HTML</div>
-          </Link>
-          <Link to="/css-tests">
-            <div>CSS</div>
-          </Link>
-          <Link to="/js-tests">
-            <div>JS</div>
-          </Link>
-          <Link to="/misc-tests">
-            <div>MISC</div>
-          </Link>
-          <Link to="/others-projects">
-            <div>HEY</div>
-          </Link>
-        </nav>
-      </header>
-      <main>
-        <Routes>
-          {routes.map(({ path, element }) => (
-            <Route key={path} path={path} element={element} />
-          ))}
-          <Route path="*" element={<div>404</div>} />
-        </Routes>
+      <Header />
+      <main className={styles.main}>
+        <Outlet />
       </main>
     </>
   );
@@ -71,15 +42,11 @@ const RootLayout = () => {
 
 const router = createBrowserRouter([
   {
-    path: '*',
     element: <RootLayout />,
+    children: routes,
   },
 ]);
 
-const Providers = () => {
-  return <RouterProvider router={router} />;
-};
-
 export const App = () => {
-  return <Providers />;
+  return <RouterProvider router={router} />;
 };

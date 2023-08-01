@@ -1,4 +1,3 @@
-import styles from './page.module.scss';
 import {
   TestBlockStyleTag,
   TestColors,
@@ -17,13 +16,13 @@ import {
   TestTextFillColor,
   TestTextOverflow,
   TestWritingModes,
+  TestSvgs,
+  TestCssFunctions,
 } from '@/app/css-tests/components';
-import TestSvgs from '@/app/css-tests/components/TestSvgs/TestSvgs';
-import TestCssFunctions from '@/app/css-tests/components/TestCssFunctions/TestCssFunctions';
 
 export const CSSTestsPage = () => {
   return (
-    <main className={styles.testsContainer}>
+    <>
       <TestSupportsRule />
       <TestTextOverflow />
       <TestSelection />
@@ -43,6 +42,6 @@ export const CSSTestsPage = () => {
       <TestMediaQueries />
       <TestSvgs />
       <TestCssFunctions />
-    </main>
+    </>
   );
 };

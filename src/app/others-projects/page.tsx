@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import styles from './page.module.scss';
 
 type TIframeEntry = {
@@ -37,7 +38,7 @@ export const OthersProjectsPage = () => {
       <div className={styles.iframesContainer}>
         {iframes.map(({ title, src, url }) => {
           return (
-            <div key={src}>
+            <div key={src} className={classNames({ [styles.withUrl]: !!url })}>
               <h2>{title}</h2>
               {url && (
                 <a href={url} target="_blank" rel="noopener noreferrer">

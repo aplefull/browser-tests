@@ -9,7 +9,7 @@ type MasonryProps = {
 
 type RawImageBox = { width: number; height: number; src: string };
 
-type MasonryBox = { width: number; height: number; src: string; x: number; y: number };
+type MasonryBox = { width: number; height: number; src: string; x: number; y: number; scale: number };
 
 export const Masonry = ({ images, containerRef }: MasonryProps) => {
   const [containerWidth, setContainerWidth] = useState<number | null>(null);
@@ -113,7 +113,7 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
           rowGap * rowIndex;
 
         // 4.3 calculate scale, based on original image width
-        const naturalWidth = naturalDimensions.find((image) => image.src === dimensions.src)?.width;
+        const naturalWidth = naturalDimensions.find((image) => image.src === dimensions.src)?.width || 0;
 
         const minWidth = Math.min(containerWidth, naturalWidth);
 
@@ -165,9 +165,7 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
 
   return (
     <div className={styles.masonryContainer} style={{ height: containerHeight }}>
-      {masonryBoxes.map(({ src, width, height, x, y, scale }, index) => {
-        const w = `${width}px`;
-        const h = `${height}px`;
+      {masonryBoxes.map(({ src, x, y, scale }, index) => {
         const transform = `translate(${x}px, ${y}px) scale(${scale})`;
 
         return (

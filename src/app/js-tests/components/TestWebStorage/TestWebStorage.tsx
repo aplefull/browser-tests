@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import catImage from '@assets/images/gifs/cat-vibing.gif';
 import styles from './styles.module.scss';
-
-type IDBOpenSuccessEvent = Event & {
-  target: IDBOpenDBRequest;
-};
+import { Button } from '@/app/components/Button/Button';
 
 // TODO move
 declare global {
@@ -37,7 +34,7 @@ const getErrorMessage = (error: unknown, defaultError?: string) => {
     return error;
   }
 
-  if (typeof error.message === 'string' && error.message) {
+  if (error instanceof Object && 'message' in error && typeof error.message === 'string' && error.message !== '') {
     return error.message;
   }
 
@@ -80,7 +77,12 @@ const createDB = async (dbName: string, dbVersion: number, storeName: string) =>
       }
     };
 
-    openDBRequest.onsuccess = (event: IDBOpenSuccessEvent) => {
+    openDBRequest.onsuccess = (event: Event) => {
+      if (!(event.target instanceof IDBOpenDBRequest)) {
+        reject('Error opening indexedDB');
+        return;
+      }
+
       resolve(event.target.result);
     };
   });
@@ -275,7 +277,7 @@ export const TestWebStorage = () => {
   return (
     <section className={styles.webStorage}>
       <h1>Different Web Storage APIs</h1>
-      <button onClick={runTests}>Run</button>
+      <Button onClick={runTests} text="Run" />
       <div>
         <h2>Local storage</h2>
         <div>{localStorageResult}</div>

@@ -16,7 +16,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "^6.14.1",
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "tabler-icons-react": "^1.56.0"
   },
   "prettier": {
     "printWidth": 120,

@@ -1,0 +1,51 @@
+.button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: all 0.2s ease-in-out;
+  transform-origin: center;
+  cursor: pointer;
+
+  &.normal-text {
+    font-size: 14px;
+  }
+
+  &.large-text {
+    font-size: 16px;
+    padding: 5px;
+  }
+
+  &.light {
+    background-color: aliceblue;
+    color: #171717;
+  }
+
+  &.dark {
+    background-color: #171717;
+    color: aliceblue;
+  }
+
+  &.disabled:disabled {
+    color: #666;
+    cursor: not-allowed;
+
+    &.light {
+      background-color: #ccc;
+    }
+
+    &.dark {
+      background-color: #333;
+    }
+  }
+
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+  }
+}
+
+.url {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

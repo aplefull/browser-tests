@@ -1,0 +1,46 @@
+.collapse {
+  width: 100%;
+  border-radius: 5px;
+
+  .collapseHead {
+    border-bottom: 1px solid aliceblue;
+    display: flex;
+    align-items: center;
+    padding: 5px 0 5px 10px;
+    font-size: 26px;
+    cursor: pointer;
+
+    .iconContainer {
+      display: flex;
+      margin-right: 5px;
+
+      .icon {
+        transition: transform 1s ease-in-out;
+      }
+
+      &.open {
+        .icon {
+          transform: rotate(90deg);
+        }
+      }
+    }
+  }
+
+  .collapseBody {
+    grid-template-rows: 0fr;
+    display: grid;
+    overflow: hidden;
+    transition: 1s ease-in-out;
+    transition-property: grid-template-rows, padding-top, padding-bottom;
+
+    > div {
+      overflow: hidden;
+    }
+
+    &.open {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      grid-template-rows: 1fr;
+    }
+  }
+}

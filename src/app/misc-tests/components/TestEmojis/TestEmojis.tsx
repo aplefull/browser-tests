@@ -17,7 +17,7 @@ type TRawEmoji = {
 };
 
 export const TestEmojis = () => {
-  const [useEmojiFont, setUseEmojiFont] = useState(false);
+  const [useEmojiFont, setUseEmojiFont] = useState(true);
   const [emojiList, setEmojiList] = useState<TEmoji[]>([]);
   const [fontSize, setFontSize] = useState(16);
 

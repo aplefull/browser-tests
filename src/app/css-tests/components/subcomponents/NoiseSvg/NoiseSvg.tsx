@@ -1,7 +1,8 @@
 import catsVideo from '@assets/videos/cats_h264.mp4';
 import bgImage from '@assets/images/cats/cat-2.jpg';
+import { TDimensions } from '@/types';
 
-export const NoiseSvg = ({ width, height }) => {
+export const NoiseSvg = ({ width, height }: TDimensions) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
       <filter id="noise" x="0%" y="0%" width="100%" height="100%">

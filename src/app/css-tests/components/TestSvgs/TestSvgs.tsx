@@ -9,19 +9,21 @@ import { MixedFeaturesSvg } from '@/app/css-tests/components/subcomponents/Mixed
 import { BlendSvg } from '@/app/css-tests/components/subcomponents/BlendSvg/BlendSvg';
 import { FeTurbulenceSquigglyTestSvg } from '@/app/css-tests/components/subcomponents/FeTurbulenceSquigglyTestSvg/FeTurbulenceSquigglyTestSvg';
 import { LightningsSvg } from '@/app/css-tests/components/subcomponents/LightsSvg/LightningsSvg';
-import catsVideo from '@assets/videos/cats_h264.mp4';
 import { SpotLightSvg } from '@/app/css-tests/components/subcomponents/SpotLightSvg/SpotLightSvg';
 import { PointLightSvg } from '@/app/css-tests/components/subcomponents/PointLightSvg/PointLightSvg';
 import { DistantLightSvg } from '@/app/css-tests/components/subcomponents/DistantLightSvg/DistantLightSvg';
 import { NoiseSvg } from '@/app/css-tests/components/subcomponents/NoiseSvg/NoiseSvg';
 import { useEffect, useState } from 'react';
+import { ConvolveMatrixSvg } from '@/app/css-tests/components/subcomponents/ConvolveMatrixSvg/ConvolveMatrixSvg';
+import { MergeSvg } from '@/app/css-tests/components/subcomponents/MergeSvg/MergeSvg';
+import { TilesSvg } from '@/app/css-tests/components/subcomponents/TilesSvg/TilesSvg';
+import { MorphologySvg } from '@/app/css-tests/components/subcomponents/MorphologySvg/MorphologySvg';
+import { DifficultAnimationSvg } from '@/app/css-tests/components/subcomponents/DifficultAnimationSvg/DifficultAnimationSvg';
 
 /*
  * TODO cleanup:
  *  - move svgs to separate components
- *  - clean up styles
  *  - maybe map components
- *  - make h2's consistent
  * */
 export default function TestSvgs() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -29,7 +31,9 @@ export default function TestSvgs() {
   const svgWidth = Math.min(windowWidth - 50, 800);
 
   useEffect(() => {
-    const handleResize = (e) => {
+    const handleResize = (e: UIEvent) => {
+      if (!(e.target instanceof Window)) return;
+
       setWindowWidth(e.target.innerWidth);
     };
 
@@ -40,67 +44,117 @@ export default function TestSvgs() {
     };
   }, []);
 
+  const tests = [
+    {
+      title: 'Text path',
+      description: null,
+      component: TextPathSvg,
+    },
+    {
+      title: 'Embedded image',
+      description: null,
+      component: EmbeddedImageSvg,
+    },
+    {
+      title: 'Mask',
+      description: null,
+      component: MaskSvg,
+    },
+    {
+      title: 'Foreign object',
+      description: null,
+      component: ForeignObjectSvg,
+    },
+    {
+      title: 'Squiggly filter',
+      description: null,
+      component: FeTurbulenceSquigglyTestSvg,
+    },
+    {
+      title: 'Noise',
+      description: null,
+      component: NoiseSvg,
+    },
+    {
+      title: 'feDistantLight',
+      description: null,
+      component: DistantLightSvg,
+    },
+    {
+      title: 'fePointLight',
+      description: null,
+      component: PointLightSvg,
+    },
+    {
+      title: 'feSpotLight',
+      description: null,
+      component: SpotLightSvg,
+    },
+    {
+      title: 'feDiffuseLighting and feSpecularLighting',
+      description: null,
+      component: LightningsSvg,
+    },
+    {
+      title: 'Component transfer',
+      description: null,
+      component: ComponentTransferSvg,
+    },
+    {
+      title: 'Animate motion',
+      description: null,
+      component: AnimateMotionSvg,
+    },
+    {
+      title: 'Clip-path and mask',
+      description: null,
+      component: MixedFeaturesSvg,
+    },
+    {
+      title: 'Blend',
+      description: 'Hover over rectangle to see what blend mode is used',
+      component: BlendSvg,
+    },
+    {
+      title: 'Tiles',
+      description: null,
+      component: TilesSvg,
+    },
+    {
+      title: 'Convolve matrix',
+      description: null,
+      component: ConvolveMatrixSvg,
+    },
+    {
+      title: 'Merge',
+      description: null,
+      component: MergeSvg,
+    },
+    {
+      title: 'Morphology',
+      description: null,
+      component: MorphologySvg,
+    },
+    {
+      title: 'Difficult animation',
+      description: null,
+      component: DifficultAnimationSvg,
+    },
+  ];
+
   return (
     <section className={styles.svgs}>
       <h1>Different svg features</h1>
       <div className={styles.svgsContainer}>
-        <div>
-          <h2>Text path</h2>
-          <TextPathSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>Embedded image</h2>
-          <EmbeddedImageSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>Mask</h2>
-          <MaskSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>Foreign object</h2>
-          <ForeignObjectSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>Squiggly filter</h2>
-          <FeTurbulenceSquigglyTestSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>Noise</h2>
-          <NoiseSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>feDistantLight</h2>
-          <DistantLightSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>fePointLight</h2>
-          <PointLightSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>feSpotLight</h2>
-          <SpotLightSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>feDiffuseLighting and feSpecularLighting</h2>
-          <LightningsSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>Component transfer</h2>
-          <ComponentTransferSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>Animate motion</h2>
-          <AnimateMotionSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>Clip-path and mask</h2>
-          <MixedFeaturesSvg width={svgWidth} height={300} />
-        </div>
-        <div>
-          <h2>Blend</h2>
-          <p>Hover over rectangle to see what blend mode is used</p>
-          <BlendSvg width={svgWidth} height={300} />
-        </div>
+        {tests.map((test, index) => {
+          return (
+            <div key={index}>
+              <h2>{test.title}</h2>
+              {test.description && <p>{test.description}</p>}
+              <test.component width={svgWidth} height={300} />
+            </div>
+          );
+        })}
       </div>
     </section>
   );

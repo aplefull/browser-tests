@@ -4,6 +4,17 @@
   width: 100%;
   padding: 20px;
 
+  .withUrl {
+    > h2 {
+      margin-bottom: 0;
+    }
+
+    > a {
+      margin: 10px 0;
+      display: block;
+    }
+  }
+
   h2 {
     @include subtitle;
   }
@@ -17,10 +28,11 @@
     margin-bottom: 80px;
   }
 
-  .iframesContainer {
+  .iframes-container {
     padding: 0 50px;
 
     a {
+      margin: 10px 0;
       text-decoration: none;
       color: aliceblue;
       cursor: pointer;

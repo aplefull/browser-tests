@@ -1,9 +1,16 @@
 import styles from './styles.module.scss';
+import { Button } from '@/app/components/Button/Button';
 
 export default function TestTabInteractions() {
   const runTests = () => {
-    const currentFavicon = document.querySelector('link[rel="icon"]');
-    const currentFaviconHref = currentFavicon.getAttribute('href');
+    const currentFavicon = document.querySelector('link[rel="icon"]') || document.createElement('link');
+    if (currentFavicon.getAttribute('rel') !== 'icon') {
+      currentFavicon.setAttribute('rel', 'icon');
+    }
+
+    document.head.appendChild(currentFavicon);
+
+    const currentFaviconHref = currentFavicon.getAttribute('href') || '';
 
     currentFavicon.setAttribute('href', 'https://www.google.com/favicon.ico');
 
@@ -27,7 +34,7 @@ export default function TestTabInteractions() {
     <section className={styles.tabInteractions}>
       <h1>Interactions with tab</h1>
       <p>Click the button to run test and check if tab title and favicon has changed</p>
-      <button onClick={runTests}>Run test</button>
+      <Button onClick={runTests} text="Run test" />
     </section>
   );
 }

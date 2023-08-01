@@ -1,5 +1,5 @@
 import styles from './style.module.scss';
-import { useReducer } from 'react';
+import { ChangeEvent, useReducer } from 'react';
 import { TAction, TDimensions } from '@/types';
 
 enum actionTypes {
@@ -42,14 +42,16 @@ export const DistantLightSvg = ({ width, height }: TDimensions) => {
       min: 0,
       max: 360,
       value: azimuth,
-      onChange: (e) => dispatch({ type: 'CHANGE_AZIMUTH', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_AZIMUTH', payload: Number(e.target.value) }),
     },
     {
       label: 'Elevation',
       min: 0,
       max: 360,
       value: elevation,
-      onChange: (e) => dispatch({ type: 'CHANGE_ELEVATION', payload: Number(e.target.value) }),
+      onChange: (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: 'CHANGE_ELEVATION', payload: Number(e.target.value) }),
     },
   ];
 

@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { useEffect, useRef, useState, WheelEvent } from 'react';
+import React, { FormEvent, CompositionEvent, ClipboardEvent, useEffect, useRef, useState, WheelEvent } from 'react';
 
 const KeyboardEvents = () => {
   const [keyDownEvent, setKeyDownEvent] = useState('');
@@ -13,11 +13,11 @@ const KeyboardEvents = () => {
   const [compositionUpdateEvent, setCompositionUpdateEvent] = useState('');
   const [compositionEndEvent, setCompositionEndEvent] = useState('');
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     setKeyDownEvent(e.key);
   };
 
-  const handleKeyUp = (e) => {
+  const handleKeyUp = (e: KeyboardEvent) => {
     setKeyUpEvent(e.key);
   };
 
@@ -33,7 +33,7 @@ const KeyboardEvents = () => {
     });
   };
 
-  const handlePaste = (e) => {
+  const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
     setPasteEvent(e.clipboardData.getData('text'));
   };
 
@@ -41,19 +41,20 @@ const KeyboardEvents = () => {
     setBeforeInputEvent(e.data);
   };
 
-  const handleInput = (e) => {
+  const handleInput = (e: FormEvent<HTMLInputElement>) => {
+    if (!e.target || !(e.target instanceof HTMLInputElement)) return;
     setInputEvent(e.target.value);
   };
 
-  const handleCompositionStart = (e) => {
+  const handleCompositionStart = (e: CompositionEvent<HTMLInputElement>) => {
     setCompositionStartEvent(e.data);
   };
 
-  const handleCompositionUpdate = (e) => {
+  const handleCompositionUpdate = (e: CompositionEvent<HTMLInputElement>) => {
     setCompositionUpdateEvent(e.data);
   };
 
-  const handleCompositionEnd = (e) => {
+  const handleCompositionEnd = (e: CompositionEvent<HTMLInputElement>) => {
     setCompositionEndEvent(e.data);
   };
 
@@ -116,7 +117,7 @@ const MouseEvents = () => {
     setClicksCount((prevCount) => prevCount + 1);
   };
 
-  const testContextMenu = (e) => {
+  const testContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault(); // Prevent the default context menu from showing up
     setContextMenuCount((prevCount) => prevCount + 1);
   };
@@ -153,7 +154,7 @@ const MouseEvents = () => {
     setDbClicksCount((prevCount) => prevCount + 1);
   };
 
-  const testAuxClick = (e) => {
+  const testAuxClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     setAuxClicksCount((prevCount) => prevCount + 1);
   };
