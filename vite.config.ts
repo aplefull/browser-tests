@@ -17,6 +17,8 @@ const redirectsPlugin = (): Plugin => {
     name: 'redirects',
     apply: 'build',
     writeBundle(options) {
+      if (!options.dir) return;
+
       const dest = path.resolve(options.dir, '_redirects');
       const redirectsContent = '/* /index.html 200';
 

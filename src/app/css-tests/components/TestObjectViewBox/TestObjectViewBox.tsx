@@ -1,10 +1,10 @@
 import styles from './styles.module.scss';
 import flyingCat from '@assets/images/cats/flying-cat.png';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestObjectViewBox() {
+export const TestObjectViewBox = () => {
   return (
-    <section className={styles.objectViewBox}>
-      <h1>Object view box</h1>
+    <Section className={styles.objectViewBox} title="Object view box">
       <p>Hover over images</p>
       <div>
         <div className={styles.inset}>
@@ -14,6 +14,6 @@ export default function TestObjectViewBox() {
           <img src={flyingCat} alt="cat" />
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

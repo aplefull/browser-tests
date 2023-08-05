@@ -2,8 +2,9 @@ import styles from './styles.module.scss';
 import textFile from '@/assets/data/blns.txt?raw';
 import { Fragment, useState } from 'react';
 import { getDataFromBlns } from '@/utils/utils';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestDifficultStrings() {
+export const TestDifficultStrings = () => {
   const [showSvg, setShowSvg] = useState(false);
 
   const toggleSvg = () => {
@@ -11,8 +12,7 @@ export default function TestDifficultStrings() {
   };
 
   return (
-    <section className={styles.testDifficultStrings}>
-      <h1>Difficult strings</h1>
+    <Section className={styles.testDifficultStrings} title="Difficult strings" closedByDefault>
       <label>
         <input type="checkbox" onChange={toggleSvg} checked={showSvg} />
         Show SVG
@@ -39,6 +39,6 @@ export default function TestDifficultStrings() {
           );
         })}
       </div>
-    </section>
+    </Section>
   );
-}
+};

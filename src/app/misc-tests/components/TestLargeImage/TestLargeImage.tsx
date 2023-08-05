@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestLargeImage() {
+export const TestLargeImage = () => {
   return (
-    <section className={styles.testLargeImage}>
-      <h1>Very large image</h1>
+    <Section className={styles.testLargeImage} title="Very large image" closedByDefault>
       <div>
         <input type="checkbox" id="large-image-animation" defaultChecked={false} />
         <label htmlFor="large-image-animation">Enable animation</label>
@@ -11,6 +11,6 @@ export default function TestLargeImage() {
           <img src="https://files.catbox.moe/zjiokj.png" alt="very large image" />
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

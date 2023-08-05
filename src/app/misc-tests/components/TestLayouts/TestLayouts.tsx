@@ -2,12 +2,13 @@ import styles from './layouts.module.scss';
 import tableData from '@/assets/data/data.json';
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
-import CSSMasonry from '../../../css-tests/components/subcomponents/CSSMasonry/CSSMasonry';
+import { CSSMasonry } from '@/app/css-tests/components/subcomponents/CSSMasonry/CSSMasonry';
 import { TImageModule } from '@/types';
+import { Section } from '@/app/components/Section/Section';
 
 const images = import.meta.glob<TImageModule>('/src/assets/images/cats/*.*', { eager: true });
 
-export default function TestLayouts() {
+export const TestLayouts = () => {
   const imagePaths = Object.values(images).map((image) => image.default);
 
   const headCaptions = [
@@ -29,8 +30,7 @@ export default function TestLayouts() {
   }
 
   return (
-    <section className={styles.testLayouts}>
-      <h1>Different Layouts</h1>
+    <Section className={styles.testLayouts} title="Different Layouts" closedByDefault>
       <div className={styles.container}>
         <p>Pure css masonry</p>
         <CSSMasonry urls={urls} />
@@ -92,6 +92,6 @@ export default function TestLayouts() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

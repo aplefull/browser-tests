@@ -10,6 +10,8 @@ type TButtonProps = {
   textVariant?: 'normal' | 'large';
   url?: string;
   width?: string | number;
+  className?: string;
+  noHoverStyle?: boolean;
 };
 
 type TButtonWrapperProps = {
@@ -29,7 +31,16 @@ const ButtonWrapper = ({ url, children }: TButtonWrapperProps) => {
   );
 };
 
-export const Button = ({ text, onClick, disabled, variant = 'light', url, width }: TButtonProps) => {
+export const Button = ({
+  text,
+  onClick,
+  disabled,
+  variant = 'light',
+  url,
+  width,
+  className,
+  noHoverStyle,
+}: TButtonProps) => {
   const variantClass = variant === 'light' ? styles.light : styles.dark;
   const textVariantClass = variant === 'light' ? styles.normalText : styles.largeText;
   const disabledClass = disabled ? styles.disabled : '';
@@ -38,10 +49,15 @@ export const Button = ({ text, onClick, disabled, variant = 'light', url, width 
     width: typeof width === 'number' ? `${width}px` : width,
   };
 
+  const customAttributes = {
+    ...(noHoverStyle && { 'data-no-hover': true }),
+  };
+
   return (
     <ButtonWrapper url={url}>
       <button
-        className={classNames(styles.button, variantClass, textVariantClass, disabledClass)}
+        {...customAttributes}
+        className={classNames(styles.button, className, variantClass, textVariantClass, disabledClass)}
         style={style}
         onClick={onClick}
         disabled={disabled}

@@ -1,2 +1,19 @@
+@import '@mixins';
+
 .crypto {
+  h2 {
+    @include subtitle;
+  }
+
+  .crypto-results {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subtle-crypto-results {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+  }
 }

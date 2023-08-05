@@ -9,11 +9,11 @@ import flyingCatIco from '@assets/images/flying_cat/flying-cat.ico';
 import flyingCatTiff from '@assets/images/flying_cat/flying-cat.tiff';
 import flyingCatAvif from '@assets/images/flying_cat/flying-cat.avif';
 import flyingCatJfif from '@assets/images/flying_cat/flying-cat.jfif';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestSupportedImageFormats() {
+export const TestSupportedImageFormats = () => {
   return (
-    <section className={styles.supportedImageFormats}>
-      <h1>Supported image formats</h1>
+    <Section className={styles.supportedImageFormats} title="Supported image formats">
       <div>
         <div>
           <img src={flyingCatWebp} alt="webp image" />
@@ -56,6 +56,6 @@ export default function TestSupportedImageFormats() {
           <span>JFIF</span>
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

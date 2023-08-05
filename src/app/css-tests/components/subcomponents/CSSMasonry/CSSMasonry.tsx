@@ -1,7 +1,7 @@
 import styles from '@/app/misc-tests/components/TestLayouts/layouts.module.scss';
 import React, { useState } from 'react';
 
-export default function CSSMasonry({ urls }: { urls: string[] }) {
+export const CSSMasonry = ({ urls }: { urls: string[] }) => {
   const [dialogSrc, setDialogSrc] = useState<string | null>(null);
   const dialogRef = React.useRef<HTMLDialogElement | null>(null);
 
@@ -31,4 +31,4 @@ export default function CSSMasonry({ urls }: { urls: string[] }) {
       </dialog>
     </div>
   );
-}
+};

@@ -1,18 +1,18 @@
 .selection {
-  #selection-color {
+  .selection-color {
     &::selection {
       background-color: #cc3838;
       color: #1e1e1e;
     }
   }
 
-  #selection-shadow {
+  .selection-shadow {
     &::selection {
-      text-shadow: 0 0 15px #fff;
+      text-shadow: 0 0 15px aliceblue;
     }
   }
 
-  #selection-none {
+  .selection-none {
     user-select: none;
   }
 }

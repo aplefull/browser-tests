@@ -1,7 +1,7 @@
 .button {
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   transition: all 0.2s ease-in-out;
   transform-origin: center;
   cursor: pointer;
@@ -38,7 +38,7 @@
     }
   }
 
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled):not([data-no-hover='true']) {
     transform: scale(1.05);
   }
 }

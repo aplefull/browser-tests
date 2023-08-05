@@ -29,7 +29,7 @@ export const CssVideo = () => {
   return (
     <div className={styles.container}>
       {Array.from({ length: 294 }).map((_, i) => (
-        <div key={i} className={classNames(styles.component, styles[`component${i}`])} />
+        <div key={i} className={classNames(styles.component, `component-${i}`)} />
       ))}
     </div>
   );

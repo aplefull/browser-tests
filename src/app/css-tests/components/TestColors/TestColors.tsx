@@ -1,7 +1,8 @@
+import { Section } from '@/app/components/Section/Section';
 import styles from './styles.module.scss';
 import { useState } from 'react';
 
-export default function TestColors() {
+export const TestColors = () => {
   const [R, setR] = useState(0.5);
   const [G, setG] = useState(0.5);
   const [B, setB] = useState(1);
@@ -62,8 +63,7 @@ export default function TestColors() {
   ];
 
   return (
-    <section>
-      <h1>Colors</h1>
+    <Section title="Colors">
       <div className={styles.colors}>
         <div className={styles.color}>
           <h2>color() and different color-spaces</h2>
@@ -143,6 +143,6 @@ export default function TestColors() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

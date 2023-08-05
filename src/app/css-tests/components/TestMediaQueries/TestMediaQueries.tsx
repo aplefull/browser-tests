@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestMediaQueries() {
+export const TestMediaQueries = () => {
   return (
-    <section className={styles.mediaQueries}>
-      <h1>Media queries</h1>
+    <Section className={styles.mediaQueries} title="Media queries">
       <div className={styles.rangeSyntax}>
         <h2>Range syntax</h2>
         <span>
@@ -11,6 +11,6 @@ export default function TestMediaQueries() {
           syntax.
         </span>
       </div>
-    </section>
+    </Section>
   );
-}
+};

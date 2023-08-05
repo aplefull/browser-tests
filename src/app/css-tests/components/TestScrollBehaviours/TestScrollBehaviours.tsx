@@ -2,11 +2,11 @@ import styles from './styles.module.scss';
 import { lorem } from '@/utils/utils';
 import { Br } from '@/app/css-tests/components/subcomponents/Br/Br';
 import flyingCat from '@assets/images/cats/flying-cat.png';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestScrollBehaviours() {
+export const TestScrollBehaviours = () => {
   return (
-    <section className={styles.scrollBehaviours}>
-      <h1>Scroll Behaviours</h1>
+    <Section className={styles.scrollBehaviours} title="Scroll Behaviours">
       <div>
         <div className={styles.smoothScroll}>
           <h2>Smooth scroll:</h2>
@@ -48,6 +48,6 @@ export default function TestScrollBehaviours() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

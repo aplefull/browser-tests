@@ -96,3 +96,20 @@ export const getErrorMessage = (error: unknown, defaultError?: string) => {
 export const map = (value: number, inMin: number, inMax: number, outMin: number, outMax: number) => {
   return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
 };
+
+export const fitToBox = (originalWidth: number, originalHeight: number, boxWidth: number, boxHeight: number) => {
+  const originalAspectRatio = originalWidth / originalHeight;
+  const boxAspectRatio = boxWidth / boxHeight;
+
+  if (originalAspectRatio > boxAspectRatio) {
+    return {
+      width: boxWidth,
+      height: boxWidth / originalAspectRatio,
+    };
+  }
+
+  return {
+    width: boxHeight * originalAspectRatio,
+    height: boxHeight,
+  };
+};

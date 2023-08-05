@@ -1,4 +1,10 @@
+@import '@mixins';
+
 .navigator {
+  h2 {
+    @include subtitle;
+  }
+
   pre {
     margin: 0 0 0 10px;
   }

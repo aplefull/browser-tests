@@ -1,10 +1,9 @@
 import styles from './styles.module.scss';
-import { lorem } from '@/utils/utils';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestWritingModes() {
+export const TestWritingModes = () => {
   return (
-    <section className={styles.writingModes}>
-      <h1>Writing modes</h1>
+    <Section className={styles.writingModes} title="Writing modes">
       <div className={styles.rectangleContainer}>
         <span>Lorem ipsum dolor sit amet.</span>
         <span>Lorem ipsum dolor sit amet.</span>
@@ -17,6 +16,6 @@ export default function TestWritingModes() {
         <span>👍🏻👍🏼👍🏽👍🏾👍🏿</span>
         <span>The ‮quick brown fox‬ jumped. (Bi-directional)</span>
       </div>
-    </section>
+    </Section>
   );
-}
+};

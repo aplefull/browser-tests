@@ -1,8 +1,9 @@
-export default function TestSvgFavicon() {
+import { Section } from '@/app/components/Section/Section';
+
+export const TestSvgFavicon = () => {
   return (
-    <section>
-      <h1>Svg favicon</h1>
+    <Section title="Svg favicon">
       <p>Check the browser tab. Do you see a gear favicon? If so, your browser supports svg favicons :^)</p>
-    </section>
+    </Section>
   );
-}
+};

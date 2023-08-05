@@ -19,13 +19,14 @@ import { MergeSvg } from '@/app/css-tests/components/subcomponents/MergeSvg/Merg
 import { TilesSvg } from '@/app/css-tests/components/subcomponents/TilesSvg/TilesSvg';
 import { MorphologySvg } from '@/app/css-tests/components/subcomponents/MorphologySvg/MorphologySvg';
 import { DifficultAnimationSvg } from '@/app/css-tests/components/subcomponents/DifficultAnimationSvg/DifficultAnimationSvg';
+import { Section } from '@/app/components/Section/Section';
 
 /*
  * TODO cleanup:
  *  - move svgs to separate components
  *  - maybe map components
  * */
-export default function TestSvgs() {
+export const TestSvgs = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const svgWidth = Math.min(windowWidth - 50, 800);
@@ -143,8 +144,7 @@ export default function TestSvgs() {
   ];
 
   return (
-    <section className={styles.svgs}>
-      <h1>Different svg features</h1>
+    <Section className={styles.svgs} title="Different svg features">
       <div className={styles.svgsContainer}>
         {tests.map((test, index) => {
           return (
@@ -156,6 +156,6 @@ export default function TestSvgs() {
           );
         })}
       </div>
-    </section>
+    </Section>
   );
-}
+};

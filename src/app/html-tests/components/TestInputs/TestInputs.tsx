@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import spaceCat from '@assets/images/cats/space-cat.jpg';
+import { Section } from '@/app/components/Section/Section';
 
 type TInputSkeleton = {
   title: string;
@@ -7,7 +8,7 @@ type TInputSkeleton = {
   attributes?: Record<string, unknown>;
 }[];
 
-export default function TestInputs() {
+export const TestInputs = () => {
   const inputs: TInputSkeleton = [
     {
       title: 'Range',
@@ -109,8 +110,7 @@ export default function TestInputs() {
   ];
 
   return (
-    <section className={styles.inputs}>
-      <h1>All types of inputs</h1>
+    <Section className={styles.inputs} title="All types of inputs">
       <div>
         {inputs.map((input) => {
           const attributes = input.attributes || {};
@@ -123,6 +123,6 @@ export default function TestInputs() {
           );
         })}
       </div>
-    </section>
+    </Section>
   );
-}
+};

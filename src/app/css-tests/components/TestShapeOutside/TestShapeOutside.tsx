@@ -2,15 +2,15 @@ import styles from './styles.module.scss';
 import { lorem } from '@/utils/utils';
 import { Fragment } from 'react';
 import blackCat from '@assets/images/cats/black-cat.png';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestShapeOutside() {
+export const TestShapeOutside = () => {
   const text = lorem(4);
 
   const testCases = ['circle', 'ellipse', 'inset', 'polygon', 'url', 'margin-box', 'animation'];
 
   return (
-    <section className={styles.shapeOutside}>
-      <h1>Shape-outside</h1>
+    <Section className={styles.shapeOutside} title="Shape-outside">
       {testCases.map((testCase) => {
         return (
           <Fragment key={testCase}>
@@ -22,6 +22,6 @@ export default function TestShapeOutside() {
           </Fragment>
         );
       })}
-    </section>
+    </Section>
   );
-}
+};

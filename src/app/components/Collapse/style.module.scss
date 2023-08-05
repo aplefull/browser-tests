@@ -6,9 +6,20 @@
     border-bottom: 1px solid aliceblue;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 5px 0 5px 10px;
     font-size: 26px;
     cursor: pointer;
+
+    .left {
+      display: flex;
+      align-items: center;
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+    }
 
     .iconContainer {
       display: flex;

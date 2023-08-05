@@ -1,6 +1,8 @@
 import styles from './styles.module.scss';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { Section } from '@/app/components/Section/Section';
 
+// TODO move
 declare module 'react' {
   namespace JSX {
     interface IntrinsicElements {
@@ -12,10 +14,9 @@ declare module 'react' {
   }
 }
 
-export default function TestOldTags() {
+export const TestOldTags = () => {
   return (
-    <section className={styles.oldTags}>
-      <h1>Old Tags</h1>
+    <Section className={styles.oldTags} title="Old Tags">
       <div>
         <div>
           <pre>Marquee:</pre>
@@ -54,6 +55,6 @@ export default function TestOldTags() {
           </dir>
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

@@ -1,3 +1,5 @@
+@import '@mixins';
+
 .oldTags {
   > div {
     > div {
@@ -5,12 +7,8 @@
     }
 
     pre {
-      margin: 0;
-      padding: 0;
-      font-size: 1rem;
-      font-family: monospace;
-      white-space: pre-wrap;
-      word-break: break-all;
+      @include subtitle;
+      margin-bottom: 10px;
     }
   }
 }

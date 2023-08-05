@@ -26,6 +26,41 @@ export const OthersProjectsPage = () => {
       src: '/projects/cats-game/index.html',
       title: 'Game',
     },
+    {
+      src: 'https://codepen.io/t_afif/full/abEeMyY',
+      url: 'https://codepen.io/t_afif/pen/abEeMyY',
+      title: 'CSS art',
+    },
+    {
+      src: 'https://codepen.io/t_afif/full/abQvjxP',
+      url: 'https://codepen.io/t_afif/full/abQvjxP',
+      title: 'Wavy range slider',
+    },
+    {
+      src: 'https://codepen.io/t_afif/full/OJpKeWa',
+      url: 'https://codepen.io/t_afif/pen/OJpKeWa',
+      title: 'CSS blob effect',
+    },
+    {
+      src: 'https://codepen.io/ivorjetski/full/OJXbvdL',
+      url: 'https://codepen.io/ivorjetski/pen/OJXbvdL',
+      title: 'amazing CSS mini game',
+    },
+    {
+      src: 'https://codepen.io/ivorjetski/full/xxZQqQq',
+      url: 'https://codepen.io/ivorjetski/pen/xxZQqQq',
+      title: 'CSS mini game',
+    },
+    {
+      src: 'https://codepen.io/ivorjetski/full/xxKBWBN',
+      url: 'https://codepen.io/ivorjetski/pen/xxKBWBN',
+      title: 'zero divs CSS pixel art animation',
+    },
+    {
+      src: 'https://codepen.io/ivorjetski/full/xxGYWQG',
+      url: 'https://codepen.io/ivorjetski/pen/xxGYWQG',
+      title: 'CSS art',
+    },
   ];
 
   return (

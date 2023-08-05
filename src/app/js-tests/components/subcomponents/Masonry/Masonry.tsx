@@ -49,7 +49,7 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
       (images) => ({
         rowHeight: images[0].height,
         images,
-      })
+      }),
     );
 
     // 2. recalculate images dimensions to the row height keeping aspect ratio

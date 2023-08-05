@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestCssDropdown() {
+export const TestCssDropdown = () => {
   return (
-    <section className={styles.cssDropdown}>
-      <h1>CSS-only collapse with transition to auto height</h1>
+    <Section className={styles.cssDropdown} title="CSS-only collapse with transition to auto height">
       <div className={styles.dropdown}>
         <input type="checkbox" id="dropdown-toggle" />
         <label htmlFor="dropdown-toggle">Click me</label>
@@ -17,6 +17,6 @@ export default function TestCssDropdown() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

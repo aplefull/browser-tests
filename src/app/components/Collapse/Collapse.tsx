@@ -5,13 +5,26 @@ import { ChevronRight } from 'tabler-icons-react';
 
 type TCollapseProps = {
   children: ReactNode;
-  title: string;
+  title?: string;
   unmountChildren?: boolean;
   showIcon?: boolean;
+  head?: ReactNode;
+  headClassName?: string;
+  childrenClassName?: string;
+  defaultOpen?: boolean;
 };
 
-export const Collapse = ({ children, title, unmountChildren, showIcon = true }: TCollapseProps) => {
-  const [open, setOpen] = useState(false);
+export const Collapse = ({
+  children,
+  title,
+  head,
+  unmountChildren,
+  showIcon = true,
+  headClassName,
+  childrenClassName,
+  defaultOpen,
+}: TCollapseProps) => {
+  const [open, setOpen] = useState(defaultOpen || false);
   const [renderChildren, setRenderChildren] = useState(open || !unmountChildren);
 
   const toggle = () => {
@@ -31,13 +44,18 @@ export const Collapse = ({ children, title, unmountChildren, showIcon = true }: 
 
   return (
     <div className={styles.collapse}>
-      <div className={styles.collapseHead} onClick={toggle}>
-        {showIcon && (
-          <div className={classNames(styles.iconContainer, { [styles.open]: open })}>
-            <ChevronRight className={styles.icon} />
+      <div className={headClassName || styles.collapseHead} onClick={toggle}>
+        {head && head}
+        {!head && (
+          <div className={styles.left}>
+            {showIcon && (
+              <div className={classNames(styles.iconContainer, { [styles.open]: open })}>
+                <ChevronRight className={styles.icon} />
+              </div>
+            )}
+            {title && <span>{title}</span>}
           </div>
         )}
-        <span>{title}</span>
       </div>
       <div
         onTransitionEnd={handleTransitionEnd}
@@ -45,7 +63,7 @@ export const Collapse = ({ children, title, unmountChildren, showIcon = true }: 
           [styles.open]: open,
         })}
       >
-        <div>{renderChildren && children}</div>
+        <div className={childrenClassName}>{renderChildren && children}</div>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestTextFillColor() {
+export const TestTextFillColor = () => {
   return (
-    <section className={styles.textFillColor}>
-      <h1>Text-fill-color</h1>
+    <Section className={styles.textFillColor} title="Text-fill-color">
       <div>
         {/* TODO
           - add more examples
@@ -20,6 +20,6 @@ export default function TestTextFillColor() {
         <h2>Image fill:</h2>
         <p className={styles.imageFill}>This text should be filled with image.</p>
       </div>
-    </section>
+    </Section>
   );
-}
+};

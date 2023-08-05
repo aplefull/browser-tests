@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import React, { FormEvent, CompositionEvent, ClipboardEvent, useEffect, useRef, useState, WheelEvent } from 'react';
+import { Section } from '@/app/components/Section/Section';
 
 const KeyboardEvents = () => {
   const [keyDownEvent, setKeyDownEvent] = useState('');
@@ -219,8 +220,7 @@ export const TestEvents = () => {
   }, []);
 
   return (
-    <section className={styles.events}>
-      <h1>Different js events</h1>
+    <Section className={styles.events} title="Different js events">
       <div className={styles.container}>
         <div className={styles.wheel}>
           <h2>Wheel event</h2>
@@ -236,6 +236,6 @@ export const TestEvents = () => {
         <MouseEvents />
         <KeyboardEvents />
       </div>
-    </section>
+    </Section>
   );
 };

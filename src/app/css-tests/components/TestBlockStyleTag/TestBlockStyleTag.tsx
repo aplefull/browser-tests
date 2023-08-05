@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestBlockStyleTag() {
+export const TestBlockStyleTag = () => {
   return (
-    <section className={styles.blockStyleTag}>
-      <h1>Block style tag and contenteditable attribute</h1>
+    <Section className={styles.blockStyleTag} title="Block style tag and contenteditable attribute">
       <style className="block-style" contentEditable suppressContentEditableWarning>
         {`
           .block-style {
@@ -11,6 +11,6 @@ export default function TestBlockStyleTag() {
           }
         `}
       </style>
-    </section>
+    </Section>
   );
-}
+};

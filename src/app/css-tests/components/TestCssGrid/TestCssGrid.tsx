@@ -2,11 +2,11 @@ import styles from './styles.module.scss';
 import classNames from 'classnames';
 import spaceCat from '@assets/images/cats/space-cat.jpg';
 import flyingCat from '@assets/images/cats/flying-cat.png';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestCssGrid() {
+export const TestCssGrid = () => {
   return (
-    <section className={styles.cssGrid}>
-      <h1>Difficult CSS Grid layouts</h1>
+    <Section className={styles.cssGrid} title="Difficult CSS Grid layouts">
       <div>
         <h2>Grid areas</h2>
         <div className={styles.gridTemplateAreas}>
@@ -100,6 +100,6 @@ export default function TestCssGrid() {
           </ul>
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

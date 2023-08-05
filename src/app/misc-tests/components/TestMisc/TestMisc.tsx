@@ -2,6 +2,9 @@ import styles from './styles.module.scss';
 import { MikuArt } from '@/app/misc-tests/components/subcomponents/MikuArt/MikuArt';
 import { CssVideo } from '@/app/misc-tests/components/subcomponents/CssVideo/CssVideo';
 import { map } from '@/utils/utils';
+import { Section } from '@/app/components/Section/Section';
+import { useState } from 'react';
+import { Button } from '@/app/components/Button/Button';
 
 const Glow = ({ brightness }: { shadowRadius: number; brightness: number; opacity: number }) => {
   const getRGBComponents = (color: string) => {
@@ -172,9 +175,10 @@ const GlowSVG = () => {
 };
 
 export const TestMisc = () => {
+  const [showCssVideo, setShowCssVideo] = useState(false);
+
   return (
-    <section className={styles.misc}>
-      <h1>Miscellaneous tests</h1>
+    <Section className={styles.misc} title="Miscellaneous tests" closedByDefault>
       <h2>Glow effect</h2>
       <div className={styles.glow}>
         <Glow brightness={70} opacity={1} shadowRadius={2.7} />
@@ -185,9 +189,27 @@ export const TestMisc = () => {
         <MikuArt />
       </div>
       <h2>CSS video</h2>
-      <div>
-        <CssVideo />
+      <div className={styles.cssVideoDescription}>
+        <p className={styles.author}>
+          Original author:{' '}
+          <a target="_blank" rel="noreferrer" href="https://github.com/kevinjycui">
+            https://github.com/kevinjycui
+          </a>
+        </p>
+
+        <p className={styles.warning}>
+          <span>Warning</span>
+          This is a very heavy and demanding css animation, which will most definitely crash your browser. That's why
+          it's not shown by default. If you are feeling courageous, make sure there is nothing important happening in
+          your browser right now, before pressing the button below.
+        </p>
+
+        <Button
+          text={showCssVideo ? 'Remove that from here!' : "Let's do it..."}
+          onClick={() => setShowCssVideo(!showCssVideo)}
+        />
       </div>
-    </section>
+      <div>{showCssVideo && <CssVideo />}</div>
+    </Section>
   );
 };

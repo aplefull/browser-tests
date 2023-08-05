@@ -1,6 +1,7 @@
 import styles from './styles.module.scss';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestTextOverflow() {
+export const TestTextOverflow = () => {
   const paragraphs = [
     {
       text: 'This text should appear with ellipsis',
@@ -21,8 +22,7 @@ export default function TestTextOverflow() {
   ];
 
   return (
-    <section className={styles.textOverflow}>
-      <h1>Text-overflow</h1>
+    <Section className={styles.textOverflow} title="Text-overflow">
       <span>Hover over paragraphs to see full line</span>
       <div>
         <br />
@@ -32,6 +32,6 @@ export default function TestTextOverflow() {
           </p>
         ))}
       </div>
-    </section>
+    </Section>
   );
-}
+};

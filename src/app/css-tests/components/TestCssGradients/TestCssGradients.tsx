@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestCssGradients() {
+export const TestCssGradients = () => {
   return (
-    <section className={styles.cssGradients}>
-      <h1>Gradients</h1>
+    <Section className={styles.cssGradients} title="Gradients">
       <div className={styles.gradients}>
         <div>
           <p>Gradient mesh</p>
@@ -44,6 +44,6 @@ export default function TestCssGradients() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

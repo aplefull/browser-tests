@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestHasSelector() {
+export const TestHasSelector = () => {
   return (
-    <section className={styles.hasSelector}>
-      <h1>:has selector</h1>
+    <Section className={styles.hasSelector} title=":has selector">
       <div>
         <div>
           <pre className={styles.iHaveAClass} />
@@ -33,6 +33,6 @@ export default function TestHasSelector() {
           <p lang="en" />
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

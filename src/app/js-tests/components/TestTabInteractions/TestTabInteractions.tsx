@@ -1,7 +1,8 @@
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestTabInteractions() {
+export const TestTabInteractions = () => {
   const runTests = () => {
     const currentFavicon = document.querySelector('link[rel="icon"]') || document.createElement('link');
     if (currentFavicon.getAttribute('rel') !== 'icon') {
@@ -31,10 +32,9 @@ export default function TestTabInteractions() {
   };
 
   return (
-    <section className={styles.tabInteractions}>
-      <h1>Interactions with tab</h1>
+    <Section className={styles.tabInteractions} title="Interactions with tab">
       <p>Click the button to run test and check if tab title and favicon has changed</p>
       <Button onClick={runTests} text="Run test" />
-    </section>
+    </Section>
   );
-}
+};

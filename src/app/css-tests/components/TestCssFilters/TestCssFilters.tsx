@@ -1,7 +1,8 @@
 import styles from './styles.module.scss';
 import catImage from '@assets/images/cats/space-cat.jpg';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestCssFilters() {
+export const TestCssFilters = () => {
   const filters = [
     'blur',
     'brightness',
@@ -16,8 +17,7 @@ export default function TestCssFilters() {
   ];
 
   return (
-    <section className={styles.cssFilters}>
-      <h1>CSS filters</h1>
+    <Section className={styles.cssFilters} title="CSS filters">
       <div>
         {filters.map((filter, index) => (
           <div key={index}>
@@ -26,6 +26,6 @@ export default function TestCssFilters() {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   );
-}
+};

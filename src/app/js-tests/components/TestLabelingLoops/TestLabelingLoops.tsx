@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestLabelingLoops() {
+export const TestLabelingLoops = () => {
   const [testLabeledLoopBreakResult, setTestLabeledLoopBreakResult] = useState<boolean | null>(null);
 
   const testLabeledLoopBreak = () => {
@@ -41,12 +42,11 @@ export default function TestLabelingLoops() {
   }, []);
 
   return (
-    <section>
-      <h1>JS labels</h1>
+    <Section title="JS labels">
       <div className={styles.testResult}>
         <span>Labeled loop break:</span>
         {getResultText(testLabeledLoopBreakResult)}
       </div>
-    </section>
+    </Section>
   );
-}
+};

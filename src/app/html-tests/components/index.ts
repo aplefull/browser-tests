@@ -1,5 +1,5 @@
-export { default as TestInputs } from './TestInputs/TestInputs';
-export { default as TestOldTags } from './TestOldTags/TestOldTags';
-export { default as TestSvgFavicon } from './TestSvgFavicon/TestSvgFavicon';
-export { default as TestSupportedImageFormats } from './TestSupportedImageFormats/TestSupportedImageFormats';
-export { default as TestSupportedVideoFormats } from './TestSupportedVideoFormats/TestSupportedVideoFormats';
+export { TestInputs } from './TestInputs/TestInputs';
+export { TestOldTags } from './TestOldTags/TestOldTags';
+export { TestSvgFavicon } from './TestSvgFavicon/TestSvgFavicon';
+export { TestSupportedImageFormats } from './TestSupportedImageFormats/TestSupportedImageFormats';
+export { TestSupportedVideoFormats } from './TestSupportedVideoFormats/TestSupportedVideoFormats';

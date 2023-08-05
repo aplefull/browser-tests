@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { Section } from '@/app/components/Section/Section';
 
 const MATH_MAP = {
   sin: Math.sin,
@@ -229,7 +230,7 @@ const parseExpression = (expression: string): number => {
   return window.eval(transformedParts.join(' '));
 };
 
-export default function TestCssFunctions() {
+export const TestCssFunctions = () => {
   const elementsRef = useRef<HTMLDivElement | null>(null);
   const [measurements, setMeasurements] = useState<string[]>([]);
 
@@ -283,8 +284,7 @@ export default function TestCssFunctions() {
   }, []);
 
   return (
-    <section className={styles.cssFunctions}>
-      <h1>CSS functions</h1>
+    <Section className={styles.cssFunctions} title="CSS functions">
       <div ref={elementsRef} className={styles.hiddenContainer}>
         {functions.map(({ func, type, value }, index) => {
           const expression = getExpression(func, value, type);
@@ -323,6 +323,6 @@ export default function TestCssFunctions() {
           })}
         </div>
       </div>
-    </section>
+    </Section>
   );
-}
+};

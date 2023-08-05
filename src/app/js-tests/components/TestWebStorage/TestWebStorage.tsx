@@ -3,8 +3,20 @@ import catImage from '@assets/images/gifs/cat-vibing.gif';
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
 import { getErrorMessage, wait } from '@/utils/utils';
+import classNames from 'classnames';
+import { Section } from '@/app/components/Section/Section';
 
+type TIndexedDBResult = {
+  text: string;
+  type: 'success' | 'error';
+};
 
+const RESULT = {
+  SUCCESS: 'Success',
+  ERROR: 'Fail',
+};
+
+// TODO utils
 const generateRandomString = (length: number) => {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   const alphabetUpper = alphabet.toUpperCase();
@@ -29,20 +41,24 @@ const testStorage = async (storage: Storage, data: { data: string }) => {
   const storageData = storage.getItem('test');
 
   if (storageData && JSON.parse(storageData).data === data.data) {
-    return 'Success';
+    storage.removeItem('test');
+    return RESULT.SUCCESS;
   }
 
   storage.removeItem('test');
 
-  return 'Failed';
+  return RESULT.ERROR;
 };
 
 const createDB = async (dbName: string, dbVersion: number, storeName: string) => {
-  return new Promise<IDBDatabase | string>((resolve, reject) => {
+  return new Promise<IDBDatabase | TIndexedDBResult>((resolve) => {
     const openDBRequest = indexedDB.open(dbName, dbVersion);
 
     openDBRequest.onerror = () => {
-      reject('Error opening indexedDB');
+      resolve({
+        text: 'Error opening indexedDB',
+        type: 'error',
+      });
     };
 
     openDBRequest.onupgradeneeded = (event: IDBVersionChangeEvent) => {
@@ -52,14 +68,20 @@ const createDB = async (dbName: string, dbVersion: number, storeName: string) =>
         try {
           db.createObjectStore(storeName, { autoIncrement: true });
         } catch (error) {
-          reject('Error creating object store');
+          resolve({
+            text: 'Error creating object store',
+            type: 'error',
+          });
         }
       }
     };
 
     openDBRequest.onsuccess = (event: Event) => {
       if (!(event.target instanceof IDBOpenDBRequest)) {
-        reject('Error opening indexedDB');
+        resolve({
+          text: 'Error opening indexedDB',
+          type: 'error',
+        });
         return;
       }
 
@@ -69,61 +91,88 @@ const createDB = async (dbName: string, dbVersion: number, storeName: string) =>
 };
 
 const deleteDB = async (dbName: string) => {
-  return new Promise<string>((resolve, reject) => {
+  return new Promise<TIndexedDBResult>((resolve) => {
     const deleteRequest = indexedDB.deleteDatabase(dbName);
 
     deleteRequest.onerror = () => {
-      reject('Error deleting database');
+      resolve({
+        text: 'Error deleting database',
+        type: 'error',
+      });
     };
 
     deleteRequest.onsuccess = () => {
-      resolve('Database deleted successfully');
+      resolve({
+        text: 'Database deleted successfully',
+        type: 'success',
+      });
     };
 
     deleteRequest.onblocked = () => {
-      reject('Database blocked from deletion');
+      resolve({
+        text: 'Database blocked from deletion',
+        type: 'error',
+      });
     };
   });
 };
 
 const addData = async (store: IDBObjectStore, data: unknown, key: string) => {
-  return new Promise<string>((resolve, reject) => {
+  return new Promise<TIndexedDBResult>((resolve) => {
     const addRequest = store.add(data, key);
 
     addRequest.onerror = () => {
-      reject('Error adding data to indexedDB');
+      resolve({
+        text: 'Error adding data to indexedDB',
+        type: 'error',
+      });
     };
 
     addRequest.onsuccess = () => {
-      resolve('Successfully added data to indexedDB');
+      resolve({
+        text: 'Successfully added data to indexedDB',
+        type: 'success',
+      });
     };
   });
 };
 
 const getData = async (store: IDBObjectStore, key: string) => {
-  return new Promise<string>((resolve, reject) => {
+  return new Promise<TIndexedDBResult>((resolve) => {
     const getRequest = store.get(key);
 
     getRequest.onerror = () => {
-      reject('Error reading data from indexedDB');
+      resolve({
+        text: 'Error reading data from indexedDB',
+        type: 'error',
+      });
     };
 
     getRequest.onsuccess = () => {
-      resolve('Successfully read data from indexedDB');
+      resolve({
+        text: 'Successfully read data from indexedDB',
+        type: 'success',
+      });
     };
   });
 };
 
 const deleteData = async (store: IDBObjectStore, key: string) => {
-  return new Promise<string>((resolve, reject) => {
+  return new Promise<TIndexedDBResult>((resolve) => {
     const deleteRequest = store.delete(key);
 
     deleteRequest.onerror = () => {
-      reject('Error deleting data from indexedDB');
+      resolve({
+        text: 'Error deleting data from indexedDB',
+        type: 'error',
+      });
     };
 
     deleteRequest.onsuccess = () => {
-      resolve('Successfully deleted data from indexedDB');
+      resolve({
+        text: 'Successfully deleted data from indexedDB',
+        type: 'success',
+      });
     };
   });
 };
@@ -131,12 +180,12 @@ const deleteData = async (store: IDBObjectStore, key: string) => {
 const testTransaction = async (db: IDBDatabase, store: string, data: unknown) => {
   return new Promise<
     | {
-        addResult: string;
-        getResult: string;
-        deleteResult: string;
+        addResult: TIndexedDBResult;
+        getResult: TIndexedDBResult;
+        deleteResult: TIndexedDBResult;
       }
-    | string
-  >(async (resolve, reject) => {
+    | TIndexedDBResult
+  >(async (resolve) => {
     try {
       const transaction = db.transaction([store], 'readwrite');
       const objectStore = transaction.objectStore(store);
@@ -151,7 +200,11 @@ const testTransaction = async (db: IDBDatabase, store: string, data: unknown) =>
         deleteResult,
       });
     } catch (error) {
-      reject(getErrorMessage(error, 'Error testing transaction'));
+      const text = getErrorMessage(error, 'Error testing transaction');
+      resolve({
+        text,
+        type: 'error',
+      });
     }
   });
 };
@@ -159,9 +212,11 @@ const testTransaction = async (db: IDBDatabase, store: string, data: unknown) =>
 export const TestWebStorage = () => {
   const [localStorageResult, setLocalStorageResult] = useState('');
   const [sessionStorageResult, setSessionStorageResult] = useState('');
-  const [indexedDBResult, setIndexedDBResult] = useState<string[]>([]);
+  const [indexedDBResult, setIndexedDBResult] = useState<TIndexedDBResult[]>([]);
 
   const testLocalStorage = async () => {
+    setLocalStorageResult('');
+
     const localStorageData = {
       data: generateRandomString(5000),
     };
@@ -172,6 +227,8 @@ export const TestWebStorage = () => {
   };
 
   const testSessionStorage = async () => {
+    setSessionStorageResult('');
+
     const sessionStorageData = {
       data: generateRandomString(1000),
     };
@@ -182,8 +239,32 @@ export const TestWebStorage = () => {
   };
 
   const testIndexedDB = async () => {
+    setIndexedDBResult([]);
+
+    const updateResult = (result: string | TIndexedDBResult | TIndexedDBResult[]) => {
+      if (typeof result === 'string') {
+        setIndexedDBResult((prev) => [
+          ...prev,
+          {
+            text: result,
+            type: 'success',
+          },
+        ]);
+      } else {
+        if (Array.isArray(result)) {
+          setIndexedDBResult((prev) => [...prev, ...result]);
+          return;
+        }
+
+        setIndexedDBResult((prev) => [...prev, result]);
+      }
+    };
+
     if (!window.indexedDB) {
-      setIndexedDBResult((prev) => [...prev, 'There is no indexedDB in window']);
+      updateResult({
+        text: 'There is no indexedDB in window',
+        type: 'error',
+      });
       return;
     }
 
@@ -194,13 +275,19 @@ export const TestWebStorage = () => {
     const existingDBNames = await window.indexedDB.databases();
 
     if (existingDBNames.find((db) => db.name === dbName)) {
-      setIndexedDBResult((prev) => [...prev, 'There is already a database with the same name??']);
+      updateResult({
+        text: 'There is already a database with the same name??',
+        type: 'error',
+      });
 
       try {
         const result = await deleteDB(dbName);
         setIndexedDBResult((prev) => [...prev, result]);
       } catch (error) {
-        setIndexedDBResult((prev) => [...prev, 'Error deleting existing database']);
+        updateResult({
+          text: 'Error deleting existing database',
+          type: 'error',
+        });
         return;
       }
     }
@@ -208,10 +295,14 @@ export const TestWebStorage = () => {
     try {
       const db = await createDB(dbName, dbVersion, storeName);
 
-      if (typeof db === 'string') {
+      if (!(db instanceof IDBDatabase)) {
         setIndexedDBResult((prev) => [...prev, db]);
         return;
       }
+
+      db.onversionchange = () => {
+        db.close();
+      };
 
       const imageData = await fetch(catImage);
       const imageArrayBuffer = await imageData.arrayBuffer();
@@ -220,60 +311,62 @@ export const TestWebStorage = () => {
       const regularDataResults = await testTransaction(db, storeName, { id: 1, name: 'John Doe', age: 30 });
       const fileDataResults = await testTransaction(db, storeName, blob);
 
-      if (typeof regularDataResults === 'string') {
-        setIndexedDBResult((prev) => [...prev, regularDataResults]);
-      } else {
-        setIndexedDBResult((prev) => [...prev, ...Object.values(regularDataResults)]);
-      }
-
-      if (typeof fileDataResults === 'string') {
-        setIndexedDBResult((prev) => [...prev, fileDataResults]);
-      } else {
-        setIndexedDBResult((prev) => [...prev, ...Object.values(fileDataResults)]);
-      }
+      updateResult(Object.values(regularDataResults));
+      updateResult(Object.values(fileDataResults));
 
       const deleteResult = await deleteDB(dbName);
-
-      setIndexedDBResult((prev) => [...prev, deleteResult]);
+      updateResult(deleteResult);
     } catch (error) {
-      setIndexedDBResult((prev) => [...prev, getErrorMessage(error, 'Something broke...')]);
-    }
-  };
-
-  const runTests = async () => {
-    try {
-      setLocalStorageResult('');
-      setSessionStorageResult('');
-      setIndexedDBResult([]);
-
-      await testLocalStorage();
-      await testSessionStorage();
-      await testIndexedDB();
-    } catch (e) {
-      console.error(e);
+      updateResult({
+        text: getErrorMessage(error, 'Something broke...'),
+        type: 'error',
+      });
     }
   };
 
   return (
-    <section className={styles.webStorage}>
-      <h1>Different Web Storage APIs</h1>
-      <Button onClick={runTests} text="Run" />
+    <Section className={styles.webStorage} title="Different Web Storage APIs">
       <div>
         <h2>Local storage</h2>
-        <div>{localStorageResult}</div>
+        <Button text="Run" width={70} onClick={testLocalStorage} />
+        <div
+          className={classNames({
+            [styles.success]: localStorageResult === RESULT.SUCCESS,
+            [styles.error]: localStorageResult === RESULT.ERROR,
+          })}
+        >
+          {localStorageResult}
+        </div>
       </div>
       <div>
         <h2>Session storage</h2>
-        <div>{sessionStorageResult}</div>
+        <Button text="Run" width={70} onClick={testSessionStorage} />
+        <div
+          className={classNames({
+            [styles.success]: sessionStorageResult === RESULT.SUCCESS,
+            [styles.error]: sessionStorageResult === RESULT.ERROR,
+          })}
+        >
+          {sessionStorageResult}
+        </div>
       </div>
       <div>
         <h2>IndexedDB</h2>
+        <Button text="Run" width={70} onClick={testIndexedDB} />
         <div>
           {indexedDBResult.map((result, index) => (
-            <div key={index}>{result}</div>
+            <div
+              key={index}
+              className={classNames({
+                [styles.error]: result.type === 'error',
+                [styles.success]: result.type === 'success',
+              })}
+            >
+              {result.text}
+            </div>
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 };

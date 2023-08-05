@@ -1,8 +1,9 @@
 import styles from './styles.module.scss';
 import flyingCat from '@assets/images/cats/flying-cat.png';
 import spaceCat from '@assets/images/cats/space-cat.jpg';
+import { Section } from '@/app/components/Section/Section';
 
-export default function TestCssBlendModes() {
+export const TestCssBlendModes = () => {
   const modes = [
     'multiply',
     'screen',
@@ -22,8 +23,7 @@ export default function TestCssBlendModes() {
   ];
 
   return (
-    <section className={styles.cssBlendModes}>
-      <h1>CSS blend modes</h1>
+    <Section className={styles.cssBlendModes} title="CSS blend modes">
       <div>
         {modes.map((mode) => {
           return (
@@ -35,6 +35,6 @@ export default function TestCssBlendModes() {
           );
         })}
       </div>
-    </section>
+    </Section>
   );
-}
+};
