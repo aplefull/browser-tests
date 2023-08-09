@@ -6,13 +6,19 @@ import { Section } from '@/app/components/Section/Section';
 
 export const TestCssGrid = () => {
   return (
-    <Section className={styles.cssGrid} title="Difficult CSS Grid layouts">
+    <Section className={styles.cssGrid} title="Difficult CSS Grid layouts" closedByDefault>
       <div>
         <h2>Grid areas</h2>
         <div className={styles.gridTemplateAreas}>
-          <div className={classNames(styles.gridItem, styles.a)}>Item a</div>
-          <div className={classNames(styles.gridItem, styles.b)}>Item b</div>
-          <div className={classNames(styles.gridItem, styles.c)}>Item c</div>
+          <div className={classNames(styles.gridItem, styles.a)}>
+            <span>Item a</span>
+          </div>
+          <div className={classNames(styles.gridItem, styles.b)}>
+            <span>Item b</span>
+          </div>
+          <div className={classNames(styles.gridItem, styles.c)}>
+            <span>Item c</span>
+          </div>
         </div>
       </div>
       <div>

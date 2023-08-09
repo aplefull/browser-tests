@@ -294,6 +294,7 @@ export const TestCssFunctions = () => {
         })}
       </div>
       <div className={styles.table}>
+        <p>You can hover over expression to see it in full</p>
         <div className={styles.tableBody}>
           <span className={styles.tableHeaderCell}>Expression</span>
           <span className={styles.tableHeaderCell}>CSS value</span>

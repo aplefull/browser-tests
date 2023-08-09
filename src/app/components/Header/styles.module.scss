@@ -1,0 +1,21 @@
+.header {
+  display: grid;
+  place-items: center;
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  button {
+    outline: 1px solid transparent;
+
+    &:hover {
+      outline: 1px solid aliceblue;
+    }
+  }
+}

@@ -10,7 +10,7 @@ export const TestShapeOutside = () => {
   const testCases = ['circle', 'ellipse', 'inset', 'polygon', 'url', 'margin-box', 'animation'];
 
   return (
-    <Section className={styles.shapeOutside} title="Shape-outside">
+    <Section className={styles.shapeOutside} title="Shape-outside" closedByDefault>
       {testCases.map((testCase) => {
         return (
           <Fragment key={testCase}>

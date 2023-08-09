@@ -1,31 +1,9 @@
-.header {
-  display: grid;
-  place-items: center;
-
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 20px 0;
-  }
-
-  button {
-    outline: 1px solid transparent;
-
-    &:hover {
-      outline: 1px solid aliceblue;
-    }
-  }
-}
-
 .main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  margin: 8px;
+  padding: 8px;
   color: aliceblue;
 
   .index {
@@ -42,29 +20,6 @@
       span {
         text-decoration: line-through;
       }
-    }
-  }
-}
-
-.error {
-  overflow-x: hidden;
-  padding: 40px;
-
-  h1,
-  h2 {
-    width: 100%;
-    text-align: center;
-  }
-
-  pre {
-    margin: 50px auto;
-    width: max-content;
-    white-space: break-spaces;
-  }
-
-  h2 {
-    span {
-      font-weight: normal;
     }
   }
 }

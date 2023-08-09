@@ -24,3 +24,8 @@ export const IMAGES_DIFFERENT_FORMATS = {
   avif,
   jfif,
 };
+
+export const DROPDOWN_STATE = {
+  OPEN: 'open',
+  CLOSED: 'closed',
+} as const;

@@ -29,7 +29,7 @@ import { Section } from '@/app/components/Section/Section';
 export const TestSvgs = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const svgWidth = Math.min(windowWidth - 50, 800);
+  const svgWidth = Math.min(windowWidth - 80, 800);
 
   useEffect(() => {
     const handleResize = (e: UIEvent) => {
@@ -144,7 +144,7 @@ export const TestSvgs = () => {
   ];
 
   return (
-    <Section className={styles.svgs} title="Different svg features">
+    <Section className={styles.svgs} title="Different svg features" closedByDefault>
       <div className={styles.svgsContainer}>
         {tests.map((test, index) => {
           return (
