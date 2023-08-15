@@ -1,0 +1,61 @@
+@import '@mixins';
+
+.events {
+  .container {
+    h2 {
+      @include subtitle;
+    }
+
+    .wheel {
+      width: 100%;
+
+      div {
+        width: 100%;
+        height: 200px;
+        display: flex;
+
+        div {
+          width: 50%;
+          display: grid;
+          place-items: center;
+
+          &:first-child {
+            background-color: $color-green;
+          }
+
+          &:last-child {
+            background-color: #cc3838;
+          }
+        }
+      }
+    }
+
+    .mouseEvents {
+      > div {
+        width: 100%;
+        height: fit-content;
+        background-color: $color-green;
+
+        p {
+          background-color: darken($color-green, 10%);
+          margin: 0;
+          width: 200px;
+        }
+      }
+    }
+
+    .kbdEvents {
+      input {
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+        padding: 0 10px;
+        margin-bottom: 10px;
+      }
+
+      > div p {
+        margin: 0;
+      }
+    }
+  }
+}

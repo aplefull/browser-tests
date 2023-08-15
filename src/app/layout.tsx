@@ -4,7 +4,7 @@ import { Header } from '@/app/components/Header/Header';
 import { Error } from '@/app/components/Error/Error';
 import { Provider } from 'react-redux'
 import { store } from './redux/store';
-import styles from './home/styles.module.scss';
+import styles from './pages/home/styles.module.scss';
 import './globals.scss';
 
 const RootLayout = () => {

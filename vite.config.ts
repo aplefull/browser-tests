@@ -34,10 +34,16 @@ export default defineConfig({
     modules: {
       localsConvention: 'camelCaseOnly',
     },
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "@variables";',
+      },
+    },
   },
   resolve: {
     alias: {
       '@mixins': './src/app/mixins.scss',
+      '@variables': './src/app/colors.scss',
       '@assets/*': './src/assets/*',
     },
   },

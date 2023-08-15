@@ -1,9 +1,9 @@
-import { IndexPage } from '@/app/home/page';
-import { HTMLTestsPage } from '@/app/html-tests/HTMLTestsPage';
-import { CSSTestsPage } from '@/app/css-tests/page';
-import { JSTestsPage } from '@/app/js-tests/page';
-import { MiscTestsPage } from '@/app/misc-tests/page';
-import { OthersProjectsPage } from '@/app/others-projects/page';
+import { IndexPage } from '@/app/pages/home/page';
+import { HTMLTestsPage } from '@/app/pages/html-tests/HTMLTestsPage';
+import { CSSTestsPage } from '@/app/pages/css-tests/page';
+import { JSTestsPage } from '@/app/pages/js-tests/page';
+import { MiscTestsPage } from '@/app/pages/misc-tests/page';
+import { OthersProjectsPage } from '@/app/pages/others-projects/page';
 import { NotFound } from '@/app/pages/not-found/NotFound';
 import { Settings } from '@/app/pages/settings/Settings';
 
