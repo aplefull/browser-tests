@@ -85,7 +85,7 @@ const KeyboardEvents = () => {
         onCompositionUpdate={handleCompositionUpdate}
         onCompositionEnd={handleCompositionEnd}
       />
-      <div>
+      <div className={styles.stats}>
         <p>KeyDown event: {keyDownEvent}</p>
         <p>KeyUp event: {keyUpEvent}</p>
         <p>Cut event: {cutEvent}</p>
@@ -119,7 +119,7 @@ const MouseEvents = () => {
   };
 
   const testContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault(); // Prevent the default context menu from showing up
+    e.preventDefault();
     setContextMenuCount((prevCount) => prevCount + 1);
   };
 
@@ -164,6 +164,7 @@ const MouseEvents = () => {
     <div className={styles.mouseEvents}>
       <h2>Mouse events</h2>
       <div
+        className={styles.testArea}
         onClick={testClick}
         onContextMenu={testContextMenu}
         onMouseDown={testMouseDown}
@@ -176,19 +177,20 @@ const MouseEvents = () => {
         onDoubleClick={testDbClick}
         onAuxClick={testAuxClick}
       >
-        <div>
-          <p>Clicks: {clicksCount}</p>
-          <p>Double Clicks: {dbClicksCount}</p>
-          <p>Aux Clicks: {auxClicksCount}</p>
-          <p>Context Menu: {contextMenuCount}</p>
-          <p>Mouse Down: {mouseDownCount}</p>
-          <p>Mouse Up: {mouseUpCount}</p>
-          <p>Mouse Enter: {mouseEnterCount}</p>
-          <p>Mouse Leave: {mouseLeaveCount}</p>
-          <p>Mouse Move: {mouseMoveCount}</p>
-          <p>Mouse Over: {mouseOverCount}</p>
-          <p>Mouse Out: {mouseOutCount}</p>
-        </div>
+        <p>Test area</p>
+      </div>
+      <div className={styles.stats}>
+        <p>Clicks: {clicksCount}</p>
+        <p>Double Clicks: {dbClicksCount}</p>
+        <p>Aux Clicks: {auxClicksCount}</p>
+        <p>Context Menu: {contextMenuCount}</p>
+        <p>Mouse Down: {mouseDownCount}</p>
+        <p>Mouse Up: {mouseUpCount}</p>
+        <p>Mouse Enter: {mouseEnterCount}</p>
+        <p>Mouse Leave: {mouseLeaveCount}</p>
+        <p>Mouse Move: {mouseMoveCount}</p>
+        <p>Mouse Over: {mouseOverCount}</p>
+        <p>Mouse Out: {mouseOutCount}</p>
       </div>
     </div>
   );
@@ -201,7 +203,7 @@ export const TestEvents = () => {
     try {
       e.preventDefault();
     } catch (e) {
-      console.log(e);
+      console.warn(e);
     }
   };
 

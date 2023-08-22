@@ -1,9 +1,15 @@
+import cat from '@assets/images/cats/cat-2.jpg';
 import catGif from '@assets/images/gifs/cat-vibing.gif';
 import catsVideo from '@assets/videos/cats_vp8.webm';
 import { TDimensions } from '@/types';
 
-export const MixedFeaturesSvg = ({ width, height }: TDimensions) => {
+type TMixedFeaturesSvgProps = TDimensions & {
+  useAnimatedImage: boolean;
+};
+
+export const MixedFeaturesSvg = ({ width, height, useAnimatedImage }: TMixedFeaturesSvgProps) => {
   const videoAspectRatio = 1.7777777778;
+  const img = useAnimatedImage ? catGif : cat;
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
@@ -49,7 +55,7 @@ export const MixedFeaturesSvg = ({ width, height }: TDimensions) => {
       <foreignObject x={width / 2} width={width / 2} height={height}>
         <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center' }}>
           <img
-            src={catGif}
+            src={img}
             alt="cat vibing"
             style={{
               position: 'absolute',

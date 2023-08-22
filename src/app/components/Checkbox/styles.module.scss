@@ -1,0 +1,38 @@
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+  width: fit-content;
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  .checkbox {
+    height: 20px;
+    aspect-ratio: 1;
+    border: 1px solid transparentize($color-white, 0.5);
+    border-radius: 3px;
+    background-color: $color-charcoal;
+    display: grid;
+    place-items: center;
+
+    .check-mark {
+      width: 90%;
+      height: 90%;
+      opacity: 0;
+      transition: opacity 150ms ease-in-out, scale 50ms ease-in-out;
+      scale: 0;
+      transform-origin: center;
+    }
+
+    &.checked {
+      .check-mark {
+        display: block;
+        opacity: 1;
+        scale: 1;
+      }
+    }
+  }
+}

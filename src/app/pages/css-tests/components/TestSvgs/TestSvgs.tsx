@@ -20,15 +20,11 @@ import { TilesSvg } from '@/app/pages/css-tests/components/subcomponents/TilesSv
 import { MorphologySvg } from '@/app/pages/css-tests/components/subcomponents/MorphologySvg/MorphologySvg';
 import { DifficultAnimationSvg } from '@/app/pages/css-tests/components/subcomponents/DifficultAnimationSvg/DifficultAnimationSvg';
 import { Section } from '@/app/components/Section/Section';
+import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 
-/*
- * TODO cleanup:
- *  - move svgs to separate components
- *  - maybe map components
- * */
 export const TestSvgs = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+  const [useAnimateImages, setUseAnimateImages] = useState(false);
   const svgWidth = Math.min(windowWidth - 80, 800);
 
   useEffect(() => {
@@ -145,13 +141,14 @@ export const TestSvgs = () => {
 
   return (
     <Section className={styles.svgs} title="Different svg features" closedByDefault>
+      <Checkbox checked={useAnimateImages} onChange={setUseAnimateImages} label="Use animated images" />
       <div className={styles.svgsContainer}>
         {tests.map((test, index) => {
           return (
             <div key={index}>
               <h2>{test.title}</h2>
               {test.description && <p>{test.description}</p>}
-              <test.component width={svgWidth} height={300} />
+              <test.component width={svgWidth} height={300} useAnimatedImage={useAnimateImages} />
             </div>
           );
         })}

@@ -4,22 +4,28 @@
   justify-content: center;
   gap: 20px;
   padding: 8px;
-  color: aliceblue;
+  color: $color-white;
 
   .index {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     .main-text {
       width: 680px;
       font-size: 1.22rem;
       text-align: center;
-      opacity: 0.7;
 
       span {
         text-decoration: line-through;
       }
     }
+  }
+
+  .notes {
+    display: flex;
+    flex-direction: column;
   }
 }

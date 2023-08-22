@@ -1,17 +1,18 @@
 import styles from './style.module.scss';
-import { ReactNode, TransitionEvent, useState } from 'react';
+import { ReactNode, TransitionEvent, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { ChevronRight } from 'tabler-icons-react';
 
 type TCollapseProps = {
   children: ReactNode;
+  open: boolean;
   title?: string;
   unmountChildren?: boolean;
   showIcon?: boolean;
   head?: ReactNode;
   headClassName?: string;
   childrenClassName?: string;
-  defaultOpen?: boolean;
+  onChange?: (open: boolean) => void;
 };
 
 export const Collapse = ({
@@ -22,25 +23,31 @@ export const Collapse = ({
   showIcon = true,
   headClassName,
   childrenClassName,
-  defaultOpen,
+  open,
+  onChange,
 }: TCollapseProps) => {
-  const [open, setOpen] = useState(defaultOpen || false);
   const [renderChildren, setRenderChildren] = useState(open || !unmountChildren);
 
   const toggle = () => {
-    setOpen((open) => {
-      if (!open) {
-        setRenderChildren(true);
-      }
-
-      return !open;
-    });
+    if (onChange) {
+      onChange(!open);
+    }
   };
 
   const handleTransitionEnd = (event: TransitionEvent<HTMLDivElement>) => {
     if (event.propertyName !== 'grid-template-rows' || open) return;
     setRenderChildren(!unmountChildren);
   };
+
+  useEffect(() => {
+    if (open) {
+      setRenderChildren(true);
+    }
+
+    if (!open && !unmountChildren) {
+      setRenderChildren(true);
+    }
+  }, [open]);
 
   return (
     <div className={styles.collapse}>
@@ -63,7 +70,9 @@ export const Collapse = ({
           [styles.open]: open,
         })}
       >
-        <div className={childrenClassName}>{renderChildren && children}</div>
+        <div className={styles.childrenWrapper}>
+          <div className={childrenClassName}>{renderChildren && children}</div>
+        </div>
       </div>
     </div>
   );

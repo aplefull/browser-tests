@@ -3,7 +3,7 @@
   border-radius: 5px;
 
   .collapseHead {
-    border-bottom: 1px solid aliceblue;
+    border-bottom: 1px solid $color-white;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -40,12 +40,15 @@
   .collapseBody {
     grid-template-rows: 0fr;
     display: grid;
-    overflow: hidden;
     transition: 1s ease-in-out;
     transition-property: grid-template-rows, padding-top, padding-bottom;
 
     > div {
       overflow: hidden;
+    }
+
+    .children-wrapper > div {
+      margin: 5px;
     }
 
     &.open {

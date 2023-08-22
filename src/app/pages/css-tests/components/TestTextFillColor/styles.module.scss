@@ -10,9 +10,9 @@
   }
 
   .plainColor {
-    -webkit-text-fill-color: #cc3838;
-    -moz-text-fill-color: #cc3838;
-    text-fill-color: #cc3838;
+    -webkit-text-fill-color: $color-red;
+    -moz-text-fill-color: $color-red;
+    text-fill-color: $color-red;
   }
 
   .gradient {

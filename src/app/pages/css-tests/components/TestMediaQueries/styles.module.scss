@@ -8,7 +8,17 @@
   .rangeSyntax {
     @media (400px < width <= 2000px) {
       span {
-        color: #38cc76;
+        color: $color-green;
+      }
+    }
+  }
+
+  .supportsRule {
+    span {
+      color: $color-red;
+
+      @supports (display: grid) {
+        color: $color-green;
       }
     }
   }

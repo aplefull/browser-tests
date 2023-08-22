@@ -1,7 +1,12 @@
+import cat from '@assets/images/cats/cat-2.jpg';
 import catGif from '@assets/images/gifs/cat-vibing.gif';
 import { TDimensions } from '@/types';
 
-export const ComponentTransferSvg = ({ width, height }: TDimensions) => {
+type TComponentTransferSvgProps = TDimensions & {
+  useAnimatedImage: boolean;
+};
+
+export const ComponentTransferSvg = ({ width, height, useAnimatedImage }: TComponentTransferSvgProps) => {
   const images = [
     {
       x: 0,
@@ -53,6 +58,8 @@ export const ComponentTransferSvg = ({ width, height }: TDimensions) => {
     },
   ];
 
+  const img = useAnimatedImage ? catGif : cat;
+
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
       <filter id="component-transfer-filter">
@@ -101,7 +108,7 @@ export const ComponentTransferSvg = ({ width, height }: TDimensions) => {
           y={image.y}
           width={width / 3}
           height={height / 2}
-          xlinkHref={catGif}
+          xlinkHref={img}
           filter={`url(#${image.filter})`}
           preserveAspectRatio="xMidYMid slice"
         />

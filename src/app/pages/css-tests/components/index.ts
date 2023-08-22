@@ -12,7 +12,6 @@ export { TestObjectViewBox } from './TestObjectViewBox/TestObjectViewBox';
 export { TestScrollBehaviours } from './TestScrollBehaviours/TestScrollBehaviours';
 export { TestSelection } from './TestSelection/TestSelection';
 export { TestShapeOutside } from './TestShapeOutside/TestShapeOutside';
-export { TestSupportsRule } from './TestSupportsRule/TestSupportsRule';
 export { TestSvgs } from './TestSvgs/TestSvgs';
 export { TestTextFillColor } from './TestTextFillColor/TestTextFillColor';
 export { TestTextOverflow } from './TestTextOverflow/TestTextOverflow';

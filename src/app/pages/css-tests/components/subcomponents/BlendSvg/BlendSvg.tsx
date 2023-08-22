@@ -1,8 +1,13 @@
 import flyingCat from '@assets/images/flying_cat/flying-cat.webp';
 import catImage from '@assets/images/cats/cat-1.jpeg';
+import catGif from '@assets/images/gifs/cat-vibing.gif';
 import { TDimensions } from '@/types';
 
-export const BlendSvg = ({ width, height }: TDimensions) => {
+type TBlendSvgProps = TDimensions & {
+  useAnimatedImage: boolean;
+};
+
+export const BlendSvg = ({ width, height, useAnimatedImage }: TBlendSvgProps) => {
   const blendingModes = [
     'normal',
     'multiply',
@@ -65,7 +70,7 @@ export const BlendSvg = ({ width, height }: TDimensions) => {
             y="0"
             width="100%"
             height="100%"
-            xlinkHref={catImage}
+            xlinkHref={useAnimatedImage ? catGif : catImage}
           />
           <feComposite result="photo-clip" in="raw-photo" in2="SourceGraphic" operator="in" />
           <feColorMatrix
@@ -85,7 +90,7 @@ export const BlendSvg = ({ width, height }: TDimensions) => {
               y="0"
               width="100%"
               height="100%"
-              xlinkHref={catImage}
+              xlinkHref={useAnimatedImage ? catGif : catImage}
             />
             <feImage
               preserveAspectRatio="xMidYMid slice"
@@ -94,7 +99,7 @@ export const BlendSvg = ({ width, height }: TDimensions) => {
               y="0"
               width="100%"
               height="100%"
-              xlinkHref={flyingCat}
+              xlinkHref={useAnimatedImage ? catGif : flyingCat}
             />
             <feComponentTransfer in="p-2" result="p-2">
               <feFuncA type="linear" slope="0.8" />
@@ -108,7 +113,7 @@ export const BlendSvg = ({ width, height }: TDimensions) => {
         <g key={index}>
           <title>{image.title}</title>
           <image
-            xlinkHref={flyingCat}
+            xlinkHref={useAnimatedImage ? catGif : flyingCat}
             x={image.x}
             y="0"
             width={width / 3}

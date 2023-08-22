@@ -7,9 +7,9 @@
 }
 
 .passed {
-  color: #38cc76;
+  color: $color-green;
 }
 
 .failed {
-  color: #cc3838;
+  color: $color-red;
 }

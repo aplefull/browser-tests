@@ -20,14 +20,14 @@
       margin: 10px;
       padding: 10px;
       border-radius: 4px;
-      border: 1px solid aliceblue;
+      border: 1px solid $color-white;
       display: flex;
       flex-direction: column;
     }
 
     span {
       word-break: break-all;
-      color: aliceblue;
+      color: $color-white;
     }
 
     svg {

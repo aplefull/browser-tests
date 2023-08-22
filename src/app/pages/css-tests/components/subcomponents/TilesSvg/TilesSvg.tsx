@@ -1,7 +1,14 @@
-import catImage from '@assets/images/gifs/cat-vibing.gif';
+import cat from '@assets/images/cats/cat-2.jpg';
+import catGif from '@assets/images/gifs/cat-vibing.gif';
 import { TDimensions } from '@/types';
 
-export const TilesSvg = ({ width, height }: TDimensions) => {
+type TTilesSvgProps = TDimensions & {
+  useAnimatedImage: boolean;
+};
+
+export const TilesSvg = ({ width, height, useAnimatedImage }: TTilesSvgProps) => {
+  const img = useAnimatedImage ? catGif : cat;
+
   return (
     <svg width={width} height={height}>
       <defs>
@@ -11,7 +18,7 @@ export const TilesSvg = ({ width, height }: TDimensions) => {
         </filter>
       </defs>
 
-      <image xlinkHref={catImage} x="0" y="0" width="100%" height="100%" style={{ filter: 'url(#tile)' }} />
+      <image xlinkHref={img} x="0" y="0" width="100%" height="100%" style={{ filter: 'url(#tile)' }} />
     </svg>
   );
 };

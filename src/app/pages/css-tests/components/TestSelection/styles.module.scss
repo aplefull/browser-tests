@@ -1,14 +1,14 @@
 .selection {
   .selection-color {
     &::selection {
-      background-color: #cc3838;
-      color: #1e1e1e;
+      background-color: $color-red;
+      color: $color-ink;
     }
   }
 
   .selection-shadow {
     &::selection {
-      text-shadow: 0 0 15px aliceblue;
+      text-shadow: 0 0 15px $color-white;
     }
   }
 

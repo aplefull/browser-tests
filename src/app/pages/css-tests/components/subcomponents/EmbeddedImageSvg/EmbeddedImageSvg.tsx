@@ -1,7 +1,12 @@
+import cat from '@assets/images/cats/cat-2.jpg';
 import catGif from '@assets/images/gifs/cat-vibing.gif';
 import { TDimensions } from '@/types';
 
-export const EmbeddedImageSvg = ({ width, height }: TDimensions) => {
+type TEmbeddedImageSvgProps = TDimensions & {
+  useAnimatedImage: boolean;
+};
+
+export const EmbeddedImageSvg = ({ width, height, useAnimatedImage }: TEmbeddedImageSvgProps) => {
   return (
     <svg width={width} height={height}>
       <defs>
@@ -9,7 +14,12 @@ export const EmbeddedImageSvg = ({ width, height }: TDimensions) => {
           <circle cx={width / 2} cy="150" r="100" fill="#FFFFFF" />
         </clipPath>
       </defs>
-      <image x={(width - 447) / 2} height="100%" xlinkHref={catGif} clipPath="url(#circleView)" />
+      <image
+        x={(width - 447) / 2}
+        height="100%"
+        xlinkHref={useAnimatedImage ? catGif : cat}
+        clipPath="url(#circleView)"
+      />
     </svg>
   );
 };

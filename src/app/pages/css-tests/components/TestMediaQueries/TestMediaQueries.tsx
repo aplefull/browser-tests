@@ -11,6 +11,10 @@ export const TestMediaQueries = () => {
           syntax.
         </span>
       </div>
+      <div className={styles.supportsRule}>
+        <h2>Supports</h2>
+        <span>This text is green if browser cares about @supports.</span>
+      </div>
     </Section>
   );
 };

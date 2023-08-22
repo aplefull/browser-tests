@@ -13,7 +13,7 @@
       width: 100%;
       margin: 70px 0 10px 0;
       padding-bottom: 5px;
-      border-bottom: 1px solid aliceblue;
+      border-bottom: 1px solid $color-white;
 
       &:first-child {
         margin-top: 0;
@@ -129,13 +129,13 @@
 
         ::selection {
           background-color: lavender;
-          color: #1e1e1e;
+          color: $color-ink;
         }
 
         th {
-          border-left: 1px solid aliceblue;
-          border-top: 1px solid aliceblue;
-          border-bottom: 1px solid aliceblue;
+          border-left: 1px solid $color-white;
+          border-top: 1px solid $color-white;
+          border-bottom: 1px solid $color-white;
           padding: 5px 10px;
 
           &:first-child {
@@ -143,7 +143,7 @@
           }
 
           &:last-child {
-            border-right: 1px solid aliceblue;
+            border-right: 1px solid $color-white;
             border-top-right-radius: 6px;
           }
         }
@@ -153,15 +153,15 @@
             td {
               padding: 5px;
               text-align: center;
-              border-left: 1px solid aliceblue;
-              border-bottom: 1px solid aliceblue;
+              border-left: 1px solid $color-white;
+              border-bottom: 1px solid $color-white;
 
               &:first-child {
                 text-align: left;
               }
 
               &:last-child {
-                border-right: 1px solid aliceblue;
+                border-right: 1px solid $color-white;
               }
 
               &:not(:first-child) {
@@ -212,23 +212,23 @@
           justify-content: center;
           align-items: center;
 
-          border-top: 1px solid aliceblue;
-          border-bottom: 1px solid aliceblue;
-          border-left: 1px solid aliceblue;
+          border-top: 1px solid $color-white;
+          border-bottom: 1px solid $color-white;
+          border-left: 1px solid $color-white;
 
           &:first-child {
             border-top-left-radius: 6px;
           }
 
           &:last-child {
-            border-right: 1px solid aliceblue;
+            border-right: 1px solid $color-white;
             border-top-right-radius: 6px;
           }
         }
 
         .bodyCell {
-          border-left: 1px solid aliceblue;
-          border-bottom: 1px solid aliceblue;
+          border-left: 1px solid $color-white;
+          border-bottom: 1px solid $color-white;
           padding: 5px;
 
           &:nth-child(9n + 1) {
@@ -237,7 +237,7 @@
           }
 
           &:nth-child(9n) {
-            border-right: 1px solid aliceblue;
+            border-right: 1px solid $color-white;
           }
 
           &:not(:nth-child(9n + 1)) {

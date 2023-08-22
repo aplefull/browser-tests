@@ -1,0 +1,21 @@
+.mediaDevices {
+  display: flex;
+  flex-direction: column;
+
+  p {
+  }
+
+  span {
+    &.error {
+      color: $color-red;
+    }
+  }
+
+  video,
+  img,
+  canvas {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 5px;
+  }
+}

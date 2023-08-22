@@ -1,6 +1,7 @@
 import blns from '@assets/data/blns.txt?raw';
 import { fitToBox, getDataFromBlns } from '@/utils/utils';
 import { IMAGES_DIFFERENT_FORMATS } from '@/utils/constants';
+import spaceCat from '@assets/images/cats/space-cat.jpg';
 
 // CONSTANTS
 const COMPLEX_PATH =
@@ -22,16 +23,27 @@ const notoFonts = [
 const emojis = ['❤️‍🔥', '🏻🦰🦱🦳', '🐻‍❄️🐻‍❄', '🐧🕊️🕊🍿🍪🍺🪜', '©️©®️®™️™', '#️⃣#⃣0️⃣0⃣', '▪️▪'];
 
 const gradientStops = [
-  { stop: 0, color: 'rgb(167,20,235)' },
-  { stop: 0.1, color: 'rgb(104,52,202)' },
-  { stop: 0.19, color: 'rgb(64,135,186)' },
-  { stop: 0.25, color: 'rgb(54,174,190)' },
-  { stop: 0.34, color: 'rgb(61,194,140)' },
-  { stop: 0.43, color: 'rgb(59,190,71)' },
-  { stop: 0.57, color: 'rgb(150,198,41)' },
-  { stop: 0.7, color: 'rgb(222,191,55)' },
-  { stop: 0.86, color: 'rgb(218,121,58)' },
-  { stop: 1, color: 'rgb(212,102,44)' },
+  { stop: 0.0, color: 'rgb(167,20,235)' },
+  { stop: 0.05, color: 'rgb(136,36,218)' },
+  { stop: 0.1, color: 'rgb(108,53,202)' },
+  { stop: 0.15, color: 'rgb(84,71,186)' },
+  { stop: 0.2, color: 'rgb(64,90,171)' },
+  { stop: 0.25, color: 'rgb(54,110,157)' },
+  { stop: 0.3, color: 'rgb(57,130,143)' },
+  { stop: 0.35, color: 'rgb(73,150,129)' },
+  { stop: 0.4, color: 'rgb(102,169,114)' },
+  { stop: 0.45, color: 'rgb(143,186,99)' },
+  { stop: 0.5, color: 'rgb(191,199,85)' },
+  { stop: 0.55, color: 'rgb(239,205,74)' },
+  { stop: 0.6, color: 'rgb(247,188,76)' },
+  { stop: 0.65, color: 'rgb(245,163,87)' },
+  { stop: 0.7, color: 'rgb(240,136,104)' },
+  { stop: 0.75, color: 'rgb(234,112,124)' },
+  { stop: 0.8, color: 'rgb(227,92,146)' },
+  { stop: 0.85, color: 'rgb(218,78,170)' },
+  { stop: 0.9, color: 'rgb(205,72,194)' },
+  { stop: 0.95, color: 'rgb(186,74,215)' },
+  { stop: 1.0, color: 'rgb(160,85,232)' },
 ];
 
 // TYPES
@@ -67,33 +79,106 @@ const printMeasurements = (ctx: CanvasRenderingContext2D, text: string) => {
 
 export const fillRect = (ctx: CanvasRenderingContext2D) => {
   const canvas = ctx.canvas;
+  const shapeSize = 100;
+
   ctx.fillStyle = '#c04e9a';
-  ctx.fillRect(canvas.width / 2 - 50, canvas.height / 2 - 50, 100, 100);
+  ctx.fillRect(canvas.width / 2 - shapeSize / 2, canvas.height / 2 - shapeSize / 2, shapeSize, shapeSize);
 };
 
 export const strokeRect = (ctx: CanvasRenderingContext2D) => {
   const canvas = ctx.canvas;
+  const shapeSize = 100;
+
   ctx.strokeStyle = '#8f44cc';
-  ctx.fillRect(canvas.width / 2 - 50, canvas.height / 2 - 50, 100, 100);
+  ctx.strokeRect(canvas.width / 2 - shapeSize / 2, canvas.height / 2 - shapeSize / 2, shapeSize, shapeSize);
 };
 
 export const drawHeart = (ctx: CanvasRenderingContext2D) => {
+  const canvas = ctx.canvas;
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+
+  const points = [
+    {
+      cp1x: 75,
+      cp1y: 37,
+      cp2x: 70,
+      cp2y: 25,
+      x: 50,
+      y: 25,
+    },
+    {
+      cp1x: 20,
+      cp1y: 25,
+      cp2x: 20,
+      cp2y: 62.5,
+      x: 20,
+      y: 62.5,
+    },
+    {
+      cp1x: 20,
+      cp1y: 80,
+      cp2x: 40,
+      cp2y: 102,
+      x: 75,
+      y: 120,
+    },
+    {
+      cp1x: 110,
+      cp1y: 102,
+      cp2x: 130,
+      cp2y: 80,
+      x: 130,
+      y: 62.5,
+    },
+    {
+      cp1x: 130,
+      cp1y: 62.5,
+      cp2x: 130,
+      cp2y: 25,
+      x: 100,
+      y: 25,
+    },
+    {
+      cp1x: 85,
+      cp1y: 25,
+      cp2x: 75,
+      cp2y: 37,
+      x: 75,
+      y: 40,
+    },
+  ];
+
+  const shapeWidth = points.reduce((acc, { x }) => (x > acc ? x : acc), 0);
+  const shapeHeight = points.reduce((acc, { y }) => (y > acc ? y : acc), 0);
+
+  ctx.save();
+  ctx.translate(centerX - shapeWidth / 2, centerY - shapeHeight / 2);
+
   ctx.fillStyle = '#f00';
   ctx.beginPath();
   ctx.moveTo(75, 40);
-  ctx.bezierCurveTo(75, 37, 70, 25, 50, 25);
-  ctx.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
-  ctx.bezierCurveTo(20, 80, 40, 102, 75, 120);
-  ctx.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
-  ctx.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
-  ctx.bezierCurveTo(85, 25, 75, 37, 75, 40);
+  points.forEach(({ cp1x, cp1y, cp2x, cp2y, x, y }) => {
+    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+  });
   ctx.fill();
+
+  ctx.restore();
 };
 
 export const drawShape = (ctx: CanvasRenderingContext2D) => {
   ctx.fillStyle = '#8f44cc';
   const shape = new Path2D(COMPLEX_PATH);
+  const centerX = ctx.canvas.width / 2;
+  const centerY = ctx.canvas.height / 2;
+  const offsetX = ctx.canvas.width * 0.25;
+  const offsetY = ctx.canvas.height * 0.5;
+
+  ctx.save();
+  ctx.scale(0.5, 0.5);
+  ctx.translate(centerX - offsetX, centerY - offsetY);
   ctx.fill(shape);
+  ctx.restore();
 };
 
 // 2. Text
@@ -226,7 +311,7 @@ export const largeEmojisText = async (ctx: CanvasRenderingContext2D, wait: TWait
 
 // 3. Gradients
 
-export const testLinearGradient = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
+export const canvasLinearGradient = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
   const canvas = ctx.canvas;
   const width = canvas.width;
   const height = canvas.height;
@@ -241,7 +326,7 @@ export const testLinearGradient = async (ctx: CanvasRenderingContext2D, wait: TW
   }
 };
 
-export const testRadialGradient = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
+export const canvasRadialGradient = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
   const canvas = ctx.canvas;
   const width = canvas.width;
   const height = canvas.height;
@@ -256,7 +341,7 @@ export const testRadialGradient = async (ctx: CanvasRenderingContext2D, wait: TW
   }
 };
 
-export const testConicGradient = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
+export const canvasConicGradient = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
   const canvas = ctx.canvas;
   const width = canvas.width;
   const height = canvas.height;
@@ -273,7 +358,7 @@ export const testConicGradient = async (ctx: CanvasRenderingContext2D, wait: TWa
 
 // 4. Clip
 
-export const tetClipPath = async (ctx: CanvasRenderingContext2D) => {
+export const canvasClipPath = async (ctx: CanvasRenderingContext2D) => {
   const { width, height } = ctx.canvas;
 
   const gradient = ctx.createLinearGradient(0, 0, width, height);
@@ -294,7 +379,7 @@ export const tetClipPath = async (ctx: CanvasRenderingContext2D) => {
 
 // 5. Transform
 
-export const testRotate = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
+export const ctxRotate = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
   const { width, height } = ctx.canvas;
 
   const gradient = ctx.createLinearGradient(0, 0, 0, 100);
@@ -324,7 +409,7 @@ export const testRotate = async (ctx: CanvasRenderingContext2D, wait: TWait) => 
   }
 };
 
-export const testRotateInfinity = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
+export const ctxRotateInfinity = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
   const { width, height } = ctx.canvas;
 
   const gradient = ctx.createLinearGradient(0, 0, 0, 100);
@@ -386,7 +471,7 @@ export const differentFormats = async (ctx: CanvasRenderingContext2D, wait: TWai
   }
 };
 
-export const testImageData = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
+export const ctxImageData = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
   const { width, height } = ctx.canvas;
 
   const img = new Image();
@@ -433,4 +518,74 @@ export const testImageData = async (ctx: CanvasRenderingContext2D, wait: TWait) 
 
     await wait(1000);
   }
+};
+
+// 7. Compositing
+
+export const canvasCompositing = async (ctx: CanvasRenderingContext2D, wait: TWait) => {
+  const gco = [
+    'source-over',
+    'source-in',
+    'source-out',
+    'source-atop',
+    'destination-over',
+    'destination-in',
+    'destination-out',
+    'destination-atop',
+    'lighter',
+    'copy',
+    'xor',
+    'multiply',
+    'screen',
+    'overlay',
+    'darken',
+    'lighten',
+    'color-dodge',
+    'color-burn',
+    'hard-light',
+    'soft-light',
+    'difference',
+    'exclusion',
+    'hue',
+    'saturation',
+    'color',
+    'luminosity',
+  ] as const;
+
+  const { width, height } = ctx.canvas;
+
+  const img = new Image();
+  img.src = IMAGES_DIFFERENT_FORMATS.jpg;
+  await img.decode();
+
+  const imgSpaceCat = new Image();
+  imgSpaceCat.src = spaceCat;
+  await imgSpaceCat.decode();
+
+  reset(ctx);
+
+  for (let i = 0; i < gco.length; i++) {
+    ctx.clearRect(0, 0, width, height);
+    ctx.drawImage(img, 0, 0, width / 2, height / 2);
+
+    ctx.globalCompositeOperation = gco[i];
+
+    ctx.beginPath();
+    ctx.arc(width / 2, height / 2, 100, 0, Math.PI * 2);
+    ctx.fillStyle = '#e6e6fa';
+    ctx.fill();
+
+    ctx.globalCompositeOperation = 'source-over';
+
+    ctx.font = '20px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = 'aliceblue';
+
+    ctx.fillText(`${gco[i]}`, width / 2, 40);
+
+    await wait(2000);
+  }
+
+  await wait(1000);
 };

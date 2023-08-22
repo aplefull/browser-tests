@@ -1,5 +1,5 @@
 :root {
-  --relative-color-test-1: rgb(60 189 68);
+  --relative-color-test-1: $color-green-dark-10;
 }
 
 * {
@@ -13,8 +13,8 @@ body {
   flex-direction: column;
   gap: 20px;
   margin: 0;
-  background-color: #1e1e1e;
-  color: aliceblue;
+  background-color: $color-ink;
+  color: $color-white;
   scroll-behavior: smooth;
 }
 

@@ -1,7 +1,12 @@
 import catImage from '@assets/images/cats/cat-1.jpeg';
+import catGif from '@assets/images/gifs/cat-vibing.gif';
 import { TDimensions } from '@/types';
 
-export const ConvolveMatrixSvg = ({ width, height }: TDimensions) => {
+type TConvolveMatrixSvgProps = TDimensions & {
+  useAnimatedImage: boolean;
+};
+
+export const ConvolveMatrixSvg = ({ width, height, useAnimatedImage }: TConvolveMatrixSvgProps) => {
   const filters = [
     {
       matrix: '3 0 0 0 0 0 0 0 -2',
@@ -29,6 +34,7 @@ export const ConvolveMatrixSvg = ({ width, height }: TDimensions) => {
   const cols = 3;
   const imgHeight = 150;
   const imgWidth = width / cols;
+  const img = useAnimatedImage ? catGif : catImage;
 
   return (
     <svg width={width} height={height}>
@@ -50,7 +56,7 @@ export const ConvolveMatrixSvg = ({ width, height }: TDimensions) => {
         return (
           <image
             key={index}
-            xlinkHref={catImage}
+            xlinkHref={img}
             x="0"
             y="0"
             width={imgWidth}
@@ -58,6 +64,24 @@ export const ConvolveMatrixSvg = ({ width, height }: TDimensions) => {
             preserveAspectRatio="xMidYMid slice"
             style={{ filter: `url(#convolve-${index + 1})` }}
           />
+        );
+      })}
+
+      {filters.map(({ matrix }, index) => {
+        const currentCol = index % cols;
+        const currentRow = Math.floor(index / cols);
+
+        return (
+          <rect
+            x={currentCol * imgWidth}
+            y={currentRow * imgHeight}
+            width={imgWidth}
+            height={imgHeight}
+            fill="transparent"
+            stroke="none"
+          >
+            <title>{matrix}</title>
+          </rect>
         );
       })}
     </svg>

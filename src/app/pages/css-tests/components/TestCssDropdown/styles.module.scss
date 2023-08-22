@@ -1,5 +1,5 @@
 .cssDropdown {
-  --dropdown-color: #{darken(#1e1e1e, 3%)};
+  --dropdown-color: #{darken($color-ink, 3%)};
   --transparent: transparent;
   --transition: 1s ease-in-out;
 
@@ -53,7 +53,7 @@
         width: 0;
         height: 0;
         border-top: 5px solid var(--transparent);
-        border-left: 5px solid aliceblue;
+        border-left: 5px solid $color-white;
         border-right: 0 solid var(--transparent);
         border-bottom: 5px solid var(--transparent);
         transition: transform var(--transition);

@@ -12,7 +12,6 @@ import {
   TestScrollBehaviours,
   TestSelection,
   TestShapeOutside,
-  TestSupportsRule,
   TestTextFillColor,
   TestTextOverflow,
   TestWritingModes,
@@ -23,7 +22,6 @@ import {
 export const CSSTestsPage = () => {
   return (
     <>
-      <TestSupportsRule />
       <TestTextOverflow />
       <TestSelection />
       <TestCssFilters />

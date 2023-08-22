@@ -1,6 +1,11 @@
 import { ReactNode } from 'react';
 import { Collapse } from '@/app/components/Collapse/Collapse';
 import styles from './styles.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/store';
+import { DROPDOWN_STATE } from '@/utils/constants';
+import { setDropdownState } from '@/app/redux/slices/settings';
+import { getCollapseState, getPage } from '@/utils/utils';
 
 type TSectionProps = {
   title: string;
@@ -24,6 +29,24 @@ const SectionHead = ({ title, info }: Pick<TSectionProps, 'title' | 'info'>) => 
 };
 
 export const Section = ({ title, info, className, closedByDefault, children }: TSectionProps) => {
+  const { settings } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
+
+  const page = getPage(title, settings);
+  const collapseState = getCollapseState(title, page, settings);
+
+  const handleChange = (open: boolean) => {
+    dispatch(
+      setDropdownState({
+        page: page,
+        name: title,
+        dropdownState: open ? DROPDOWN_STATE.OPEN : DROPDOWN_STATE.CLOSED,
+      }),
+    );
+  };
+
+  console.log('Collapse state: ', collapseState);
+
   return (
     <section>
       <Collapse
@@ -32,7 +55,8 @@ export const Section = ({ title, info, className, closedByDefault, children }: T
         head={<SectionHead title={title} info={info} />}
         title={title}
         unmountChildren
-        defaultOpen={!closedByDefault}
+        open={collapseState === DROPDOWN_STATE.OPEN}
+        onChange={handleChange}
       >
         {children}
       </Collapse>

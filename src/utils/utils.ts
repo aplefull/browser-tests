@@ -1,4 +1,5 @@
 import { LOREM_TEXT } from './constants';
+import { RootState } from '@/app/redux/store';
 
 export const lorem = (n: number, start = 0) => {
   const sentences = LOREM_TEXT.split(/(?<=[.?!])\s+/);
@@ -112,4 +113,44 @@ export const fitToBox = (originalWidth: number, originalHeight: number, boxWidth
     width: boxHeight * originalAspectRatio,
     height: boxHeight,
   };
+};
+
+export const getPage = (title: string, settings: RootState['settings']) => {
+  const {
+    dropdowns: { pages },
+  } = settings;
+
+  const page = Object.entries(pages).find(([pageName, sections]) => {
+    return sections.find((section) => section.name === title);
+  }) as ['html' | 'css' | 'js' | 'misc', (typeof pages)['html']] | undefined;
+
+  if (!page) {
+    console.warn(`Page for title "${title}" not found in settings`);
+    return 'html';
+  }
+
+  return page[0];
+};
+
+export const getCollapseState = (
+  title: string,
+  page: 'html' | 'css' | 'js' | 'misc',
+  settings: RootState['settings'],
+) => {
+  const {
+    dropdowns: { pages },
+  } = settings;
+
+  const state = pages[page].find((section) => {
+    if (section.name === title) {
+      return section.initialState;
+    }
+  });
+
+  if (!state) {
+    console.warn(`Section title "${title}" not found in settings`);
+    return null;
+  }
+
+  return state.initialState;
 };

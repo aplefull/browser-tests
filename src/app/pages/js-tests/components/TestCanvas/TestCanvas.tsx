@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
 import {
@@ -16,14 +16,15 @@ import {
   strokeRect,
   blnsText,
   largeEmojisText,
-  testLinearGradient,
-  testRadialGradient,
-  testConicGradient,
-  tetClipPath,
-  testRotate,
-  testRotateInfinity,
+  canvasLinearGradient,
+  canvasRadialGradient,
+  canvasConicGradient,
+  canvasClipPath,
+  ctxRotate,
+  ctxRotateInfinity,
   differentFormats,
-  testImageData,
+  ctxImageData,
+  canvasCompositing,
 } from '@/app/pages/js-tests/components/TestCanvas/utils.canvas';
 import classNames from 'classnames';
 import { Section } from '@/app/components/Section/Section';
@@ -52,15 +53,15 @@ export const TestCanvas = () => {
     bg(ctx);
 
     fillRect(ctx);
-    await wait();
+    //await wait();
     bg(ctx);
 
     strokeRect(ctx);
-    await wait();
+    //await wait();
     bg(ctx);
 
     drawHeart(ctx);
-    await wait();
+    //await wait();
     bg(ctx);
 
     drawShape(ctx);
@@ -93,36 +94,39 @@ export const TestCanvas = () => {
   };
 
   const testGradients = async (ctx: CanvasRenderingContext2D) => {
-    await testLinearGradient(ctx, wait);
+    await canvasLinearGradient(ctx, wait);
     await wait(2000);
 
-    await testRadialGradient(ctx, wait);
+    await canvasRadialGradient(ctx, wait);
     await wait(2000);
 
-    await testConicGradient(ctx, wait);
+    await canvasConicGradient(ctx, wait);
     await wait(2000);
   };
 
   const testClip = async (ctx: CanvasRenderingContext2D) => {
-    await tetClipPath(ctx);
+    await canvasClipPath(ctx);
     await wait(2000);
   };
 
   const testTransform = async (ctx: CanvasRenderingContext2D) => {
-    await testRotate(ctx, wait);
+    await ctxRotate(ctx, wait);
     await wait();
 
-    await testRotateInfinity(ctx, wait);
+    await ctxRotateInfinity(ctx, wait);
     await wait();
   };
 
   const testImage = async (ctx: CanvasRenderingContext2D) => {
     await differentFormats(ctx, wait);
-    await testImageData(ctx, wait);
+    await ctxImageData(ctx, wait);
     await wait();
   };
 
-  const testCompositing = async (ctx: CanvasRenderingContext2D) => {};
+  const testCompositing = async (ctx: CanvasRenderingContext2D) => {
+    await canvasCompositing(ctx, wait);
+    await wait();
+  };
 
   const tests = [
     {
@@ -157,7 +161,6 @@ export const TestCanvas = () => {
 
   const pause = () => {
     paused.current = !paused.current;
-    console.log('paused', paused.current);
     setIsPaused(paused.current);
   };
 
@@ -165,7 +168,7 @@ export const TestCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
     setIsRunning(true);
@@ -205,6 +208,22 @@ export const TestCanvas = () => {
     setIsRunning(false);
   };
 
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    });
+
+    resizeObserver.observe(canvasRef.current!);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
   const currentTestName = `Current test: ${currentTest || 'none'}`;
 
   return (
@@ -216,12 +235,12 @@ export const TestCanvas = () => {
         </div>
         <span>{currentTestName}</span>
         <div className={styles.canvasWrapper}>
-          <canvas ref={canvasRef} width="600" height="600" />
-          <div>
+          <canvas ref={canvasRef} />
+          <div className={styles.buttonsWrapper}>
             {tests.map((test) => {
               return (
                 <Button
-                  className={classNames({
+                  className={classNames(styles.testButton, {
                     [styles.currentTest]: currentTest === test.name,
                   })}
                   width={120}

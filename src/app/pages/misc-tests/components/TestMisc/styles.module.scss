@@ -41,7 +41,7 @@
       text-align: left;
 
       a {
-        color: aliceblue;
+        color: $color-white;
         text-decoration: none;
 
         &:hover {
@@ -55,7 +55,7 @@
 
       span {
         display: block;
-        color: #d53b3b;
+        color: $color-warning;
         font-weight: bold;
         text-transform: uppercase;
         text-align: center;

@@ -9,6 +9,9 @@ export const IndexPage = () => {
         Currently not a single browser supports all of them :^) <br />
         (I think it says a lot about <span>society</span> how web is a big mess)
       </p>
+      <div className={styles.notes}>
+        <p>You can double press "U" to scroll to the top on any page</p>
+      </div>
     </div>
   );
 };

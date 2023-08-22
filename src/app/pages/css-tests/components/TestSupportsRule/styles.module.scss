@@ -1,9 +1,0 @@
-.supportsRule {
-  p {
-    color: #cc3838;
-
-    @supports (display: grid) {
-      color: #38cc76;
-    }
-  }
-}

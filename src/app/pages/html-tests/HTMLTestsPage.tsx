@@ -5,6 +5,9 @@ import {
   TestSupportedVideoFormats,
   TestSvgFavicon,
 } from '@/app/pages/html-tests/components';
+import {
+  TestSupportedAudioFormats
+} from '@/app/pages/html-tests/components/TestSupportedAudioFormats/TestSupportedAudioFormats';
 
 export const HTMLTestsPage = () => {
   return (
@@ -14,6 +17,7 @@ export const HTMLTestsPage = () => {
       <TestSvgFavicon />
       <TestSupportedImageFormats />
       <TestSupportedVideoFormats />
+      <TestSupportedAudioFormats />
     </>
   );
 };

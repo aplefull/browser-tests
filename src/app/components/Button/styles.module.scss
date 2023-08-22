@@ -16,13 +16,13 @@
   }
 
   &.light {
-    background-color: aliceblue;
-    color: #171717;
+    background-color: $color-white;
+    color: $color-charcoal;
   }
 
   &.dark {
-    background-color: #171717;
-    color: aliceblue;
+    background-color: $color-charcoal;
+    color: $color-white;
   }
 
   &.disabled:disabled {

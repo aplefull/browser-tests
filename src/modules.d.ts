@@ -18,6 +18,11 @@ declare module '*.3gp' {
   export default content;
 }
 
+declare module '*.adts' {
+  const content: string;
+  export default content;
+}
+
 declare module '*.mpeg' {
   const content: string;
   export default content;
