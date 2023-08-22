@@ -1,13 +1,11 @@
 import {
   TestInputs,
   TestOldTags,
+  TestSvgFavicon,
   TestSupportedImageFormats,
   TestSupportedVideoFormats,
-  TestSvgFavicon,
+  TestSupportedAudioFormats,
 } from '@/app/pages/html-tests/components';
-import {
-  TestSupportedAudioFormats
-} from '@/app/pages/html-tests/components/TestSupportedAudioFormats/TestSupportedAudioFormats';
 
 export const HTMLTestsPage = () => {
   return (

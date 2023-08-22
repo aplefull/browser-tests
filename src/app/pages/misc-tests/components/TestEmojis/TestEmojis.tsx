@@ -36,7 +36,7 @@ export const TestEmojis = () => {
   }, []);
 
   return (
-    <Section className={styles.emojis} title="All current emojis" closedByDefault>
+    <Section className={styles.emojis} title="All current emojis">
       <div className={styles.inputs}>
         <label>
           <input type="checkbox" checked={useEmojiFont} onChange={() => setUseEmojiFont(!useEmojiFont)} />

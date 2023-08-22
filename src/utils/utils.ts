@@ -115,11 +115,7 @@ export const fitToBox = (originalWidth: number, originalHeight: number, boxWidth
   };
 };
 
-export const getPage = (title: string, settings: RootState['settings']) => {
-  const {
-    dropdowns: { pages },
-  } = settings;
-
+export const getPage = (title: string, pages: RootState['settings']['dropdowns']['pages']) => {
   const page = Object.entries(pages).find(([pageName, sections]) => {
     return sections.find((section) => section.name === title);
   }) as ['html' | 'css' | 'js' | 'misc', (typeof pages)['html']] | undefined;
@@ -135,12 +131,8 @@ export const getPage = (title: string, settings: RootState['settings']) => {
 export const getCollapseState = (
   title: string,
   page: 'html' | 'css' | 'js' | 'misc',
-  settings: RootState['settings'],
+  pages: RootState['settings']['dropdowns']['pages'],
 ) => {
-  const {
-    dropdowns: { pages },
-  } = settings;
-
   const state = pages[page].find((section) => {
     if (section.name === title) {
       return section.initialState;
@@ -153,4 +145,30 @@ export const getCollapseState = (
   }
 
   return state.initialState;
+};
+
+export const saveSectionsState = (sections: RootState['settings']['dropdowns']['pages']) => {
+  localStorage.setItem('settings-sections-state', JSON.stringify(sections));
+};
+
+export const getSectionsState = () => {
+  const sectionsState = localStorage.getItem('settings-sections-state');
+  return sectionsState
+    ? JSON.parse(sectionsState)
+    : {
+        html: [],
+        css: [],
+        js: [],
+        misc: [],
+      };
+};
+
+export const iteratorToArray = <T>(iterator: IterableIterator<T>) => {
+  const arr: T[] = [];
+
+  for (const item of iterator) {
+    arr.push(item);
+  }
+
+  return arr;
 };

@@ -209,6 +209,8 @@ export const TestCanvas = () => {
   };
 
   useEffect(() => {
+    if (!canvasRef.current) return;
+
     const resizeObserver = new ResizeObserver(() => {
       const canvas = canvasRef.current;
       if (!canvas) return;
@@ -217,7 +219,7 @@ export const TestCanvas = () => {
       canvas.height = canvas.clientHeight;
     });
 
-    resizeObserver.observe(canvasRef.current!);
+    resizeObserver.observe(canvasRef.current);
 
     return () => {
       resizeObserver.disconnect();

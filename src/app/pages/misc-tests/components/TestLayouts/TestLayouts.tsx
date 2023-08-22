@@ -95,7 +95,7 @@ export const TestLayouts = () => {
   }
 
   return (
-    <Section className={styles.testLayouts} title="Different Layouts" closedByDefault>
+    <Section className={styles.testLayouts} title="Different Layouts">
       <div className={styles.container}>
         <p>Pure css masonry</p>
         <CSSMasonry urls={urls} />

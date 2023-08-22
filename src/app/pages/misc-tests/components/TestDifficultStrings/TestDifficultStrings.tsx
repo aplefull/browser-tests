@@ -12,7 +12,7 @@ export const TestDifficultStrings = () => {
   };
 
   return (
-    <Section className={styles.testDifficultStrings} title="Difficult strings" closedByDefault>
+    <Section className={styles.testDifficultStrings} title="Difficult strings">
       <label>
         <input type="checkbox" onChange={toggleSvg} checked={showSvg} />
         Show SVG

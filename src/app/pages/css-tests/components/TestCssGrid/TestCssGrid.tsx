@@ -6,7 +6,7 @@ import { Section } from '@/app/components/Section/Section';
 
 export const TestCssGrid = () => {
   return (
-    <Section className={styles.cssGrid} title="Difficult CSS Grid layouts" closedByDefault>
+    <Section className={styles.cssGrid} title="Difficult CSS Grid layouts">
       <div>
         <h2>Grid areas</h2>
         <div className={styles.gridTemplateAreas}>

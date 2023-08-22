@@ -178,7 +178,7 @@ export const TestMisc = () => {
   const [showCssVideo, setShowCssVideo] = useState(false);
 
   return (
-    <Section className={styles.misc} title="Miscellaneous tests" closedByDefault>
+    <Section className={styles.misc} title="Miscellaneous tests">
       <h2>Glow effect</h2>
       <div className={styles.glow}>
         <Glow brightness={70} opacity={1} shadowRadius={2.7} />

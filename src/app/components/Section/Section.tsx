@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Collapse } from '@/app/components/Collapse/Collapse';
 import styles from './styles.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/app/redux/store';
+import { AppDispatch, RootState } from '@/app/redux/store';
 import { DROPDOWN_STATE } from '@/utils/constants';
 import { setDropdownState } from '@/app/redux/slices/settings';
 import { getCollapseState, getPage } from '@/utils/utils';
@@ -11,7 +11,6 @@ type TSectionProps = {
   title: string;
   info?: string;
   className?: string;
-  closedByDefault?: boolean;
   children: ReactNode;
 };
 
@@ -28,12 +27,12 @@ const SectionHead = ({ title, info }: Pick<TSectionProps, 'title' | 'info'>) => 
   return <h1>{title}</h1>;
 };
 
-export const Section = ({ title, info, className, closedByDefault, children }: TSectionProps) => {
-  const { settings } = useSelector((state: RootState) => state);
-  const dispatch = useDispatch();
+export const Section = ({ title, info, className, children }: TSectionProps) => {
+  const { pages } = useSelector((state: RootState) => state.settings.dropdowns);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const page = getPage(title, settings);
-  const collapseState = getCollapseState(title, page, settings);
+  const page = getPage(title, pages);
+  const collapseState = getCollapseState(title, page, pages);
 
   const handleChange = (open: boolean) => {
     dispatch(
@@ -44,8 +43,6 @@ export const Section = ({ title, info, className, closedByDefault, children }: T
       }),
     );
   };
-
-  console.log('Collapse state: ', collapseState);
 
   return (
     <section>

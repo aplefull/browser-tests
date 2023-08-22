@@ -2,8 +2,9 @@ import styles from './styles.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/redux/store';
 import { ChangeEvent } from 'react';
-import { setPreferUnmount } from '@/app/redux/slices/settings';
+import { setDropdownState, setPreferUnmount } from '@/app/redux/slices/settings';
 import { DROPDOWN_STATE } from '@/utils/constants';
+import { getPage } from '@/utils/utils';
 
 export const Settings = () => {
   const { preferUnmount, dropdowns } = useSelector((state: RootState) => state.settings);
@@ -11,6 +12,16 @@ export const Settings = () => {
 
   const handlePreferUnmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setPreferUnmount(event.target.checked));
+  };
+
+  const handleSectionChange = (name: string) => (event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      setDropdownState({
+        page: getPage(name, dropdowns.pages),
+        name,
+        dropdownState: event.target.checked ? DROPDOWN_STATE.OPEN : DROPDOWN_STATE.CLOSED,
+      }),
+    );
   };
 
   return (
@@ -34,7 +45,11 @@ export const Settings = () => {
                     return (
                       <label>
                         {value.name}
-                        <input type="checkbox" checked={value.initialState === DROPDOWN_STATE.OPEN} />
+                        <input
+                          type="checkbox"
+                          checked={value.initialState === DROPDOWN_STATE.OPEN}
+                          onChange={handleSectionChange(value.name)}
+                        />
                       </label>
                     );
                   })}

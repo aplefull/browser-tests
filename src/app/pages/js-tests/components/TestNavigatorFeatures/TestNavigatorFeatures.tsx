@@ -3,6 +3,9 @@ import { Section } from '@/app/components/Section/Section';
 import { NavigatorMediaDevices } from '@/app/pages/js-tests/components/subcomponents/NavigatorMediaDevices/NavigatorMediaDevices';
 import { NavigatorGeolocation } from '@/app/pages/js-tests/components/subcomponents/NavigatorGeolocation/NavigatorGeolocation';
 import { NavigatorBattery } from '@/app/pages/js-tests/components/subcomponents/NavigatorBattery/NavigatorBattery';
+import {
+  NavigatorKeyboard
+} from '@/app/pages/js-tests/components/subcomponents/NavigatorLayoutMap/NavigatorKeyboard';
 
 export const TestNavigatorFeatures = () => {
   return (
@@ -10,6 +13,7 @@ export const TestNavigatorFeatures = () => {
       <NavigatorBattery />
       <NavigatorGeolocation />
       <NavigatorMediaDevices />
+      <NavigatorKeyboard />
     </Section>
   );
 };

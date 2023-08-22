@@ -3,7 +3,7 @@ import { Section } from '@/app/components/Section/Section';
 
 export const TestLargeImage = () => {
   return (
-    <Section className={styles.testLargeImage} title="Very large image" closedByDefault>
+    <Section className={styles.testLargeImage} title="Very large image">
       <div>
         <input type="checkbox" id="large-image-animation" defaultChecked={false} />
         <label htmlFor="large-image-animation">Enable animation</label>

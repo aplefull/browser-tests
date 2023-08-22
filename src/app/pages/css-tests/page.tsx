@@ -17,6 +17,7 @@ import {
   TestWritingModes,
   TestSvgs,
   TestCssFunctions,
+  TestContainRule,
 } from '@/app/pages/css-tests/components';
 
 export const CSSTestsPage = () => {
@@ -40,6 +41,7 @@ export const CSSTestsPage = () => {
       <TestMediaQueries />
       <TestSvgs />
       <TestCssFunctions />
+      <TestContainRule />
     </>
   );
 };

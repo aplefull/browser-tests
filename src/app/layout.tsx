@@ -3,12 +3,16 @@ import { routes } from '@/utils/routes';
 import { useDoubleKeyPress } from '@/utils/hooks';
 import { Header } from '@/app/components/Header/Header';
 import { Error } from '@/app/components/Error/Error';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import { Provider, useDispatch } from 'react-redux';
+import { AppDispatch, store } from './redux/store';
 import styles from './pages/home/styles.module.scss';
 import './globals.scss';
+import { useEffect } from 'react';
+import { setSectionsState } from '@/app/redux/slices/settings';
 
 const RootLayout = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const onDoubleU = () => {
     window.scrollTo({
       top: 0,
@@ -17,6 +21,14 @@ const RootLayout = () => {
   };
 
   useDoubleKeyPress('u', onDoubleU);
+
+  useEffect(() => {
+    window.addEventListener("storage", (event) => {
+      if (event.key !== 'settings-sections-state' || !event.newValue) return;
+
+      dispatch(setSectionsState(JSON.parse(event.newValue)));
+    });
+  }, []);
 
   return (
     <>

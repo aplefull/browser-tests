@@ -140,7 +140,7 @@ export const TestSvgs = () => {
   ];
 
   return (
-    <Section className={styles.svgs} title="Different svg features" closedByDefault>
+    <Section className={styles.svgs} title="Different svg features">
       <Checkbox checked={useAnimateImages} onChange={setUseAnimateImages} label="Use animated images" />
       <div className={styles.svgsContainer}>
         {tests.map((test, index) => {

@@ -16,3 +16,4 @@ export { TestSvgs } from './TestSvgs/TestSvgs';
 export { TestTextFillColor } from './TestTextFillColor/TestTextFillColor';
 export { TestTextOverflow } from './TestTextOverflow/TestTextOverflow';
 export { TestWritingModes } from './TestWritingModes/TestWritingModes';
+export { TestContainRule } from './TestContainRule/TestContainRule';

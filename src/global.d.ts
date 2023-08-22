@@ -17,6 +17,11 @@ declare global {
 
   interface Navigator {
     getBattery?: () => Promise<BatteryManager>;
+    keyboard?: {
+      getLayoutMap?: () => Promise<Map<string, string>>;
+      lock?: () => Promise<void>;
+      unlock?: () => Promise<void>;
+    }
   }
 
   interface CanvasRenderingContext2D {
