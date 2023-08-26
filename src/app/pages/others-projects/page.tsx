@@ -21,45 +21,40 @@ export const OthersProjectsPage = () => {
   ];
 
   const iframes: TIframeEntry[] = [
-    { src: '/projects/rgb-cube/dist/index.html', title: 'RGB Cube', url: 'https://codepen.io/roborich/pen/wRMKaK' },
+    { src: '/projects/rgb-cube/index.html', title: 'RGB Cube', url: 'https://codepen.io/roborich/pen/wRMKaK' },
     {
       src: '/projects/cats-game/index.html',
       title: 'Game',
     },
     {
-      src: 'https://codepen.io/t_afif/full/abEeMyY',
+      src: '/projects/css-art-nezuko/index.html',
       url: 'https://codepen.io/t_afif/pen/abEeMyY',
       title: 'CSS art',
     },
     {
-      src: 'https://codepen.io/t_afif/full/abQvjxP',
+      src: '/projects/wavy-range-slider/index.html',
       url: 'https://codepen.io/t_afif/full/abQvjxP',
       title: 'Wavy range slider',
     },
     {
-      src: 'https://codepen.io/t_afif/full/OJpKeWa',
+      src: '/projects/blob-effect/index.html',
       url: 'https://codepen.io/t_afif/pen/OJpKeWa',
       title: 'CSS blob effect',
     },
     {
-      src: 'https://codepen.io/ivorjetski/full/OJXbvdL',
+      src: '/projects/css-game/index.html',
       url: 'https://codepen.io/ivorjetski/pen/OJXbvdL',
-      title: 'amazing CSS mini game',
+      title: 'Amazing CSS mini game',
     },
     {
-      src: 'https://codepen.io/ivorjetski/full/xxZQqQq',
-      url: 'https://codepen.io/ivorjetski/pen/xxZQqQq',
-      title: 'CSS mini game',
-    },
-    {
-      src: 'https://codepen.io/ivorjetski/full/xxKBWBN',
+      src: '/projects/css-pixel-art/index.html',
       url: 'https://codepen.io/ivorjetski/pen/xxKBWBN',
-      title: 'zero divs CSS pixel art animation',
+      title: 'Zero divs CSS pixel art animation',
     },
     {
-      src: 'https://codepen.io/ivorjetski/full/xxGYWQG',
+      src: '/projects/css-painting-landscape/index.html',
       url: 'https://codepen.io/ivorjetski/pen/xxGYWQG',
-      title: 'CSS art',
+      title: 'CSS painting',
     },
   ];
 
@@ -67,8 +62,6 @@ export const OthersProjectsPage = () => {
     <div className={styles.container}>
       <h1>
         This page contains other's people cool projects.
-        <br />
-        Have fun c:
       </h1>
       <div className={styles.iframesContainer}>
         {iframes.map(({ title, src, url }) => {

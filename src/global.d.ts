@@ -16,6 +16,7 @@ declare global {
   }
 
   interface Navigator {
+    deviceMemory?: number;
     getBattery?: () => Promise<BatteryManager>;
     keyboard?: {
       getLayoutMap?: () => Promise<Map<string, string>>;

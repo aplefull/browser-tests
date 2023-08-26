@@ -126,6 +126,10 @@ const initialState: TSettingsInitialState = {
           name: 'Contain',
           initialState: DROPDOWN_STATE.OPEN,
         },
+        {
+          name: 'Pseudo-classes',
+          initialState: DROPDOWN_STATE.OPEN,
+        },
       ],
       js: [
         {

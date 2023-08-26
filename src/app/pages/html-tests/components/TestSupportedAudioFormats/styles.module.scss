@@ -1,10 +1,10 @@
-.supportedVideoFormats {
+.supported-audio-formats {
   > div {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    place-items: center;
     gap: 20px;
-    place-items:   center;
 
     > div {
       display: flex;

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import styles from './styles.module.scss';
 
 type TPrimitive = string | number | boolean | null | undefined;
 
@@ -38,7 +39,13 @@ const Brackets = ({ children, type }: { children: ReactNode; type: 'curly' | 'sq
   return (
     <>
       <span style={style}>{openBracket}</span>
-      {children}
+      <div
+        style={{
+          marginLeft: '1rem',
+        }}
+      >
+        {children}
+      </div>
       <span style={style}>{closeBracket}</span>
     </>
   );
@@ -52,6 +59,24 @@ const CurlyBraces = ({ children }: { children: ReactNode }) => {
   return <Brackets type="curly">{children}</Brackets>;
 };
 
+const Comma = () => {
+  const style = {
+    opacity: 0.6,
+    fontFamily: 'monospace',
+    color: '#adadad',
+  };
+
+  return <span style={style}>,</span>;
+};
+
+const Value = ({ value }: { value: TPrimitive | ReactNode }) => {
+  const valueStyle = {
+    fontFamily: 'monospace',
+  };
+
+  return isPrimitive(value) ? <span style={valueStyle}>{prepareValue(value)}</span> : value;
+};
+
 const KeyValue = ({ propertyKey, value }: { propertyKey: string; value: TPrimitive | ReactNode }) => {
   const keyStyle = {
     opacity: 0.6,
@@ -59,68 +84,73 @@ const KeyValue = ({ propertyKey, value }: { propertyKey: string; value: TPrimiti
     fontFamily: 'monospace',
   };
 
-  const valueStyle = {
-    fontFamily: 'monospace',
-  };
-
   const wrapperStyle = {
-    marginLeft: '1rem',
+    //marginLeft: '1rem',
   };
 
   return (
     <div style={wrapperStyle}>
       <span style={keyStyle}>{propertyKey}: </span>
-      {isPrimitive(value) ? <span style={valueStyle}>{prepareValue(value)}</span> : value}
+      <Value value={value} />
     </div>
   );
+};
+
+const Function = ({ value }: { value: Function }) => {
+  const valueStyle = {
+    fontFamily: 'monospace',
+  };
+
+  return <span style={valueStyle}>{value.toString()}</span>;
 };
 
 type TJsonProps = {
-  data: Record<string, unknown> | unknown[];
+  data: unknown;
 };
 
 export const Json = ({ data }: TJsonProps) => {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <CurlyBraces>
-        {Object.entries(data).map(([key, value], index) => {
-          if (isPrimitive(value)) {
-            return <KeyValue key={index} propertyKey={key} value={value} />;
-          }
+  if (isPrimitive(data)) {
+    return <Value value={data} />;
+  }
 
-          if (Array.isArray(value)) {
+  const isArray = Array.isArray(data);
+
+  if (isArray) {
+    return (
+      <div className={styles.arrayWrapper}>
+        <SquareBrackets>
+          {data.map((item: unknown, index) => {
             return (
-              <KeyValue
-                key={index}
-                propertyKey={key}
-                value={
-                  <SquareBrackets key={index}>
-                    {value.map((item, index) => {
-                      return <Json data={item} key={index} />;
-                    })}
-                  </SquareBrackets>
-                }
-              />
+              <div key={index}>
+                <Json data={item} />
+                {isPrimitive(item) && <Comma />}
+              </div>
             );
-          }
+          })}
+        </SquareBrackets>
+      </div>
+    );
+  }
 
-          if (isRecord(value)) {
+  if (isRecord(data)) {
+    const entries = Object.entries(data);
+
+    return (
+      <div>
+        <CurlyBraces>
+          {entries.map(([key, value], index) => {
             return <KeyValue key={index} propertyKey={key} value={<Json data={value} />} />;
-          }
+          })}
+        </CurlyBraces>
+      </div>
+    );
+  }
 
-          if (typeof value === 'function') {
-            return <KeyValue key={index} propertyKey={key} value={value.toString()} />;
-          }
+  if (typeof data === 'function') {
+    return <Function value={data} />;
+  }
 
-          console.warn('Unknown type', key, value);
-          return null;
-        })}
-      </CurlyBraces>
-    </div>
-  );
+  console.warn('Unknown type', data);
+  return null;
+
 };

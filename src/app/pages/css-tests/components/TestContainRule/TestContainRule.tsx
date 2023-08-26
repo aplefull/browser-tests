@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 export const TestContainRule = () => {
   return (
     <Section title="Contain">
-      <div>
+      <div className={styles.contain}>
         <h2>Size</h2>
         <div className={styles.size}>
           <div className={styles.parent}>

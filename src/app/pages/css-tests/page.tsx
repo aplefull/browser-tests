@@ -19,6 +19,7 @@ import {
   TestCssFunctions,
   TestContainRule,
 } from '@/app/pages/css-tests/components';
+import { TestPseudoClasses } from '@/app/pages/css-tests/components/TestPseudoClasses/TestPseudoClasses';
 
 export const CSSTestsPage = () => {
   return (
@@ -42,6 +43,7 @@ export const CSSTestsPage = () => {
       <TestSvgs />
       <TestCssFunctions />
       <TestContainRule />
+      <TestPseudoClasses />
     </>
   );
 };

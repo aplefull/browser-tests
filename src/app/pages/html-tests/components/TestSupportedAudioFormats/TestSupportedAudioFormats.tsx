@@ -21,7 +21,7 @@ export const TestSupportedAudioFormats = () => {
     { name: 'ogg', codec: 'Vorbis', src: audioVorbis },
   ];
   return (
-    <Section className={styles.supportedVideoFormats} title="Supported audio formats">
+    <Section className={styles.supportedAudioFormats} title="Supported audio formats">
       <div>
         {audios.map((audio, index) => {
           return (

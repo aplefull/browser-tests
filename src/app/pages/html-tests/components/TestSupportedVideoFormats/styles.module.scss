@@ -1,9 +1,9 @@
-.supportedVideoFormats {
+.supported-video-formats {
   > div {
     width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    place-items: center;
     gap: 20px;
 
     > div {

@@ -1,4 +1,4 @@
-import styles from './style.module.scss';
+import styles from './styles.module.scss';
 
 import { ChangeEvent, useReducer } from 'react';
 import { TAction, TDimensions } from '@/types';

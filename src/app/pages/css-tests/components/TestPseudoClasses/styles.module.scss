@@ -1,0 +1,133 @@
+.pseudo {
+  h3 {
+    width: 100%;
+    border-bottom: 1px solid transparentize($color-white, 0.6);
+    padding-bottom: 4px;
+    font-weight: 400;
+  }
+
+  .before {
+    &:before {
+      content: '🐞';
+    }
+  }
+
+  .after {
+    display: flex;
+    flex-direction: column-reverse;
+
+    &:after {
+      content: 'This line should be first';
+    }
+
+    &:before {
+      content: 'This line should be last';
+    }
+  }
+
+  .first-letter {
+    &:before {
+      content: 'First letter should be green';
+    }
+
+    &:first-letter {
+      color: $color-green;
+    }
+  }
+
+  .first-line {
+    width: 10px;
+
+    &:before {
+      content: 'First word should be green';
+      white-space: pre-wrap;
+    }
+
+    &:first-line {
+      color: $color-green;
+    }
+  }
+
+  .placeholder {
+    input {
+      padding: 2px;
+      border-radius: 3px;
+      outline: none;
+      background-color: $color-ink;
+      border: 1px solid $color-white;
+      caret-color: $color-white;
+      color: $color-white;
+
+      &::placeholder {
+        font-family: monospace;
+        color: $color-green-dark-10;
+      }
+    }
+  }
+
+  .selection {
+    span::selection {
+      background: $color-green;
+      color: $color-white;
+    }
+  }
+
+  .active {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    button {
+      cursor: pointer;
+      width: min-content;
+      padding: 2px 5px;
+
+      &:active {
+        outline: none;
+        color: $color-green;
+        background-color: $color-ink;
+      }
+    }
+  }
+
+  .hover {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    button {
+      cursor: pointer;
+      width: min-content;
+      padding: 2px 5px;
+
+      &:hover {
+        outline: none;
+        color: $color-green;
+        background-color: $color-ink;
+      }
+    }
+  }
+
+  .empty {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    span {
+      width: 100px;
+      min-height: 20px;
+      border-radius: 4px;
+      background-color: $color-red;
+
+      &:empty {
+        background-color: $color-green;
+      }
+    }
+  }
+
+  .checked {
+    &:checked {
+      background-color: $color-green;
+    }
+  }
+}

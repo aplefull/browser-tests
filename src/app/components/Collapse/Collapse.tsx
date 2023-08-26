@@ -1,4 +1,4 @@
-import styles from './style.module.scss';
+import styles from './styles.module.scss';
 import { ReactNode, TransitionEvent, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { ChevronRight } from 'tabler-icons-react';

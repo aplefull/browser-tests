@@ -1,5 +1,7 @@
-h2 {
-  @include subtitle;
+.contain {
+  h2 {
+    @include subtitle;
+  }
 }
 
 .size {
