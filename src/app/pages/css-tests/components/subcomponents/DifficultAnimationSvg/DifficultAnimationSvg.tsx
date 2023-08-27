@@ -1,8 +1,8 @@
 import styles from './styles.module.scss';
 import { TDimensions } from '@/types';
-import svgData from '@assets/data/bad-apple-svg.json';
+//import svgData from '@assets/data/bad-apple-svg.json';
 import { fitToBox } from '@/utils/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/app/components/Button/Button';
 
 type TSvgProps = {
@@ -66,6 +66,10 @@ const isSvgData = (data: unknown): data is { values: string; keyTimes: string } 
 
 export const DifficultAnimationSvg = ({ width, height }: TDimensions) => {
   const [show, setShow] = useState(false);
+  const [svgData, setSvgData] = useState<{
+    values: string;
+    keyTimes: string;
+  } | null>(null);
 
   const animationWidth = 512;
   const animationHeight = 384;
@@ -77,15 +81,27 @@ export const DifficultAnimationSvg = ({ width, height }: TDimensions) => {
 
   const scale = fitWidth / animationWidth;
 
-  if (!isSvgData(svgData)) {
-    return null;
-  }
+  useEffect(() => {
+    const loadSvgData = async () => {
+      const svgDataPromise = import('@assets/data/bad-apple-svg.json');
+      const svgDataModule = await svgDataPromise;
+      const svgData = svgDataModule.default;
+
+      if (!isSvgData(svgData)) {
+        return;
+      }
+
+      setSvgData(svgData);
+    };
+
+    loadSvgData().catch(console.error);
+  }, []);
 
   return (
     <>
       <p>This animation is pretty heavy, so it's hidden by default. You can open/close it with the button below.</p>
       <Button className={styles.button} text={show ? 'Hide' : 'Show'} onClick={() => setShow(!show)} />
-      {show && (
+      {show && svgData && (
         <Svg
           width={width}
           height={height}

@@ -27,7 +27,9 @@ export const MorphologySvg = ({ width, height }: TDimensions) => {
         {width < 400 && (
           <>
             <tspan x={width / 2}>This is thinned text</tspan>
-            <tspan dy={30} x={width / 2}>💕 🐞 🔥 🆒🆒🆒🆒</tspan>
+            <tspan dy={30} x={width / 2}>
+              💕 🐞 🔥 🆒🆒🆒🆒
+            </tspan>
           </>
         )}
       </text>
@@ -36,7 +38,9 @@ export const MorphologySvg = ({ width, height }: TDimensions) => {
         {width < 400 && (
           <>
             <tspan x={width / 2}>This is fattened text</tspan>
-            <tspan dy={30} x={width / 2}>💕 🐞 🔥 🆒🆒🆒🆒</tspan>
+            <tspan dy={30} x={width / 2}>
+              💕 🐞 🔥 🆒🆒🆒🆒
+            </tspan>
           </>
         )}
       </text>

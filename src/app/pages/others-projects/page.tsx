@@ -60,9 +60,7 @@ export const OthersProjectsPage = () => {
 
   return (
     <div className={styles.container}>
-      <h1>
-        This page contains other's people cool projects.
-      </h1>
+      <h1>This page contains other's people cool projects.</h1>
       <div className={styles.iframesContainer}>
         {iframes.map(({ title, src, url }) => {
           return (

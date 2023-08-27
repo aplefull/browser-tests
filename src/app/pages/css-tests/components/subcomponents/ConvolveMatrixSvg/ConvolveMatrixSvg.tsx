@@ -73,6 +73,7 @@ export const ConvolveMatrixSvg = ({ width, height, useAnimatedImage }: TConvolve
 
         return (
           <rect
+            key={index}
             x={currentCol * imgWidth}
             y={currentRow * imgHeight}
             width={imgWidth}

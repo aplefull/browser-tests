@@ -152,5 +152,4 @@ export const Json = ({ data }: TJsonProps) => {
 
   console.warn('Unknown type', data);
   return null;
-
 };

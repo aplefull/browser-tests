@@ -63,14 +63,14 @@
 }
 
 .strict {
-    .parent {
-        contain: strict;
-        border: 1px solid $color-white;
-    }
+  .parent {
+    contain: strict;
+    border: 1px solid $color-white;
+  }
 
-    .child {
-        width: 200px;
-        height: 200px;
-        background-color: $color-red;
-    }
+  .child {
+    width: 200px;
+    height: 200px;
+    background-color: $color-red;
+  }
 }

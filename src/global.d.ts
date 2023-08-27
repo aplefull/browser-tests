@@ -22,7 +22,7 @@ declare global {
       getLayoutMap?: () => Promise<Map<string, string>>;
       lock?: () => Promise<void>;
       unlock?: () => Promise<void>;
-    }
+    };
   }
 
   interface CanvasRenderingContext2D {

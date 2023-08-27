@@ -1,4 +1,10 @@
-import { TestLargeImage, TestDifficultStrings, TestEmojis, TestLayouts, TestMisc } from '@/app/pages/misc-tests/components';
+import {
+  TestLargeImage,
+  TestDifficultStrings,
+  TestEmojis,
+  TestLayouts,
+  TestMisc,
+} from '@/app/pages/misc-tests/components';
 
 export const MiscTestsPage = () => {
   return (

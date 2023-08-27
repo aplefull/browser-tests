@@ -23,7 +23,7 @@ const RootLayout = () => {
   useDoubleKeyPress('u', onDoubleU);
 
   useEffect(() => {
-    window.addEventListener("storage", (event) => {
+    window.addEventListener('storage', (event) => {
       if (event.key !== 'settings-sections-state' || !event.newValue) return;
 
       dispatch(setSectionsState(JSON.parse(event.newValue)));

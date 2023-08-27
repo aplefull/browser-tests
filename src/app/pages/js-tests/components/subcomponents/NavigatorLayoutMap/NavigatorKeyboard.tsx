@@ -19,7 +19,7 @@ export const NavigatorKeyboard = () => {
 
     const keymap = keysArray.map((key) => {
       const value = keyboardLayoutMap.get(key) || '""';
-      return [ key, value ];
+      return [key, value];
     });
 
     const sortedKeymap = keymap.sort((a, b) => {
