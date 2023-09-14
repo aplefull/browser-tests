@@ -5,6 +5,7 @@ import {
   TestLayouts,
   TestMisc,
 } from '@/app/pages/misc-tests/components';
+import { TestMathMl } from '@/app/pages/misc-tests/components/TestMathML/TestMathML';
 
 export const MiscTestsPage = () => {
   return (
@@ -14,6 +15,7 @@ export const MiscTestsPage = () => {
       <TestDifficultStrings />
       <TestEmojis />
       <TestMisc />
+      <TestMathMl />
     </>
   );
 };

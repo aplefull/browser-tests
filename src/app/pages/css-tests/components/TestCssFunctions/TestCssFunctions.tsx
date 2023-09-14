@@ -1,21 +1,8 @@
 import styles from './styles.module.scss';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Section } from '@/app/components/Section/Section';
-
-const MATH_MAP = {
-  sin: Math.sin,
-  cos: Math.cos,
-  tan: Math.tan,
-  asin: Math.asin,
-  acos: Math.acos,
-  atan: Math.atan,
-  atan2: Math.atan2,
-  exp: Math.exp,
-  log: Math.log,
-  pow: Math.pow,
-  mod: (x: number, y: number) => x % y,
-  rem: (x: number, y: number) => x - y * Math.floor(x / y),
-};
+import { MATH_MAP } from '@/utils/constants';
+import { isDoubleArgumentFunction, isSingleArgumentFunction } from '@/utils/utils';
 
 const parseSingleMathValue = (value: string) => {
   const trimmedArg = value.trim();
@@ -165,7 +152,7 @@ const splitExpression = (expression: string) => {
   return parts.map((part) => part.trim());
 };
 
-const parseExpression = (expression: string): number => {
+export const parseExpression = (expression: string): number => {
   const trimmedExpression = clearExpression(expression);
 
   const parts = splitExpression(trimmedExpression);
@@ -195,26 +182,28 @@ const parseExpression = (expression: string): number => {
         numberOfOpenBrackets -= char === ')' ? 1 : 0;
       }
 
-      parsedArgs.push(parseExpression(currentArg));
+      if (currentArg !== '') {
+        parsedArgs.push(parseExpression(currentArg));
+      }
 
       const isKeyOfMathMap = (key: string): key is keyof typeof MATH_MAP => key in MATH_MAP;
 
-      type TSingleArgFunction = (a: number) => number;
-      type TDoubleArgFunction = (a: number, b: number) => number;
-
-      const isOneArgFunc = (func: TSingleArgFunction | TDoubleArgFunction): func is TSingleArgFunction =>
-        func.length === 1;
+      const isZeroArg = (arr: number[]): arr is [] => arr.length === 0;
       const isSingleArg = (arr: number[]): arr is [number] => arr.length === 1;
       const isDoubleArg = (arr: number[]): arr is [number, number] => arr.length === 2;
 
       if (isKeyOfMathMap(func)) {
         const mappedFunc = MATH_MAP[func];
 
-        if (isOneArgFunc(mappedFunc) && isSingleArg(parsedArgs)) {
+        if (isSingleArgumentFunction(mappedFunc) && isSingleArg(parsedArgs)) {
           return `${mappedFunc.apply(null, parsedArgs)}`;
         }
 
-        if (isDoubleArg(parsedArgs)) {
+        if (isDoubleArgumentFunction(mappedFunc) && isDoubleArg(parsedArgs)) {
+          return `${mappedFunc.apply(null, parsedArgs)}`;
+        }
+
+        if (isZeroArg(parsedArgs)) {
           return `${mappedFunc.apply(null, parsedArgs)}`;
         }
 
@@ -251,7 +240,7 @@ export const TestCssFunctions = () => {
     { func: 'atan2', value: 'infinity, infinity', type: 'angle' },
     { func: 'sin', value: 'cos(tan(cos(cos(sin(sin(cos(sin(cos(tan(tan(1 / cos(56deg))))))))))))', type: 'number' },
     { func: 'exp', value: 'pi', type: 'number' },
-    { func: 'log', value: '8, 2', type: 'number' },
+    { func: 'log', value: '8', type: 'number' },
     { func: 'pow', value: '0.3, 15', type: 'number' },
     { func: 'pow', value: '0, 0', type: 'number' },
     { func: 'pow', value: '-5, 0.3', type: 'number' },

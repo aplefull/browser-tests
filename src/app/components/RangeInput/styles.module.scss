@@ -1,0 +1,66 @@
+.range-input-container {
+  display: flex;
+  width: 200px;
+
+  &.label-top {
+    flex-direction: column;
+
+    .input {
+      margin-top: 3px;
+    }
+  }
+
+  &.label-bottom {
+    flex-direction: column-reverse;
+  }
+
+  &.label-left {
+    flex-direction: row-reverse;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  &.label-right {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .input {
+    width: 100%;
+    height: 10px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .background {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $color-ink-light-10;
+    border-radius: 4px;
+  }
+
+  .foreground {
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $color-blue;
+    border-radius: 4px;
+  }
+
+  .thumb {
+    position: absolute;
+    z-index: 3;
+    height: 100%;
+    aspect-ratio: 1;
+    background-color: $color-white;
+    border-radius: 50%;
+    cursor: pointer;
+    translate: -50%;
+    scale: 1.3;
+  }
+}

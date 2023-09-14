@@ -3,10 +3,27 @@ import { MikuArt } from '@/app/pages/misc-tests/components/subcomponents/MikuArt
 import { CssVideo } from '@/app/pages/misc-tests/components/subcomponents/CssVideo/CssVideo';
 import { map } from '@/utils/utils';
 import { Section } from '@/app/components/Section/Section';
-import { useState } from 'react';
+import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { Button } from '@/app/components/Button/Button';
+import { Select } from '@/app/components/Select/Select';
+import dynamicResolutionWebmCrazy from '@assets/videos/cat.webm';
+import dynamicResolutionWebmCalm from '@assets/videos/out_smooth.webm';
+import transparentWebm from '@assets/videos/bad-apple-transparent.webm';
+import longWebm from '@assets/videos/long.webm';
+import webm1x1 from '@assets/videos/1x1.webm';
+import webm1x600 from '@assets/videos/1x600.webm';
+import webm600x1 from '@assets/videos/600x1.webm';
+import { RangeInput } from '@/app/components/RangeInput/RangeInput';
+import { Checkbox } from '@/app/components/Checkbox/Checkbox';
+import classNames from 'classnames';
+import { ColorPicker } from '@/app/components/ColorPicker/ColorPicker';
 
-const Glow = ({ brightness }: { shadowRadius: number; brightness: number; opacity: number }) => {
+type TResolution = {
+  width: number;
+  height: number;
+};
+
+const Glow = ({ brightness }: { brightness: number }) => {
   const getRGBComponents = (color: string) => {
     const args = color.slice(4, -1).split(',');
     const [r, g, b] = args;
@@ -174,14 +191,177 @@ const GlowSVG = () => {
   );
 };
 
+const webmOptions = [
+  {
+    label: 'Calm',
+    value: dynamicResolutionWebmCalm,
+  },
+  {
+    label: 'Crazy',
+    value: dynamicResolutionWebmCrazy,
+  },
+];
+
+const getVideoResolution = async (video: string) => {
+  const videoElement = document.createElement('video');
+  videoElement.src = video;
+  videoElement.preload = 'metadata';
+
+  return new Promise<TResolution>((resolve) => {
+    videoElement.onloadedmetadata = () => {
+      resolve({
+        width: videoElement.videoWidth,
+        height: videoElement.videoHeight,
+      });
+    };
+  });
+};
+
+const DynamicResolutionVideos = () => {
+  const [dynamicWebm, setDynamicWebm] = useState({
+    label: 'Calm',
+    value: dynamicResolutionWebmCalm,
+  });
+  const [resolution, setResolution] = useState<TResolution | null>(null);
+  const [forcedVideoCurrentTime, setForcedVideoCurrentTime] = useState(0);
+  const [containerHeight, setContainerHeight] = useState(0);
+
+  const videoRef1 = useRef<HTMLVideoElement>(null);
+  const videoRef2 = useRef<HTMLVideoElement>(null);
+  const videoRef3 = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const getAspectRatio = async () => {
+      const resolution = await getVideoResolution(dynamicWebm.value);
+
+      setResolution(resolution);
+
+      if (videoRef3.current) {
+        setContainerHeight((videoRef3.current?.clientWidth * resolution?.height) / resolution?.width);
+      }
+    };
+
+    const handleResize = () => {
+      if (videoRef3.current && resolution) {
+        setContainerHeight((videoRef3.current?.clientWidth * resolution?.height) / resolution?.width);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    getAspectRatio().catch(console.error);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [dynamicWebm]);
+
+  const aspectRatioStyle = {
+    aspectRatio: resolution ? `${resolution.width} / ${resolution.height}` : 'unset',
+  };
+
+  return (
+    <>
+      <div className={styles.dynamicResolution} style={{ height: Math.min(containerHeight, 700) }}>
+        <video controls ref={videoRef1} src={dynamicWebm.value} />
+        <video controls ref={videoRef2} src={dynamicWebm.value} />
+        <video controls ref={videoRef3} src={dynamicWebm.value} style={aspectRatioStyle} />
+      </div>
+      <div className={styles.dynamicResolutionControls}>
+        Video type:
+        <div>
+          <Select
+            options={webmOptions}
+            onChange={(_, option) => {
+              setDynamicWebm(option);
+            }}
+            value={dynamicWebm.label}
+          />
+        </div>
+        Control all videos:
+        <RangeInput
+          value={forcedVideoCurrentTime}
+          min={0}
+          max={100}
+          onChange={(val: number) => {
+            setForcedVideoCurrentTime(val);
+
+            if (videoRef1.current && videoRef2.current && videoRef3.current) {
+              const value1 = map(val, 0, 100, 0, videoRef1.current.duration);
+              const value2 = map(val, 0, 100, 0, videoRef2.current.duration);
+              const value3 = map(val, 0, 100, 0, videoRef3.current.duration);
+              videoRef1.current.currentTime = value1;
+              videoRef2.current.currentTime = value2;
+              videoRef3.current.currentTime = value3;
+            }
+          }}
+        />
+      </div>
+    </>
+  );
+};
+
+const TransparentVideo = () => {
+  const [shadow, setShadow] = useState(false);
+  const [colorBurn, setColorBurn] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState('transparent');
+
+  const onLoadStart = (e: SyntheticEvent<HTMLVideoElement, Event>) => {
+    const video = e.currentTarget;
+    video.volume = 0.2;
+  };
+
+  return (
+    <div className={styles.transparency}>
+      <div className={styles.videoContainer}>
+        <video
+          className={classNames({
+            [styles.shadow]: shadow,
+            [styles.colorBurn]: colorBurn,
+          })}
+          style={{ backgroundColor }}
+          onLoadStart={onLoadStart}
+          controls
+          src={transparentWebm}
+        />
+        <span>It makes sense to use these checkboxes only with default background color.</span>
+        <Checkbox checked={shadow} onChange={setShadow} label="Add shadow (looks cool)" />
+        <Checkbox
+          checked={colorBurn}
+          onChange={setColorBurn}
+          label="Add color burn (removes white outline, but makes controls barely visible)"
+        />
+      </div>
+      <Button text="Reset" onClick={() => setBackgroundColor('transparent')} />
+      <ColorPicker onChange={setBackgroundColor} />
+    </div>
+  );
+};
+
+const WeirdDimensionsVideos = () => {
+  return (
+    <div className={styles.weirdResolutions}>
+      <div>
+        <span>1x1</span>
+        <video controls src={webm1x1} />
+      </div>
+      <div>
+        <span>600x1</span>
+        <video controls src={webm600x1} />
+      </div>
+      <div>
+        <span>1x600</span>
+        <video controls src={webm1x600} />
+      </div>
+    </div>
+  );
+};
+
 export const TestMisc = () => {
-  const [showCssVideo, setShowCssVideo] = useState(false);
 
   return (
     <Section className={styles.misc} title="Miscellaneous tests">
       <h2>Glow effect</h2>
       <div className={styles.glow}>
-        <Glow brightness={70} opacity={1} shadowRadius={2.7} />
+        <Glow brightness={50} />
         <GlowSVG />
       </div>
       <h2>CSS art</h2>
@@ -189,27 +369,14 @@ export const TestMisc = () => {
         <MikuArt />
       </div>
       <h2>CSS video</h2>
-      <div className={styles.cssVideoDescription}>
-        <p className={styles.author}>
-          Original author:{' '}
-          <a target="_blank" rel="noreferrer" href="https://github.com/kevinjycui">
-            https://github.com/kevinjycui
-          </a>
-        </p>
-
-        <p className={styles.warning}>
-          <span>Warning</span>
-          This is a very heavy and demanding css animation, which will most definitely crash your browser. That's why
-          it's not shown by default. If you are feeling courageous, make sure there is nothing important happening in
-          your browser right now, before pressing the button below.
-        </p>
-
-        <Button
-          text={showCssVideo ? 'Remove that from here!' : "Let's do it..."}
-          onClick={() => setShowCssVideo(!showCssVideo)}
-        />
-      </div>
-      <div>{showCssVideo && <CssVideo />}</div>
+      <CssVideo />
+      <h2>Videos with dynamic resolution</h2>
+      <DynamicResolutionVideos />
+      <h2>Video with alpha channel</h2>
+      <TransparentVideo />
+      <h2>Weird video resolutions</h2>
+      <WeirdDimensionsVideos />
+      <video controls src={longWebm} />
     </Section>
   );
 };

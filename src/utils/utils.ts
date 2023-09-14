@@ -1,5 +1,7 @@
 import { LOREM_TEXT } from './constants';
 import { RootState } from '@/app/redux/store';
+import { TDoubleArgumentFunction, TNoArgumentFunction, TSingleArgumentFunction } from '@/types';
+import { TRawEmoji } from '@/types';
 
 export const lorem = (n: number, start = 0) => {
   const sentences = LOREM_TEXT.split(/(?<=[.?!])\s+/);
@@ -16,12 +18,18 @@ export const splitIntoChunks = <T>(arr: T[], chunkSize: number, noChunksOfSmalle
   for (let i = 0; i < arr.length; i += chunkSize) {
     const chunk = arr.slice(i, i + chunkSize);
 
-    if (noChunksOfSmallerSize && chunk.length < chunkSize) {
-      chunks[chunks.length - 1].push(...chunk);
-      break;
-    }
-
     chunks.push(chunk);
+  }
+
+  if (noChunksOfSmallerSize) {
+    if (chunks.length === 1) return chunks;
+
+    const lastChunk = chunks[chunks.length - 1];
+
+    if (lastChunk.length < chunkSize) {
+      chunks[chunks.length - 2] = [...chunks[chunks.length - 2], ...lastChunk];
+      chunks.pop();
+    }
   }
 
   return chunks;
@@ -98,6 +106,7 @@ export const map = (value: number, inMin: number, inMax: number, outMin: number,
   return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
 };
 
+// same as object-fit: contain
 export const fitToBox = (originalWidth: number, originalHeight: number, boxWidth: number, boxHeight: number) => {
   const originalAspectRatio = originalWidth / originalHeight;
   const boxAspectRatio = boxWidth / boxHeight;
@@ -171,4 +180,51 @@ export const iteratorToArray = <T>(iterator: IterableIterator<T>) => {
   }
 
   return arr;
+};
+
+export const clamp = (value: number, min: number, max: number) => {
+  return Math.min(Math.max(value, min), max);
+};
+
+export const omit = <T extends Record<string, unknown>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {
+  const clone = { ...obj };
+
+  keys.forEach((key) => {
+    delete clone[key];
+  });
+
+  return clone;
+};
+
+export const isZeroArgumentsFunction = (
+  func: TSingleArgumentFunction | TDoubleArgumentFunction | TNoArgumentFunction,
+): func is TNoArgumentFunction => func.length === 0;
+
+export const isSingleArgumentFunction = (
+  func: TSingleArgumentFunction | TDoubleArgumentFunction | TNoArgumentFunction,
+): func is TSingleArgumentFunction => func.length === 1;
+
+export const isDoubleArgumentFunction = (
+  func: TSingleArgumentFunction | TDoubleArgumentFunction | TNoArgumentFunction,
+): func is TDoubleArgumentFunction => func.length === 2;
+
+export const requestEmojis = async () => {
+  const emojiListUrl = 'https://unpkg.com/emoji.json@14.0.0/emoji.json';
+
+  const response = await fetch(emojiListUrl);
+  const data: TRawEmoji[] = await response.json();
+
+  return data;
+};
+
+export const nextElement = <T>(elements: T[], currentElement: T): T => {
+  const currentIndex = elements.indexOf(currentElement);
+  const nextIndex = currentIndex === elements.length - 1 ? 0 : currentIndex + 1;
+  return elements[nextIndex];
+};
+
+export const prevElement = <T>(elements: T[], currentElement: T): T => {
+  const currentIndex = elements.indexOf(currentElement);
+  const prevIndex = currentIndex === 0 ? elements.length - 1 : currentIndex - 1;
+  return elements[prevIndex];
 };

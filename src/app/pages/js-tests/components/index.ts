@@ -6,3 +6,5 @@ export { TestNavigatorFeatures } from './TestNavigatorFeatures/TestNavigatorFeat
 export { TestWebStorage } from './TestWebStorage/TestWebStorage';
 export { TestCanvas } from './TestCanvas/TestCanvas';
 export { TestCrypto } from './TestCrypto/TestCrypto';
+export { TestMath } from './TestMath/TestMath';
+export { TestDates } from './TestDates/TestDates';

@@ -5,14 +5,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 import fs from 'fs';
 
-const scssPlugin = (): Plugin => {
-  return {
-    name: 'scss-transform',
-    apply: 'build',
-    transform(code, id) {},
-  };
-};
-
 const redirectsPlugin = (): Plugin => {
   return {
     name: 'redirects',

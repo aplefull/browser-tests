@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     gap: 50px;
+    scale: 0.7;
 
     .glowDiv {
       width: 100px;
@@ -28,40 +29,99 @@
         shape-rendering: geometricPrecision;
       }
     }
+
+    @media (width < 600px) {
+      scale: 0.5;
+    }
   }
 
-  .css-video-description {
+  .dynamic-resolution {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 500px;
+    column-gap: 5px;
+    position: relative;
+    overflow: hidden;
+
+    video {
+      max-width: 100%;
+
+      &:nth-child(1) {
+        position: absolute;
+        grid-column: 1 / 2;
+      }
+
+      &:nth-child(2) {
+        max-height: 100%;
+        width: 100%;
+        grid-column: 2 / 3;
+      }
+
+      &:nth-child(3) {
+        width: 100%;
+        grid-column: 3 / 4;
+      }
+    }
+  }
+
+  .dynamic-resolution-controls {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    > div {
+      width: min(100%, 300px);
+    }
+  }
+
+  .transparency {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    .author {
-      margin: 0;
+    .video-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       width: 100%;
-      text-align: left;
+      max-width: 700px;
+      gap: 10px;
 
-      a {
-        color: $color-white;
-        text-decoration: none;
+      video {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
 
-        &:hover {
-          text-decoration: underline;
+        &.shadow {
+          filter: drop-shadow(2px 4px 10px $color-black);
+        }
+
+        &.blur {
+          filter: blur(5px);
+        }
+
+        &.color-burn {
+          mix-blend-mode: color-burn;
         }
       }
     }
+  }
 
-    .warning {
-      margin-bottom: 30px;
+  .weird-resolutions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    place-content: center;
+    gap: 5px;
 
-      span {
-        display: block;
-        color: $color-warning;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-align: center;
-        font-size: 1.6rem;
-        margin-bottom: 10px;
-      }
+    span {
+      text-align: center;
+    }
+
+    video {
+      width: 100%;
+      height: 500px;
+      outline: 1px solid $color-white;
     }
   }
 }

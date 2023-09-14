@@ -1,0 +1,8 @@
+.clip {
+  display: grid;
+  place-items: center;
+
+  canvas {
+    max-width: 500px;
+  }
+}

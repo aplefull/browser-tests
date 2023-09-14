@@ -1,11 +1,9 @@
-.text {
-  fill: $color-white;
-  stroke: none;
-  font-size: 1.5rem;
-  font-family: 'Noto Color Emoji', sans-serif;
-  text-anchor: middle;
-}
-
-.image {
-  outline: 1px solid $color-red;
+.morphology {
+  .text {
+    fill: $color-white;
+    stroke: none;
+    font-size: 1.5rem;
+    font-family: 'Noto Color Emoji', sans-serif;
+    text-anchor: middle;
+  }
 }

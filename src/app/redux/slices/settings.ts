@@ -164,6 +164,14 @@ const initialState: TSettingsInitialState = {
           name: 'Crypto API',
           initialState: DROPDOWN_STATE.OPEN,
         },
+        {
+          name: 'Math',
+          initialState: DROPDOWN_STATE.OPEN,
+        },
+        {
+          name: 'Dates',
+          initialState: DROPDOWN_STATE.OPEN,
+        },
       ],
       misc: [
         {
@@ -184,6 +192,10 @@ const initialState: TSettingsInitialState = {
         },
         {
           name: 'Miscellaneous tests',
+          initialState: DROPDOWN_STATE.CLOSED,
+        },
+        {
+          name: 'MathML',
           initialState: DROPDOWN_STATE.CLOSED,
         },
       ],

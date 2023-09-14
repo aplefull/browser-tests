@@ -1,3 +1,11 @@
+:root {
+  --pseudo-selector-test-root: 'Pass';
+}
+
+:scope {
+  --pseudo-selector-test-scope: 'Pass';
+}
+
 .pseudo {
   h3 {
     width: 100%;
@@ -8,7 +16,7 @@
 
   .before {
     &:before {
-      content: '🐞';
+      content: 'It works! 🐞';
     }
   }
 
@@ -49,7 +57,12 @@
   }
 
   .placeholder {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
     input {
+      width: 120px;
       padding: 2px;
       border-radius: 3px;
       outline: none;
@@ -60,7 +73,7 @@
 
       &::placeholder {
         font-family: monospace;
-        color: $color-green-dark-10;
+        color: $color-green;
       }
     }
   }
@@ -113,6 +126,10 @@
     flex-direction: column;
     gap: 5px;
 
+    p {
+      margin: 0;
+    }
+
     span {
       width: 100px;
       min-height: 20px;
@@ -126,8 +143,392 @@
   }
 
   .checked {
-    &:checked {
-      background-color: $color-green;
+    input {
+      cursor: pointer;
+
+      + label {
+        cursor: pointer;
+
+        &:after {
+          content: 'Check the checkbox!';
+        }
+      }
+
+      &:checked {
+        + label {
+          &:after {
+            content: 'Everything works :)';
+            color: $color-green;
+          }
+        }
+      }
     }
   }
+
+  .disabled {
+    input:disabled {
+      display: none;
+
+      + span {
+        &:before {
+          content: 'Pass';
+          color: $color-green;
+        }
+      }
+    }
+  }
+
+  .enabled {
+    input:enabled {
+      display: none;
+
+      + span {
+        &:before {
+          content: 'Pass';
+          color: $color-green;
+        }
+      }
+    }
+  }
+
+  .focus {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    input {
+      width: 120px;
+
+      &:focus {
+        + span {
+          &:before {
+            content: 'Everything works :)';
+            color: $color-green;
+          }
+        }
+      }
+    }
+  }
+
+  .default {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    form {
+      margin-left: 2.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checks,
+    .radios {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      cursor: pointer;
+      margin: 0;
+
+      &:default {
+        outline: 1px solid $color-green;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .first-child {
+    span {
+      color: $color-green;
+
+      &:first-child {
+        display: none;
+      }
+    }
+  }
+
+  .first-of-type {
+    span {
+      color: $color-green;
+
+      &:first-of-type {
+        display: none;
+      }
+    }
+  }
+
+  .last-of-type {
+    span {
+      color: $color-green;
+
+      &:last-of-type {
+        display: none;
+      }
+    }
+  }
+
+  .last-child {
+    span {
+      color: $color-green;
+
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+
+  .nth-child-2 {
+    span {
+      color: $color-green;
+
+      &:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+
+  .nth-last-child-2 {
+    span {
+      color: $color-green;
+
+      &:nth-last-child(2) {
+        display: none;
+      }
+    }
+  }
+
+  .nth-last-of-type-2 {
+    span {
+      color: $color-green;
+
+      &:nth-last-of-type(2) {
+        display: none;
+      }
+    }
+  }
+
+  .nth-of-type-2 {
+    span {
+      color: $color-green;
+
+      &:nth-of-type(2) {
+        display: none;
+      }
+    }
+  }
+
+  .not {
+    span {
+      display: none;
+
+      &:not(:last-child) {
+        display: inline;
+        color: $color-green;
+      }
+    }
+  }
+
+  .only-child {
+    span {
+      display: none;
+
+      &:only-child {
+        display: inline;
+        color: $color-green;
+      }
+    }
+  }
+
+  .only-of-type {
+    span,
+    div {
+      display: none;
+
+      &:only-of-type {
+        display: inline;
+        color: $color-green;
+      }
+    }
+  }
+
+  .fullscreen {
+  }
+
+  .in-range {
+    input:in-range {
+      display: none;
+
+      + span {
+        &:before {
+          content: 'Pass';
+          color: $color-green;
+        }
+      }
+    }
+  }
+
+  .indeterminate {
+    form {
+      margin-top: 10px;
+      margin-left: 2.5px;
+
+      input:indeterminate {
+        outline: 1px solid $color-green;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .valid {
+    input:valid {
+      outline: 10px solid $color-green;
+    }
+  }
+
+  .invalid {
+    input:invalid {
+      outline: 10px solid $color-green;
+    }
+  }
+
+  .lang-en {
+    :lang(en) {
+      color: $color-green;
+      font-weight: bold;
+    }
+  }
+
+  .dir-ltr {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    span {
+      text-align: left;
+
+      &:dir(rtl) {
+        color: $color-red;
+      }
+
+      &:dir(ltr) {
+        color: $color-green;
+      }
+    }
+  }
+
+  .link {
+    a:link {
+      color: $color-green;
+    }
+  }
+
+  .visited {
+    a:visited {
+      color: $color-green;
+    }
+  }
+
+  .required {
+    input:required {
+      display: none;
+
+      + span {
+        &:before {
+          content: 'Pass';
+          color: $color-green;
+        }
+      }
+    }
+  }
+
+  .optional {
+    input:optional {
+      display: none;
+
+      + span {
+        &:before {
+          content: 'Pass';
+          color: $color-green;
+        }
+      }
+    }
+  }
+
+  .out-of-range {
+    input:out-of-range {
+      display: none;
+
+      + span {
+        &:before {
+          content: 'Pass';
+          color: $color-green;
+        }
+      }
+    }
+  }
+
+  .read-only {
+    input:read-only {
+      display: none;
+
+      + span {
+        &:before {
+          content: 'Pass';
+          color: $color-green;
+        }
+      }
+    }
+  }
+
+  .read-write {
+    input:read-write {
+      display: none;
+
+      + span {
+        &:before {
+          content: 'Pass';
+          color: $color-green;
+        }
+      }
+    }
+  }
+
+  .root {
+    &:before {
+      content: var(--pseudo-selector-test-root);
+    }
+  }
+
+  .scope {
+    :root {
+    }
+
+    &:before {
+      content: var(--pseudo-selector-test-scope);
+    }
+  }
+
+  .target {
+    a {
+      color: $color-white;
+
+      &:target {
+        color: $color-green;
+      }
+    }
+  }
+}
+
+@page :first {
+  // margin: 2in;
+}
+
+@page :left {
+  margin-left: 1in;
+}
+
+@page :right {
+  margin-right: 1in;
 }

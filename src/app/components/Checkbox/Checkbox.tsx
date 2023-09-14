@@ -1,17 +1,24 @@
 import classNames from 'classnames';
 import styles from './styles.module.scss';
 import { Check } from 'tabler-icons-react';
+import { TLabelPosition } from '@/types';
 
 type TCheckboxProps = {
-  label?: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
+  label?: string;
+  labelPosition?: Omit<TLabelPosition, 'top' | 'bottom'>;
   className?: string;
 };
 
-export const Checkbox = ({ label = '', checked, onChange, className }: TCheckboxProps) => {
+export const Checkbox = ({ label = '', labelPosition, checked, onChange, className }: TCheckboxProps) => {
   return (
-    <label className={classNames(styles.checkboxWrapper, className)}>
+    <label
+      className={classNames(styles.checkboxWrapper, className, {
+        [styles.labelRight]: labelPosition === 'right' || !labelPosition,
+        [styles.labelLeft]: labelPosition === 'left',
+      })}
+    >
       <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} />
       <div
         className={classNames(styles.checkbox, {

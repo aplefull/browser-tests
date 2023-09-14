@@ -1,10 +1,16 @@
 :root {
+  /* TODO remove */
   --relative-color-test-1: $color-green-dark-10;
 }
 
 * {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
+}
+
+html {
+  --pseudo-selector-test-root: 'Fail';
+  --pseudo-selector-test-scope: 'Fail';
 }
 
 html,
@@ -32,5 +38,29 @@ section {
 
   > h2 {
     margin: 0;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }

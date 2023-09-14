@@ -7,6 +7,8 @@ import {
   TestNavigatorFeatures,
   TestTabInteractions,
   TestWebStorage,
+  TestMath,
+  TestDates,
 } from '@/app/pages/js-tests/components';
 
 export const JSTestsPage = () => {
@@ -20,6 +22,8 @@ export const JSTestsPage = () => {
       <TestWebStorage />
       <TestCanvas />
       <TestCrypto />
+      <TestMath />
+      <TestDates />
     </>
   );
 };

@@ -1,0 +1,16 @@
+.canvas-transform {
+  display: flex;
+  justify-content: center;
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    canvas {
+      max-width: 400px;
+    }
+  }
+}

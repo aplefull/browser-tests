@@ -1,0 +1,42 @@
+.math {
+  h2 {
+    @include subtitle;
+  }
+
+  .constants {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    @media (width < 700px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .functions {
+    width: min(500px, 100%);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .scale {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+
+      span {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    canvas {
+      width: 100%;
+      aspect-ratio: 1;
+      outline: 1px solid $color-white;
+      border-radius: 4px;
+    }
+  }
+}

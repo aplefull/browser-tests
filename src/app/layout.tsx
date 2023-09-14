@@ -28,6 +28,13 @@ const RootLayout = () => {
 
       dispatch(setSectionsState(JSON.parse(event.newValue)));
     });
+
+    const savedState = localStorage.getItem('settings-sections-state');
+    if (!savedState) return;
+
+    dispatch(setSectionsState(JSON.parse(savedState)));
+
+    // TODO move or remove listener on unmount
   }, []);
 
   return (

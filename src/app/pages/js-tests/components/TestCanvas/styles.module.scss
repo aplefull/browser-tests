@@ -1,12 +1,4 @@
 .canvas-container {
-  .buttons-wrapper {
-    width: 100%;
-  }
-
-  .test-button {
-    max-width: 100%;
-  }
-
   > div {
     display: flex;
     flex-direction: column;
@@ -18,53 +10,19 @@
       gap: 10px;
     }
 
+    h2 {
+      @include subtitle;
+    }
+
     canvas {
       outline: 1px solid slategray;
     }
   }
+}
 
-  .canvas-wrapper {
-    width: 100%;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr) minmax(0, 1fr);
-    grid-column-gap: 20px;
-    place-items: center;
-
-    canvas {
-      width: 100%;
-      aspect-ratio: 1;
-      max-width: 600px;
-      grid-column: 2;
-    }
-
-    div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-
-      .current-test {
-        background-color: darken(aliceblue, 10%);
-      }
-    }
-
-    @media (width < 600px) {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
-      grid-column-gap: 0;
-      grid-row-gap: 20px;
-
-      canvas {
-        grid-column: unset;
-      }
-
-      .buttons-wrapper {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        place-items: center;
-        align-self: start;
-      }
-    }
-  }
+.grid-layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
 }

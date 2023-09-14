@@ -2,19 +2,11 @@ import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Section } from '@/app/components/Section/Section';
+import { requestEmojis } from '@/utils/utils';
 
 type TEmoji = {
   name: string;
   emoji: string;
-};
-
-export type TRawEmoji = {
-  category: string;
-  char: string;
-  codes: string;
-  group: string;
-  name: string;
-  subgroup: string;
 };
 
 export const TestEmojis = () => {
@@ -24,12 +16,9 @@ export const TestEmojis = () => {
 
   useEffect(() => {
     const init = async () => {
-      const emojiListUrl = 'https://unpkg.com/emoji.json@14.0.0/emoji.json';
 
-      const response = await fetch(emojiListUrl);
-      const data: TRawEmoji[] = await response.json();
-
-      setEmojiList(data.map((emoji) => ({ name: emoji.name, emoji: emoji.char })));
+      const rawEmojis = await requestEmojis();
+      setEmojiList(rawEmojis.map((emoji) => ({ name: emoji.name, emoji: emoji.char })));
     };
 
     init().catch(console.error);

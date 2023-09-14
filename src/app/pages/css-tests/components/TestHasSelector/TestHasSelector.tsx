@@ -16,7 +16,9 @@ export const TestHasSelector = () => {
         </div>
         <div></div>
         <div>
-          <input type="checkbox" defaultChecked={true} />
+          <label>
+            <input type="checkbox" defaultChecked={true} />
+          </label>
         </div>
         <div>
           <div>

@@ -1,33 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
-import {
-  bg,
-  complexEmojiTextNotoFont,
-  complexEmojiText,
-  drawHeart,
-  drawShape,
-  emojiText,
-  fillRect,
-  hieroglyphsText,
-  mathText,
-  regularText,
-  reset,
-  strokeRect,
-  blnsText,
-  largeEmojisText,
-  canvasLinearGradient,
-  canvasRadialGradient,
-  canvasConicGradient,
-  canvasClipPath,
-  ctxRotate,
-  ctxRotateInfinity,
-  differentFormats,
-  ctxImageData,
-  canvasCompositing,
-} from '@/app/pages/js-tests/components/TestCanvas/utils.canvas';
+import { reset } from '@/app/pages/js-tests/components/TestCanvas/utils.canvas';
 import classNames from 'classnames';
 import { Section } from '@/app/components/Section/Section';
+import { CanvasShapes } from '@/app/pages/js-tests/components/TestCanvas/subcomponents/CanvasShapes/CanvasShapes';
+import { CanvasText } from '@/app/pages/js-tests/components/TestCanvas/subcomponents/CanvasText/CanvasText';
+import { CanvasGradients } from '@/app/pages/js-tests/components/TestCanvas/subcomponents/CanvasGradients/CanvasGradients';
+import { CanvasClip } from '@/app/pages/js-tests/components/TestCanvas/subcomponents/CanvasClip/CanvasClip';
+import { CanvasTransform } from '@/app/pages/js-tests/components/TestCanvas/subcomponents/CanvasTransform/CanvasTransform';
+import { CanvasImage } from '@/app/pages/js-tests/components/TestCanvas/subcomponents/CanvasImage/CanvasImage';
+import {
+  CanvasCompositing
+} from '@/app/pages/js-tests/components/TestCanvas/subcomponents/CanvasCompositing/CanvasCompositing';
 
 // TODO that needs a lot of refactoring
 export const TestCanvas = () => {
@@ -49,94 +34,33 @@ export const TestCanvas = () => {
       }, ms);
     });
 
-  const testShapes = async (ctx: CanvasRenderingContext2D) => {
-    bg(ctx);
-
-    fillRect(ctx);
-    //await wait();
-    bg(ctx);
-
-    strokeRect(ctx);
-    //await wait();
-    bg(ctx);
-
-    drawHeart(ctx);
-    //await wait();
-    bg(ctx);
-
-    drawShape(ctx);
-    await wait();
-  };
-
-  const testText = async (ctx: CanvasRenderingContext2D) => {
-    bg(ctx);
-
-    ctx.font = '24px monospace';
-    ctx.textBaseline = 'top';
-    ctx.textAlign = 'center';
-
-    regularText(ctx);
-    await wait(2000);
-
-    hieroglyphsText(ctx);
-    await wait(2000);
-
-    mathText(ctx);
-    await wait(2000);
-
-    emojiText(ctx);
-    await wait(2000);
-
-    await complexEmojiText(ctx, wait);
-    await complexEmojiTextNotoFont(ctx, wait);
-    await blnsText(ctx, wait);
-    await largeEmojisText(ctx, wait);
-  };
-
   const testGradients = async (ctx: CanvasRenderingContext2D) => {
-    await canvasLinearGradient(ctx, wait);
     await wait(2000);
 
-    await canvasRadialGradient(ctx, wait);
     await wait(2000);
 
-    await canvasConicGradient(ctx, wait);
     await wait(2000);
   };
 
   const testClip = async (ctx: CanvasRenderingContext2D) => {
-    await canvasClipPath(ctx);
     await wait(2000);
   };
 
   const testTransform = async (ctx: CanvasRenderingContext2D) => {
-    await ctxRotate(ctx, wait);
     await wait();
 
-    await ctxRotateInfinity(ctx, wait);
     await wait();
   };
 
   const testImage = async (ctx: CanvasRenderingContext2D) => {
-    await differentFormats(ctx, wait);
-    await ctxImageData(ctx, wait);
     await wait();
   };
 
   const testCompositing = async (ctx: CanvasRenderingContext2D) => {
-    await canvasCompositing(ctx, wait);
     await wait();
   };
 
   const tests = [
-    {
-      name: 'Shapes',
-      run: testShapes,
-    },
-    {
-      name: 'Text',
-      run: testText,
-    },
     {
       name: 'Gradients',
       run: testGradients,
@@ -231,29 +155,20 @@ export const TestCanvas = () => {
   return (
     <Section className={styles.canvasContainer} title="Canvas features">
       <div>
-        <div className={styles.buttons}>
-          <Button text="Run" onClick={runTests} disabled={isRunning} />
-          <Button text={!isPaused ? 'Pause' : 'Resume'} disabled={!isRunning} onClick={pause} />
-        </div>
-        <span>{currentTestName}</span>
-        <div className={styles.canvasWrapper}>
-          <canvas ref={canvasRef} />
-          <div className={styles.buttonsWrapper}>
-            {tests.map((test) => {
-              return (
-                <Button
-                  className={classNames(styles.testButton, {
-                    [styles.currentTest]: currentTest === test.name,
-                  })}
-                  width={120}
-                  key={test.name}
-                  text={test.name}
-                  onClick={handleRunTest(test.name)}
-                />
-              );
-            })}
-          </div>
-        </div>
+        <h2>Shapes</h2>
+        <CanvasShapes />
+        <h2>Text</h2>
+        <CanvasText />
+        <h2>Gradients</h2>
+        <CanvasGradients />
+        <h2>Clip</h2>
+        <CanvasClip />
+        <h2>Transform</h2>
+        <CanvasTransform />
+        <h2>Image</h2>
+        <CanvasImage />
+        <h2>Compositing</h2>
+        <CanvasCompositing />
       </div>
     </Section>
   );

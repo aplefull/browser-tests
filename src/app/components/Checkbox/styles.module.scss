@@ -9,6 +9,18 @@
     display: none;
   }
 
+  &.label-left {
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &.label-right {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
   .checkbox {
     height: 20px;
     aspect-ratio: 1;

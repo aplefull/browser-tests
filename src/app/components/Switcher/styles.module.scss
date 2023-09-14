@@ -1,0 +1,22 @@
+.switcher {
+  display: flex;
+  height: fit-content;
+  gap: 10px;
+  outline: none;
+
+  .button {
+    height: 100%;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border-radius: 3px;
+    padding: 4px;
+    border: 1px solid $color-white;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .children {
+    flex: 1;
+  }
+}

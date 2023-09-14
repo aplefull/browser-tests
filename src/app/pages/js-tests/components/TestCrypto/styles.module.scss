@@ -9,11 +9,25 @@
     margin: 10px 0;
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    word-break: break-word;
   }
 
   .subtle-crypto-results {
     margin: 10px 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 10px;
+    row-gap: 2px;
+    width: fit-content;
+
+    .success {
+      color: $color-green;
+    }
+
+    .error {
+      grid-column: 1 / 3;
+      color: $color-red;
+    }
   }
 }
