@@ -3,10 +3,24 @@ $color-green-dark-10: darken($color-green, 10%);
 $color-red: #cc3838;
 $color-warning: #d53b3b;
 $color-white: aliceblue;
+$color-white-10: transparentize($color-white, 0.9);
+$color-white-20: transparentize($color-white, 0.8);
+$color-white-30: transparentize($color-white, 0.7);
+$color-white-40: transparentize($color-white, 0.6);
+$color-white-50: transparentize($color-white, 0.5);
+$color-white-60: transparentize($color-white, 0.4);
+$color-white-70: transparentize($color-white, 0.3);
+$color-white-80: transparentize($color-white, 0.2);
+$color-white-90: transparentize($color-white, 0.1);
 $color-black: #000000;
 $color-charcoal: #171717;
 $color-ink: #1e1e1e;
 $color-ink-light-10: lighten($color-ink, 10%);
 $color-ink-light-20: lighten($color-ink, 20%);
+$color-ink-light-30: lighten($color-ink, 30%);
+$color-ink-light-40: lighten($color-ink, 40%);
+$color-ink-light-50: lighten($color-ink, 50%);
+
+
 $color-blue: #3b8bd5;
 $color-transparent: transparent;

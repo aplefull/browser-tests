@@ -1,19 +1,7 @@
 .testDifficultStrings {
-  label {
-    margin: 10px;
-    cursor: pointer;
-
-    input {
-      cursor: pointer;
-      margin: 0 5px 0 0;
-    }
-  }
-
   .stringsContainer {
     width: 100%;
     max-height: 500px;
-    display: flex;
-    flex-direction: column;
     overflow-y: auto;
 
     > div {
@@ -23,6 +11,7 @@
       border: 1px solid $color-white;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     span {

@@ -12,6 +12,7 @@ type TCollapseProps = {
   head?: ReactNode;
   headClassName?: string;
   childrenClassName?: string;
+  className?: string;
   onChange?: (open: boolean) => void;
 };
 
@@ -23,6 +24,7 @@ export const Collapse = ({
   showIcon = true,
   headClassName,
   childrenClassName,
+  className,
   open,
   onChange,
 }: TCollapseProps) => {
@@ -50,7 +52,7 @@ export const Collapse = ({
   }, [open]);
 
   return (
-    <div className={styles.collapse}>
+    <div className={classNames(styles.collapse, className)}>
       <div className={headClassName || styles.collapseHead} onClick={toggle}>
         {head && head}
         {!head && (

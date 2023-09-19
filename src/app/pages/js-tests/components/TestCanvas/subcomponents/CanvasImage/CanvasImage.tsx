@@ -48,7 +48,6 @@ const drawImageFormats = async (ctx: CanvasRenderingContext2D) => {
     const { width: sw, height: sh, x: sx, y: sy } = fitSource(intrinsicWidth, intrinsicHeight, columnWidth, rowHeight);
     ctx.drawImage(img, sx, sy, sw, sh, xOff, yOff, columnWidth, rowHeight);
 
-    console.log(columnWidth, performance.now());
     ctx.shadowColor = 'black';
 
     ctx.fillText(`${extension}`, xOff + columnWidth / 2, yOff + rowHeight / 2);

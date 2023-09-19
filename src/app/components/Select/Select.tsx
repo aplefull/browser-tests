@@ -68,7 +68,6 @@ export function Select({
 
   const optionsStyle = {
     width: width,
-    height: 200,
     transform: `translate(${left}px, ${bottom + scrollY}px)`,
   };
 

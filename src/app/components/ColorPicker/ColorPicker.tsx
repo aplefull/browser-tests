@@ -1,228 +1,80 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './styles.module.scss';
-import { clamp, map, nextElement } from '@/utils/utils';
+import { clamp, nextElement } from '@/utils/utils';
 import classNames from 'classnames';
+import { Popover } from '@/app/components/Popover/Popover';
+import { DraggableTrack } from '@/app/components/ColorPicker/DraggableTrack';
+import { Color } from '@/app/components/ColorPicker/Color';
 
-class Color {
-  r: number;
-  g: number;
-  b: number;
+const ColorPreview = ({ color }: { color: Color }) => {
+  return (
+    <div className={styles.colorPreview}>
+      <div style={{ backgroundColor: color.toRGBAString() }} />
+    </div>
+  );
+};
 
-  constructor() {
-    this.r = 0;
-    this.g = 0;
-    this.b = 0;
-  }
+type TColorInputProps = {
+  color: Color;
+};
 
-  fromRGB(r: number, g: number, b: number) {
-    this.r = r;
-    this.g = g;
-    this.b = b;
+const ColorInput = ({ color }: TColorInputProps) => {
+  const VALUE_MODES = ['rgb', 'hsl', 'hsv', 'hex'] as const;
+  type TValueMode = (typeof VALUE_MODES)[number];
 
-    return this;
-  }
+  const [valueMode, setValueMode] = useState<TValueMode>(VALUE_MODES[0]);
 
-  fromHSL(h: number, s: number, l: number) {
-    const rgb = hslToRgb(h, s, l);
+  const changeValueMode = () => {
+    setValueMode(nextElement(VALUE_MODES, valueMode));
+  };
 
-    this.r = rgb.r;
-    this.g = rgb.g;
-    this.b = rgb.b;
+  const noop = () => {};
 
-    return this;
-  }
+  const renderInputs = (mode: TValueMode) => {
+    switch (mode) {
+      case 'rgb':
+        const { r, g, b } = color.toRGB();
+        return (
+          <>
+            <input type="number" value={r} onChange={noop} min={0} max={255} />
+            <input type="number" value={g} onChange={noop} min={0} max={255} />
+            <input type="number" value={b} onChange={noop} min={0} max={255} />
+          </>
+        );
 
-  fromHSV(h: number, s: number, v: number) {
-    const rgb = hsvToRgb(h, s, v);
+      case 'hsl':
+        const { h, s, l } = color.toHSL();
+        return (
+          <>
+            <input type="number" value={h} onChange={noop} min={0} max={360} />
+            <input type="number" value={s} onChange={noop} min={0} max={100} />
+            <input type="number" value={l} onChange={noop} min={0} max={100} />
+          </>
+        );
 
-    this.r = rgb.r;
-    this.g = rgb.g;
-    this.b = rgb.b;
+      case 'hsv':
+        const { h: h2, s: s2, v } = color.toHSV();
+        return (
+          <>
+            <input type="number" value={h2} onChange={noop} min={0} max={360} />
+            <input type="number" value={s2} onChange={noop} min={0} max={100} />
+            <input type="number" value={v} onChange={noop} min={0} max={100} />
+          </>
+        );
 
-    return this;
-  }
-
-  fromHex(hex: string) {
-    const rgb = hexToRgb(hex);
-
-    if (rgb) {
-      this.r = rgb.r;
-      this.g = rgb.g;
-      this.b = rgb.b;
+      case 'hex':
+        const hex = color.toHexaString();
+        return <input type="text" value={hex} onChange={noop} />;
     }
-
-    return this;
-  }
-
-  toRGB() {
-    return {
-      r: this.r,
-      g: this.g,
-      b: this.b,
-    };
-  }
-
-  toRGBString() {
-    return `rgb(${this.r}, ${this.g}, ${this.b})`;
-  }
-
-  toHSL() {
-    return rgbToHsl(this.r, this.g, this.b);
-  }
-
-  toHSLString() {
-    const { h, s, l } = this.toHSL();
-
-    return `hsl(${h}, ${s}%, ${l}%)`;
-  }
-
-  toHSV() {
-    return rgbToHsv(this.r, this.g, this.b);
-  }
-
-  toHSVString() {
-    const { h, s, v } = this.toHSV();
-
-    return `hsv(${h}, ${s}%, ${v}%)`;
-  }
-
-  toHex() {
-    return rgbToHex(this.r, this.g, this.b);
-  }
-
-  toHexString() {
-    return `${this.toHex()}`;
-  }
-}
-
-function componentToHex(c: number) {
-  var hex = c.toString(16);
-  return hex.length == 1 ? '0' + hex : hex;
-}
-
-function rgbToHex(r: number, g: number, b: number) {
-  return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}
-
-function hexToRgb(hex: string) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
-}
-
-const hslToRgb = (h: number, s: number, l: number) => {
-  s /= 100;
-  l /= 100;
-  const k = (n: number) => (n + h / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const f = (n: number) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-
-  return {
-    r: Math.round(f(0) * 255),
-    g: Math.round(f(8) * 255),
-    b: Math.round(f(4) * 255),
-  };
-};
-
-const hsvToRgb = (h: number, s: number, v: number) => {
-  let d = 0.0166666666666666 * h;
-  let c = v * s;
-  let x = c - c * Math.abs((d % 2.0) - 1.0);
-  let m = v - c;
-  c += m;
-  x += m;
-
-  m = Math.round(m * 255);
-  c = Math.round(c * 255);
-  x = Math.round(x * 255);
-
-  switch (d >>> 0) {
-    case 0:
-      return { r: c, g: x, b: m };
-    case 1:
-      return { r: x, g: c, b: m };
-    case 2:
-      return { r: m, g: c, b: x };
-    case 3:
-      return { r: m, g: x, b: c };
-    case 4:
-      return { r: x, g: m, b: c };
-  }
-
-  return { r: c, g: m, b: x };
-};
-
-const rgbToHsl = (r: number, g: number, b: number) => {
-  r /= 255;
-  g /= 255;
-  b /= 255;
-
-  const l = Math.max(r, g, b);
-  const s = l - Math.min(r, g, b);
-  const h = s ? (l === r ? (g - b) / s : l === g ? 2 + (b - r) / s : 4 + (r - g) / s) : 0;
-
-  return {
-    h: 60 * h < 0 ? 60 * h + 360 : 60 * h,
-    s: 100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
-    l: (100 * (2 * l - s)) / 2,
-  };
-};
-
-const rgbToHsv = (r: number, g: number, b: number) => {
-  let v = Math.max(r, g, b),
-    c = v - Math.min(r, g, b);
-  let h = c && (v == r ? (g - b) / c : v == g ? 2 + (b - r) / c : 4 + (r - g) / c);
-
-  return {
-    h: 60 * (h < 0 ? h + 6 : h),
-    s: v && c / v,
-    v: v,
-  };
-};
-
-type TDraggableTrackProps = {
-  onChange: (value: number) => void;
-  className?: string;
-};
-
-const DraggableTrack = ({ onChange, className }: TDraggableTrackProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const draggableRef = useRef<HTMLDivElement>(null);
-
-  const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
-
-    const rect = ref.current?.getBoundingClientRect();
-
-    if (!rect) return;
-
-    const onMouseMove = (event: MouseEvent) => {
-      const { clientY } = event;
-
-      const y = clientY - rect.top;
-      const yPercent = clamp(y / rect.height, 0, 1);
-
-      draggableRef.current?.style.setProperty('top', `${yPercent * 100}%`);
-      onChange(yPercent);
-    };
-
-    const onMouseUp = () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
   };
 
   return (
-    <div ref={ref} className={classNames(styles.dragTrack, className)} onMouseDown={onMouseDown}>
-      <div ref={draggableRef} style={{ top: 0 }} />
+    <div className={styles.value}>
+      {/*TODO replace render function with component*/}
+      <div className={styles.valueInputs}>{renderInputs(valueMode)}</div>
+      <button className={styles.modeButton} onClick={changeValueMode}>
+        {valueMode}
+      </button>
     </div>
   );
 };
@@ -231,38 +83,23 @@ type TColorPickerProps = {
   onChange?: (color: string) => void;
 };
 
-export const ColorPicker = ({ onChange }: TColorPickerProps) => {
-  const [hue, setHue] = useState(0);
-  const [saturation, setSaturation] = useState(0);
-  const [value, setValue] = useState(0);
-  const [alpha, setAlpha] = useState(1);
-  const [valueMode, setValueMode] = useState('rgb');
+type TPickerProps = {
+  onChange: (color: Color) => void;
+};
+
+type TPaletteProps = {
+  setSaturation: (value: number) => void;
+  setValue: (value: number) => void;
+  hue: number;
+};
+
+const Palette = ({ setSaturation, setValue, hue }: TPaletteProps) => {
   const [draggablePos, setDraggablePos] = useState({
     x: 0,
     y: 0,
   });
 
   const paletteRef = useRef<HTMLDivElement>(null);
-
-  const currentColor = new Color().fromHSV(hue, saturation, value);
-
-  const changeValueMode = () => {
-    const modes = ['rgb', 'hsv', 'hsl', 'hex'];
-    setValueMode(nextElement(modes, valueMode));
-  };
-
-  const getColorString = () => {
-    switch (valueMode) {
-      case 'rgb':
-        return currentColor.toRGBString();
-      case 'hsv':
-        return currentColor.toHSVString();
-      case 'hsl':
-        return currentColor.toHSLString();
-      case 'hex':
-        return currentColor.toHexString();
-    }
-  };
 
   const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     const { current } = paletteRef;
@@ -271,27 +108,29 @@ export const ColorPicker = ({ onChange }: TColorPickerProps) => {
 
     event.preventDefault();
 
-    const rect = current.getBoundingClientRect();
-
     const onMouseMove = (event: MouseEvent) => {
       const { clientX, clientY } = event;
+      const { width, height, left, top } = current.getBoundingClientRect();
 
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
+      const x = clientX - left;
+      const y = clientY - top;
 
-      const xPercent = clamp(x / rect.width, 0, 1);
-      const yPercent = clamp(y / rect.height, 0, 1);
+      const xPercent = clamp(x / width, 0, 1);
+      const yPercent = clamp(y / height, 0, 1);
 
-      setSaturation(xPercent);
-      setValue(1 - yPercent);
+      const saturation = xPercent;
+      const value = 1 - yPercent;
 
-      onChange?.(new Color().fromHSV(hue, xPercent, 1 - yPercent).toHexString());
+      setSaturation(saturation);
+      setValue(value);
 
       setDraggablePos({
-        x: clamp(x, 0, rect.width),
-        y: clamp(y, 0, rect.height),
+        x: clamp(x, 0, width),
+        y: clamp(y, 0, height),
       });
     };
+
+    onMouseMove(event.nativeEvent);
 
     const onMouseUp = () => {
       document.removeEventListener('mousemove', onMouseMove);
@@ -302,39 +141,95 @@ export const ColorPicker = ({ onChange }: TColorPickerProps) => {
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  const handleHueChange = (value: number) => {
-    setHue(value * 360);
-    onChange?.(new Color().fromHSV(value * 360, saturation, value).toHexString());
-  };
-
-  const handleAlphaChange = (value: number) => {
-    setAlpha(value);
-  };
-
   const paletteStyle = {
     backgroundColor: new Color().fromHSL(hue, 100, 50).toRGBString(),
   };
 
   return (
+    <div ref={paletteRef} className={styles.palette} onMouseDown={onMouseDown} style={paletteStyle}>
+      <div className={classNames(styles.paletteBg, styles.whiteBg)} />
+      <div className={classNames(styles.paletteBg, styles.blackBg)} />
+      <div className={styles.draggable} style={{ left: draggablePos.x, top: draggablePos.y }} />
+    </div>
+  );
+};
+
+const Picker = ({ onChange }: TPickerProps) => {
+  const [hue, setHue] = useState(0);
+  const [saturation, setSaturation] = useState(0);
+  const [value, setValue] = useState(0);
+  const [alpha, setAlpha] = useState(1);
+
+  const currentColor = new Color().fromHSVA(hue, saturation, value, alpha);
+
+  const handleHueChange = (value: number) => {
+    setHue(value * 360);
+
+    const color = new Color().fromHSVA(value * 360, saturation, value, alpha);
+    onChange(color);
+  };
+
+  const handleSaturationChange = (value: number) => {
+    setSaturation(value);
+
+    const color = new Color().fromHSVA(hue, value, value, alpha);
+    onChange(color);
+  };
+
+  const handleValueChange = (value: number) => {
+    setValue(value);
+
+    const color = new Color().fromHSVA(hue, saturation, value, alpha);
+    onChange(color);
+  };
+
+  const handleAlphaChange = (value: number) => {
+    setAlpha(1 - value);
+
+    const color = new Color().fromHSVA(hue, saturation, value, alpha);
+    onChange(color);
+  };
+
+  const alphaBGStyle = {
+    background: `linear-gradient(to top, rgba(0, 0, 0, 0), ${currentColor.toRGBString()})`,
+  };
+
+  return (
     <div className={styles.picker}>
       <div className={styles.inputs}>
-        <div ref={paletteRef} className={styles.palette} onMouseDown={onMouseDown} style={paletteStyle}>
-          <div className={classNames(styles.paletteBg, styles.whiteBg)} />
-          <div className={classNames(styles.paletteBg, styles.blackBg)} />
-          <div className={styles.draggable} style={{ left: draggablePos.x, top: draggablePos.y }} />
-        </div>
+        <Palette setSaturation={handleSaturationChange} setValue={handleValueChange} hue={hue} />
         <div className={styles.tracks}>
           <DraggableTrack className={styles.gradient} onChange={handleHueChange} />
-          <DraggableTrack onChange={handleAlphaChange} />
+          <DraggableTrack onChange={handleAlphaChange}>
+            <div className={classNames(styles.bg, styles.checkered)} />
+            <div className={styles.bg} style={alphaBGStyle} />
+          </DraggableTrack>
         </div>
       </div>
-      <div className={styles.colorPreview}>
-        <div style={{ backgroundColor: currentColor.toRGBString() }} />
-      </div>
-      <div className={styles.value}>
-        <div className={styles.valueInputs}>{getColorString()}</div>
-        <button onClick={changeValueMode}>{valueMode}</button>
-      </div>
+      <ColorPreview color={currentColor} />
+      <ColorInput color={currentColor} />
     </div>
+  );
+};
+
+export const ColorPicker = ({ onChange }: TColorPickerProps) => {
+  const [color, setColor] = useState(new Color());
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  const togglePopover = () => setIsPopoverOpen((isOpen) => !isOpen);
+
+  const handleChange = (color: Color) => {
+    setColor(color);
+    onChange?.(color.toHexaString());
+  };
+
+  const inputStyle = {
+    backgroundColor: color.toRGBAString(),
+  };
+
+  return (
+    <Popover isOpen={isPopoverOpen} content={<Picker onChange={handleChange} />}>
+      <div onClick={togglePopover} className={styles.colorPickerInput} style={inputStyle} />
+    </Popover>
   );
 };

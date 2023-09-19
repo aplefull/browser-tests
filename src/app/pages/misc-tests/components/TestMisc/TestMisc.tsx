@@ -329,9 +329,12 @@ const TransparentVideo = () => {
           onChange={setColorBurn}
           label="Add color burn (removes white outline, but makes controls barely visible)"
         />
+        <div className={styles.colorControl}>
+          <span>Pick a background color:</span>
+          <ColorPicker onChange={setBackgroundColor} />
+          <Button className={styles.resetColor} variant="dark" text="Reset color" onClick={() => setBackgroundColor('transparent')} />
+        </div>
       </div>
-      <Button text="Reset" onClick={() => setBackgroundColor('transparent')} />
-      <ColorPicker onChange={setBackgroundColor} />
     </div>
   );
 };
@@ -356,7 +359,6 @@ const WeirdDimensionsVideos = () => {
 };
 
 export const TestMisc = () => {
-
   return (
     <Section className={styles.misc} title="Miscellaneous tests">
       <h2>Glow effect</h2>
@@ -365,9 +367,7 @@ export const TestMisc = () => {
         <GlowSVG />
       </div>
       <h2>CSS art</h2>
-      <div>
-        <MikuArt />
-      </div>
+      <MikuArt />
       <h2>CSS video</h2>
       <CssVideo />
       <h2>Videos with dynamic resolution</h2>

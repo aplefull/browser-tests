@@ -1,6 +1,24 @@
 .math-ml {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
   math,
   math * {
     font-family: math;
+    color: $color-white-80;
+  }
+
+  math {
+    display: block math;
+  }
+
+  > div {
+    display: flex;
+    width: fit-content;
+    margin-inline: auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: $color-charcoal;
   }
 }

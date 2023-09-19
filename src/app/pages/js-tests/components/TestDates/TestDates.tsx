@@ -1,46 +1,50 @@
 import { Section } from '@/app/components/Section/Section';
 import { Json } from '@/app/pages/js-tests/components/subcomponents/Json/Json';
+import styles from './styles.module.scss';
+import { Select } from '@/app/components/Select/Select';
+import { useEffect, useState } from 'react';
+
+const selectOptions = ['now', 'date 0'];
 
 export const TestDates = () => {
-  const now = new Date(-62167219200000);
+  const [now, setNow] = useState(new Date());
+  const [selectOption, setSelectOption] = useState(selectOptions[0]);
 
-  console.dir(now);
-
-  const tableData = {
-    getDate: now.getDate(),
-    getDay: now.getDay(),
-    getFullYear: now.getFullYear(),
-    getHours: now.getHours(),
-    getMilliseconds: now.getMilliseconds(),
-    getMinutes: now.getMinutes(),
-    getMonth: now.getMonth(),
-    getSeconds: now.getSeconds(),
-    getTime: now.getTime(),
-    getTimezoneOffset: now.getTimezoneOffset(),
-    getUTCDate: now.getUTCDate(),
-    getUTCDay: now.getUTCDay(),
-    getUTCFullYear: now.getUTCFullYear(),
-    getUTCHours: now.getUTCHours(),
-    getUTCMilliseconds: now.getUTCMilliseconds(),
-    getUTCMinutes: now.getUTCMinutes(),
-    getUTCMonth: now.getUTCMonth(),
-    getUTCSeconds: now.getUTCSeconds(),
-    getYear: now.getFullYear(),
-    toDateString: now.toDateString(),
-    toISOString: now.toISOString(),
-    toJSON: now.toJSON(),
-    toLocaleDateString: now.toLocaleDateString(),
-    toLocaleString: now.toLocaleString(),
-    toLocaleTimeString: now.toLocaleTimeString(),
-    toString: now.toString(),
-    toTimeString: now.toTimeString(),
-    toUTCString: now.toUTCString(),
-    valueOf: now.valueOf(),
-  };
+  const getTableData = (date: Date) => ({
+    getDate: date.getDate(),
+    getDay: date.getDay(),
+    getFullYear: date.getFullYear(),
+    getHours: date.getHours(),
+    getMilliseconds: date.getMilliseconds(),
+    getMinutes: date.getMinutes(),
+    getMonth: date.getMonth(),
+    getSeconds: date.getSeconds(),
+    getTime: date.getTime(),
+    getTimezoneOffset: date.getTimezoneOffset(),
+    getUTCDate: date.getUTCDate(),
+    getUTCDay: date.getUTCDay(),
+    getUTCFullYear: date.getUTCFullYear(),
+    getUTCHours: date.getUTCHours(),
+    getUTCMilliseconds: date.getUTCMilliseconds(),
+    getUTCMinutes: date.getUTCMinutes(),
+    getUTCMonth: date.getUTCMonth(),
+    getUTCSeconds: date.getUTCSeconds(),
+    getYear: date.getFullYear(),
+    toDateString: date.toDateString(),
+    toISOString: date.toISOString(),
+    toJSON: date.toJSON(),
+    toLocaleDateString: date.toLocaleDateString(),
+    toLocaleString: date.toLocaleString(),
+    toLocaleTimeString: date.toLocaleTimeString(),
+    toString: date.toString(),
+    toTimeString: date.toTimeString(),
+    toUTCString: date.toUTCString(),
+    valueOf: date.valueOf(),
+  });
 
   const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth().toString().padStart(2, '0');
+    const year = date.getFullYear().toString().padStart(4, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
 
     const hours = date.getHours().toString().padStart(2, '0');
@@ -48,22 +52,34 @@ export const TestDates = () => {
     const seconds = date.getSeconds().toString().padStart(2, '0');
     const milliseconds = date.getMilliseconds().toString().padStart(2, '0');
 
-    return `${year}:${month}:${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}.${milliseconds}`;
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date());
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const date = selectOption === 'now' ? now : new Date(-62167219200000);
 
   return (
     <Section title="Dates">
-      <Json data={tableData} />
-      <div style={{display: 'flex', flexDirection: 'column'}}>
-        <span>{new Date(-62167219200000).toUTCString()}</span>
-        <span>{new Date(-62167229951000).toString()}</span>
-        <span>{new Date(-62167219200000).getTimezoneOffset()}</span>
-        <span>{(new Date('0001-01-01')).toUTCString()}</span>
-        <span>{(new Date(275760, 0)).toString()}</span>
-        <span>{new Date(275760, 0).toDateString()}</span>
-        <span>{new Date(275760, 0).toUTCString()}</span>
-        <span>{formatDate(new Date(275760, 0))}</span>
-        <span>{formatDate(new Date(-62167229951000))}</span>
+      <Select className={styles.select} options={selectOptions} onChange={setSelectOption} value={selectOption} />
+      <div className={styles.json}>
+        <Json data={getTableData(date)} />
+      </div>
+      <div className={styles.special}>
+        <p>And some fun values (hover over the value to see what produced it):</p>
+        <span>Max year:</span>
+        <pre title="Formatted new Date(275760, 0)">{formatDate(new Date(275760, 0))}</pre>
+        <span>Big bang:</span>
+        <pre title="Formatted new Date(-62167219200000)">{formatDate(new Date(-62167229951000))}</pre>
+        <pre title="new Date(-62167219200000).toUTCString()">{new Date(-62167219200000).toUTCString()}</pre>
+        <pre title="new Date('0000-01-01').toUTCString()">{new Date('0000-01-01').toUTCString()}</pre>
+        <pre title="new Date(-62167229951000).toString()">{new Date(-62167229951000).toString()}</pre>
       </div>
     </Section>
   );

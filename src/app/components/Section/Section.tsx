@@ -49,6 +49,7 @@ export const Section = ({ title, info, className, children }: TSectionProps) => 
       <Collapse
         childrenClassName={className}
         headClassName={styles.head}
+        className={styles.sectionCollapse}
         head={<SectionHead title={title} info={info} />}
         title={title}
         unmountChildren

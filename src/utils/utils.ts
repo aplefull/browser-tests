@@ -217,7 +217,7 @@ export const requestEmojis = async () => {
   return data;
 };
 
-export const nextElement = <T>(elements: T[], currentElement: T): T => {
+export const nextElement = <T>(elements: T[] | readonly T[], currentElement: T): T => {
   const currentIndex = elements.indexOf(currentElement);
   const nextIndex = currentIndex === elements.length - 1 ? 0 : currentIndex + 1;
   return elements[nextIndex];

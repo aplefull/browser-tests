@@ -14,6 +14,18 @@ type TRangeInputProps = {
   className?: string;
 };
 
+const getStartX = (event: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent) => {
+  if ('touches' in event) {
+    return event.touches[0].clientX;
+  }
+
+  if ('clientX' in event) {
+    return event.clientX;
+  }
+
+  return 0;
+};
+
 export const RangeInput = ({
   value,
   min = 0,
@@ -29,7 +41,7 @@ export const RangeInput = ({
   const onMouseDown = (event: React.MouseEvent) => {
     event.preventDefault();
 
-    const { clientX: startX } = event;
+    const startX = getStartX(event);
 
     const { current: element } = ref;
 
@@ -44,8 +56,8 @@ export const RangeInput = ({
 
     onChange(clamp(value, min, max));
 
-    const onMouseMove = (event: MouseEvent) => {
-      const { clientX: currentX } = event;
+    const onMouseMove = (event: MouseEvent | TouchEvent) => {
+      const currentX = getStartX(event);
 
       const value = map(currentX - left, 0, element.offsetWidth, min, max);
 
@@ -61,10 +73,45 @@ export const RangeInput = ({
     document.addEventListener('mouseup', onMouseUp);
   };
 
+  const onTouchStart = (event: React.TouchEvent) => {
+    const startX = getStartX(event);
+
+    const { current: element } = ref;
+
+    if (!element) {
+      return;
+    }
+
+    const { left } = element.getBoundingClientRect();
+
+    const progress = (startX - left) / element.offsetWidth;
+    const value = map(progress, 0, 1, min, max);
+
+    onChange(clamp(value, min, max));
+
+    const onTouchMove = (event: TouchEvent) => {
+      const currentX = getStartX(event);
+
+      const value = map(currentX - left, 0, element.offsetWidth, min, max);
+
+      onChange(clamp(value, min, max));
+    };
+
+    const onTouchEnd = () => {
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+      document.removeEventListener('touchcancel', onTouchEnd);
+    };
+
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchend', onTouchEnd);
+    document.addEventListener('touchcancel', onTouchEnd);
+  };
+
   const { width: thumbWidth = 13 } = thumbRef.current?.getBoundingClientRect() || {};
   const { width: containerWidth = 100 } = thumbRef.current?.parentElement?.getBoundingClientRect() || {};
 
-  const minPosition = (thumbWidth || 0) / (containerWidth || 1) * 100 / 2;
+  const minPosition = (((thumbWidth || 0) / (containerWidth || 1)) * 100) / 2;
   const maxPosition = 100 - minPosition;
   const percentage = map(value, min, max, minPosition, maxPosition);
 
@@ -78,7 +125,7 @@ export const RangeInput = ({
       })}
     >
       {label && <span>{label}</span>}
-      <div className={styles.input} onMouseDown={onMouseDown} ref={ref}>
+      <div className={styles.input} onMouseDown={onMouseDown} onTouchStart={onTouchStart} ref={ref}>
         <div className={styles.background} />
         <div className={styles.foreground} style={{ width: `${percentage}%` }} />
         <div ref={thumbRef} className={styles.thumb} style={{ left: `${percentage}%` }} />
