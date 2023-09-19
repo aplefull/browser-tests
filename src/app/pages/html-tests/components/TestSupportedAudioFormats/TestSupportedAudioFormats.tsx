@@ -7,7 +7,6 @@ import audioMP3 from '@assets/audio/winter.mp3';
 import audioMP4 from '@assets/audio/winter.mp4';
 import audioOpus from '@assets/audio/winter.webm';
 import audioVorbis from '@assets/audio/winter.ogg';
-import { Section } from '@/app/components/Section/Section';
 
 export const TestSupportedAudioFormats = () => {
   const audios = [
@@ -20,20 +19,19 @@ export const TestSupportedAudioFormats = () => {
     { name: 'webm', codec: 'Opus', src: audioOpus },
     { name: 'ogg', codec: 'Vorbis', src: audioVorbis },
   ];
+
   return (
-    <Section className={styles.supportedAudioFormats} title="Supported audio formats">
-      <div>
-        {audios.map((audio, index) => {
-          return (
-            <div key={index}>
-              <audio controls src={audio.src} />
-              <span>
-                {audio.name}/{audio.codec}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    </Section>
+    <div className={styles.supportedAudioFormats}>
+      {audios.map((audio, index) => {
+        return (
+          <div key={index}>
+            <audio controls src={audio.src} />
+            <span>
+              {audio.name}/{audio.codec}
+            </span>
+          </div>
+        );
+      })}
+    </div>
   );
 };

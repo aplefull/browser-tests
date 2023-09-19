@@ -73,7 +73,7 @@ export const Collapse = ({
         })}
       >
         <div className={styles.childrenWrapper}>
-          <div className={childrenClassName}>{renderChildren && children}</div>
+          {renderChildren && children}
         </div>
       </div>
     </div>

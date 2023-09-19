@@ -4,7 +4,6 @@ import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import { CSSMasonry } from '@/app/pages/css-tests/components/subcomponents/CSSMasonry/CSSMasonry';
 import { TImageModule } from '@/types';
-import { Section } from '@/app/components/Section/Section';
 
 const images = import.meta.glob<TImageModule>('/src/assets/images/cats/*.*', { eager: true });
 
@@ -95,15 +94,13 @@ export const TestLayouts = () => {
   }
 
   return (
-    <Section className={styles.testLayouts} title="Different Layouts">
-      <div className={styles.container}>
-        <p>Pure css masonry</p>
-        <CSSMasonry urls={urls} />
-        <p>Large table</p>
-        <LargeTable headCaptions={headCaptions} />
-        <p>Large grid</p>
-        <LargeGrid headCaptions={headCaptions} />
-      </div>
-    </Section>
+    <div className={styles.testLayouts}>
+      <p>Pure css masonry</p>
+      <CSSMasonry urls={urls} />
+      <p>Large table</p>
+      <LargeTable headCaptions={headCaptions} />
+      <p>Large grid</p>
+      <LargeGrid headCaptions={headCaptions} />
+    </div>
   );
 };

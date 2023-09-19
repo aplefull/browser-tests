@@ -17,3 +17,4 @@ export { TestTextFillColor } from './TestTextFillColor/TestTextFillColor';
 export { TestTextOverflow } from './TestTextOverflow/TestTextOverflow';
 export { TestWritingModes } from './TestWritingModes/TestWritingModes';
 export { TestContainRule } from './TestContainRule/TestContainRule';
+export { TestPseudoClasses } from './TestPseudoClasses/TestPseudoClasses';

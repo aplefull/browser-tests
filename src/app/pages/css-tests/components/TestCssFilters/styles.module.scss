@@ -1,61 +1,59 @@
 .cssFilters {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 20px;
+
   > div {
-    width: 100%;
     display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 
-    > div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-
-      &:nth-of-type(1) img {
-        filter: blur(5px);
-      }
-
-      &:nth-of-type(2) img {
-        filter: brightness(0.4);
-      }
-
-      &:nth-of-type(3) img {
-        filter: contrast(200%);
-      }
-
-      &:nth-of-type(4) img {
-        filter: drop-shadow(16px 16px 20px blue);
-      }
-
-      &:nth-of-type(5) img {
-        filter: grayscale(50%);
-      }
-
-      &:nth-of-type(6) img {
-        filter: hue-rotate(90deg);
-      }
-
-      &:nth-of-type(7) img {
-        filter: invert(75%);
-      }
-
-      &:nth-of-type(8) img {
-        filter: opacity(25%);
-      }
-
-      &:nth-of-type(9) img {
-        filter: saturate(30%);
-      }
-
-      &:nth-of-type(10) img {
-        filter: sepia(60%);
-      }
+    &:nth-of-type(1) img {
+      filter: blur(5px);
     }
 
-    img {
-      width: 100px;
-      height: 100px;
+    &:nth-of-type(2) img {
+      filter: brightness(0.4);
     }
+
+    &:nth-of-type(3) img {
+      filter: contrast(200%);
+    }
+
+    &:nth-of-type(4) img {
+      filter: drop-shadow(16px 16px 20px $color-blue);
+    }
+
+    &:nth-of-type(5) img {
+      filter: grayscale(50%);
+    }
+
+    &:nth-of-type(6) img {
+      filter: hue-rotate(90deg);
+    }
+
+    &:nth-of-type(7) img {
+      filter: invert(75%);
+    }
+
+    &:nth-of-type(8) img {
+      filter: opacity(25%);
+    }
+
+    &:nth-of-type(9) img {
+      filter: saturate(30%);
+    }
+
+    &:nth-of-type(10) img {
+      filter: sepia(60%);
+    }
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
   }
 }

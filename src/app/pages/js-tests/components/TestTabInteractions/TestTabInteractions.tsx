@@ -1,6 +1,5 @@
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
-import { Section } from '@/app/components/Section/Section';
 
 export const TestTabInteractions = () => {
   const runTests = () => {
@@ -32,9 +31,9 @@ export const TestTabInteractions = () => {
   };
 
   return (
-    <Section className={styles.tabInteractions} title="Interactions with tab">
+    <div className={styles.tabInteractions}>
       <p>Click the button to run test and check if tab title and favicon has changed</p>
       <Button onClick={runTests} text="Run test" />
-    </Section>
+    </div>
   );
 };

@@ -1,7 +1,5 @@
 import styles from './styles.module.scss';
-import { getErrorMessage } from '@/utils/utils';
-import { Fragment, useEffect, useState } from 'react';
-import { Section } from '@/app/components/Section/Section';
+import { Fragment } from 'react';
 import classNames from 'classnames';
 import { CryptoEncryptionDecryption } from '@/app/pages/js-tests/components/TestCrypto/subcomponents/CryptoEncryptionDecryption/CryptoEncryptionDecryption';
 import { CryptoSigningVerification } from '@/app/pages/js-tests/components/TestCrypto/subcomponents/CryptoSigningVerification/CryptoSigningVerification';
@@ -62,7 +60,7 @@ export const TestCrypto = () => {
   const message = 'Everything works!';
 
   return (
-    <Section className={styles.crypto} title="Crypto API">
+    <div className={styles.crypto}>
       <h2>Crypto</h2>
       {!hasCrypto && <p>Your browser does not support the Crypto API.</p>}
       {hasCrypto && (
@@ -89,6 +87,6 @@ export const TestCrypto = () => {
           </div>
         </div>
       )}
-    </Section>
+    </div>
   );
 };

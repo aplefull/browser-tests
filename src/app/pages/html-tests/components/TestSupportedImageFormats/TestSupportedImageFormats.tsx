@@ -9,53 +9,50 @@ import flyingCatIco from '@assets/images/flying_cat/flying-cat.ico';
 import flyingCatTiff from '@assets/images/flying_cat/flying-cat.tiff';
 import flyingCatAvif from '@assets/images/flying_cat/flying-cat.avif';
 import flyingCatJfif from '@assets/images/flying_cat/flying-cat.jfif';
-import { Section } from '@/app/components/Section/Section';
 
 export const TestSupportedImageFormats = () => {
   return (
-    <Section className={styles.supportedImageFormats} title="Supported image formats">
+    <div className={styles.supportedImageFormats}>
       <div>
-        <div>
-          <img src={flyingCatWebp} alt="webp image" />
-          <span>WebP</span>
-        </div>
-        <div>
-          <img src={flyingCatJpg} alt="jpg image" />
-          <span>JPG</span>
-        </div>
-        <div>
-          <img src={flyingCatPng} alt="png image" />
-          <span>PNG</span>
-        </div>
-        <div>
-          <img src={flyingCatGif} alt="gif image" />
-          <span>GIF</span>
-        </div>
-        <div>
-          <img src={flyingCatSvg} alt="svg image" />
-          <span>SVG</span>
-        </div>
-        <div>
-          <img src={flyingCatBmp} alt="bmp image" />
-          <span>BMP</span>
-        </div>
-        <div>
-          <img src={flyingCatIco} alt="ico image" />
-          <span>ICO</span>
-        </div>
-        <div>
-          <img src={flyingCatTiff} alt="tiff image" />
-          <span>TIFF</span>
-        </div>
-        <div>
-          <img src={flyingCatAvif} alt="avif image" />
-          <span>AVIF</span>
-        </div>
-        <div>
-          <img src={flyingCatJfif} alt="jfif image" />
-          <span>JFIF</span>
-        </div>
+        <img src={flyingCatWebp} alt="webp image" />
+        <span>WebP</span>
       </div>
-    </Section>
+      <div>
+        <img src={flyingCatJpg} alt="jpg image" />
+        <span>JPG</span>
+      </div>
+      <div>
+        <img src={flyingCatPng} alt="png image" />
+        <span>PNG</span>
+      </div>
+      <div>
+        <img src={flyingCatGif} alt="gif image" />
+        <span>GIF</span>
+      </div>
+      <div>
+        <img src={flyingCatSvg} alt="svg image" />
+        <span>SVG</span>
+      </div>
+      <div>
+        <img src={flyingCatBmp} alt="bmp image" />
+        <span>BMP</span>
+      </div>
+      <div>
+        <img src={flyingCatIco} alt="ico image" />
+        <span>ICO</span>
+      </div>
+      <div>
+        <img src={flyingCatTiff} alt="tiff image" />
+        <span>TIFF</span>
+      </div>
+      <div>
+        <img src={flyingCatAvif} alt="avif image" />
+        <span>AVIF</span>
+      </div>
+      <div>
+        <img src={flyingCatJfif} alt="jfif image" />
+        <span>JFIF</span>
+      </div>
+    </div>
   );
 };

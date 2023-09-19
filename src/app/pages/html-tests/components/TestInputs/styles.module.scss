@@ -1,18 +1,17 @@
 .inputs {
-  > div {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  gap: 20px;
+
+  div {
     display: flex;
     flex-direction: column;
-    max-width: 500px;
-    margin: 0 auto;
-    gap: 20px;
 
-    div {
-      display: flex;
-      flex-direction: column;
-      label {
-        font-size: 1rem;
-        margin-right: 10px;
-      }
+    label {
+      font-size: 1rem;
+      margin-right: 10px;
     }
   }
 }

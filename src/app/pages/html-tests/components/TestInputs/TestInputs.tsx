@@ -110,19 +110,17 @@ export const TestInputs = () => {
   ];
 
   return (
-    <Section className={styles.inputs} title="All types of inputs">
-      <div>
-        {inputs.map((input) => {
-          const attributes = input.attributes || {};
+    <div className={styles.inputs}>
+      {inputs.map((input) => {
+        const attributes = input.attributes || {};
 
-          return (
-            <div key={input.type}>
-              <label htmlFor={input.type}>{input.title}</label>
-              <input type={input.type} {...attributes} id={input.type} />
-            </div>
-          );
-        })}
-      </div>
-    </Section>
+        return (
+          <div key={input.type}>
+            <label htmlFor={input.type}>{input.title}</label>
+            <input type={input.type} {...attributes} id={input.type} />
+          </div>
+        );
+      })}
+    </div>
   );
 };

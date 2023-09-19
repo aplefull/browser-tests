@@ -1,6 +1,5 @@
 import styles from './styles.module.scss';
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { Section } from '@/app/components/Section/Section';
 import { MATH_MAP } from '@/utils/constants';
 import { isDoubleArgumentFunction, isSingleArgumentFunction } from '@/utils/utils';
 
@@ -273,7 +272,7 @@ export const TestCssFunctions = () => {
   }, []);
 
   return (
-    <Section className={styles.cssFunctions} title="CSS functions">
+    <div className={styles.cssFunctions}>
       <div ref={elementsRef} className={styles.hiddenContainer}>
         {functions.map(({ func, type, value }, index) => {
           const expression = getExpression(func, value, type);
@@ -313,6 +312,6 @@ export const TestCssFunctions = () => {
           })}
         </div>
       </div>
-    </Section>
+    </div>
   );
 };

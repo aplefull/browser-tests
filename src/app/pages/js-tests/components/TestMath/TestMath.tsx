@@ -1,4 +1,3 @@
-import { Section } from '@/app/components/Section/Section';
 import { useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import { parseExpression } from '@/app/pages/css-tests/components/TestCssFunctions/TestCssFunctions';
@@ -327,29 +326,27 @@ export const TestMath = () => {
   });
 
   return (
-    <Section title="Math">
-      <div className={styles.math}>
-        <h2>Constants and special values</h2>
-        <div className={styles.constants}>
-          <Table data={constantsTableData} />
-          <Table maxHeight={249} data={specialValuesTableData} />
-        </div>
-        <h2>Functions</h2>
-        <div className={styles.functions}>
-          <div>
-            <Switcher onNext={increaseCanvasScale} onPrev={decreaseCanvasScale}>
-              <div className={styles.scale}>
-                <span>Scale: </span>
-                <span>{canvasScale}</span>
-              </div>
-            </Switcher>
-          </div>
-          <Canvas width={700} height={700} onResize={plot(currentFunction, canvasScale)} />
-          <Switcher onNext={nextFunction} onPrev={prevFunction}>
-            <Select options={selectOptions} onChange={handleFunctionSelect} value={currentFunction} />
+    <div className={styles.math}>
+      <h2>Constants and special values</h2>
+      <div className={styles.constants}>
+        <Table data={constantsTableData} />
+        <Table maxHeight={249} data={specialValuesTableData} />
+      </div>
+      <h2>Functions</h2>
+      <div className={styles.functions}>
+        <div>
+          <Switcher onNext={increaseCanvasScale} onPrev={decreaseCanvasScale}>
+            <div className={styles.scale}>
+              <span>Scale: </span>
+              <span>{canvasScale}</span>
+            </div>
           </Switcher>
         </div>
+        <Canvas width={700} height={700} onResize={plot(currentFunction, canvasScale)} />
+        <Switcher onNext={nextFunction} onPrev={prevFunction}>
+          <Select options={selectOptions} onChange={handleFunctionSelect} value={currentFunction} />
+        </Switcher>
       </div>
-    </Section>
+    </div>
   );
 };

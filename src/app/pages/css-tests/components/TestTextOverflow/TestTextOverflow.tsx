@@ -1,5 +1,4 @@
 import styles from './styles.module.scss';
-import { Section } from '@/app/components/Section/Section';
 
 export const TestTextOverflow = () => {
   const paragraphs = [
@@ -22,7 +21,7 @@ export const TestTextOverflow = () => {
   ];
 
   return (
-    <Section className={styles.textOverflow} title="Text-overflow">
+    <div className={styles.textOverflow}>
       <span>Hover over paragraphs to see full line</span>
       <div>
         <br />
@@ -32,6 +31,6 @@ export const TestTextOverflow = () => {
           </p>
         ))}
       </div>
-    </Section>
+    </div>
   );
 };

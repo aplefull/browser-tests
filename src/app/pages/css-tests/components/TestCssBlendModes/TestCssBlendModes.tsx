@@ -23,18 +23,16 @@ export const TestCssBlendModes = () => {
   ];
 
   return (
-    <Section className={styles.cssBlendModes} title="CSS blend modes">
-      <div>
-        {modes.map((mode) => {
-          return (
-            <div key={mode}>
-              <img src={flyingCat} alt="random image" />
-              <img src={spaceCat} alt="random image" />
-              <span>{mode}</span>
-            </div>
-          );
-        })}
-      </div>
-    </Section>
+    <div className={styles.cssBlendModes}>
+      {modes.map((mode) => {
+        return (
+          <div key={mode}>
+            <img src={flyingCat} alt="random image" />
+            <img src={spaceCat} alt="random image" />
+            <span>{mode}</span>
+          </div>
+        );
+      })}
+    </div>
   );
 };

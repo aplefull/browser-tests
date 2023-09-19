@@ -1,14 +1,12 @@
-.cssGradients {
-  .gradients {
-    width: 100%;
-    display: grid;
-    gap: 10px;
-    grid-template-columns: 1fr 1fr;
+.gradients {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
 
-    > div > div {
-      width: 100%;
-      aspect-ratio: 5/3;
-    }
+  > div > div {
+    width: 100%;
+    aspect-ratio: 5/3;
   }
 
   .gradientMesh {

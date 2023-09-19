@@ -1,23 +1,21 @@
 .hasSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+
   > div {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
     width: 100%;
+    height: 26px;
+    background-color: $color-red;
+    display: flex;
+    align-items: center;
 
-    > div {
-      width: 100%;
-      height: 26px;
-      background-color: $color-red;
-      display: flex;
-      align-items: center;
-
-      input[type='text'] {
-        height: 22px;
-        margin-left: 5px;
-        font-size: 0.7rem;
-        outline: none;
-      }
+    input[type='text'] {
+      height: 22px;
+      margin-left: 5px;
+      font-size: 0.7rem;
+      outline: none;
     }
   }
 

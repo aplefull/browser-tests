@@ -2,7 +2,6 @@ import styles from './styles.module.scss';
 import { MikuArt } from '@/app/pages/misc-tests/components/subcomponents/MikuArt/MikuArt';
 import { CssVideo } from '@/app/pages/misc-tests/components/subcomponents/CssVideo/CssVideo';
 import { map } from '@/utils/utils';
-import { Section } from '@/app/components/Section/Section';
 import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { Button } from '@/app/components/Button/Button';
 import { Select } from '@/app/components/Select/Select';
@@ -332,7 +331,12 @@ const TransparentVideo = () => {
         <div className={styles.colorControl}>
           <span>Pick a background color:</span>
           <ColorPicker onChange={setBackgroundColor} />
-          <Button className={styles.resetColor} variant="dark" text="Reset color" onClick={() => setBackgroundColor('transparent')} />
+          <Button
+            className={styles.resetColor}
+            variant="dark"
+            text="Reset color"
+            onClick={() => setBackgroundColor('transparent')}
+          />
         </div>
       </div>
     </div>
@@ -360,7 +364,7 @@ const WeirdDimensionsVideos = () => {
 
 export const TestMisc = () => {
   return (
-    <Section className={styles.misc} title="Miscellaneous tests">
+    <div className={styles.misc}>
       <h2>Glow effect</h2>
       <div className={styles.glow}>
         <Glow brightness={50} />
@@ -377,6 +381,6 @@ export const TestMisc = () => {
       <h2>Weird video resolutions</h2>
       <WeirdDimensionsVideos />
       <video controls src={longWebm} />
-    </Section>
+    </div>
   );
 };

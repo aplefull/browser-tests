@@ -1,4 +1,3 @@
-import { Section } from '@/app/components/Section/Section';
 import styles from './styles.module.scss';
 import { MathMlf1 } from '@/app/pages/misc-tests/components/subcomponents/MathMLF1/MathMLF1';
 import { MathMlf2 } from '@/app/pages/misc-tests/components/subcomponents/MathMLF2/MathMLF2';
@@ -54,17 +53,15 @@ x^{871} & x^{872} & x^{873} & x^{874} & x^{875} & x^{876} & x^{877} & x^{878} & 
 
 export const TestMathMl = () => {
   return (
-    <Section title="MathML">
-      <div className={styles.mathMl}>
-        <div title={MATH_ML_LATEX_EQUIV.F1}>
-          <span hidden>{MATH_ML_LATEX_EQUIV.F1}</span>
-          <MathMlf1 />
-        </div>
-        <div title={MATH_ML_LATEX_EQUIV.F2}>
-          <span hidden>{MATH_ML_LATEX_EQUIV.F2}</span>
-          <MathMlf2 />
-        </div>
+    <div className={styles.mathMl}>
+      <div title={MATH_ML_LATEX_EQUIV.F1}>
+        <span hidden>{MATH_ML_LATEX_EQUIV.F1}</span>
+        <MathMlf1 />
       </div>
-    </Section>
+      <div title={MATH_ML_LATEX_EQUIV.F2}>
+        <span hidden>{MATH_ML_LATEX_EQUIV.F2}</span>
+        <MathMlf2 />
+      </div>
+    </div>
   );
 };

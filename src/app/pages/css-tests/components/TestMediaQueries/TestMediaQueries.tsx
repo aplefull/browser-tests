@@ -1,9 +1,8 @@
 import styles from './styles.module.scss';
-import { Section } from '@/app/components/Section/Section';
 
 export const TestMediaQueries = () => {
   return (
-    <Section className={styles.mediaQueries} title="Media queries">
+    <div className={styles.mediaQueries}>
       <div className={styles.rangeSyntax}>
         <h2>Range syntax</h2>
         <span>
@@ -15,6 +14,6 @@ export const TestMediaQueries = () => {
         <h2>Supports</h2>
         <span>This text is green if browser cares about @supports.</span>
       </div>
-    </Section>
+    </div>
   );
 };

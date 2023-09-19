@@ -1,4 +1,3 @@
-import { Section } from '@/app/components/Section/Section';
 import { Json } from '@/app/pages/js-tests/components/subcomponents/Json/Json';
 import styles from './styles.module.scss';
 import { Select } from '@/app/components/Select/Select';
@@ -66,7 +65,7 @@ export const TestDates = () => {
   const date = selectOption === 'now' ? now : new Date(-62167219200000);
 
   return (
-    <Section title="Dates">
+    <div>
       <Select className={styles.select} options={selectOptions} onChange={setSelectOption} value={selectOption} />
       <div className={styles.json}>
         <Json data={getTableData(date)} />
@@ -81,6 +80,6 @@ export const TestDates = () => {
         <pre title="new Date('0000-01-01').toUTCString()">{new Date('0000-01-01').toUTCString()}</pre>
         <pre title="new Date(-62167229951000).toString()">{new Date(-62167229951000).toString()}</pre>
       </div>
-    </Section>
+    </div>
   );
 };

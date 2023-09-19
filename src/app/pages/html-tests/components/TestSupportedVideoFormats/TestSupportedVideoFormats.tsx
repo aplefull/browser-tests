@@ -5,7 +5,6 @@ import videoH265 from '@assets/videos/cats_h265.mp4';
 import videoOGG from '@assets/videos/cats_theora.ogg';
 import videoVP8 from '@assets/videos/cats_vp8.webm';
 import videoVP9 from '@assets/videos/cats_vp9.webm';
-import { Section } from '@/app/components/Section/Section';
 
 export const TestSupportedVideoFormats = () => {
   const videos = [
@@ -17,19 +16,17 @@ export const TestSupportedVideoFormats = () => {
     { name: 'webm', codec: 'VP9', src: videoVP9 },
   ];
   return (
-    <Section className={styles.supportedVideoFormats} title="Supported video formats">
-      <div>
-        {videos.map((video, index) => {
-          return (
-            <div key={index}>
-              <video controls src={video.src} />
-              <span>
-                {video.name}/{video.codec}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    </Section>
+    <div className={styles.supportedVideoFormats}>
+      {videos.map((video, index) => {
+        return (
+          <div key={index}>
+            <video controls src={video.src} />
+            <span>
+              {video.name}/{video.codec}
+            </span>
+          </div>
+        );
+      })}
+    </div>
   );
 };

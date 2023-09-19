@@ -4,7 +4,6 @@ import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
 import { getErrorMessage, wait } from '@/utils/utils';
 import classNames from 'classnames';
-import { Section } from '@/app/components/Section/Section';
 
 type TIndexedDBResult = {
   text: string;
@@ -325,7 +324,7 @@ export const TestWebStorage = () => {
   };
 
   return (
-    <Section className={styles.webStorage} title="Different Web Storage APIs">
+    <div className={styles.webStorage}>
       <div>
         <h2>Local storage</h2>
         <Button text="Run" width={70} onClick={testLocalStorage} />
@@ -367,6 +366,6 @@ export const TestWebStorage = () => {
           ))}
         </div>
       </div>
-    </Section>
+    </div>
   );
 };

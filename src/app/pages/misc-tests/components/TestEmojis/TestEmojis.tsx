@@ -1,7 +1,6 @@
 import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { Section } from '@/app/components/Section/Section';
 import { requestEmojis } from '@/utils/utils';
 
 type TEmoji = {
@@ -25,7 +24,7 @@ export const TestEmojis = () => {
   }, []);
 
   return (
-    <Section className={styles.emojis} title="All current emojis">
+    <div className={styles.emojis}>
       <div className={styles.inputs}>
         <label>
           <input type="checkbox" checked={useEmojiFont} onChange={() => setUseEmojiFont(!useEmojiFont)} />
@@ -62,6 +61,6 @@ export const TestEmojis = () => {
           </span>
         ))}
       </div>
-    </Section>
+    </div>
   );
 };

@@ -1,29 +1,14 @@
-import {
-  TestCanvas,
-  TestCrypto,
-  TestEvents,
-  TestLabelingLoops,
-  TestMasonry,
-  TestNavigatorFeatures,
-  TestTabInteractions,
-  TestWebStorage,
-  TestMath,
-  TestDates,
-} from '@/app/pages/js-tests/components';
+import { sections } from '@/app/pages/js-tests/sections';
+import { Section } from '@/app/components/Section/Section';
 
 export const JSTestsPage = () => {
   return (
     <>
-      <TestLabelingLoops />
-      <TestTabInteractions />
-      <TestMasonry />
-      <TestEvents />
-      <TestNavigatorFeatures />
-      <TestWebStorage />
-      <TestCanvas />
-      <TestCrypto />
-      <TestMath />
-      <TestDates />
+      {sections.map(({ Component, name }, index) => (
+        <Section key={name} title={name}>
+          <Component key={index} />
+        </Section>
+      ))}
     </>
   );
 };

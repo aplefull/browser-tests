@@ -17,15 +17,13 @@ export const TestCssFilters = () => {
   ];
 
   return (
-    <Section className={styles.cssFilters} title="CSS filters">
-      <div>
-        {filters.map((filter, index) => (
-          <div key={index}>
-            <img src={catImage} alt="cat image" />
-            <span>{filter}</span>
-          </div>
-        ))}
-      </div>
-    </Section>
+    <div className={styles.cssFilters}>
+      {filters.map((filter, index) => (
+        <div key={index}>
+          <img src={catImage} alt="cat image" />
+          <span>{filter}</span>
+        </div>
+      ))}
+    </div>
   );
 };

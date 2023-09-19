@@ -1,77 +1,75 @@
 .scrollBehaviours {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+
   > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px;
+    width: 100%;
 
-    > div {
+    h2 {
+      font-weight: normal;
       width: 100%;
+      border-bottom: 1px solid $color-white;
+    }
 
-      h2 {
+    &.smoothScroll {
+      a {
         font-weight: normal;
+        font-size: 0.9em;
+        margin-right: 5px;
+        color: $color-white;
+        text-decoration: underline;
+        transition: opacity 0.2s ease-in-out;
+        opacity: 0.7;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    &.scrollSnap {
+      > div {
+        scroll-snap-type: y mandatory;
+        display: flex;
+        flex-direction: column;
+        gap: 100px;
+        max-height: 200px;
+        overflow-y: auto;
+
+        img {
+          margin: 0 auto;
+          width: 300px;
+          scroll-snap-align: center;
+        }
+      }
+    }
+
+    &.nestedScrolls {
+      div {
+        overflow-y: auto;
+      }
+
+      > div {
+        height: 200px;
+
+        div {
+          height: calc(160%);
+        }
+      }
+    }
+
+    &.scrollGutter {
+      span {
+        display: block;
         width: 100%;
-        border-bottom: 1px solid $color-white;
+        background-color: $color-red;
       }
 
-      &.smoothScroll {
-        a {
-          font-weight: normal;
-          font-size: 0.9em;
-          margin-right: 5px;
-          color: $color-white;
-          text-decoration: underline;
-          transition: opacity 0.2s ease-in-out;
-          opacity: 0.7;
-
-          &:hover {
-            opacity: 1;
-          }
-        }
-      }
-
-      &.scrollSnap {
-        > div {
-          scroll-snap-type: y mandatory;
-          display: flex;
-          flex-direction: column;
-          gap: 100px;
-          max-height: 200px;
-          overflow-y: auto;
-
-          img {
-            margin: 0 auto;
-            width: 300px;
-            scroll-snap-align: center;
-          }
-        }
-      }
-
-      &.nestedScrolls {
-        div {
-          overflow-y: auto;
-        }
-
-        > div {
-          height: 200px;
-
-          div {
-            height: calc(160%);
-          }
-        }
-      }
-
-      &.scrollGutter {
-        span {
-          display: block;
-          width: 100%;
-          background-color: $color-red;
-        }
-
-        div {
-          scrollbar-gutter: stable;
-          overflow-y: auto;
-        }
+      div {
+        scrollbar-gutter: stable;
+        overflow-y: auto;
       }
     }
   }

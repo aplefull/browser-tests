@@ -1,4 +1,3 @@
-import { Section } from '@/app/components/Section/Section';
 import styles from './styles.module.scss';
 import { useState } from 'react';
 
@@ -63,86 +62,84 @@ export const TestColors = () => {
   ];
 
   return (
-    <Section title="Colors">
-      <div className={styles.colors}>
-        <div className={styles.color}>
-          <h2>color() and different color-spaces</h2>
-          <label>
-            R
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.05}
-              value={R}
-              onChange={(e) => {
-                setR(Number(e.target.value));
-              }}
-            />
-          </label>
-          <label>
-            G
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.05}
-              value={G}
-              onChange={(e) => {
-                setG(Number(e.target.value));
-              }}
-            />
-          </label>
-          <label>
-            B
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.05}
-              value={B}
-              onChange={(e) => {
-                setB(Number(e.target.value));
-              }}
-            />
-          </label>
-          <div>
-            {colorSpaces.map((colorSpace) => {
-              const color = `color(${colorSpace} ${R} ${G} ${B}  / 0.95)`;
+    <div className={styles.colors}>
+      <div className={styles.color}>
+        <h2>color() and different color-spaces</h2>
+        <label>
+          R
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.05}
+            value={R}
+            onChange={(e) => {
+              setR(Number(e.target.value));
+            }}
+          />
+        </label>
+        <label>
+          G
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.05}
+            value={G}
+            onChange={(e) => {
+              setG(Number(e.target.value));
+            }}
+          />
+        </label>
+        <label>
+          B
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.05}
+            value={B}
+            onChange={(e) => {
+              setB(Number(e.target.value));
+            }}
+          />
+        </label>
+        <div>
+          {colorSpaces.map((colorSpace) => {
+            const color = `color(${colorSpace} ${R} ${G} ${B}  / 0.95)`;
 
-              return (
-                <div key={colorSpace} className={styles.colorSquare} style={{ backgroundColor: color }}>
-                  <pre>{colorSpace}</pre>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className={styles.wideGamut}>
-          <h2>Wide Gamut Colors</h2>
-          <div>
-            {wideGamutColors.map(({ func, value }) => {
-              const color = `${func}(${value.a} ${value.b} ${value.c}  / 0.95)`;
-
-              return (
-                <div key={func} className={styles.colorSpaceBlock} style={{ backgroundColor: color }}>
-                  <pre>{func}</pre>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className={styles.relativeColors}>
-          <h2>color-mix() and relative colors</h2>
-          <div className={styles.relativeColorsContainer}>
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-          </div>
+            return (
+              <div key={colorSpace} className={styles.colorSquare} style={{ backgroundColor: color }}>
+                <pre>{colorSpace}</pre>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </Section>
+      <div className={styles.wideGamut}>
+        <h2>Wide Gamut Colors</h2>
+        <div>
+          {wideGamutColors.map(({ func, value }) => {
+            const color = `${func}(${value.a} ${value.b} ${value.c}  / 0.95)`;
+
+            return (
+              <div key={func} className={styles.colorSpaceBlock} style={{ backgroundColor: color }}>
+                <pre>{func}</pre>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className={styles.relativeColors}>
+        <h2>color-mix() and relative colors</h2>
+        <div className={styles.relativeColorsContainer}>
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
   );
 };

@@ -222,22 +222,20 @@ export const TestEvents = () => {
   }, []);
 
   return (
-    <Section className={styles.events} title="Different js events">
-      <div className={styles.container}>
-        <div className={styles.wheel}>
-          <h2>Wheel event</h2>
-          <p>
-            Scroll on rectangles. Left shouldn't scroll. Right should (also will throw errors in console, because
-            apparently you can't catch them)
-          </p>
-          <div>
-            <div ref={activeScrollRef}>Active event</div>
-            <div onWheel={testWheel}>Passive event</div>
-          </div>
+    <div className={styles.events}>
+      <div className={styles.wheel}>
+        <h2>Wheel event</h2>
+        <p>
+          Scroll on rectangles. Left shouldn't scroll. Right should (also will throw errors in console, because
+          apparently you can't catch them)
+        </p>
+        <div>
+          <div ref={activeScrollRef}>Active event</div>
+          <div onWheel={testWheel}>Passive event</div>
         </div>
-        <MouseEvents />
-        <KeyboardEvents />
       </div>
-    </Section>
+      <MouseEvents />
+      <KeyboardEvents />
+    </div>
   );
 };

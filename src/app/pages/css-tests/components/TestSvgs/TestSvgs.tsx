@@ -19,7 +19,6 @@ import { MergeSvg } from '@/app/pages/css-tests/components/subcomponents/MergeSv
 import { TilesSvg } from '@/app/pages/css-tests/components/subcomponents/TilesSvg/TilesSvg';
 import { MorphologySvg } from '@/app/pages/css-tests/components/subcomponents/MorphologySvg/MorphologySvg';
 import { DifficultAnimationSvg } from '@/app/pages/css-tests/components/subcomponents/DifficultAnimationSvg/DifficultAnimationSvg';
-import { Section } from '@/app/components/Section/Section';
 import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 import { UseSvg } from '@/app/pages/css-tests/components/subcomponents/UseSvg/UseSvg';
 
@@ -146,7 +145,7 @@ export const TestSvgs = () => {
   ];
 
   return (
-    <Section className={styles.svgs} title="Different svg features">
+    <div className={styles.svgs}>
       <Checkbox checked={useAnimateImages} onChange={setUseAnimateImages} label="Use animated images" />
       <div className={styles.svgsContainer}>
         {tests.map((test, index) => {
@@ -159,6 +158,6 @@ export const TestSvgs = () => {
           );
         })}
       </div>
-    </Section>
+    </div>
   );
 };

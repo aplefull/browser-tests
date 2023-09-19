@@ -1,49 +1,14 @@
-import {
-  TestBlockStyleTag,
-  TestColors,
-  TestCssBlendModes,
-  TestCssDropdown,
-  TestCssFilters,
-  TestCssGradients,
-  TestCssGrid,
-  TestHasSelector,
-  TestMediaQueries,
-  TestObjectViewBox,
-  TestScrollBehaviours,
-  TestSelection,
-  TestShapeOutside,
-  TestTextFillColor,
-  TestTextOverflow,
-  TestWritingModes,
-  TestSvgs,
-  TestCssFunctions,
-  TestContainRule,
-} from '@/app/pages/css-tests/components';
-import { TestPseudoClasses } from '@/app/pages/css-tests/components/TestPseudoClasses/TestPseudoClasses';
+import { sections } from '@/app/pages/css-tests/sections';
+import { Section } from '@/app/components/Section/Section';
 
 export const CSSTestsPage = () => {
   return (
     <>
-      <TestTextOverflow />
-      <TestSelection />
-      <TestCssFilters />
-      <TestCssBlendModes />
-      <TestBlockStyleTag />
-      <TestCssGrid />
-      <TestTextFillColor />
-      <TestShapeOutside />
-      <TestCssDropdown />
-      <TestHasSelector />
-      <TestWritingModes />
-      <TestScrollBehaviours />
-      <TestCssGradients />
-      <TestObjectViewBox />
-      <TestColors />
-      <TestMediaQueries />
-      <TestSvgs />
-      <TestCssFunctions />
-      <TestContainRule />
-      <TestPseudoClasses />
+      {sections.map(({ Component, name }, index) => (
+        <Section key={name} title={name}>
+          <Component key={index} />
+        </Section>
+      ))}
     </>
   );
 };

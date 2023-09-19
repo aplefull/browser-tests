@@ -2,13 +2,11 @@
 
 .oldTags {
   > div {
-    > div {
-      margin: 20px 0;
-    }
+    margin: 20px 0;
+  }
 
-    pre {
-      @include subtitle;
-      margin-bottom: 10px;
-    }
+  pre {
+    @include subtitle;
+    margin-bottom: 10px;
   }
 }
