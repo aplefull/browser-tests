@@ -21,6 +21,7 @@ import { MorphologySvg } from '@/app/pages/css-tests/components/subcomponents/Mo
 import { DifficultAnimationSvg } from '@/app/pages/css-tests/components/subcomponents/DifficultAnimationSvg/DifficultAnimationSvg';
 import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 import { UseSvg } from '@/app/pages/css-tests/components/subcomponents/UseSvg/UseSvg';
+import { GlowSvg } from '@/app/pages/css-tests/components/subcomponents/GlowSvg/GlowSvg';
 
 export const TestSvgs = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -136,6 +137,11 @@ export const TestSvgs = () => {
       title: 'Use',
       description: null,
       component: UseSvg,
+    },
+    {
+      title: 'Glow effect',
+      description: null,
+      component: GlowSvg,
     },
     {
       title: 'Difficult animation',

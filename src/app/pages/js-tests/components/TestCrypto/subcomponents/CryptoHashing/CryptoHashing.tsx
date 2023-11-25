@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
-  encodeMessage, SubtleCryptoResults,
+  encodeMessage,
+  SubtleCryptoResults,
   TCryptoTestComponentProps,
-  toHexString, TSubtleCryptoResult
+  toHexString,
+  TSubtleCryptoResult,
 } from '@/app/pages/js-tests/components/TestCrypto/TestCrypto';
 import { getErrorMessage } from '@/utils/utils';
 

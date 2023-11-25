@@ -1,7 +1,7 @@
 import {
   COMPLEX_PATH,
   getCanvasDimensions,
-  getShapeDimensions
+  getShapeDimensions,
 } from '@/app/pages/js-tests/components/TestCanvas/utils.canvas';
 import { Canvas } from '@/app/components/Canvas/Canvas';
 import globalStyles from '../../styles.module.scss';

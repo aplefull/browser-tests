@@ -4,7 +4,7 @@ import flyingCat from '@assets/images/flying_cat/flying-cat.webp';
 import vibingCat from '@assets/images/gifs/cat-vibing.gif';
 import { useEffect, useRef, useState } from 'react';
 import { RangeInput } from '@/app/components/RangeInput/RangeInput';
-import { map } from '@/utils/utils';
+import { clamp, map } from '@/utils/utils';
 
 type TMorphologySvgProps = TDimensions & {
   useAnimatedImage: boolean;
@@ -116,8 +116,8 @@ export const MorphologySvg = ({ width, height, useAnimatedImage }: TMorphologySv
           xlinkHref={useAnimatedImage ? vibingCat : flyingCat}
           x={`calc((${width / 2}px - ${imageWidth + imageMorphologyRadius * 2}px) / 2)`}
           y={-imageMorphologyRadius}
-          width={imageWidth + imageMorphologyRadius * 2}
-          height={imageHeight + imageMorphologyRadius * 2}
+          width={clamp(imageWidth + imageMorphologyRadius * 2, 0)}
+          height={clamp(imageHeight + imageMorphologyRadius * 2, 0)}
           style={{ filter: 'url(#erode-strong)' }}
         />
         <image
@@ -125,8 +125,8 @@ export const MorphologySvg = ({ width, height, useAnimatedImage }: TMorphologySv
           xlinkHref={useAnimatedImage ? vibingCat : flyingCat}
           x={`calc(${width / 2}px + (${width / 2}px - ${imageWidth - imageMorphologyRadius * 2}px) / 2)`}
           y={imageMorphologyRadius}
-          width={imageWidth - imageMorphologyRadius * 2}
-          height={imageHeight - imageMorphologyRadius * 2}
+          width={clamp(imageWidth - imageMorphologyRadius * 2, 0)}
+          height={clamp(imageHeight - imageMorphologyRadius * 2, 0)}
           style={{ filter: 'url(#dilate-strong)' }}
         />
         <text

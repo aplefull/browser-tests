@@ -78,7 +78,7 @@ export const CssVideo = () => {
             <span>Warning</span>
             This is a very heavy and demanding css animation, which will most definitely crash your browser. That's why
             it's not shown by default. If you are feeling courageous, make sure there is nothing important happening in
-            your browser, before pressing the button below.
+            your browser before pressing the button below.
           </p>
         )}
 

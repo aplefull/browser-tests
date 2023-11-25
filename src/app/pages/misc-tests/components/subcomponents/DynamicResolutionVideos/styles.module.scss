@@ -1,0 +1,35 @@
+.dynamic-resolution {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 500px;
+  justify-items: center;
+  position: relative;
+  overflow: hidden;
+
+  .width {
+    width: 100%;
+  }
+
+  .height {
+    height: 100%;
+  }
+
+  .both {
+    width: min(100%, 300px);
+  }
+
+  video {
+    max-height: 100%;
+    position: absolute;
+    grid-column: 1;
+  }
+}
+
+.dynamic-resolution-controls {
+  padding: 10px;
+  display: flex;
+  width: min(100%, 300px);
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}

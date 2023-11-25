@@ -1,10 +1,11 @@
-.cssBlendModes {
+.css-blend-modes {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   gap: 20px;
   row-gap: 30px;
+  margin-bottom: 20px;
 
   > div {
     display: flex;

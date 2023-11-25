@@ -9,58 +9,78 @@
     aspect-ratio: 5/3;
   }
 
-  .gradientMesh {
-    background-color: hsla(0, 100%, 50%, 1);
-    background-image: radial-gradient(at 22% 82%, hsla(350, 93%, 65%, 0.59) 0px, transparent 50%),
-      radial-gradient(at 28% 48%, hsla(213, 68%, 75%, 1) 0px, transparent 50%),
-      radial-gradient(at 51% 15%, hsla(41, 100%, 56%, 0.42) 0px, transparent 50%),
-      radial-gradient(at 30% 41%, hsla(189, 100%, 74%, 1) 0px, transparent 50%),
-      radial-gradient(at 83% 24%, hsla(350, 100%, 56%, 0.76) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, hsla(156, 100%, 93%, 1) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, hsla(141, 100%, 76%, 1) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(183, 100%, 77%, 1) 0px, transparent 50%),
-      radial-gradient(at 80% 100%, hsla(43, 100%, 70%, 1) 0px, transparent 50%),
-      radial-gradient(at 0% 0%, hsla(144, 100%, 76%, 1) 0px, transparent 50%);
+  .gradient-mesh {
+    background-color: $color-special-hsl-1;
+    background-image: radial-gradient(at 22% 82%, $color-special-hsl-2 0px, transparent 50%),
+      radial-gradient(at 28% 48%, $color-special-hsl-3 0px, transparent 50%),
+      radial-gradient(at 51% 15%, $color-special-hsl-4 0px, transparent 50%),
+      radial-gradient(at 30% 41%, $color-special-hsl-5 0px, transparent 50%),
+      radial-gradient(at 83% 24%, $color-special-hsl-6 0px, transparent 50%),
+      radial-gradient(at 0% 50%, $color-special-hsl-7 0px, transparent 50%),
+      radial-gradient(at 80% 50%, $color-special-hsl-8 0px, transparent 50%),
+      radial-gradient(at 0% 100%, $color-special-hsl-9 0px, transparent 50%),
+      radial-gradient(at 80% 100%, $color-special-hsl-10 0px, transparent 50%),
+      radial-gradient(at 0% 0%, $color-special-hsl-11 0px, transparent 50%);
   }
 
   .gradient1 {
     background-image: conic-gradient(
       from 101deg at 70% 78% in oklab,
-      oklch(77% 0.5 200) 0%,
+      $color-special-oklch-1 0%,
       26%,
-      oklch(77% 0.5 230) 0% 0%,
+      $color-special-oklch-2 0% 0%,
       46%,
-      oklch(77% 0.5 260) 0% 0%,
+      $color-special-oklch-3 0% 0%,
       60%,
-      oklch(77% 0.5 280) 25% 1%,
+      $color-special-oklch-4 25% 1%,
       82%,
-      oklch(77% 0.5 300) 0% 0%
+      $color-special-oklch-5 0% 0%
     );
   }
 
   .gradient2 {
     background-image: conic-gradient(
       from 0deg at center in oklch longer hue,
-      oklch(70% 0.3 0) 0%,
-      oklch(70% 0.3 0) 100%
+      $color-special-oklch-6 0%,
+      $color-special-oklch-6 100%
     );
   }
 
   .gradient3 {
     background-image: radial-gradient(
       farthest-corner circle at top left in oklch,
-      oklch(100% 0.25 160) 0%,
+      $color-special-oklch-7 0%,
       26%,
-      oklch(75% 0.5 180) 0% 0%,
-      oklch(75% 0.5 210) 0% 0%,
-      oklch(75% 0.5 230) 0% 0%,
+      $color-special-oklch-8 0% 0%,
+      $color-special-oklch-9 0% 0%,
+      $color-special-oklch-10 0% 0%,
       55%,
-      oklch(75% 0.5 260) 0% 0%,
-      oklch(80% 0.3 305) 100%
+      $color-special-oklch-11 0% 0%,
+      $color-special-oklch-12 100%
     );
   }
 
-  .svgGradient {
+  .gradient4 {
+    background-image: repeating-conic-gradient(
+      $color-special-pure-red 0,
+      $color-special-pure-blue 0.1deg,
+      $color-special-pure-red 0.2deg
+    );
+  }
+
+  .gradient5 {
+    background-image: repeating-radial-gradient(
+      circle at center,
+      $color-special-pure-red 0px,
+      $color-special-pure-blue 0.2px
+    );
+  }
+
+  .gradient6 {
+    background-image: repeating-linear-gradient(192deg, $color-special-pure-red 0px, $color-special-pure-blue 0.15px);
+  }
+
+  .svg-gradient {
     overflow: hidden;
   }
 }

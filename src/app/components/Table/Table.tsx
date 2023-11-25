@@ -74,7 +74,6 @@ const mergeHeadersAndBody = (headers: string[], body: TAcceptedData): TAcceptedD
     res[header] = rows.map((row) => row[i]);
   });
 
-
   return res;
 };
 

@@ -1,11 +1,9 @@
-@import '@mixins';
-
-.mediaQueries {
+.media-queries {
   h2 {
     @include subtitle;
   }
 
-  .rangeSyntax {
+  .range-syntax {
     @media (400px < width <= 2000px) {
       span {
         color: $color-green;
@@ -13,7 +11,7 @@
     }
   }
 
-  .supportsRule {
+  .supports-rule {
     span {
       color: $color-red;
 

@@ -1,4 +1,4 @@
-.objectViewBox {
+.object-view-box {
   p {
     text-align: center;
   }
@@ -24,7 +24,7 @@
       }
     }
 
-    .zoomOut:hover {
+    .zoom-out:hover {
       img {
         object-view-box: inset(-50%);
       }

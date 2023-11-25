@@ -1,13 +1,11 @@
-@import '@mixins';
-
-.cssGrid {
+.css-grid {
   > div > h2 {
     @include subtitle;
     margin-bottom: 30px;
     margin-top: 40px;
   }
 
-  .gridTemplateAreas {
+  .grid-template-areas {
     display: grid;
     place-items: center;
     width: 40%;
@@ -22,7 +20,7 @@
       '. . b'
       '. c b';
 
-    .gridItem {
+    .grid-item {
       position: relative;
       background-color: $color-white;
       border-radius: 5px;
@@ -73,12 +71,12 @@
       cursor: pointer;
     }
 
-    &:not(:checked) + label + .gridAutoFitMinmax {
+    &:not(:checked) + label + .grid-auto-fit-minmax {
       animation: none;
     }
   }
 
-  .gridAutoFitMinmax {
+  .grid-auto-fit-minmax {
     display: grid;
     place-items: center;
     width: 100%;
@@ -89,7 +87,7 @@
     margin-inline: auto;
     animation: resize-width 5s ease-in-out infinite;
 
-    .gridItem {
+    .grid-item {
       background-color: $color-white;
       border-radius: 5px;
       --item-w: 100%;
@@ -117,14 +115,14 @@
     }
   }
 
-  .subgridColumns {
+  .subgrid-columns {
     display: grid;
     gap: 2rem;
     grid-template-columns: minmax(6ch, 20ch) 1fr minmax(6ch, 20ch) 1fr;
     width: min(90%, 60rem);
     margin-inline: auto;
 
-    .subgridItem {
+    .subgrid-item {
       display: grid;
       grid-column: span 2;
       grid-template-columns: subgrid;
@@ -168,7 +166,7 @@
     }
   }
 
-  .subgridRows {
+  .subgrid-rows {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
@@ -218,10 +216,10 @@
   }
 
   @media (width < 800px) {
-    .subgridColumns {
+    .subgrid-columns {
       grid-template-columns: 1fr;
 
-      .subgridItem {
+      .subgrid-item {
         &:nth-last-child(-n + 3) {
           display: none;
         }
@@ -243,7 +241,7 @@
   }
 
   @media (width < 425px) {
-    .subgridRows {
+    .subgrid-rows {
       ul {
         padding: 20px 10px 20px 10px;
 

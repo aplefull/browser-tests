@@ -1,7 +1,11 @@
 import styles from './styles.module.scss';
 import { MathMlf1 } from '@/app/pages/misc-tests/components/subcomponents/MathMLF1/MathMLF1';
 import { MathMlf2 } from '@/app/pages/misc-tests/components/subcomponents/MathMLF2/MathMLF2';
+import classNames from 'classnames';
+import { ContextMenu } from '@/app/components/ContextMenu/ContextMenu';
+import { copy } from '@/utils/utils';
 
+// TODO prettier and move
 const MATH_ML_LATEX_EQUIV = {
   F1: `
 f_1(x) = \\sum_{n= \\left\\lfloor \\prod_{k=0}^{\\left\\lfloor x^2 \\right\\rfloor} \\frac{\\pi \\sqrt{x^\\tau}}{\\int_{0}^{3\\sqrt{\\abs {x} \\tau}} \\erf(\\csc(k*x))) } \\right\\rfloor }^{\\left\\lceil \\Gamma(\\sum_{k=1}^{\\left\\lceil x^{3\\pi} \\right\\rceil} \\sin(x))\\right\\rceil} 
@@ -51,17 +55,31 @@ x^{871} & x^{872} & x^{873} & x^{874} & x^{875} & x^{876} & x^{877} & x^{878} & 
 \\end{pmatrix}`,
 };
 
+const CopyButton = ({ text }: { text: string }) => {
+  const handleCopy = () => {
+    copy(text);
+  };
+
+  return (
+    <div className={styles.contextMenu}>
+      <button onClick={handleCopy}>Copy</button>
+    </div>
+  );
+};
+
 export const TestMathMl = () => {
   return (
     <div className={styles.mathMl}>
-      <div title={MATH_ML_LATEX_EQUIV.F1}>
-        <span hidden>{MATH_ML_LATEX_EQUIV.F1}</span>
-        <MathMlf1 />
-      </div>
-      <div title={MATH_ML_LATEX_EQUIV.F2}>
-        <span hidden>{MATH_ML_LATEX_EQUIV.F2}</span>
-        <MathMlf2 />
-      </div>
+      <ContextMenu content={<CopyButton text={MATH_ML_LATEX_EQUIV.F1} />}>
+        <div className={classNames(styles.content, styles.f1)} title={MATH_ML_LATEX_EQUIV.F1}>
+          <MathMlf1 />
+        </div>
+      </ContextMenu>
+      <ContextMenu content={<CopyButton text={MATH_ML_LATEX_EQUIV.F2} />}>
+        <div className={classNames(styles.content, styles.matrix)} title={MATH_ML_LATEX_EQUIV.F2}>
+          <MathMlf2 />
+        </div>
+      </ContextMenu>
     </div>
   );
 };

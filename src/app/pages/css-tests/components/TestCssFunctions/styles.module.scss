@@ -38,7 +38,7 @@
 
     .tableBody {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: minmax(200px, 1fr) repeat(2, 1fr);
       column-gap: 40px;
       row-gap: 5px;
 

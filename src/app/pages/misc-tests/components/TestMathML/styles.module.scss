@@ -6,19 +6,57 @@
   math,
   math * {
     font-family: math;
-    color: $color-white-80;
+    color: $color-white;
   }
 
   math {
     display: block math;
   }
 
-  > div {
+  .content {
     display: flex;
     width: fit-content;
     margin-inline: auto;
     padding: 20px;
     border-radius: 5px;
     background-color: $color-charcoal;
+
+    &.f1 {
+      font-size: 1.2rem;
+
+      @media (width < 900px) {
+        font-size: 2.2vw;
+      }
+
+      @media (width < 600px) {
+        font-size: 1.7vw;
+      }
+    }
+
+    &.matrix {
+      font-size: 1vw;
+
+      @media (width < 600px) {
+        padding: 10px;
+        font-size: 0.85vw;
+      }
+    }
+  }
+}
+
+.context-menu {
+  button {
+    width: 100%;
+    padding: 7px 15px;
+    border-radius: 5px;
+    background-color: $color-charcoal;
+    color: $color-white;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    border: 1px solid $color-ink-light-20;
+
+    &:hover {
+      background-color: $color-ink;
+    }
   }
 }

@@ -1,4 +1,4 @@
-.textOverflow {
+.text-overflow {
   div {
     width: 150px;
     overflow: hidden;
@@ -10,19 +10,19 @@
       overflow: hidden;
     }
 
-    .textOverflowEllipsis {
+    .text-overflow-ellipsis {
       text-overflow: ellipsis;
     }
 
-    .textOverflowClip {
+    .text-overflow-clip {
       text-overflow: clip;
     }
 
-    .textOverflowString {
+    .text-overflow-string {
       text-overflow: '---';
     }
 
-    .textOverflowFade {
+    .text-overflow-fade {
       text-overflow: fade;
     }
   }

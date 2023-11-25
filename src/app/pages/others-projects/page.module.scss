@@ -1,10 +1,8 @@
-@import '@mixins';
-
 .container {
   width: 100%;
   padding: 20px;
 
-  .withUrl {
+  .with-url {
     > h2 {
       margin-bottom: 0;
     }

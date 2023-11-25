@@ -1,5 +1,7 @@
 // utils
 
+import { Color } from '@/app/components/ColorPicker/Color';
+
 const componentToHex = (component: number) => {
   return component.toString(16).padStart(2, '0');
 };
@@ -166,4 +168,54 @@ export const HSVAToRGBA = (h: number, s: number, v: number, a: number) => {
     ...rgb,
     a: a,
   };
+};
+
+// Parse
+
+export const parseColor = (color: string) => {
+  if (color === 'transparent') return new Color().fromRGBA(0, 0, 0, 0);
+
+  if (color.startsWith('#')) return new Color().fromHex(color);
+
+  if (color.startsWith('rgb')) {
+    if (color.startsWith('rgba')) {
+      const [r, g, b, a] = color
+        .slice(5, -1)
+        .split(',')
+        .map((value) => parseInt(value, 10));
+
+      return new Color().fromRGBA(r, g, b, a);
+    }
+
+    const [r, g, b] = color
+      .slice(4, -1)
+      .split(',')
+      .map((value) => parseInt(value, 10));
+
+    return new Color().fromRGB(r, g, b);
+  }
+
+  if (color.startsWith('hsl')) {
+    if (color.startsWith('hsla')) {
+      const [h, s, l, a] = color
+        .slice(5, -1)
+        .split(',')
+        .map((value) => parseInt(value, 10));
+
+      return new Color().fromHSLA(h, s, l, a);
+    }
+  }
+
+  if (color.startsWith('hsv')) {
+    if (color.startsWith('hsva')) {
+      const [h, s, v, a] = color
+        .slice(5, -1)
+        .split(',')
+        .map((value) => parseInt(value, 10));
+
+      return new Color().fromHSVA(h, s, v, a);
+    }
+  }
+
+  return new Color();
 };

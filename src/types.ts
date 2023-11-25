@@ -8,6 +8,13 @@ export type TDimensions = {
   height: number;
 };
 
+export type TResolution = TDimensions;
+
+export type TSelectOption = {
+  label: string;
+  value: string;
+};
+
 export type TImageModule = {
   default: string;
 };

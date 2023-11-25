@@ -1,5 +1,3 @@
-@import '@mixins';
-
 .events {
   h2 {
     @include subtitle;
@@ -30,8 +28,8 @@
     }
   }
 
-  .mouseEvents {
-    .testArea {
+  .mouse-events {
+    .test-area {
       width: 100%;
       height: 200px;
       border: 1px dashed $color-white;
@@ -58,7 +56,7 @@
     }
   }
 
-  .kbdEvents {
+  .kbd-events {
     input {
       width: 100%;
       height: 50px;
@@ -88,8 +86,8 @@
   }
 
   @media (width < 600px) {
-    .kbdEvents,
-    .mouseEvents {
+    .kbd-events,
+    .mouse-events {
       .stats p {
         font-size: 0.7rem;
       }

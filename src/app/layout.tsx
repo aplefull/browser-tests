@@ -6,7 +6,7 @@ import { Error } from '@/app/components/Error/Error';
 import { Provider, useDispatch } from 'react-redux';
 import { AppDispatch, store } from './redux/store';
 import styles from './pages/home/styles.module.scss';
-import './globals.scss';
+import './styles/globals.scss';
 import { useEffect } from 'react';
 import { setSectionsState, TDropdown, TSections } from '@/app/redux/slices/settings';
 import { sections as jsSections } from '@/app/pages/js-tests/sections';
@@ -46,12 +46,14 @@ const RootLayout = () => {
 
     const savedState = localStorage.getItem('settings-sections-state');
 
-    const savedSections: TSections = savedState ? JSON.parse(savedState) : {
-      js: [],
-      css: [],
-      html: [],
-      misc: [],
-    };
+    const savedSections: TSections = savedState
+      ? JSON.parse(savedState)
+      : {
+          js: [],
+          css: [],
+          html: [],
+          misc: [],
+        };
 
     dispatch(
       setSectionsState({

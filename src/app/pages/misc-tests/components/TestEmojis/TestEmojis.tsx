@@ -15,7 +15,6 @@ export const TestEmojis = () => {
 
   useEffect(() => {
     const init = async () => {
-
       const rawEmojis = await requestEmojis();
       setEmojiList(rawEmojis.map((emoji) => ({ name: emoji.name, emoji: emoji.char })));
     };

@@ -24,7 +24,7 @@
       }
     }
 
-    .colorSquare {
+    .color-square {
       width: 80px;
       aspect-ratio: 1;
       position: relative;
@@ -35,16 +35,20 @@
         transform: translateY(100%);
         font-size: 0.6rem;
         margin: 0;
+
+        @media (width < 900px) {
+          font-size: 1vw;
+        }
       }
     }
   }
 
-  .wideGamut {
+  .wide-gamut {
     > div {
       display: flex;
     }
 
-    .colorSpaceBlock {
+    .color-space-block {
       width: 80px;
       aspect-ratio: 1;
       position: relative;
@@ -59,8 +63,8 @@
     }
   }
 
-  .relativeColors {
-    .relativeColorsContainer {
+  .relative-colors {
+    .relative-colors-container {
       display: flex;
       margin-bottom: 20px;
 
@@ -85,7 +89,7 @@
         }
 
         &:nth-of-type(5) {
-          background-color: oklab(from var(--relative-color-test-1) r g 70%);
+          background-color: oklab(from $color-green-dark-10 r g 70%);
         }
       }
     }

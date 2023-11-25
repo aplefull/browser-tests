@@ -1,6 +1,4 @@
-@import '@mixins';
-
-.webStorage {
+.web-storage {
   h2 {
     @include subtitle;
     margin-bottom: 10px;

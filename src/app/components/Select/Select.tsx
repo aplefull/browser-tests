@@ -3,11 +3,7 @@ import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft } from 'tabler-icons-react';
 import { createPortal } from 'react-dom';
-
-type TSelectOption = {
-  label: string;
-  value: string;
-};
+import { TSelectOption } from '@/types';
 
 type TSelectSeparator = {
   label?: string;

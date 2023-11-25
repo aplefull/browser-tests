@@ -3,6 +3,7 @@ import {
   TestEmojis,
   TestLargeImage,
   TestLayouts,
+  TestVideos,
   TestMisc,
   TestMathMl,
 } from '@/app/pages/misc-tests/components';
@@ -30,13 +31,18 @@ export const sections = [
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
-    name: 'Miscellaneous tests',
-    Component: TestMisc,
+    name: 'Videos',
+    Component: TestVideos,
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'MathML',
     Component: TestMathMl,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Miscellaneous tests',
+    Component: TestMisc,
     initialState: DROPDOWN_STATE.CLOSED,
   },
 ];

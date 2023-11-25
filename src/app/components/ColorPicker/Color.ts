@@ -2,6 +2,7 @@ import {
   hexToRGBA,
   HSLToRGB,
   HSVToRGB,
+  parseColor,
   RGBAToHex,
   RGBAToHSLA,
   RGBAToHSVA,
@@ -159,5 +160,9 @@ export class Color {
     const components = this.toHex();
 
     return `${this.toHexString()}${components.a}`;
+  }
+
+  parse(color: string) {
+    return parseColor(color);
   }
 }

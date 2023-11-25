@@ -1,4 +1,4 @@
-.textFillColor {
+.text-fill-color {
   p {
     width: fit-content;
     font-weight: bold;
@@ -9,7 +9,7 @@
     font-size: 1.1rem;
   }
 
-  .plainColor {
+  .plain-color {
     -webkit-text-fill-color: $color-red;
     -moz-text-fill-color: $color-red;
     text-fill-color: $color-red;
@@ -18,26 +18,31 @@
   .gradient {
     background: linear-gradient(
       45deg,
-      red 0%,
-      hsl(120, 100%, calc(90% - 10%)) 25%,
-      #00ff00 50%,
-      rgb(calc(0% + 10%), 0, 255) 75%,
-      rgba(255, 0, 0, 1) 100%
+      $color-special-text-gradient-1 0%,
+      $color-special-text-gradient-2 25%,
+      $color-special-text-gradient-3 50%,
+      $color-special-text-gradient-4 75%,
+      $color-special-text-gradient-5 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  .animatedGradient {
-    background: linear-gradient(90deg, rgb(0, 8, 227) 0%, rgb(255, 0, 189) 50%, rgb(0, 8, 227) 100%);
-    animation: animatedGradient 5s linear infinite;
+  .animated-gradient {
+    background: linear-gradient(
+      90deg,
+      $color-special-text-gradient-6 0%,
+      $color-special-text-gradient-7 50%,
+      $color-special-text-gradient-6 100%
+    );
+    animation: animated-gradient 5s linear infinite;
     background-size: 200%;
     background-position-x: 0;
     background-clip: border-box;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @keyframes animatedGradient {
+    @keyframes animated-gradient {
       0% {
         background-position-x: 0;
       }
@@ -52,25 +57,25 @@
     }
   }
 
-  .animatedColor {
-    animation: colorAnimation 10s linear infinite;
+  .animated-color {
+    animation: color-animation 10s linear infinite;
 
-    @keyframes colorAnimation {
+    @keyframes color-animation {
       0% {
-        color: hsl(0, 70%, 50%);
+        color: $color-special-text-gradient-8;
       }
 
       50% {
-        color: hsl(180, 70%, 50%);
+        color: $color-special-text-gradient-9;
       }
 
       100% {
-        color: hsl(360, 70%, 50%);
+        color: $color-special-text-gradient-10;
       }
     }
   }
 
-  .imageFill {
+  .image-fill {
     font-weight: 10000000;
     background-image: url('/assets/images/flying-cat.jpg');
     -webkit-background-clip: text;

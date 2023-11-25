@@ -41,8 +41,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@mixins': './src/app/mixins.scss',
-      '@variables': './src/app/colors.scss',
+      '@mixins': './src/app/styles/mixins.scss',
+      '@variables': './src/app/styles/colors.scss',
       '@assets/*': './src/assets/*',
     },
   },

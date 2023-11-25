@@ -1,11 +1,9 @@
-@import '@mixins';
-
 .svgs {
   h2 {
     @include subtitle;
   }
 
-  .svgsContainer {
+  .svgs-container {
     display: flex;
     flex-direction: column;
     gap: 10px;

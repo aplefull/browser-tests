@@ -354,6 +354,21 @@
   }
 
   .fullscreen {
+    span {
+      margin-bottom: 5px;
+    }
+
+    div {
+      aspect-ratio: 1;
+      width: 100px;
+      border-radius: 10px;
+      background-color: $color-charcoal;
+      cursor: pointer;
+
+      &:fullscreen {
+        background-color: $color-green;
+      }
+    }
   }
 
   .in-range {
@@ -382,14 +397,24 @@
   }
 
   .valid {
-    input:valid {
-      outline: 10px solid $color-green;
+    input {
+      margin-left: 10px;
+
+      &:valid {
+        margin-left: 10px;
+        outline: 5px solid $color-green;
+      }
     }
   }
 
   .invalid {
-    input:invalid {
-      outline: 10px solid $color-green;
+    input {
+      margin-left: 10px;
+
+      &:invalid {
+        margin-left: 10px;
+        outline: 5px solid $color-green;
+      }
     }
   }
 
@@ -419,12 +444,28 @@
   }
 
   .link {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    a {
+      color: $color-white;
+    }
+
     a:link {
       color: $color-green;
     }
   }
 
   .visited {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    a {
+      color: $color-white;
+    }
+
     a:visited {
       color: $color-green;
     }
@@ -498,19 +539,31 @@
   .root {
     &:before {
       content: var(--pseudo-selector-test-root);
+      color: $color-green;
     }
   }
 
-  .scope {
-    :root {
+  @scope (.scope) {
+    :scope {
+      background: $color-green;
+
+      &:before {
+        content: var(--pseudo-selector-test-scope);
+      }
     }
 
-    &:before {
-      content: var(--pseudo-selector-test-scope);
+    .scope {
+      &:before {
+        content: var(--pseudo-selector-test-scope);
+      }
     }
   }
 
   .target {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
     a {
       color: $color-white;
 

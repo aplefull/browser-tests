@@ -1,6 +1,16 @@
 import styles from './styles.module.scss';
 
 export const TestPseudoClasses = () => {
+  const toggleFullscreen = async () => {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+    } else {
+      await document.documentElement.requestFullscreen();
+    }
+  };
+
+  const randomHref = window.crypto.randomUUID();
+
   return (
     <div className={styles.pseudo}>
       <h3>::before</h3>
@@ -43,12 +53,12 @@ export const TestPseudoClasses = () => {
       </div>
       <h3>:disabled</h3>
       <div className={styles.disabled}>
-        <input type="text" disabled />
+        <input type="text" placeholder="You shouldn't see this input" disabled />
         <span />
       </div>
       <h3>:enabled</h3>
       <div className={styles.enabled}>
-        <input type="text" />
+        <input type="text" placeholder="You shouldn't see this input" />
         <span />
       </div>
       <h3>:focus</h3>
@@ -133,7 +143,12 @@ export const TestPseudoClasses = () => {
         <div>You are not supposed to see this text</div>
         <div />
       </div>
+      {/*TODO*/}
       <h3>:fullscreen</h3>
+      <div className={styles.fullscreen}>
+        <span>This square should be green when document is in full screen mode. (Click the square)</span>
+        <div onClick={toggleFullscreen} />
+      </div>
       <h3>:in-range</h3>
       <div className={styles.inRange}>
         <input type="number" min="0" max="10" />
@@ -141,7 +156,7 @@ export const TestPseudoClasses = () => {
       </div>
       <h3>:indeterminate</h3>
       <div className={styles.indeterminate}>
-        You should see green outlines :)
+        You should see green outlines until you choose something :)
         <form>
           <input type="radio" name="radio" />
           <input type="radio" name="radio" />
@@ -151,12 +166,12 @@ export const TestPseudoClasses = () => {
       <h3>:valid</h3>
       <div className={styles.valid}>
         This input will have a green outline if it contains the word "hello".
-        <input type="text" pattern="\b[Hh]ello\b" required />
+        <input type="text" pattern=".*\b[Hh]ello\b.*" required />
       </div>
       <h3>:invalid</h3>
       <div className={styles.invalid}>
         This input will have a green outline if it does not contain the word "hello".
-        <input type="text" pattern="\b[Hh]ello\b" required />
+        <input type="text" pattern=".*\b[Hh]ello\b.*" required />
       </div>
       <h3>:lang(en)</h3>
       <div className={styles.langEn}>
@@ -167,53 +182,63 @@ export const TestPseudoClasses = () => {
       </div>
       <h3>:dir(ltr)</h3>
       <div className={styles.dirLtr}>
+        <span>Not yet supported by browsers...</span>
         <span dir="ltr">This text should be green</span>
         <span dir="rtl">This text should be red</span>
       </div>
       <h3>:link</h3>
       <div className={styles.link}>
-        <a href="#" target="_blank">
+        <span>
+          Link should be green until you click it. Don't worry, you get a new link every time you refresh the page, so
+          click ahead! (It will lead to 404 page)
+        </span>
+        <a href={randomHref} target="_blank">
           Link
         </a>
       </div>
       <h3>:visited</h3>
       <div className={styles.visited}>
-        <a href="#" target="_blank">
+        <span>
+          Same here, but the opposite - link should be green only after you visit it. (It leads to the same place as the
+          link above, so they should change color at the same time!)
+        </span>
+        <a href={randomHref} target="_blank">
           Link
         </a>
       </div>
       <h3>:optional</h3>
       <div className={styles.optional}>
-        <input type="text" />
+        <input type="text" placeholder="You shouldn't see this input" />
         <span />
       </div>
       <h3>:required</h3>
       <div className={styles.required}>
-        <input type="text" required />
+        <input type="text" required placeholder="You shouldn't see this input" />
         <span />
       </div>
       <h3>:out-of-range</h3>
       <div className={styles.outOfRange}>
-        <input type="number" min="0" max="10" defaultValue="11" />
+        <input type="number" min="0" max="10" defaultValue="11" placeholder="You shouldn't see this input" />
         <span />
       </div>
       <h3>:read-only</h3>
       <div className={styles.readOnly}>
-        <input type="text" readOnly />
+        <input type="text" readOnly placeholder="You shouldn't see this input" />
         <span />
       </div>
       <h3>:read-write</h3>
       <div className={styles.readWrite}>
-        <input type="text" />
+        <input type="text" placeholder="You shouldn't see this input" />
         <span />
       </div>
-      <div className={styles.readWrite}></div>
       <h3>:root</h3>
       <div className={styles.root}></div>
+      {/* TODO */}
       <h3>:scope</h3>
       <div className={styles.scope}></div>
       <h3>:target</h3>
       <div className={styles.target}>
+        <span>Link should be green after you click it.</span>
         <a href="#target" id="target">
           Click me
         </a>

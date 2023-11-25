@@ -122,4 +122,3 @@ export const GCO = [
   'color',
   'luminosity',
 ] as const;
-

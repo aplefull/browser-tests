@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 100%;
 }
 
 .select {
@@ -14,6 +15,8 @@
   cursor: pointer;
 
   .value {
+    display: flex;
+    align-items: center;
     flex: 1;
     height: 24px;
     aspect-ratio: 1;

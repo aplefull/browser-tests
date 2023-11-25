@@ -68,6 +68,44 @@
       }
     }
 
+    .palette-hsl {
+      height: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+
+      .palette-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .hue-bg {
+        background: conic-gradient(red, magenta, blue, aqua, lime, yellow, red);
+        rotate: 90deg;
+      }
+
+      .lightness-bg {
+        background: radial-gradient(circle closest-side, rgb(255, 255, 255), transparent);
+      }
+
+      .draggable {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: $color-white;
+        translate: -50% -50%;
+      }
+    }
+
     .tracks {
       height: 100%;
       display: flex;
@@ -108,6 +146,10 @@
 
       &.gradient {
         background: linear-gradient(to bottom, red 0%, #ff0 17%, lime 33%, cyan 50%, blue 66%, #f0f 83%, red 100%);
+      }
+
+      &.saturation {
+        background: linear-gradient(to bottom, #fff 0%, #000 100%);
       }
     }
   }

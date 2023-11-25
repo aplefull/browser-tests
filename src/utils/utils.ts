@@ -1,6 +1,6 @@
 import { LOREM_TEXT } from './constants';
 import { RootState } from '@/app/redux/store';
-import { TDoubleArgumentFunction, TNoArgumentFunction, TSingleArgumentFunction } from '@/types';
+import { TDoubleArgumentFunction, TNoArgumentFunction, TResolution, TSingleArgumentFunction } from '@/types';
 import { TRawEmoji } from '@/types';
 
 export const lorem = (n: number, start = 0) => {
@@ -182,8 +182,11 @@ export const iteratorToArray = <T>(iterator: IterableIterator<T>) => {
   return arr;
 };
 
-export const clamp = (value: number, min: number, max: number) => {
-  return Math.min(Math.max(value, min), max);
+export const clamp = (value: number, min?: number, max?: number) => {
+  const localMin = min ?? -Infinity;
+  const localMax = max ?? Infinity;
+
+  return Math.min(Math.max(value, localMin), localMax);
 };
 
 export const omit = <T extends Record<string, unknown>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {
@@ -227,4 +230,27 @@ export const prevElement = <T>(elements: T[], currentElement: T): T => {
   const currentIndex = elements.indexOf(currentElement);
   const prevIndex = currentIndex === 0 ? elements.length - 1 : currentIndex - 1;
   return elements[prevIndex];
+};
+
+export const copy = async (text: string) => {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getVideoResolution = async (video: string) => {
+  const videoElement = document.createElement('video');
+  videoElement.src = video;
+  videoElement.preload = 'metadata';
+
+  return new Promise<TResolution>((resolve) => {
+    videoElement.onloadedmetadata = () => {
+      resolve({
+        width: videoElement.videoWidth,
+        height: videoElement.videoHeight,
+      });
+    };
+  });
 };
