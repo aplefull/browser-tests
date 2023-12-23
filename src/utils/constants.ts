@@ -122,3 +122,11 @@ export const GCO = [
   'color',
   'luminosity',
 ] as const;
+
+export const PAGES = {
+  HTML_TESTS: 'html-tests',
+  CSS_TESTS: 'css-tests',
+  JS_TESTS: 'js-tests',
+  MISC_TESTS: 'misc-tests',
+  UNKNOWN: 'unknown',
+} as const;

@@ -12,16 +12,20 @@
 
   &.label-bottom {
     flex-direction: column-reverse;
+
+    .input {
+      margin-bottom: 3px;
+    }
   }
 
   &.label-left {
-    flex-direction: row-reverse;
+    flex-direction: row;
     align-items: baseline;
     gap: 10px;
   }
 
   &.label-right {
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: baseline;
     gap: 10px;
   }

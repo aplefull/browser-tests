@@ -44,6 +44,7 @@
   width: 100%;
   aspect-ratio: 1;
   position: relative;
+  margin-top: 20px;
 }
 
 .component {
@@ -52,10 +53,13 @@
   position: absolute;
   animation-duration: 219.05s;
   animation-delay: 15s;
+  animation-fill-mode: forwards;
 }
 
 @for $i from 0 through 293 {
   .component-#{$i} {
-    animation-name: play-#{$i};
+    :global {
+      animation-name: play-#{$i};
+    }
   }
 }

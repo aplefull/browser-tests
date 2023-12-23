@@ -1,0 +1,42 @@
+.container {
+  padding: calc(50px);
+  display: flex;
+  justify-content: center;
+}
+
+.counter-animation {
+  background-color: $color-red;
+  width: 200px;
+  aspect-ratio: 1;
+  animation: rotation 1s infinite linear;
+  display: grid;
+  place-items: center;
+
+  &:before {
+    content: '';
+    width: 50%;
+    aspect-ratio: 1;
+    background-color: $color-green;
+    animation: counter-rotation 1s infinite linear;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes counter-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}

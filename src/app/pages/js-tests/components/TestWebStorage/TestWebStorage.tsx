@@ -2,7 +2,7 @@ import { useState } from 'react';
 import catImage from '@assets/images/gifs/cat-vibing.gif';
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
-import { getErrorMessage, wait } from '@/utils/utils';
+import { generateRandomString, getErrorMessage, wait } from '@/utils/utils';
 import classNames from 'classnames';
 
 type TIndexedDBResult = {
@@ -13,23 +13,6 @@ type TIndexedDBResult = {
 const RESULT = {
   SUCCESS: 'Success',
   ERROR: 'Fail',
-};
-
-// TODO utils
-const generateRandomString = (length: number) => {
-  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-  const alphabetUpper = alphabet.toUpperCase();
-  const numbers = '0123456789';
-
-  const pool = alphabet + alphabetUpper + numbers;
-
-  let result = '';
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * pool.length);
-    result += pool[randomIndex];
-  }
-
-  return result;
 };
 
 const testStorage = async (storage: Storage, data: { data: string }) => {

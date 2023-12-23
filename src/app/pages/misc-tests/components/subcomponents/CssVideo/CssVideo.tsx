@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
 import { getErrorMessage } from '@/utils/utils';
 
-const fetchVideoCss = async (controller: AbortController) => {
+const fetchVideoCss = async (controller: AbortController, onComplete: () => void) => {
   try {
     const res = await fetch('https://files.catbox.moe/559pye.css', { signal: controller.signal });
     const compressedCss = await res.arrayBuffer();
@@ -17,7 +17,19 @@ const fetchVideoCss = async (controller: AbortController) => {
     style.innerHTML = css;
 
     document.head.appendChild(style);
+
+    onComplete();
   } catch (error) {
+    if (
+      error instanceof Error &&
+      'name' in error &&
+      'code' in error &&
+      error.name === 'AbortError' &&
+      error.code === 20
+    ) {
+      return;
+    }
+
     console.error(getErrorMessage(error));
   }
 };
@@ -38,10 +50,9 @@ export const CssVideo = () => {
       setShowCssVideo(true);
       setLoading(true);
 
-      await fetchVideoCss(controller);
+      await fetchVideoCss(controller, () => setLoaded(true));
 
       setLoading(false);
-      setLoaded(true);
       return;
     }
 
@@ -54,14 +65,13 @@ export const CssVideo = () => {
     setController(new AbortController());
     setLoading(false);
     setShowCssVideo(false);
-    setLoaded(false);
   };
 
   return (
     <div>
       <div className={styles.cssVideoDescription}>
         <p className={styles.author}>
-          Original author:{' '}
+          <span>Original author:</span>
           <a target="_blank" rel="noreferrer" href="https://github.com/kevinjycui">
             https://github.com/kevinjycui
           </a>
@@ -87,10 +97,10 @@ export const CssVideo = () => {
           onClick={handleButtonClick}
         />
       </div>
-      {showCssVideo && (
+      {showCssVideo && loaded && (
         <div className={styles.container}>
           {Array.from({ length: 294 }).map((_, i) => (
-            <div key={i} className={classNames(styles.component, `component-${i}`)} />
+            <div key={i} className={classNames(styles.component, styles[`component${i}`])} />
           ))}
         </div>
       )}

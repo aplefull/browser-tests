@@ -1,5 +1,5 @@
 import { visualizer } from 'rollup-plugin-visualizer';
-import { defineConfig, Plugin } from 'vite';
+import { defineConfig, Plugin, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
@@ -21,13 +21,17 @@ const redirectsPlugin = (): Plugin => {
 };
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), redirectsPlugin(), visualizer(
-    {
-      template: "treemap",
+  plugins: [
+    react(),
+    tsconfigPaths(),
+    redirectsPlugin(),
+    visualizer({
+      template: 'treemap',
       open: true,
       gzipSize: true,
-    }
-  )],
+    }),
+    splitVendorChunkPlugin(),
+  ],
   assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.adts', '**/*.tiff', '**/*.bmp'],
   css: {
     modules: {

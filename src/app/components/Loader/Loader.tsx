@@ -5,6 +5,7 @@ type TLoaderProps = {
   className?: string;
   size?: number;
   fillPage?: boolean;
+  fillContainer?: boolean;
   rotationDuration?: number;
   counterClockwise?: boolean;
 };
@@ -13,6 +14,7 @@ export const Loader = ({
   className,
   size = 70,
   fillPage = false,
+  fillContainer = false,
   rotationDuration = 1,
   counterClockwise = false,
 }: TLoaderProps) => {
@@ -23,6 +25,7 @@ export const Loader = ({
     <div
       className={classNames(styles.loader, className, {
         [styles.fillPage]: fillPage,
+        [styles.fillContainer]: fillContainer && !fillPage,
       })}
     >
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>

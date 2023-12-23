@@ -1,5 +1,7 @@
 import styles from './styles.module.scss';
 import { useState } from 'react';
+import { Input } from '@/app/components/Input/Input';
+import { RangeInput } from '@/app/components/RangeInput/RangeInput';
 
 export const TestColors = () => {
   const [R, setR] = useState(0.5);
@@ -65,45 +67,11 @@ export const TestColors = () => {
     <div className={styles.colors}>
       <div className={styles.color}>
         <h2>color() and different color-spaces</h2>
-        <label>
-          R
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step={0.05}
-            value={R}
-            onChange={(e) => {
-              setR(Number(e.target.value));
-            }}
-          />
-        </label>
-        <label>
-          G
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step={0.05}
-            value={G}
-            onChange={(e) => {
-              setG(Number(e.target.value));
-            }}
-          />
-        </label>
-        <label>
-          B
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step={0.05}
-            value={B}
-            onChange={(e) => {
-              setB(Number(e.target.value));
-            }}
-          />
-        </label>
+        <div className={styles.inputs}>
+          <RangeInput min={0} max={1} step={0.05} value={R} label="R" labelPosition="left" onChange={setR} />
+          <RangeInput min={0} max={1} step={0.05} value={G} label="G" labelPosition="left" onChange={setG} />
+          <RangeInput min={0} max={1} step={0.05} value={B} label="B" labelPosition="left" onChange={setB} />
+        </div>
         <div>
           {colorSpaces.map((colorSpace) => {
             const color = `color(${colorSpace} ${R} ${G} ${B}  / 0.95)`;

@@ -1,5 +1,6 @@
 import {
   hexToRGBA,
+  HSLAToRGBA,
   HSLToRGB,
   HSVToRGB,
   parseColor,
@@ -49,7 +50,11 @@ export class Color {
   }
 
   fromHSLA(h: number, s: number, l: number, a: number) {
-    this.fromHSL(h, s, l);
+    const rgba = HSLAToRGBA(h, s, l, a);
+
+    this.r = rgba.r;
+    this.g = rgba.g;
+    this.b = rgba.b;
     this.a = a;
 
     return this;

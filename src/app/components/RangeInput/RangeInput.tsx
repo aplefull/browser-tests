@@ -8,13 +8,16 @@ type TRangeInputProps = {
   value: number;
   min?: number;
   max?: number;
+  step?: number;
   onChange: (value: number) => void;
   label?: string;
   labelPosition?: TLabelPosition;
   className?: string;
 };
 
-const getStartX = (event: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent) => {
+type PointerEvent = React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent;
+
+const getStartX = (event: PointerEvent) => {
   if ('touches' in event) {
     return event.touches[0].clientX;
   }
@@ -26,10 +29,46 @@ const getStartX = (event: React.MouseEvent | React.TouchEvent | MouseEvent | Tou
   return 0;
 };
 
+const updateValue = (
+  event: MouseEvent | TouchEvent,
+  element: HTMLDivElement,
+  min: number,
+  max: number,
+  step: number,
+  onChange: (value: number) => void,
+) => {
+  const { left } = element.getBoundingClientRect();
+  const currentX = getStartX(event);
+
+  const value = map(currentX - left, 0, element.offsetWidth, min, max);
+  const stepValue = Math.round(value / step) * step;
+
+  onChange(clamp(stepValue, min, max));
+};
+
+const updateValueOnPointerDown = (
+  event: PointerEvent,
+  element: HTMLDivElement,
+  min: number,
+  max: number,
+  step: number,
+  onChange: (value: number) => void,
+) => {
+  const startX = getStartX(event);
+  const { left } = element.getBoundingClientRect();
+
+  const progress = (startX - left) / element.offsetWidth;
+  const value = map(progress, 0, 1, min, max);
+  const stepValue = Math.round(value / step) * step;
+
+  onChange(clamp(stepValue, min, max));
+};
+
 export const RangeInput = ({
   value,
   min = 0,
   max = 100,
+  step = 1,
   onChange,
   label,
   labelPosition,
@@ -39,29 +78,13 @@ export const RangeInput = ({
   const thumbRef = useRef<HTMLDivElement>(null);
 
   const onMouseDown = (event: React.MouseEvent) => {
-    event.preventDefault();
+    const element = ref.current;
+    if (!element) return;
 
-    const startX = getStartX(event);
+    updateValueOnPointerDown(event, element, min, max, step, onChange);
 
-    const { current: element } = ref;
-
-    if (!element) {
-      return;
-    }
-
-    const { left } = element.getBoundingClientRect();
-
-    const progress = (startX - left) / element.offsetWidth;
-    const value = map(progress, 0, 1, min, max);
-
-    onChange(clamp(value, min, max));
-
-    const onMouseMove = (event: MouseEvent | TouchEvent) => {
-      const currentX = getStartX(event);
-
-      const value = map(currentX - left, 0, element.offsetWidth, min, max);
-
-      onChange(clamp(value, min, max));
+    const onMouseMove = (event: MouseEvent) => {
+      updateValue(event, element, min, max, step, onChange);
     };
 
     const onMouseUp = () => {
@@ -74,27 +97,13 @@ export const RangeInput = ({
   };
 
   const onTouchStart = (event: React.TouchEvent) => {
-    const startX = getStartX(event);
+    const element = ref.current;
+    if (!element) return;
 
-    const { current: element } = ref;
-
-    if (!element) {
-      return;
-    }
-
-    const { left } = element.getBoundingClientRect();
-
-    const progress = (startX - left) / element.offsetWidth;
-    const value = map(progress, 0, 1, min, max);
-
-    onChange(clamp(value, min, max));
+    updateValueOnPointerDown(event, element, min, max, step, onChange);
 
     const onTouchMove = (event: TouchEvent) => {
-      const currentX = getStartX(event);
-
-      const value = map(currentX - left, 0, element.offsetWidth, min, max);
-
-      onChange(clamp(value, min, max));
+      updateValue(event, element, min, max, step, onChange);
     };
 
     const onTouchEnd = () => {

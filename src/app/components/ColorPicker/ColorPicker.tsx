@@ -107,11 +107,10 @@ type THSVPaletteProps = {
 };
 
 type THSLPaletteProps = {
-  setHue: (value: number) => void;
-  setLightness: (value: number) => void;
+  setHueAndLightness: ({ hue, lightness }: { hue: number; lightness: number }) => void;
 };
 
-const HSLPalette = ({ setHue, setLightness }: THSLPaletteProps) => {
+const HSLPalette = ({ setHueAndLightness }: THSLPaletteProps) => {
   const [draggablePos, setDraggablePos] = useState({
     x: 0,
     y: 0,
@@ -162,8 +161,7 @@ const HSLPalette = ({ setHue, setLightness }: THSLPaletteProps) => {
       const xLimited = limitPointToCircle(x, y, width / 2, height / 2, width / 2).x;
       const yLimited = limitPointToCircle(x, y, width / 2, height / 2, height / 2).y;
 
-      setHue(hue);
-      setLightness(lightness);
+      setHueAndLightness({ hue, lightness });
 
       setDraggablePos({
         x: xLimited,
@@ -239,7 +237,7 @@ const HSVPalette = ({ setSaturationAndValue, hue }: THSVPaletteProps) => {
   };
 
   const paletteStyle = {
-    backgroundColor: new Color().fromHSL(hue, 100, 50).toRGBString(),
+    backgroundColor: new Color().fromHSL(hue, 1, 0.5).toRGBString(),
   };
 
   return (
@@ -260,33 +258,54 @@ const HSLPicker = ({ onChange }: TPickerProps) => {
 
   const currentColor = new Color().fromHSLA(hue, saturation, lightness, alpha);
 
-  const handleHueChange = (hue: number) => {
-    setHue(hue);
+  const handleHueChange = (newHue: number) => {
+    setHue(newHue);
 
-    const color = new Color().fromHSLA(hue, saturation, lightness, alpha);
-    onChange(currentColor);
-  };
-
-  const handleSaturationChange = (saturation: number) => {
-    setSaturation(saturation);
-
-    const color = new Color().fromHSLA(hue, saturation, lightness, alpha);
-    onChange(currentColor);
-  };
-
-  const handleLightnessChange = (lightness: number) => {
-    setLightness(lightness);
-
-    const color = new Color().fromHSLA(hue, saturation, lightness, alpha);
-    onChange(currentColor);
-  };
-
-  const handleAlphaChange = (alpha: number) => {
-    setAlpha(alpha);
-
-    const color = new Color().fromHSLA(hue, saturation, lightness, alpha);
+    const color = new Color().fromHSLA(newHue, saturation, lightness, alpha);
+    console.log(color.toRGBString());
     onChange(color);
   };
+
+  const handleSaturationChange = (newSaturation: number) => {
+    setSaturation(newSaturation);
+
+    //console.log(newSaturation);
+    const color = new Color().fromHSLA(hue, newSaturation, lightness, alpha);
+    onChange(color);
+  };
+
+  const handleLightnessChange = (newLightness: number) => {
+    setLightness(newLightness);
+    //console.log(newLightness);
+    const color = new Color().fromHSLA(hue, saturation, newLightness, alpha);
+    console.log('2', color.toRGBString());
+    onChange(color);
+  };
+
+  const handleHueAndLightnessChange = ({
+    hue: newHue,
+    lightness: newLightness,
+  }: {
+    hue: number;
+    lightness: number;
+  }) => {
+    setHue(newHue);
+    setLightness(newLightness);
+
+    const color = new Color().fromHSLA(newHue, saturation, newLightness, alpha);
+    onChange(color);
+  };
+
+  const handleAlphaChange = (newAlpha: number) => {
+    setAlpha(1 - newAlpha);
+
+    const color = new Color().fromHSLA(hue, saturation, lightness, 1 - newAlpha);
+    onChange(color);
+  };
+
+  console.log(new Color().fromHSLA(90, 1, 0.5, 1).toRGBString());
+
+  //console.log(currentColor.toRGBAString());
 
   const alphaBGStyle = {
     background: `linear-gradient(to top, rgba(0, 0, 0, 0), ${currentColor.toRGBString()})`,
@@ -294,7 +313,7 @@ const HSLPicker = ({ onChange }: TPickerProps) => {
 
   return (
     <>
-      <HSLPalette setHue={handleHueChange} setLightness={handleLightnessChange} />
+      <HSLPalette setHueAndLightness={handleHueAndLightnessChange} />
       <div className={styles.tracks}>
         <DraggableTrack className={styles.saturation} onChange={handleSaturationChange} />
         <DraggableTrack onChange={handleAlphaChange}>
@@ -383,7 +402,7 @@ const Picker = memo(({ onChange, value, type }: TCommonPickerProps) => {
   );
 });
 
-export const ColorPicker = ({ onChange, value, type = 'HSV' }: TColorPickerProps) => {
+export const ColorPicker = ({ onChange, value, type = 'HSL' }: TColorPickerProps) => {
   const [color, setColor] = useState(new Color().parse(value));
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 

@@ -61,9 +61,16 @@ export const settingsSlice = createSlice({
     setSectionsState: (state, action: PayloadAction<TSettingsInitialState['dropdowns']['pages']>) => {
       state.dropdowns.pages = action.payload;
     },
+    closeAllSectionsOnPage: (state, action: PayloadAction<keyof TSettingsInitialState['dropdowns']['pages']>) => {
+      state.dropdowns.pages[action.payload].forEach((section) => {
+        section.initialState = 'closed';
+      });
+
+      saveSectionsState(state.dropdowns.pages);
+    },
   },
 });
 
-export const { setPreferUnmount, setDropdownState, setSectionsState } = settingsSlice.actions;
+export const { setPreferUnmount, setDropdownState, setSectionsState, closeAllSectionsOnPage } = settingsSlice.actions;
 
 export const settingsReducer = settingsSlice.reducer;

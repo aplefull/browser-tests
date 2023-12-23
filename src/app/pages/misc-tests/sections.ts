@@ -1,13 +1,24 @@
-import {
-  TestDifficultStrings,
-  TestEmojis,
-  TestLargeImage,
-  TestLayouts,
-  TestVideos,
-  TestMisc,
-  TestMathMl,
-} from '@/app/pages/misc-tests/components';
+import { TestDifficultStrings, TestEmojis, TestLargeImage, TestVideos } from '@/app/pages/misc-tests/components';
 import { DROPDOWN_STATE } from '@/utils/constants';
+import { lazy } from 'react';
+
+const TestLayouts = lazy(() =>
+  import('@/app/pages/misc-tests/components').then(({ TestLayouts }) => {
+    return { default: TestLayouts };
+  }),
+);
+
+const TestMathMl = lazy(() =>
+  import('@/app/pages/misc-tests/components').then(({ TestMathMl }) => {
+    return { default: TestMathMl };
+  }),
+);
+
+const TestMisc = lazy(() =>
+  import('@/app/pages/misc-tests/components').then(({ TestMisc }) => {
+    return { default: TestMisc };
+  }),
+);
 
 export const sections = [
   {

@@ -1,7 +1,8 @@
-import { LOREM_TEXT } from './constants';
+import { LOREM_TEXT, PAGES } from './constants';
 import { RootState } from '@/app/redux/store';
 import { TDoubleArgumentFunction, TNoArgumentFunction, TResolution, TSingleArgumentFunction } from '@/types';
 import { TRawEmoji } from '@/types';
+import { RefObject } from 'react';
 
 export const lorem = (n: number, start = 0) => {
   const sentences = LOREM_TEXT.split(/(?<=[.?!])\s+/);
@@ -253,4 +254,34 @@ export const getVideoResolution = async (video: string) => {
       });
     };
   });
+};
+
+export const getCurrentPage = () => {
+  const currentPage = window.location.pathname.split('/')[1];
+
+  const values = Object.values(PAGES);
+
+  for (const value of values) {
+    if (value === currentPage) {
+      return value;
+    }
+  }
+
+  return PAGES.UNKNOWN;
+};
+
+export const generateRandomString = (length: number) => {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  const alphabetUpper = alphabet.toUpperCase();
+  const numbers = '0123456789';
+
+  const pool = alphabet + alphabetUpper + numbers;
+
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * pool.length);
+    result += pool[randomIndex];
+  }
+
+  return result;
 };

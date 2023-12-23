@@ -40,23 +40,23 @@ export const TestCssGradients = () => {
         <div className={styles.gradient3} />
       </div>
       <div>
-        <p>SVG gradient 2</p>
+        <p>Gradient 4</p>
         <div className={styles.gradient4}></div>
       </div>
       <div>
-        <p>SVG gradient 5</p>
+        <p>Gradient 5</p>
         <div className={styles.gradient5}></div>
       </div>
       <div>
-        <p>SVG gradient 6</p>
+        <p>Gradient 6</p>
         <div className={styles.gradient6}></div>
       </div>
       <div>
-        <p>SVG gradient</p>
+        <p>Gradient 7 (SVG)</p>
         <SvgGradient />
       </div>
       <div>
-        <p>Gradient mesh</p>
+        <p>Gradient 8</p>
         <div className={styles.gradientMesh} />
       </div>
     </div>

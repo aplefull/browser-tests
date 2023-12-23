@@ -1,6 +1,5 @@
 import styles from './styles.module.scss';
 import { TDimensions } from '@/types';
-//import svgData from '@assets/data/bad-apple-svg.json';
 import { fitToBox } from '@/utils/utils';
 import { useEffect, useState } from 'react';
 import { Button } from '@/app/components/Button/Button';
@@ -83,10 +82,8 @@ export const DifficultAnimationSvg = ({ width, height }: TDimensions) => {
 
   useEffect(() => {
     const loadSvgData = async () => {
-      const svgDataPromise = import('@assets/data/bad-apple-svg.json');
-      const svgDataModule = await svgDataPromise;
-      const svgData = svgDataModule.default;
-
+      const svgDataRes = await fetch('https://files.catbox.moe/76gavq.json');
+      const svgData = await svgDataRes.json();
       if (!isSvgData(svgData)) {
         return;
       }

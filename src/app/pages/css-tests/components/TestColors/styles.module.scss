@@ -10,18 +10,10 @@
       display: flex;
     }
 
-    label {
-      display: flex;
-      align-items: center;
-
-      input {
-        margin-left: 10px;
-        cursor: pointer;
-      }
-
-      &:last-of-type {
-        margin-bottom: 20px;
-      }
+    .inputs {
+      flex-direction: column;
+      max-width: 200px;
+      margin-bottom: 10px;
     }
 
     .color-square {
@@ -71,24 +63,43 @@
       > div {
         width: 80px;
         aspect-ratio: 1;
+        position: relative;
 
-        &:nth-of-type(1) {
+        &::before {
+          content: 'Not supported';
+          font-size: 0.6rem;
+          position: absolute;
+          inset: 0;
+          display: grid;
+          place-items: center;
+          border: 1px solid $color-red;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          display: grid;
+          place-items: center;
+        }
+
+        &:nth-of-type(1)::after {
           background-color: color-mix(in hsl longer hue, rgb(60 189 68) 20%, oklab(0.72 0.13 0.16) 80%);
         }
 
-        &:nth-of-type(2) {
+        &:nth-of-type(2)::after {
           background-color: color-mix(in lch, lab(70 193 200 / 1) 20%, oklch(0.67 0.23 0.16 / 1) 50%);
         }
 
-        &:nth-of-type(3) {
+        &:nth-of-type(3)::after {
           background-color: color-mix(in srgb, rgb(179 103 87) 70%, lch(60 180 20 / 1) 30%);
         }
 
-        &:nth-of-type(4) {
+        &:nth-of-type(4)::after {
           background-color: color-contrast(oklab(0.72 0.13 0.16) vs crimson, oklch(0.67 0.23 0.16));
         }
 
-        &:nth-of-type(5) {
+        &:nth-of-type(5)::after {
           background-color: oklab(from $color-green-dark-10 r g 70%);
         }
       }

@@ -1,26 +1,16 @@
-//import { IndexPage } from '@/app/pages/home/page';
+import { IndexPage } from '@/app/pages/home/page';
 import { NotFound } from '@/app/pages/not-found/NotFound';
 import { Settings } from '@/app/pages/settings/Settings';
+import { HTMLTestsPage } from '@/app/pages/html-tests/HTMLTestsPage';
+import { CSSTestsPage } from '@/app/pages/css-tests/page';
+import { JSTestsPage } from '@/app/pages/js-tests/page';
+import { MiscTestsPage } from '@/app/pages/misc-tests/page';
+import { OthersProjectsPage } from '@/app/pages/others-projects/page';
 
-import { ComponentType, JSX, lazy, ReactNode, Suspense } from 'react';
+import { lazy, ReactNode, Suspense } from 'react';
 import { Loader } from '@/app/components/Loader/Loader';
 
-const HTMLTestsPage = lazy(() =>
-  import('@/app/pages/html-tests/HTMLTestsPage').then(({ HTMLTestsPage }) => ({ default: HTMLTestsPage })),
-);
-const CSSTestsPage = lazy(() =>
-  import('@/app/pages/css-tests/page').then(({ CSSTestsPage }) => ({ default: CSSTestsPage })),
-);
-const JSTestsPage = lazy(() =>
-  import('@/app/pages/js-tests/page').then(({ JSTestsPage }) => ({ default: JSTestsPage })),
-);
-const MiscTestsPage = lazy(() =>
-  import('@/app/pages/misc-tests/page').then(({ MiscTestsPage }) => ({ default: MiscTestsPage })),
-);
-const OthersProjectsPage = lazy(() =>
-  import('@/app/pages/others-projects/page').then(({ OthersProjectsPage }) => ({ default: OthersProjectsPage })),
-);
-
+// TODO maybe use in separate heavy components
 const importer = (path: string) => {
   return lazy<() => ReactNode>(async () => {
     try {
@@ -48,55 +38,34 @@ const Async = ({ path }: { path: string }) => {
   );
 };
 
-//const IndexPage = importer('/src/app/pages/home/page');
 export const routes = [
   {
     path: '/',
-    element: <Async path={'/src/app/pages/home/page'} />,
+    element: <IndexPage />,
   },
   {
     path: '/html-tests',
-    element: (
-      <Suspense fallback={<Loader fillPage />}>
-        <HTMLTestsPage />
-      </Suspense>
-    ),
+    element: <HTMLTestsPage />,
     navText: 'HTML',
   },
   {
     path: '/css-tests',
-    element: (
-      <Suspense fallback={<Loader fillPage />}>
-        <CSSTestsPage />
-      </Suspense>
-    ),
+    element: <CSSTestsPage />,
     navText: 'CSS',
   },
   {
     path: '/js-tests',
-    element: (
-      <Suspense fallback={<Loader fillPage />}>
-        <JSTestsPage />
-      </Suspense>
-    ),
+    element: <JSTestsPage />,
     navText: 'JS',
   },
   {
     path: '/misc-tests',
-    element: (
-      <Suspense fallback={<Loader fillPage />}>
-        <MiscTestsPage />
-      </Suspense>
-    ),
+    element: <MiscTestsPage />,
     navText: 'MISC',
   },
   {
     path: '/others-projects',
-    element: (
-      <Suspense fallback={<Loader fillPage />}>
-        <OthersProjectsPage />
-      </Suspense>
-    ),
+    element: <OthersProjectsPage />,
     navText: 'HEY',
   },
   {
