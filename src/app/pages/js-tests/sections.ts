@@ -5,7 +5,6 @@ import {
   TestDates,
   TestEvents,
   TestLabelingLoops,
-  TestMasonry,
   TestMath,
   TestNavigatorFeatures,
   TestTabInteractions,
@@ -21,11 +20,6 @@ export const sections = [
   {
     name: 'Interactions with tab',
     Component: TestTabInteractions,
-    initialState: DROPDOWN_STATE.OPEN,
-  },
-  {
-    name: 'Masonry',
-    Component: TestMasonry,
     initialState: DROPDOWN_STATE.OPEN,
   },
   {

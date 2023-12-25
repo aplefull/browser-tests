@@ -2,8 +2,9 @@ import styles from './layouts.module.scss';
 import tableData from '@assets/data/data.json';
 import React, { Fragment } from 'react';
 import classNames from 'classnames';
-import { CSSMasonry } from '@/app/pages/css-tests/components/subcomponents/CSSMasonry/CSSMasonry';
+import { CSSMasonry } from '@/app/pages/misc-tests/components/subcomponents/CSSMasonry/CSSMasonry';
 import { TImageModule } from '@/types';
+import { JSMasonry } from '@/app/pages/misc-tests/components/subcomponents/JSMasonry/JSMasonry';
 
 const images = import.meta.glob<TImageModule>('/src/assets/images/cats/*.*', { eager: true });
 
@@ -97,6 +98,8 @@ export const TestLayouts = () => {
     <div className={styles.testLayouts}>
       <p>Pure css masonry</p>
       <CSSMasonry urls={urls} />
+      <p>JS masonry</p>
+      <JSMasonry />
       <p>Large table</p>
       <LargeTable headCaptions={headCaptions} />
       <p>Large grid</p>

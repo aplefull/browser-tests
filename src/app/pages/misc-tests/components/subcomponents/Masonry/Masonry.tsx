@@ -23,7 +23,7 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
     return Promise.all(images.map((image) => getImageDimensions(image)));
   };
 
-  const getImageDimensions = async (src: string): Promise<RawImageBox> => {
+  const getImageDimensions = async (src: string) => {
     return new Promise<RawImageBox>((resolve) => {
       const img = document.createElement('img');
 
@@ -35,6 +35,14 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
         };
 
         resolve(dimensions);
+      };
+
+      img.onerror = () => {
+        resolve({
+          width: 0,
+          height: 0,
+          src: src,
+        });
       };
 
       img.src = src;
@@ -132,6 +140,8 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
   };
 
   const getContainerHeight = (masonryBoxes: MasonryBox[]) => {
+    if (masonryBoxes.length === 0) return 0;
+
     return masonryBoxes[masonryBoxes.length - 1].y + masonryBoxes[masonryBoxes.length - 1].height;
   };
 
@@ -158,22 +168,25 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
     });
   }, [images]);
 
-  if (containerWidth === null || naturalDimensions.length === 0) return null;
+  const readyToRender = containerWidth !== null && naturalDimensions.length > 0;
 
-  const masonryBoxes = getMasonryBoxes(naturalDimensions);
+  const masonryBoxes = readyToRender
+    ? getMasonryBoxes(naturalDimensions.filter((image) => image.width > 0 && image.height > 0))
+    : [];
   const containerHeight = getContainerHeight(masonryBoxes);
 
   return (
     <div className={styles.masonryContainer} style={{ height: containerHeight }}>
-      {masonryBoxes.map(({ src, x, y, scale }, index) => {
-        const transform = `translate(${x}px, ${y}px) scale(${scale})`;
+      {readyToRender &&
+        masonryBoxes.map(({ src, x, y, scale }, index) => {
+          const transform = `translate(${x}px, ${y}px) scale(${scale})`;
 
-        return (
-          <div key={index} className={styles.item} style={{ transform }}>
-            <img src={src} alt={src} />
-          </div>
-        );
-      })}
+          return (
+            <div key={index} className={styles.item} style={{ transform }}>
+              <img src={src} alt={src} />
+            </div>
+          );
+        })}
     </div>
   );
 };

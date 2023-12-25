@@ -1,0 +1,115 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  margin-bottom: 20px;
+  gap: 5px;
+  transition: translate 0.2s ease-in-out;
+
+  &.hidden {
+    translate: 0 200%;
+  }
+}
+
+.video {
+  outline: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .buttonsGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .buttonWithIcon {
+    display: grid;
+    place-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    color: rgba($color-white, 0.7);
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: $color-white;
+    }
+  }
+
+  .volume-control {
+    min-width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    .volumeSlider {
+      > div {
+        height: 8px;
+      }
+    }
+  };
+}
+
+.progressBarContainer {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .progressBar {
+    width: 100%;
+    height: 50%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgba($color-white, 0.5);
+    cursor: pointer;
+
+    .progressBarProgress {
+      width: 0;
+      height: 100%;
+      background-color: $color-white;
+      border-radius: 10px;
+    }
+
+    .progressBarLoaded {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background-color: $color-red;
+      border-radius: 10px;
+    }
+  }
+
+  .thumb {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    aspect-ratio: 1;
+    background-color: $color-white;
+    border-radius: 50%;
+    cursor: pointer;
+    translate: -50% 0;
+  }
+}

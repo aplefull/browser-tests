@@ -13,12 +13,11 @@ export const range = (n: number) => {
   return [...Array(n).keys()].map((i) => i + 1);
 };
 
-export const splitIntoChunks = <T>(arr: T[], chunkSize: number, noChunksOfSmallerSize: boolean = false) => {
-  const chunks = [];
+export const splitIntoChunks = <T,>(arr: T[], chunkSize: number, noChunksOfSmallerSize = false) => {
+  const chunks: T[][] = [];
 
   for (let i = 0; i < arr.length; i += chunkSize) {
     const chunk = arr.slice(i, i + chunkSize);
-
     chunks.push(chunk);
   }
 
@@ -28,7 +27,7 @@ export const splitIntoChunks = <T>(arr: T[], chunkSize: number, noChunksOfSmalle
     const lastChunk = chunks[chunks.length - 1];
 
     if (lastChunk.length < chunkSize) {
-      chunks[chunks.length - 2] = [...chunks[chunks.length - 2], ...lastChunk];
+      chunks[chunks.length - 2].push(...lastChunk);
       chunks.pop();
     }
   }
@@ -284,4 +283,16 @@ export const generateRandomString = (length: number) => {
   }
 
   return result;
+};
+
+export const calculateThumbPosition = (
+  value: number,
+  min: number,
+  max: number,
+  thumbWidth: number,
+  containerWidth: number,
+) => {
+  const minPosition = (((thumbWidth || 0) / (containerWidth || 1)) * 100) / 2;
+  const maxPosition = 100 - minPosition;
+  return map(value, min, max, minPosition, maxPosition);
 };

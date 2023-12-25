@@ -1,12 +1,14 @@
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './styles.module.scss';
-import { clamp, nextElement } from '@/utils/utils';
+import { nextElement } from '@/utils/utils';
 import classNames from 'classnames';
 import { Popover } from '@/app/components/Popover/Popover';
 import { DraggableTrack } from '@/app/components/ColorPicker/DraggableTrack';
 import { Color } from '@/app/components/ColorPicker/Color';
 import { Input } from '@/app/components/Input/Input';
 import { NumberInput } from '@/app/components/NumberInput/NumberInput';
+import { HSLPalette } from '@/app/components/ColorPicker/Palettes/HSLPalette';
+import { HSVPalette } from '@/app/components/ColorPicker/Palettes/HSVPalette';
 
 const ColorPreview = ({ color }: { color: Color }) => {
   return (
@@ -98,187 +100,28 @@ type TCommonPickerProps = {
 
 type TPickerProps = {
   onChange: (color: Color) => void;
+  value: Color;
   type?: 'HSV' | 'HSL';
 };
 
-type THSVPaletteProps = {
-  setSaturationAndValue: ({ saturation, value }: { saturation: number; value: number }) => void;
-  hue: number;
-};
+const HSLPicker = ({ onChange, value }: TPickerProps) => {
+  const [hue, setHue] = useState(value.toHSLA().h);
+  const [saturation, setSaturation] = useState(value.toHSLA().s);
+  const [lightness, setLightness] = useState(value.toHSLA().l);
+  const [alpha, setAlpha] = useState(value.toHSLA().a);
+  useEffect(() => {
+    const { h, s, l, a } = value.toHSLA();
 
-type THSLPaletteProps = {
-  setHueAndLightness: ({ hue, lightness }: { hue: number; lightness: number }) => void;
-};
-
-const HSLPalette = ({ setHueAndLightness }: THSLPaletteProps) => {
-  const [draggablePos, setDraggablePos] = useState({
-    x: 0,
-    y: 0,
-  });
-
-  const paletteRef = useRef<HTMLDivElement>(null);
-
-  const cartesianToPolar = (x: number, y: number) => {
-    const angle = (Math.atan2(y, x) * 180) / Math.PI;
-    return angle < 0 ? angle + 360 : angle;
-  };
-
-  function limitPointToCircle(x, y, cx, cy, r) {
-    // Calculate the distance between (x, y) and the center of the circle
-    const distance = Math.sqrt(Math.pow(x - cx, 2) + Math.pow(y - cy, 2));
-
-    // If the distance is greater than the radius, limit (x, y) to the circle boundary
-    if (distance > r) {
-      const angle = Math.atan2(y - cy, x - cx);
-      x = cx + r * Math.cos(angle);
-      y = cy + r * Math.sin(angle);
-    }
-
-    return { x, y };
-  }
-
-  const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-    const { current } = paletteRef;
-
-    if (!current) return;
-
-    event.preventDefault();
-
-    const onMouseMove = (event: MouseEvent) => {
-      const { clientX, clientY } = event;
-      const { width, height, left, top } = current.getBoundingClientRect();
-
-      const x = clientX - left;
-      const y = clientY - top;
-
-      const xPercent = clamp(x / width, 0, 1);
-      const yPercent = clamp(y / height, 0, 1);
-
-      const distanceToCenter = Math.sqrt((xPercent - 0.5) ** 2 + (yPercent - 0.5) ** 2);
-      const lightness = clamp(1 - distanceToCenter * 2, 0, 1);
-      const hue = cartesianToPolar(xPercent - 0.5, yPercent - 0.5);
-
-      const xLimited = limitPointToCircle(x, y, width / 2, height / 2, width / 2).x;
-      const yLimited = limitPointToCircle(x, y, width / 2, height / 2, height / 2).y;
-
-      setHueAndLightness({ hue, lightness });
-
-      setDraggablePos({
-        x: xLimited,
-        y: yLimited,
-      });
-    };
-
-    onMouseMove(event.nativeEvent);
-
-    const onMouseUp = () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  };
-
-  return (
-    <div ref={paletteRef} className={styles.paletteHsl} onMouseDown={onMouseDown}>
-      <div className={classNames(styles.paletteBg, styles.hueBg)} />
-      <div className={classNames(styles.paletteBg, styles.lightnessBg)} />
-      <div className={styles.draggable} style={{ left: draggablePos.x, top: draggablePos.y }} />
-    </div>
-  );
-};
-
-const HSVPalette = ({ setSaturationAndValue, hue }: THSVPaletteProps) => {
-  const [draggablePos, setDraggablePos] = useState({
-    x: 0,
-    y: 0,
-  });
-
-  const paletteRef = useRef<HTMLDivElement>(null);
-
-  const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-    const { current } = paletteRef;
-
-    if (!current) return;
-
-    event.preventDefault();
-
-    const onMouseMove = (event: MouseEvent) => {
-      const { clientX, clientY } = event;
-      const { width, height, left, top } = current.getBoundingClientRect();
-
-      const x = clientX - left;
-      const y = clientY - top;
-
-      const xPercent = clamp(x / width, 0, 1);
-      const yPercent = clamp(y / height, 0, 1);
-
-      const saturation = xPercent;
-      const value = 1 - yPercent;
-
-      setSaturationAndValue({ saturation, value });
-
-      setDraggablePos({
-        x: clamp(x, 0, width),
-        y: clamp(y, 0, height),
-      });
-    };
-
-    onMouseMove(event.nativeEvent);
-
-    const onMouseUp = () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  };
-
-  const paletteStyle = {
-    backgroundColor: new Color().fromHSL(hue, 1, 0.5).toRGBString(),
-  };
-
-  return (
-    <div ref={paletteRef} className={styles.palette} onMouseDown={onMouseDown} style={paletteStyle}>
-      <div className={classNames(styles.paletteBg, styles.whiteBg)} />
-      <div className={classNames(styles.paletteBg, styles.blackBg)} />
-      <div className={styles.draggable} style={{ left: draggablePos.x, top: draggablePos.y }} />
-    </div>
-  );
-};
-
-// TODO finish HSLPicker
-const HSLPicker = ({ onChange }: TPickerProps) => {
-  const [hue, setHue] = useState(0);
-  const [saturation, setSaturation] = useState(0);
-  const [lightness, setLightness] = useState(0);
-  const [alpha, setAlpha] = useState(1);
+    setHue(h);
+    setSaturation(s);
+    setLightness(l);
+    setAlpha(a);
+  }, [value]);
 
   const currentColor = new Color().fromHSLA(hue, saturation, lightness, alpha);
 
-  const handleHueChange = (newHue: number) => {
-    setHue(newHue);
-
-    const color = new Color().fromHSLA(newHue, saturation, lightness, alpha);
-    console.log(color.toRGBString());
-    onChange(color);
-  };
-
   const handleSaturationChange = (newSaturation: number) => {
-    setSaturation(newSaturation);
-
-    //console.log(newSaturation);
     const color = new Color().fromHSLA(hue, newSaturation, lightness, alpha);
-    onChange(color);
-  };
-
-  const handleLightnessChange = (newLightness: number) => {
-    setLightness(newLightness);
-    //console.log(newLightness);
-    const color = new Color().fromHSLA(hue, saturation, newLightness, alpha);
-    console.log('2', color.toRGBString());
     onChange(color);
   };
 
@@ -289,23 +132,14 @@ const HSLPicker = ({ onChange }: TPickerProps) => {
     hue: number;
     lightness: number;
   }) => {
-    setHue(newHue);
-    setLightness(newLightness);
-
     const color = new Color().fromHSLA(newHue, saturation, newLightness, alpha);
     onChange(color);
   };
 
   const handleAlphaChange = (newAlpha: number) => {
-    setAlpha(1 - newAlpha);
-
     const color = new Color().fromHSLA(hue, saturation, lightness, 1 - newAlpha);
     onChange(color);
   };
-
-  console.log(new Color().fromHSLA(90, 1, 0.5, 1).toRGBString());
-
-  //console.log(currentColor.toRGBAString());
 
   const alphaBGStyle = {
     background: `linear-gradient(to top, rgba(0, 0, 0, 0), ${currentColor.toRGBString()})`,
@@ -325,35 +159,37 @@ const HSLPicker = ({ onChange }: TPickerProps) => {
   );
 };
 
-const HSVPicker = ({ onChange }: TPickerProps) => {
-  const [hue, setHue] = useState(0);
-  const [saturation, setSaturation] = useState(0);
-  const [value, setValue] = useState(0);
-  const [alpha, setAlpha] = useState(1);
+const HSVPicker = ({ onChange, value: colorValue }: TPickerProps) => {
+  const [hue, setHue] = useState(colorValue.toHSVA().h);
+  const [saturation, setSaturation] = useState(colorValue.toHSVA().s);
+  const [value, setValue] = useState(colorValue.toHSVA().v);
+  const [alpha, setAlpha] = useState(colorValue.toHSVA().a);
 
   const currentColor = new Color().fromHSVA(hue, saturation, value, alpha);
 
   const handleHueChange = (newHue: number) => {
-    setHue(newHue * 360);
-
-    const color = new Color().fromHSVA(newHue * 360, saturation, value, alpha);
+     const color = new Color().fromHSVA(newHue * 360, saturation, value, alpha);
     onChange(color);
   };
 
   const updateSaturationAndValue = ({ saturation, value: newValue }: { saturation: number; value: number }) => {
-    setSaturation(saturation);
-    setValue(newValue);
-
     const color = new Color().fromHSVA(hue, saturation, newValue, alpha);
     onChange(color);
   };
 
   const handleAlphaChange = (newAlpha: number) => {
-    setAlpha(1 - newAlpha);
-
     const color = new Color().fromHSVA(hue, saturation, value, 1 - newAlpha);
     onChange(color);
   };
+
+  useEffect(() => {
+    const { h, s, v, a } = colorValue.toHSVA();
+
+    setHue(h);
+    setSaturation(s);
+    setValue(v);
+    setAlpha(a);
+  }, [colorValue]);
 
   const alphaBGStyle = {
     background: `linear-gradient(to top, rgba(0, 0, 0, 0), ${currentColor.toRGBString()})`,
@@ -394,7 +230,7 @@ const Picker = memo(({ onChange, value, type }: TCommonPickerProps) => {
   return (
     <div className={styles.picker}>
       <div className={styles.inputs}>
-        <CurrentPicker onChange={handleChange} />
+        <CurrentPicker onChange={handleChange} value={value} />
       </div>
       <ColorPreview color={value} />
       <ColorInput color={value} />
@@ -402,7 +238,7 @@ const Picker = memo(({ onChange, value, type }: TCommonPickerProps) => {
   );
 });
 
-export const ColorPicker = ({ onChange, value, type = 'HSL' }: TColorPickerProps) => {
+export const ColorPicker = ({ onChange, value, type = 'HSV' }: TColorPickerProps) => {
   const [color, setColor] = useState(new Color().parse(value));
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
@@ -410,11 +246,15 @@ export const ColorPicker = ({ onChange, value, type = 'HSL' }: TColorPickerProps
 
   const handleChange = useCallback(
     (color: Color) => {
-      setColor(color);
       onChange?.(color.toHexaString());
     },
     [color],
   );
+
+  useEffect(() => {
+    const newColor = new Color().parse(value);
+    setColor(newColor);
+  }, [value]);
 
   const inputStyle = {
     backgroundColor: color.toRGBAString(),

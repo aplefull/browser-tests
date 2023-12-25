@@ -23,6 +23,7 @@ export const RGBToHex = (r: number, g: number, b: number) => {
 };
 
 export const RGBAToHex = (r: number, g: number, b: number, a: number) => {
+
   return {
     r: componentToHex(r),
     g: componentToHex(g),
@@ -32,32 +33,19 @@ export const RGBAToHex = (r: number, g: number, b: number, a: number) => {
 };
 
 export const hexToRGB = (hex: string) => {
-  const regex = /#[a-f\d]{3}(?:[a-f\d]?|(?:[a-f\d]{3}(?:[a-f\d]{2})?)?)\b/i;
-  const result = regex.exec(hex);
-
-  if (!result) {
-    return {
-      r: 0,
-      g: 0,
-      b: 0,
-    };
-  }
-
   return {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16),
+    r: parseInt(hex.slice(1, 3), 16),
+    g: parseInt(hex.slice(3, 5), 16),
+    b: parseInt(hex.slice(5, 7), 16),
   };
 };
 
 export const hexToRGBA = (hex: string) => {
-  const regex = /#[a-f\d]{3}(?:[a-f\d]?|(?:[a-f\d]{3}(?:[a-f\d]{2})?)?)\b/i;
-  const result = regex.exec(hex);
-
   const rgb = hexToRGB(hex);
+
   return {
     ...rgb,
-    a: result ? parseInt(result[4], 16) / 255 : 1,
+    a: hex.length === 9 ? parseInt(hex.slice(7, 9), 16) / 255 : 1,
   };
 };
 
@@ -72,10 +60,16 @@ export const RGBToHSL = (r: number, g: number, b: number) => {
   const s = l - Math.min(r, g, b);
   const h = s ? (l === r ? (g - b) / s : l === g ? 2 + (b - r) / s : 4 + (r - g) / s) : 0;
 
-  return {
+  const result = {
     h: 60 * h < 0 ? 60 * h + 360 : 60 * h,
     s: 100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
     l: (100 * (2 * l - s)) / 2,
+  };
+
+  return {
+    h: result.h,
+    s: result.s / 100,
+    l: result.l / 100,
   };
 };
 
@@ -118,7 +112,7 @@ export const RGBToHSV = (r: number, g: number, b: number) => {
   return {
     h: 60 * (h < 0 ? h + 6 : h),
     s: v && c / v,
-    v: v,
+    v: v / 255,
   };
 };
 
@@ -214,6 +208,8 @@ export const parseColor = (color: string) => {
       return new Color().fromHSVA(h, s, v, a);
     }
   }
+
+  console.error('Unknown color format', color);
 
   return new Color();
 };

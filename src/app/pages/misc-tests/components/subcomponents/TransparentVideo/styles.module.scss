@@ -11,10 +11,13 @@
     max-width: 700px;
     gap: 10px;
 
+    .video-player {
+      margin-bottom: 20px;
+    }
+
     video {
       width: 100%;
       height: auto;
-      margin-bottom: 20px;
 
       &.shadow {
         filter: drop-shadow(2px 4px 10px $color-black);

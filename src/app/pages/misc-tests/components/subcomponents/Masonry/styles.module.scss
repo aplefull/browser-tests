@@ -1,9 +1,12 @@
 .masonry-container {
   position: relative;
+  width: 100%;
 
   .item {
     position: absolute;
     transform-origin: top left;
+    border-radius: 10px;
+    overflow: hidden;
 
     img {
       width: 100%;

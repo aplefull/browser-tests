@@ -45,9 +45,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@mixins': 'src/app/styles/mixins.scss',
-      '@variables': 'src/app/styles/colors.scss',
+      '@mixins': path.resolve(__dirname, 'src/app/styles/mixins.scss'),
+      '@variables': path.resolve(__dirname, 'src/app/styles/variables.scss'),
       '@assets/*': 'src/assets/*',
     },
+  },
+  build: {
+    cssCodeSplit: true,
   },
 });

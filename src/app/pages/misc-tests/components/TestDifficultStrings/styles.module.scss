@@ -1,17 +1,25 @@
 .test-difficult-strings {
+  .label {
+    margin-bottom: 10px;
+  }
+
   .strings-container {
     width: 100%;
     max-height: 500px;
     overflow-y: auto;
 
     > div {
-      margin: 10px;
+      margin: 0 10px 10px 0;
       padding: 10px;
       border-radius: 4px;
       border: 1px solid $color-white;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     span {

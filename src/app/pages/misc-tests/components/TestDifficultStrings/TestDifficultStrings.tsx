@@ -13,7 +13,7 @@ export const TestDifficultStrings = () => {
 
   return (
     <div className={styles.testDifficultStrings}>
-      <Checkbox checked={showSvg} onChange={toggleSvg} label="Show SVG alternatives" />
+      <Checkbox className={styles.label} checked={showSvg} onChange={toggleSvg} label="Show SVG alternatives" />
       <div className={styles.stringsContainer}>
         {getDataFromBlns(textFile).map(({ description, strings }) => {
           return (

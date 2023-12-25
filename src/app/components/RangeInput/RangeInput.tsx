@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 import React, { useRef } from 'react';
-import { clamp, map } from '@/utils/utils';
+import { calculateThumbPosition, clamp, map } from '@/utils/utils';
 import classNames from 'classnames';
 import { TLabelPosition } from '@/types';
 
@@ -81,6 +81,8 @@ export const RangeInput = ({
     const element = ref.current;
     if (!element) return;
 
+    document.body.style.userSelect = 'none';
+
     updateValueOnPointerDown(event, element, min, max, step, onChange);
 
     const onMouseMove = (event: MouseEvent) => {
@@ -88,17 +90,23 @@ export const RangeInput = ({
     };
 
     const onMouseUp = () => {
+      document.body.style.userSelect = '';
+
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('focusout', onMouseUp);
     };
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('blur', onMouseUp);
   };
 
   const onTouchStart = (event: React.TouchEvent) => {
     const element = ref.current;
     if (!element) return;
+
+    document.body.style.userSelect = 'none';
 
     updateValueOnPointerDown(event, element, min, max, step, onChange);
 
@@ -107,27 +115,32 @@ export const RangeInput = ({
     };
 
     const onTouchEnd = () => {
+      document.body.style.userSelect = '';
+
       document.removeEventListener('touchmove', onTouchMove);
       document.removeEventListener('touchend', onTouchEnd);
       document.removeEventListener('touchcancel', onTouchEnd);
+      window.removeEventListener('blur', onTouchEnd);
     };
 
     document.addEventListener('touchmove', onTouchMove);
     document.addEventListener('touchend', onTouchEnd);
     document.addEventListener('touchcancel', onTouchEnd);
+    window.addEventListener('blur', onTouchEnd);
   };
 
   const { width: thumbWidth = 13 } = thumbRef.current?.getBoundingClientRect() || {};
   const { width: containerWidth = 100 } = thumbRef.current?.parentElement?.getBoundingClientRect() || {};
 
-  const minPosition = (((thumbWidth || 0) / (containerWidth || 1)) * 100) / 2;
-  const maxPosition = 100 - minPosition;
-  const percentage = map(value, min, max, minPosition, maxPosition);
+  const minThumbLeft = calculateThumbPosition(min, min, max, thumbWidth, containerWidth);
+  const maxThumbLeft = calculateThumbPosition(max, min, max, thumbWidth, containerWidth);
+
+  const percentage = clamp(map(value, min, max, 0, 100), minThumbLeft, maxThumbLeft);
 
   return (
     <div
       className={classNames(styles.rangeInputContainer, className, {
-        [styles.labelTop]: labelPosition === 'top' || !labelPosition,
+        [styles.labelTop]: labelPosition === 'top' || (!labelPosition && label),
         [styles.labelBottom]: labelPosition === 'bottom',
         [styles.labelLeft]: labelPosition === 'left',
         [styles.labelRight]: labelPosition === 'right',

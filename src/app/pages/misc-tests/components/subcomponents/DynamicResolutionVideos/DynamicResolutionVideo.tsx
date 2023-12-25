@@ -88,7 +88,7 @@ export const DynamicResolutionVideos = () => {
   };
 
   return (
-    <>
+    <div>
       <div className={styles.dynamicResolution}>
         <video
           controls
@@ -107,6 +107,6 @@ export const DynamicResolutionVideos = () => {
         <span>Control video:</span>
         <RangeInput value={forcedVideoCurrentTime} min={0} max={100} onChange={handleProgressChange} />
       </div>
-    </>
+    </div>
   );
 };

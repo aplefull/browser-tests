@@ -71,7 +71,7 @@ export const CssVideo = () => {
     <div>
       <div className={styles.cssVideoDescription}>
         <p className={styles.author}>
-          <span>Original author:</span>
+          <span>Original author: </span>
           <a target="_blank" rel="noreferrer" href="https://github.com/kevinjycui">
             https://github.com/kevinjycui
           </a>

@@ -1,4 +1,4 @@
-import React, { useRef, CSSProperties, ReactNode } from 'react';
+import React, { useRef, ReactNode } from 'react';
 import { clamp } from '@/utils/utils';
 import classNames from 'classnames';
 import styles from '@/app/components/ColorPicker/styles.module.scss';
