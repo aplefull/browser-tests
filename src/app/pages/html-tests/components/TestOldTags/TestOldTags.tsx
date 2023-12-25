@@ -1,18 +1,4 @@
 import styles from './styles.module.scss';
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { Section } from '@/app/components/Section/Section';
-
-// TODO move
-declare module 'react' {
-  namespace JSX {
-    interface IntrinsicElements {
-      marquee: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-      font: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-      strike: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-      dir: DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-    }
-  }
-}
 
 export const TestOldTags = () => {
   return (

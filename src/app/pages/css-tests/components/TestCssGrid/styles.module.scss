@@ -31,7 +31,7 @@
       font-size: max(2rem, 24px);
       font-weight: bold;
       text-align: center;
-      color: slategray;
+      color: $color-ink-light-40;
 
       &.a {
         grid-area: a;
@@ -97,7 +97,7 @@
       place-items: center;
       font-size: 2rem;
       font-weight: bold;
-      color: slategray;
+      color: $color-ink-light-40;
     }
 
     @keyframes resize-width {

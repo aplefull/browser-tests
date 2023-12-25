@@ -1,9 +1,10 @@
 {
-  "customSyntax": "postcss-sass",
   "rules": {
     "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
     "declaration-property-value-allowed-list": {
       "color": "/^\\$.*$/"
     }
-  }
+  },
+  "plugins": ["stylelint-scss"],
+  "customSyntax": "postcss-scss"
 }

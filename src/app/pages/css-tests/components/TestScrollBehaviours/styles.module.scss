@@ -131,7 +131,7 @@
     animation-timeline: scroll(self);
     overflow: auto;
     scrollbar-width: none;
-    color: white;
+    color: $color-white;
 
     &::-webkit-scrollbar {
       display: none;

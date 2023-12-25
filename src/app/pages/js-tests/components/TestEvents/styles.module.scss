@@ -18,7 +18,7 @@
         place-items: center;
         border-radius: 5px;
         border: 1px dashed $color-white;
-        color: transparentize($color-white, 0.5);
+        color: $color-white-transparent-50;
         font-size: 1.6rem;
 
         @media (width < 600px) {
@@ -37,7 +37,7 @@
       display: grid;
       place-items: center;
       font-size: 1.6rem;
-      color: transparentize($color-white, 0.5);
+      color: $color-white-transparent-50;
     }
 
     .stats {

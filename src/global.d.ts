@@ -28,6 +28,19 @@ declare global {
   interface CanvasRenderingContext2D {
     reset: () => void;
   }
+
+  interface PhotoSettings {
+    fillLightMode?: 'auto' | 'off' | 'flash';
+    imageHeight?: number;
+    imageWidth?: number;
+    redEyeReduction?: boolean;
+  }
+
+  interface ImageCapture {
+    takePhoto: (photoSettings?: PhotoSettings) => Promise<Blob>;
+    getPhotoSettings: () => Promise<PhotoSettings>;
+    grabFrame: () => Promise<ImageBitmap>;
+  }
 }
 
 export {};

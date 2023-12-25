@@ -1,5 +1,5 @@
-.cssFunctions {
-  .hiddenContainer {
+.css-functions {
+  .hidden-container {
     // making sure the container is weeeeel hidden :D
     position: relative;
     width: 0;
@@ -29,14 +29,14 @@
       margin-bottom: 30px;
     }
 
-    .tableHeaderCell {
+    .table-header-cell {
       font-weight: bold;
       font-size: 1.1rem;
       text-align: center;
       margin-bottom: 20px;
     }
 
-    .tableBody {
+    .table-body {
       display: grid;
       grid-template-columns: minmax(200px, 1fr) repeat(2, 1fr);
       column-gap: 40px;
