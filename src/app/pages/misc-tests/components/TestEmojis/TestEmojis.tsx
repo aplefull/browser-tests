@@ -2,11 +2,7 @@ import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { requestEmojis } from '@/utils/utils';
-
-type TEmoji = {
-  name: string;
-  emoji: string;
-};
+import { TEmoji } from '@/types';
 
 export const TestEmojis = () => {
   const [useEmojiFont, setUseEmojiFont] = useState(true);

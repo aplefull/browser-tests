@@ -23,7 +23,6 @@ export const RGBToHex = (r: number, g: number, b: number) => {
 };
 
 export const RGBAToHex = (r: number, g: number, b: number, a: number) => {
-
   return {
     r: componentToHex(r),
     g: componentToHex(g),

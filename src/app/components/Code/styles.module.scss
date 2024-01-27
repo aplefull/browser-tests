@@ -1,0 +1,13 @@
+.code {
+  @include scroll;
+
+  background-color: $color-charcoal;
+  border-radius: 4px;
+  padding: 4px 8px;
+  width: fit-content;
+  font-family: monospace;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0;
+  opacity: 0.8;
+}

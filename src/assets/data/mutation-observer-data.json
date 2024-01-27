@@ -1,0 +1,374 @@
+[
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "HTML",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "data-test",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "HTML",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "data-test",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": [
+      {
+        "nodeName": "DIV",
+        "nodeValue": null
+      }
+    ],
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": null,
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": [
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 2"
+      }
+    ],
+    "nextSibling": null,
+    "removedNodes": [
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation"
+      }
+    ],
+    "attributeName": null,
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": [
+      {
+        "nodeName": "DIV",
+        "nodeValue": null
+      }
+    ],
+    "attributeName": null,
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "data-test",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "data-test",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "style",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "style",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "class",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "class",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "style",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "attributes",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": "style",
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": [
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 3"
+      }
+    ],
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": null,
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": [
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 4"
+      }
+    ],
+    "nextSibling": {
+      "nodeName": "#text",
+      "nodeValue": "Mutation 3"
+    },
+    "removedNodes": null,
+    "attributeName": null,
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": [
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 5"
+      }
+    ],
+    "nextSibling": null,
+    "removedNodes": [
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 4"
+      },
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 3"
+      }
+    ],
+    "attributeName": null,
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": [
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 6"
+      },
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 7"
+      }
+    ],
+    "nextSibling": null,
+    "removedNodes": [
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 5"
+      }
+    ],
+    "attributeName": null,
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": [
+      {
+        "nodeName": "DIV",
+        "nodeValue": null
+      }
+    ],
+    "nextSibling": null,
+    "removedNodes": [
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 6"
+      },
+      {
+        "nodeName": "#text",
+        "nodeValue": "Mutation 7"
+      }
+    ],
+    "attributeName": null,
+    "previousSibling": null,
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": [
+      {
+        "nodeName": "DIV",
+        "nodeValue": null
+      }
+    ],
+    "nextSibling": null,
+    "removedNodes": null,
+    "attributeName": null,
+    "previousSibling": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "attributeNamespace": null
+  },
+  {
+    "type": "childList",
+    "target": {
+      "nodeName": "DIV",
+      "nodeValue": null
+    },
+    "oldValue": null,
+    "addedNodes": null,
+    "nextSibling": null,
+    "removedNodes": [
+      {
+        "nodeName": "DIV",
+        "nodeValue": null
+      },
+      {
+        "nodeName": "DIV",
+        "nodeValue": null
+      }
+    ],
+    "attributeName": null,
+    "previousSibling": null,
+    "attributeNamespace": null
+  }
+]

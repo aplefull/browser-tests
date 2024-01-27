@@ -4,6 +4,7 @@ import longWebm from '@assets/videos/long.webm';
 import { DynamicResolutionVideos } from '@/app/pages/misc-tests/components/subcomponents/DynamicResolutionVideos/DynamicResolutionVideo';
 import { TransparentVideo } from '@/app/pages/misc-tests/components/subcomponents/TransparentVideo/TransparentVideo';
 import { WeirdDimensionsVideos } from '@/app/pages/misc-tests/components/subcomponents/WeirdDimensionsVideos/WeirdDimensionsVideo';
+import { Video } from '@/app/components/Video/Video';
 
 export const TestVideos = () => {
   return (
@@ -16,7 +17,9 @@ export const TestVideos = () => {
       <TransparentVideo />
       <h2>Weird video resolutions</h2>
       <WeirdDimensionsVideos />
-      <video controls src={longWebm} />
+      <h2>Extremely long video</h2>
+      <p>It should be a 336-hour-long black square. I mean... Some would call this art.</p>
+      <Video className={styles.longVideo} src={longWebm} />
     </div>
   );
 };

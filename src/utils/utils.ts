@@ -1,19 +1,61 @@
 import { LOREM_TEXT, PAGES } from './constants';
 import { RootState } from '@/app/redux/store';
-import { TDoubleArgumentFunction, TNoArgumentFunction, TResolution, TSingleArgumentFunction } from '@/types';
-import { TRawEmoji } from '@/types';
-import { RefObject } from 'react';
+import {
+  TDoubleArgumentFunction,
+  TNoArgumentFunction,
+  TRawEmoji,
+  TResolution,
+  TSettingsPages,
+  TSingleArgumentFunction,
+} from '@/types';
 
 export const lorem = (n: number, start = 0) => {
   const sentences = LOREM_TEXT.split(/(?<=[.?!])\s+/);
   return sentences.slice(start, start + n).join(' ');
 };
 
-export const range = (n: number) => {
-  return [...Array(n).keys()].map((i) => i + 1);
+export const range = (from: number, to?: number, step = 1) => {
+  if ((to && to < from) || step <= 0) {
+    return [];
+  }
+
+  if (to === undefined) {
+    to = from;
+    from = 0;
+  }
+
+  const isStepInteger = Number.isInteger(step);
+  const values = [];
+  for (let i = from; i <= to; i += step) {
+    const value = isStepInteger ? i : parseFloat(i.toFixed(5));
+    values.push(value);
+  }
+
+  return values;
 };
 
-export const splitIntoChunks = <T,>(arr: T[], chunkSize: number, noChunksOfSmallerSize = false) => {
+export const table = (x: number[], y: number[]) => {
+  const table: { x: number; y: number }[][] = [];
+
+  for (let i = 0; i < x.length; i++) {
+    const row: { x: number; y: number }[] = [];
+
+    for (let j = 0; j < y.length; j++) {
+      const result = {
+        x: x[i],
+        y: y[j],
+      };
+
+      row.push(result);
+    }
+
+    table.push(row);
+  }
+
+  return table;
+};
+
+export const splitIntoChunks = <T>(arr: T[], chunkSize: number, noChunksOfSmallerSize = false) => {
   const chunks: T[][] = [];
 
   for (let i = 0; i < arr.length; i += chunkSize) {
@@ -124,14 +166,30 @@ export const fitToBox = (originalWidth: number, originalHeight: number, boxWidth
   };
 };
 
-export const getPage = (title: string, pages: RootState['settings']['dropdowns']['pages']) => {
-  const page = Object.entries(pages).find(([pageName, sections]) => {
-    return sections.find((section) => section.name === title);
-  }) as ['html' | 'css' | 'js' | 'misc', (typeof pages)['html']] | undefined;
+export const getPage = (title: string, pages: RootState['settings']['dropdowns']['pages']): TSettingsPages | null => {
+  const isPageType = (page: string): page is TSettingsPages => {
+    for (const pageType of ['html', 'css', 'js', 'misc']) {
+      if (pageType === page) return true;
+    }
 
-  if (!page) {
+    return false;
+  };
+
+  const values = Object.values(pages);
+  const entries = Object.entries(pages);
+
+  // Check if all pages are 0 length. If so, data is not loaded yet.
+  const allPagesEmpty = values.every((page) => page.length === 0);
+
+  if (allPagesEmpty) return null;
+
+  const page = entries.find(([_, sections]) => {
+    return sections.find((section) => section.name === title);
+  });
+
+  if (!page || !isPageType(page[0])) {
     console.warn(`Page for title "${title}" not found in settings`);
-    return 'html';
+    return null;
   }
 
   return page[0];
@@ -139,7 +197,7 @@ export const getPage = (title: string, pages: RootState['settings']['dropdowns']
 
 export const getCollapseState = (
   title: string,
-  page: 'html' | 'css' | 'js' | 'misc',
+  page: TSettingsPages,
   pages: RootState['settings']['dropdowns']['pages'],
 ) => {
   const state = pages[page].find((section) => {
@@ -149,7 +207,7 @@ export const getCollapseState = (
   });
 
   if (!state) {
-    console.warn(`Section title "${title}" not found in settings`);
+    console.warn(`Section with title "${title}" is not found on page "${page}" in settings`);
     return null;
   }
 
@@ -158,18 +216,6 @@ export const getCollapseState = (
 
 export const saveSectionsState = (sections: RootState['settings']['dropdowns']['pages']) => {
   localStorage.setItem('settings-sections-state', JSON.stringify(sections));
-};
-
-export const getSectionsState = () => {
-  const sectionsState = localStorage.getItem('settings-sections-state');
-  return sectionsState
-    ? JSON.parse(sectionsState)
-    : {
-        html: [],
-        css: [],
-        js: [],
-        misc: [],
-      };
 };
 
 export const iteratorToArray = <T>(iterator: IterableIterator<T>) => {
@@ -232,9 +278,53 @@ export const prevElement = <T>(elements: T[], currentElement: T): T => {
   return elements[prevIndex];
 };
 
-export const copy = async (text: string) => {
+export const stringify = (data: unknown) => {
+  if (typeof data === 'string') {
+    return data;
+  }
+
+  if (typeof data === 'number') {
+    return data.toString();
+  }
+
+  if (typeof data === 'boolean') {
+    return data.toString();
+  }
+
+  if (typeof data === 'undefined') {
+    return 'undefined';
+  }
+
+  if (data === null) {
+    return 'null';
+  }
+
+  if (Number.isNaN(data)) {
+    return 'NaN';
+  }
+
+  if (data === Infinity) {
+    return 'Infinity';
+  }
+
+  if (data === -Infinity) {
+    return '-Infinity';
+  }
+
+  if (typeof data === 'bigint') {
+    return data.toString();
+  }
+
+  if (typeof data === 'symbol') {
+    return data.toString();
+  }
+
+  return JSON.stringify(data, null, 2);
+};
+
+export const copy = async (text: unknown) => {
   try {
-    await navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(stringify(text));
   } catch (error) {
     console.error(error);
   }
@@ -295,4 +385,57 @@ export const calculateThumbPosition = (
   const minPosition = (((thumbWidth || 0) / (containerWidth || 1)) * 100) / 2;
   const maxPosition = 100 - minPosition;
   return map(value, min, max, minPosition, maxPosition);
+};
+
+export const isSharedWorkerGlobalScope = (self: unknown): self is SharedWorkerGlobalScope => {
+  return typeof self === 'object' && self !== null && 'onconnect' in self;
+};
+
+export const isServiceWorkerGlobalScope = (self: unknown): self is ServiceWorkerGlobalScope => {
+  return typeof self === 'object' && self !== null && 'clients' in self;
+};
+
+export const isArrayOfArrays = <T>(array: T[] | T[][]): array is T[][] => {
+  return Array.isArray(array[0]);
+};
+
+export const getArray = <T>(array: T[] | T[][]): T[] => {
+  if (isArrayOfArrays(array)) {
+    return array.flat();
+  }
+
+  return array;
+};
+
+export const isOneOf = <T extends string | boolean | number | undefined>(
+  value: string | boolean | number | undefined,
+  values: readonly T[],
+): value is T => {
+  for (const item of values) {
+    if (item === value) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+export const isKeyOf = <T extends object>(value: string | number | symbol, obj: T): value is keyof T => {
+  return value in obj;
+};
+
+export const isNode = (target: EventTarget | null): target is Node => {
+  return target instanceof Node;
+};
+
+export const noop = () => {};
+
+export const sleep = async (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+export const getImageBitmap = async (url: string) => {
+  const image = new Image();
+  image.src = url;
+  await image.decode();
+
+  return await createImageBitmap(image);
 };

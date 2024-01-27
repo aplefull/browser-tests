@@ -57,8 +57,16 @@ export const DynamicResolutionVideos = () => {
   };
 
   const handleWebmChange = (_: string, option: TSelectOption) => {
-    setDynamicWebm(option);
-    setForcedVideoCurrentTime(0);
+    const label = option.label;
+    const value = option.value;
+
+    if (typeof value === 'string') {
+      setDynamicWebm({
+        label,
+        value,
+      });
+      setForcedVideoCurrentTime(0);
+    }
   };
 
   const handleConstraintChange = (_: string, option: TSelectOption) => {

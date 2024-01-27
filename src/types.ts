@@ -1,3 +1,5 @@
+import { RootState } from '@/app/redux/store';
+
 export type TAction<T> = {
   type: string;
   payload: T;
@@ -12,7 +14,7 @@ export type TResolution = TDimensions;
 
 export type TSelectOption = {
   label: string;
-  value: string;
+  value: unknown;
 };
 
 export type TImageModule = {
@@ -28,6 +30,11 @@ export type TRawEmoji = {
   subgroup: string;
 };
 
+export type TEmoji = {
+  name: string;
+  emoji: string;
+};
+
 export type TSeparator = {
   type: 'separator';
 };
@@ -37,3 +44,4 @@ export type TSingleArgumentFunction = (a: number) => number;
 export type TDoubleArgumentFunction = (a: number, b: number) => number;
 
 export type TLabelPosition = 'top' | 'bottom' | 'left' | 'right';
+export type TSettingsPages = keyof RootState['settings']['dropdowns']['pages'];

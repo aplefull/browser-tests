@@ -1,6 +1,10 @@
 import styles from './styles.module.scss';
+import { testQMath } from '@/utils/math';
 
 export const IndexPage = () => {
+  // TODO remove
+  testQMath();
+
   return (
     <div className={styles.index}>
       <p className={styles.mainText}>

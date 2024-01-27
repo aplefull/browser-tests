@@ -2,7 +2,10 @@
   "rules": {
     "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
     "declaration-property-value-allowed-list": {
-      "color": "/^\\$.*$/"
+      "color": "/^\\$.*$/",
+      "background-color": "/^\\$.*$/",
+      "border-color": "/^\\$.*$/",
+      "background": "/^\\$.*$/"
     }
   },
   "plugins": ["stylelint-scss"],

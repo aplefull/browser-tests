@@ -1,0 +1,30 @@
+.mutation-observer {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+
+  .mutation-element {
+    display: none;
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .success {
+      color: $color-green;
+    }
+
+    .error {
+      color: $color-red;
+
+      .buttons {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+      }
+    }
+  }
+}

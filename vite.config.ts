@@ -48,6 +48,9 @@ export default defineConfig({
       '@mixins': path.resolve(__dirname, 'src/app/styles/mixins.scss'),
       '@variables': path.resolve(__dirname, 'src/app/styles/variables.scss'),
       '@assets/*': 'src/assets/*',
+      '@data/*': 'src/assets/data/*',
+      '@utils': path.resolve(__dirname, 'src/utils/utils.ts'),
+      '@math': path.resolve(__dirname, 'src/utils/math.ts'),
     },
   },
   build: {

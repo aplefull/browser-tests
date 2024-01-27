@@ -6,8 +6,10 @@
 
 @mixin scroll {
   scrollbar-width: thin;
+
   &::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
   }
 
   &::-webkit-scrollbar-track {
@@ -21,6 +23,11 @@
 
   &::-webkit-scrollbar-thumb:hover {
     background: $color-ink-light-40;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+    border: none;
   }
 }
 

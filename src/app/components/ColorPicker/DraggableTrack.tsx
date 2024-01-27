@@ -1,40 +1,30 @@
 import React, { useRef, ReactNode } from 'react';
-import { clamp } from '@/utils/utils';
+import { calculateThumbPosition, clamp } from '@/utils/utils';
 import classNames from 'classnames';
 import styles from '@/app/components/ColorPicker/styles.module.scss';
 
 type TDraggableTrackProps = {
   onChange: (value: number) => void;
+  value: number;
   className?: string;
   children?: ReactNode;
 };
 
-export const DraggableTrack = ({ onChange, className, children }: TDraggableTrackProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const draggableRef = useRef<HTMLDivElement>(null);
+export const DraggableTrack = ({ onChange, value, className, children }: TDraggableTrackProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
 
   const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
 
-    const rect = ref.current?.getBoundingClientRect();
+    const rect = containerRef.current?.getBoundingClientRect();
 
     if (!rect) return;
 
     const onMouseMove = (event: MouseEvent) => {
       const { clientY } = event;
+      const yPercent = clamp((clientY - rect.top) / rect.height, 0, 1);
 
-      const y = clientY - rect.top;
-      const yPercent = clamp(y / rect.height, 0, 1);
-
-      const draggableRect = draggableRef.current?.getBoundingClientRect();
-      const containerRect = ref.current?.getBoundingClientRect();
-
-      if (!draggableRect || !containerRect) return;
-
-      const containerHeight = containerRect.height;
-      const yOffset = clamp(yPercent * containerHeight, 0, containerHeight - draggableRect.height + 2);
-
-      draggableRef.current?.style.setProperty('translate', `0 ${yOffset}px`);
       onChange(yPercent);
     };
 
@@ -49,9 +39,23 @@ export const DraggableTrack = ({ onChange, className, children }: TDraggableTrac
     document.addEventListener('mouseup', onMouseUp);
   };
 
+  const containerHeight = containerRef.current?.getBoundingClientRect().height ?? 0;
+  const thumbHeight = thumbRef.current?.getBoundingClientRect().height ?? 0;
+
+  const minThumbPosition = calculateThumbPosition(0, 0, 100, thumbHeight, containerHeight);
+  const maxThumbPosition = calculateThumbPosition(100, 0, 100, thumbHeight, containerHeight);
+
+  const thumbPosition = clamp(value, minThumbPosition || 0, maxThumbPosition || 100);
+
   return (
-    <div ref={ref} className={classNames(styles.dragTrack, className)} onMouseDown={onMouseDown}>
-      <div className={styles.handle} ref={draggableRef} />
+    <div ref={containerRef} className={classNames(styles.dragTrack, className)} onMouseDown={onMouseDown}>
+      <div
+        ref={thumbRef}
+        className={styles.handle}
+        style={{
+          top: `${thumbPosition}%`,
+        }}
+      />
       {children}
     </div>
   );

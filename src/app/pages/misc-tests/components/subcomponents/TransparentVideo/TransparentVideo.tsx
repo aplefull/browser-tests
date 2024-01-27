@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { useState } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import transparentWebm from '@assets/videos/bad-apple-transparent.webm';
@@ -6,11 +6,12 @@ import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 import { ColorPicker } from '@/app/components/ColorPicker/ColorPicker';
 import { Button } from '@/app/components/Button/Button';
 import { Video } from '@/app/components/Video/Video';
+import { Color } from '@/app/components/ColorPicker/Color';
 
 export const TransparentVideo = () => {
   const [shadow, setShadow] = useState(false);
   const [colorBurn, setColorBurn] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState('transparent');
+  const [backgroundColor, setBackgroundColor] = useState<Color>(new Color().parse('transparent'));
 
   return (
     <div className={styles.transparency}>
@@ -19,7 +20,7 @@ export const TransparentVideo = () => {
           className={styles.videoPlayer}
           src={transparentWebm}
           initialVolume={0.2}
-          style={{ backgroundColor }}
+          style={{ backgroundColor: backgroundColor.toRGBAString() }}
           videoClassName={classNames({
             [styles.shadow]: shadow,
             [styles.colorBurn]: colorBurn,
@@ -35,7 +36,7 @@ export const TransparentVideo = () => {
             className={styles.resetColor}
             variant="dark"
             text="Reset color"
-            onClick={() => setBackgroundColor('transparent')}
+            onClick={() => setBackgroundColor(new Color().parse('transparent'))}
           />
         </div>
       </div>

@@ -7,3 +7,7 @@ export { TestCanvas } from './TestCanvas/TestCanvas';
 export { TestCrypto } from './TestCrypto/TestCrypto';
 export { TestMath } from './TestMath/TestMath';
 export { TestDates } from './TestDates/TestDates';
+export { TestIntl } from './TestIntl/TestIntl';
+export { TestWebWorkers } from './TestWebWorkers/TestWebWorkers';
+export { TestWebGpu } from './TestWebGpu/TestWebGpu';
+export { TestObservers } from './TestObservers/TestObservers';

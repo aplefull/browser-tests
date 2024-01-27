@@ -23,6 +23,8 @@
 }
 
 .video {
+  width: 100%;
+  height: 100%;
   outline: none;
 }
 
@@ -54,18 +56,18 @@
   }
 
   .volume-control {
-    min-width: 100px;
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 10px;
 
     .volume-slider {
+      width: 80px;
+
       > div {
         height: 8px;
       }
     }
-  };
+  }
 }
 
 .progress-bar-container {
@@ -81,7 +83,7 @@
     height: 50%;
     border-radius: 10px;
     overflow: hidden;
-    background-color: rgba($color-white, 0.5);
+    background-color: $color-white-transparent-50;
     cursor: pointer;
 
     .progress-bar-progress {

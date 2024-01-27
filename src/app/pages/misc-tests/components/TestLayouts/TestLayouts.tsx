@@ -1,12 +1,13 @@
 import styles from './layouts.module.scss';
-import tableData from '@assets/data/data.json';
-import React, { Fragment } from 'react';
+import tableData from '@data/videos-table-data.json';
+import React, { Fragment, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { CSSMasonry } from '@/app/pages/misc-tests/components/subcomponents/CSSMasonry/CSSMasonry';
 import { TImageModule } from '@/types';
 import { JSMasonry } from '@/app/pages/misc-tests/components/subcomponents/JSMasonry/JSMasonry';
+import { Select } from '@/app/components/Select/Select';
 
-const images = import.meta.glob<TImageModule>('/src/assets/images/cats/*.*', { eager: true });
+const images = import.meta.glob<TImageModule>('/src/assets/images/masonry_images/*.*', { eager: true });
 
 const LargeTable = ({ headCaptions }: { headCaptions: string[] }) => {
   return (
@@ -73,20 +74,70 @@ const LargeGrid = ({ headCaptions }: { headCaptions: string[] }) => {
   );
 };
 
-export const TestLayouts = () => {
-  const imagePaths = Object.values(images).map((image) => image.default);
+const LAYOUTS = {
+  CSS_MASONRY: 'CSS masonry',
+  JS_MASONRY: 'JS masonry',
+  LARGE_TABLE: 'Large table',
+  LARGE_GRID: 'Large grid',
+};
 
-  const headCaptions = [
-    'Name',
-    'Size',
-    'Resolution',
-    'Duration',
-    'Fps',
-    'Bitrate',
-    'Extension',
-    'Video codec',
-    'Audio codec',
-  ];
+const headCaptions = [
+  'Name',
+  'Size',
+  'Resolution',
+  'Duration',
+  'Fps',
+  'Bitrate',
+  'Extension',
+  'Video codec',
+  'Audio codec',
+];
+
+const Layout = ({ name }: { name: string }) => {
+  const getLayout = (name: string) => {
+    switch (name) {
+      case LAYOUTS.CSS_MASONRY:
+        return <CSSMasonry urls={Object.values(images).map((image) => image.default)} />;
+      case LAYOUTS.JS_MASONRY:
+        return (
+          <JSMasonry className={styles.jsMasonryContainer} urls={Object.values(images).map((image) => image.default)} />
+        );
+      case LAYOUTS.LARGE_TABLE:
+        return <LargeTable headCaptions={headCaptions} />;
+      case LAYOUTS.LARGE_GRID:
+        return <LargeGrid headCaptions={headCaptions} />;
+    }
+
+    return null;
+  };
+
+  const getDesc = (layout: string) => {
+    switch (layout) {
+      case LAYOUTS.CSS_MASONRY:
+        return 'Simple css masonry';
+      case LAYOUTS.JS_MASONRY:
+        return 'JS masonry';
+      case LAYOUTS.LARGE_TABLE:
+        return 'A lot of data displayed using <table>';
+      case LAYOUTS.LARGE_GRID:
+        return 'Same data displayed using divs and grid layout';
+    }
+  };
+
+  return (
+    <>
+      <h2>{getDesc(name)}</h2>
+      {getLayout(name)}
+    </>
+  );
+};
+
+export const TestLayouts = () => {
+  const [layout, setLayout] = useState(LAYOUTS.CSS_MASONRY);
+
+  const imagePaths = useMemo(() => {
+    return Object.values(images).map((image) => image.default);
+  }, [images]);
 
   const urls = [];
   for (let i = 1; i <= 100; i++) {
@@ -96,14 +147,8 @@ export const TestLayouts = () => {
 
   return (
     <div className={styles.testLayouts}>
-      <p>Pure css masonry</p>
-      <CSSMasonry urls={urls} />
-      <p>JS masonry</p>
-      <JSMasonry />
-      <p>Large table</p>
-      <LargeTable headCaptions={headCaptions} />
-      <p>Large grid</p>
-      <LargeGrid headCaptions={headCaptions} />
+      <Select options={Object.values(LAYOUTS)} value={layout} onChange={setLayout} />
+      <Layout name={layout} />
     </div>
   );
 };

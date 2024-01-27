@@ -1,0 +1,68 @@
+.intersection-observer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .scroll-container {
+    @include scroll;
+
+    height: 240px;
+    display: flex;
+    justify-content: safe center;
+    align-items: safe center;
+    overflow: auto;
+    border: 1px solid $color-white;
+    container-type: size;
+
+    &.horizontal {
+      .intersection-element {
+        margin: 0 200cqw;
+      }
+    }
+
+    &.vertical {
+      .intersection-element {
+        margin: 200cqh 0;
+      }
+    }
+
+    &.horizontal.vertical {
+      .intersection-element {
+        margin: 200cqh 200cqw;
+      }
+    }
+  }
+
+  .intersection-element {
+    aspect-ratio: 1;
+    height: 90cqh;
+    background-color: $color-white;
+  }
+
+  .checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .number-inputs {
+    max-width: 200px;
+    margin: 10px 0 20px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+}

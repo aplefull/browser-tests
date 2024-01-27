@@ -16,9 +16,13 @@ export const Settings = () => {
   };
 
   const handleSectionChange = (name: string) => (value: boolean) => {
+    const page = getPage(name, dropdowns.pages);
+
+    if (!page) return;
+
     dispatch(
       setDropdownState({
-        page: getPage(name, dropdowns.pages),
+        page,
         name,
         dropdownState: value ? DROPDOWN_STATE.OPEN : DROPDOWN_STATE.CLOSED,
       }),

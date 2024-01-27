@@ -32,6 +32,9 @@ export const Section = ({ title, info, className, children }: TSectionProps) => 
   const dispatch = useDispatch<AppDispatch>();
 
   const page = getPage(title, pages);
+
+  if (!page) return null;
+
   const collapseState = getCollapseState(title, page, pages);
 
   const handleChange = (open: boolean) => {

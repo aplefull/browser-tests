@@ -4,11 +4,15 @@ import {
   TestCrypto,
   TestDates,
   TestEvents,
+  TestIntl,
   TestLabelingLoops,
   TestMath,
   TestNavigatorFeatures,
+  TestObservers,
   TestTabInteractions,
+  TestWebGpu,
   TestWebStorage,
+  TestWebWorkers,
 } from '@/app/pages/js-tests/components';
 
 export const sections = [
@@ -55,6 +59,26 @@ export const sections = [
   {
     name: 'Dates',
     Component: TestDates,
+    initialState: DROPDOWN_STATE.OPEN,
+  },
+  {
+    name: 'Intl',
+    Component: TestIntl,
+    initialState: DROPDOWN_STATE.OPEN,
+  },
+  {
+    name: 'Web Workers',
+    Component: TestWebWorkers,
+    initialState: DROPDOWN_STATE.OPEN,
+  },
+  {
+    name: 'Web GPU',
+    Component: TestWebGpu,
+    initialState: DROPDOWN_STATE.OPEN,
+  },
+  {
+    name: 'Observers',
+    Component: TestObservers,
     initialState: DROPDOWN_STATE.OPEN,
   },
 ];

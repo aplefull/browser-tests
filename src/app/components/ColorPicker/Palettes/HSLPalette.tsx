@@ -22,7 +22,7 @@ const limitPointToCircle = (x: number, y: number, cx: number, cy: number, r: num
   }
 
   return { x, y };
-}
+};
 
 export const HSLPalette = ({ setHueAndLightness }: THSLPaletteProps) => {
   const [draggablePos, setDraggablePos] = useState({

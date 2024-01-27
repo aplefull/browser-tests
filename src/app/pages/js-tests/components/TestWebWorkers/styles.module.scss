@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  h2 {
+    @include subtitle;
+  }
+
+  .success {
+    color: $color-green;
+  }
+
+  .error {
+    color: $color-red;
+  }
+
+  .service-worker-results {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}

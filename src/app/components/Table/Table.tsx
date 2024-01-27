@@ -1,9 +1,36 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 type TTableData = Record<string, (string | number)[]>;
 type TAcceptedData = TTableData | Record<string, string | number>[] | (string | number)[][];
+
+/*  Examples:
+ *   TTableData:
+ *     {
+ *       'Header 1': ['Row 1', 'Row 2', 'Row 3'],
+ *       'Header 2': ['Row 1', 'Row 2', 'Row 3'],
+ *     }
+ *
+ *   Record<string, string | number>[]:
+ *     [
+ *       {
+ *         'Header 1': 'Row 1',
+ *         'Header 2': 'Row 1',
+ *       },
+ *       {
+ *         'Header 1': 'Row 2',
+ *         'Header 2': 'Row 2',
+ *       },
+ *     ]
+ *
+ *  (string | number)[][]:
+ *    [
+ *      ['Header 1', 'Header 2'],
+ *      ['Row 1', 'Row 1'],
+ *      ['Row 2', 'Row 2'],
+ *    ]
+ * */
 
 type TTableProps = {
   data?: TAcceptedData;
@@ -13,32 +40,37 @@ type TTableProps = {
   className?: string;
 };
 
+const isTable2DArray = (data: TAcceptedData): data is (string | number)[][] => {
+  return Array.isArray(data) && data.every((row) => Array.isArray(row));
+};
+
 const prepareData = (data: TAcceptedData): TTableData => {
-  if (Array.isArray(data)) {
-    // Record<string, string | number>[]
-    if (data[0] instanceof Object && !(data[0] instanceof Array)) {
-      const headers = Object.keys(data[0]);
-      const preparedData: TTableData = {};
-
-      headers.forEach((header) => {
-        preparedData[header] = data.map((row) => row[header]);
-      });
-
-      return preparedData;
-    } else {
-      // string[][]
-      const headers: string[][] = data[0];
-      const preparedData: TTableData = {};
-
-      headers.forEach((header, i) => {
-        preparedData[header] = data.map((row) => row[i]);
-      });
-
-      return preparedData;
-    }
+  if (!Array.isArray(data)) {
+    // TTableData
+    return data;
   }
 
-  return data;
+  if (isTable2DArray(data)) {
+    // (string | number)[][]
+    const headers = data[0];
+    const preparedData: TTableData = {};
+
+    headers.forEach((header, i) => {
+      preparedData[header] = data.map((row) => row[i]);
+    });
+
+    return preparedData;
+  }
+
+  // Record<string, string | number>[]
+  const headers = Object.keys(data[0]);
+  const preparedData: TTableData = {};
+
+  headers.forEach((header) => {
+    preparedData[header] = data.map((row) => row[header]);
+  });
+
+  return preparedData;
 };
 
 const getRowsAndHeaders = (data: TTableData) => {
@@ -48,7 +80,7 @@ const getRowsAndHeaders = (data: TTableData) => {
   return { headers, rows };
 };
 
-const mergeHeadersAndBody = (headers: string[], body: TAcceptedData): TAcceptedData => {
+const mergeHeadersAndBody = (headers: string[], body: TAcceptedData) => {
   const { rows } = getRowsAndHeaders(prepareData(body));
 
   const rowLength = rows[0].length;
@@ -68,7 +100,7 @@ const mergeHeadersAndBody = (headers: string[], body: TAcceptedData): TAcceptedD
     }
   }
 
-  const res = {};
+  const res: TTableData = {};
 
   headers.reverse().forEach((header, i) => {
     res[header] = rows.map((row) => row[i]);
@@ -78,7 +110,20 @@ const mergeHeadersAndBody = (headers: string[], body: TAcceptedData): TAcceptedD
 };
 
 export const Table = ({ data, head, body, maxHeight, className }: TTableProps) => {
-  if (!data && !(head && body)) return null;
+  const [hasScroll, setHasScroll] = useState(false);
+
+  const bodyRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!bodyRef.current) return;
+
+    const { scrollHeight, clientHeight } = bodyRef.current;
+    setHasScroll(scrollHeight > clientHeight);
+  }, [data, head, body, maxHeight, className]);
+
+  const notEnoughData = (!data && !head && !body) || (head && !body) || (!head && body);
+
+  if (notEnoughData) return null;
 
   const preparedData = data ? prepareData(data) : prepareData(mergeHeadersAndBody(head!, body!));
   const { headers, rows } = getRowsAndHeaders(preparedData);
@@ -90,9 +135,18 @@ export const Table = ({ data, head, body, maxHeight, className }: TTableProps) =
     gridTemplateColumns: gridColumns,
   };
 
+  const gridHeadStyles = {
+    gridColumn: `1 / ${headers.length + 1}`,
+  };
+
+  const gridBodyStyles = {
+    gridColumn: `1 / ${headers.length + 1}`,
+    maxHeight,
+  };
+
   return (
-    <div className={classNames(styles.scrollContainer, className)} style={{ maxHeight }}>
-      <div className={styles.table} style={gridStyles}>
+    <div className={classNames(styles.table, className)} style={gridStyles}>
+      <div className={styles.head} style={gridHeadStyles}>
         {headers.map((caption, i) => {
           return (
             <div key={i} className={classNames(styles.header, styles.cell)}>
@@ -100,6 +154,14 @@ export const Table = ({ data, head, body, maxHeight, className }: TTableProps) =
             </div>
           );
         })}
+      </div>
+      <div
+        ref={bodyRef}
+        className={classNames(styles.body, {
+          [styles.scroll]: hasScroll,
+        })}
+        style={gridBodyStyles}
+      >
         {rows.map((row, i) => {
           return (
             <Fragment key={i}>
@@ -107,7 +169,7 @@ export const Table = ({ data, head, body, maxHeight, className }: TTableProps) =
                 return (
                   <span
                     key={j}
-                    className={classNames(styles.body, styles.cell, {
+                    className={classNames(styles.bodyCell, styles.cell, {
                       [styles.firstRow]: i === 0,
                       [styles.lastRow]: i === rows.length - 1,
                       [styles.lastInRow]: j === row.length - 1,

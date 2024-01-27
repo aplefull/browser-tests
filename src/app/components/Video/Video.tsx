@@ -23,7 +23,6 @@ type TVideoProps = {
 };
 
 const formatTime = (time: number) => {
-  // TODO add tests section for INTL
   const hours = Math.floor(time / 3600);
   const minutes = Math.floor((time % 3600) / 60);
   const seconds = Math.floor(time % 60);
@@ -41,9 +40,6 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
   const [isInPicInPic, setIsInPicInPic] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isControlsPanelVisible, setIsControlsPanelVisible] = useState(true);
-  const [isCursorOverControls, setIsCursorOverControls] = useState(false);
-  const [isCursorOverContainer, setIsCursorOverContainer] = useState(false);
-  const [hideControlsTimeout, setHideControlsTimeout] = useState<NodeJS.Timeout>();
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(initialVolume);
@@ -51,6 +47,8 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const progressBarContainerRef = useRef<HTMLDivElement>(null);
+  const hideControlsTimeoutRef = useRef<NodeJS.Timeout>();
+  const isCursorOverControlsRef = useRef(false);
 
   const play = async () => {
     await videoRef.current?.play();
@@ -100,6 +98,14 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
     }
 
     setIsMuted(!isMuted);
+  };
+
+  const startControlsTimeout = () => {
+    hideControlsTimeoutRef.current = setTimeout(() => {
+      if (isCursorOverControlsRef.current) return;
+
+      setIsControlsPanelVisible(false);
+    }, 2000);
   };
 
   const handleTimeUpdate = () => {
@@ -187,12 +193,6 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
     document.body.style.userSelect = 'none';
 
     const { left, width } = progressBarContainer.getBoundingClientRect();
-    const { clientX } = event;
-    const progress = clamp((clientX - left) / width, 0, 1);
-    const time = progress * video.duration;
-
-    video.currentTime = time;
-    setCurrentTime(time);
 
     const handleMouseMove = (event: MouseEvent) => {
       const { clientX } = event;
@@ -202,6 +202,8 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
       video.currentTime = time;
       setCurrentTime(time);
     };
+
+    handleMouseMove(event.nativeEvent);
 
     const handleMouseUp = () => {
       document.body.style.userSelect = '';
@@ -235,28 +237,23 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
   }, []);
 
   useEffect(() => {
+    startControlsTimeout();
+
+    return () => {
+      clearTimeout(hideControlsTimeoutRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!isPlaying) {
-      clearTimeout(hideControlsTimeout);
+      clearTimeout(hideControlsTimeoutRef.current);
       setIsControlsPanelVisible(true);
       return;
     }
 
-    if (isCursorOverContainer) {
-      setIsControlsPanelVisible(true);
-    }
-
-    clearTimeout(hideControlsTimeout);
-    const timeout = setTimeout(() => {
-      if (!isCursorOverControls) {
-        setIsControlsPanelVisible(false);
-        setIsCursorOverControls(false);
-      }
-    }, 3000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [isPlaying, isCursorOverControls, isCursorOverContainer]);
+    clearTimeout(hideControlsTimeoutRef.current);
+    startControlsTimeout();
+  }, [isPlaying]);
 
   const thumbElement = progressBarContainerRef.current?.querySelector(`.${styles.thumb}`);
 
@@ -278,8 +275,14 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
     <div
       className={classNames(styles.container, className)}
       ref={containerRef}
-      onMouseEnter={() => setIsCursorOverContainer(true)}
-      onMouseLeave={() => setIsCursorOverContainer(false)}
+      onMouseMove={() => {
+        setIsControlsPanelVisible(true);
+        clearTimeout(hideControlsTimeoutRef.current);
+
+        if (!isPlaying) return;
+
+        startControlsTimeout();
+      }}
     >
       <video
         className={classNames(styles.video, videoClassName)}
@@ -302,8 +305,8 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
         className={classNames(styles.controls, {
           [styles.hidden]: !isControlsPanelVisible,
         })}
-        onMouseEnter={() => setIsCursorOverControls(true)}
-        onMouseLeave={() => setIsCursorOverControls(false)}
+        onMouseEnter={() => (isCursorOverControlsRef.current = true)}
+        onMouseLeave={() => (isCursorOverControlsRef.current = false)}
       >
         <div className={styles.buttons}>
           <div className={styles.buttonsGroup}>

@@ -5,6 +5,7 @@ import {
   TestSupportedImageFormats,
   TestSupportedVideoFormats,
   TestSvgFavicon,
+  TestFieldSizing,
 } from '@/app/pages/html-tests/components';
 import { DROPDOWN_STATE } from '@/utils/constants';
 
@@ -37,6 +38,11 @@ export const sections = [
   {
     name: 'Supported audio formats',
     Component: TestSupportedAudioFormats,
+    initialState: DROPDOWN_STATE.OPEN,
+  },
+  {
+    name: 'Field sizing',
+    Component: TestFieldSizing,
     initialState: DROPDOWN_STATE.OPEN,
   },
 ];

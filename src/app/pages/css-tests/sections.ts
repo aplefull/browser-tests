@@ -20,6 +20,7 @@ import {
   TestTextOverflow,
   TestWritingModes,
   TestPseudoClasses,
+  TestCssPaintingApi,
 } from '@/app/pages/css-tests/components';
 
 export const sections = [
@@ -121,6 +122,11 @@ export const sections = [
   {
     name: 'Pseudo-classes',
     Component: TestPseudoClasses,
+    initialState: DROPDOWN_STATE.OPEN,
+  },
+  {
+    name: 'CSS Painting API',
+    Component: TestCssPaintingApi,
     initialState: DROPDOWN_STATE.OPEN,
   },
 ];

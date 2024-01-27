@@ -36,6 +36,12 @@ declare module 'react' {
         columnalign?: string;
       };
       mroot: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+      img: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
+        elementtiming?: string;
+      };
+      p: DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> & {
+        elementtiming?: string;
+      };
     }
   }
 }

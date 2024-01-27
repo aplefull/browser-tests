@@ -1,16 +1,10 @@
 .test-layouts {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  p {
-    text-align: left;
-    font-size: 1.4rem;
-    width: 100%;
-    margin: 70px 0 10px 0;
-    padding-bottom: 5px;
-    border-bottom: 1px solid $color-white;
+  h2 {
+    @include subtitle;
 
     &:first-child {
       margin-top: 0;
@@ -18,13 +12,13 @@
   }
 
   .masonry-container {
-    width: 100%;
-    height: 500px;
+    @include scroll;
+
+    height: min(500px, 80vh);
     overflow-y: auto;
     padding-right: 15px;
 
     .masonry {
-      width: 100%;
       column-count: 4;
       column-gap: 1em;
 
@@ -42,9 +36,8 @@
 
       .item {
         display: inline-block;
-        background-color: #fff;
+        background-color: $color-white;
         margin: 0 0 1em;
-        width: 100%;
         border-radius: 5px;
         overflow: hidden;
         position: relative;
@@ -64,6 +57,7 @@
           transition: opacity 0.3s ease-in-out;
         }
 
+        // TODO remove hover style and dialog
         &:hover {
           &:after {
             opacity: 1;
@@ -86,7 +80,7 @@
 
           button {
             border: none;
-            background: transparent;
+            background: $color-transparent;
             font-size: 1.1rem;
             cursor: pointer;
             padding: 0 10px;
@@ -108,7 +102,17 @@
     }
   }
 
+  .js-masonry-container {
+    @include scroll;
+
+    height: min(500px, 80vh);
+    overflow-y: auto;
+    padding-right: 15px;
+  }
+
   .table-container {
+    @include scroll;
+
     width: 100%;
     overflow-y: auto;
     height: 500px;
@@ -119,12 +123,12 @@
 
     table {
       width: 100%;
-      padding: 0 5px 5px 0;
       border-collapse: separate;
       border-spacing: 0;
+      margin: 0 5px 5px 0;
 
       ::selection {
-        background-color: lavender;
+        background-color: $color-gray;
         color: $color-ink;
       }
 
@@ -154,6 +158,9 @@
 
             &:first-child {
               text-align: left;
+              max-width: 450px;
+              min-width: 450px;
+              word-break: break-all;
             }
 
             &:last-child {
@@ -188,14 +195,16 @@
   }
 
   .grid-container {
+    @include scroll;
+
     width: 100%;
     overflow-y: auto;
     height: 500px;
 
     .grid {
+      margin: 0 5px 5px 0;
       display: grid;
       grid-template-columns: 450px repeat(8, 1fr);
-      margin: 10px 15px;
 
       * {
         font-family: 'Courier New', Courier, monospace;
@@ -216,13 +225,15 @@
           border-top-left-radius: 6px;
         }
 
-        &:last-child {
+        &:has(+ .body-cell) {
           border-right: 1px solid $color-white;
           border-top-right-radius: 6px;
         }
       }
 
       .body-cell {
+        display: grid;
+        align-items: center;
         border-left: 1px solid $color-white;
         border-bottom: 1px solid $color-white;
         padding: 5px;
@@ -247,6 +258,10 @@
 
         &:nth-last-child(9) {
           border-bottom-left-radius: 6px;
+        }
+
+        &:nth-last-child(-n + 9) {
+          border-bottom: 1px solid $color-white;
         }
       }
     }

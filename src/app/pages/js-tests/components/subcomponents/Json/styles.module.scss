@@ -1,4 +1,73 @@
+$line-height: 1.65;
+
 .array-wrapper {
   display: flex;
   flex-direction: column;
+}
+
+.top-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  font-family: monospace;
+  line-height: $line-height;
+
+  .key {
+    cursor: pointer;
+  }
+}
+
+.collapsible-handle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-family: monospace;
+  line-height: $line-height;
+
+  .icon {
+    rotate: -90deg;
+    transition: rotate 0.2s ease-in-out;
+    color: $color-gray;
+    opacity: 0.6;
+  }
+
+  &.open {
+    .icon {
+      rotate: 0deg;
+    }
+  }
+}
+
+.key {
+  font-family: monospace;
+  color: $color-gray;
+  opacity: 0.6;
+  margin-right: 5px;
+}
+
+.text-dark {
+  color: $color-gray;
+  font-family: monospace;
+  line-height: $line-height;
+  opacity: 0.6;
+}
+
+.text-light {
+  font-family: monospace;
+  line-height: $line-height;
+}
+
+.key-value {
+  font-family: monospace;
+  line-height: $line-height;
+}
+
+.closed {
+  display: flex;
+  gap: 5px;
+}
+
+.left-offset {
+  margin-left: 1rem;
 }

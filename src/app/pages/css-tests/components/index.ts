@@ -18,3 +18,4 @@ export { TestTextOverflow } from './TestTextOverflow/TestTextOverflow';
 export { TestWritingModes } from './TestWritingModes/TestWritingModes';
 export { TestContainRule } from './TestContainRule/TestContainRule';
 export { TestPseudoClasses } from './TestPseudoClasses/TestPseudoClasses';
+export { TestCssPaintingApi } from './TestCssPaintingAPI/TestCssPaintingApi';

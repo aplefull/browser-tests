@@ -47,6 +47,11 @@ export const TestScrollBehaviours = () => {
         </div>
       </div>
       <h2>Scroll timeline</h2>
+      <p>
+        "animation-timeline: scroll()" allows developers to do some ridiculous things. Like changing scroll content
+        height depending on the scroll progress 😬. Obviously, the fact that we can do this doesn't mean we should, but
+        we might as well try to see what happens. That's exactly what's happening below:
+      </p>
       <div className={styles.scrollTimeline}>
         <div className={styles.scrollTimelineInner}>
           <div className={styles.scrollTimelineContainer}>
@@ -59,6 +64,10 @@ export const TestScrollBehaviours = () => {
             <div className={classNames(styles.scrollContent)} />
           </div>
         </div>
+        <span className={styles.squareText}>
+          The square below should appear without any scrollbars, but we can rotate it by scrolling on it using only CSS.
+          Kinda cool.
+        </span>
         <div className={styles.scrollRotate} />
       </div>
     </div>
