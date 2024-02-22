@@ -15,6 +15,10 @@ export const Init = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const onDoubleU = () => {
+    const activeElement = document.activeElement;
+
+    if (activeElement && activeElement.tagName === 'INPUT') return null;
+
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -23,8 +27,10 @@ export const Init = () => {
 
   const onDoubleC = () => {
     const currentPage = getCurrentPage();
+    const activeElement = document.activeElement;
 
     if (currentPage === 'unknown') return;
+    if (activeElement && activeElement.tagName === 'INPUT') return;
 
     switch (currentPage) {
       case PAGES.HTML_TESTS:

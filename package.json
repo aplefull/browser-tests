@@ -6,40 +6,50 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "preview": "vite preview",
     "prettier": "prettier -w ./src/**/*.{ts,tsx,js,jsx,json,css,scss,html}",
     "stylelint": "stylelint ./src/**/*.module.{css,scss}",
-    "tsc": "tsc --noEmit --incremental false"
+    "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "tsc": "tsc --noEmit --incremental false",
+    "qmath:generate": "ts-node --esm src/utils/math.testValues.ts"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.0.1",
-    "@types/node": "20.10.5",
-    "@types/react": "18.2.45",
-    "@types/react-dom": "18.2.18",
-    "@webgpu/types": "^0.1.40",
-    "classnames": "^2.3.2",
+    "classnames": "^2.5.1",
+    "extract-zip": "^2.0.1",
     "pako": "^2.1.0",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-redux": "^9.0.4",
-    "react-router-dom": "^6.21.1",
-    "sass": "^1.69.5",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.21.3",
+    "sass": "^1.70.0",
     "tabler-icons-react": "^1.56.0",
-    "wgpu-matrix": "^2.5.1"
+    "ts-node": "^10.9.2"
   },
   "prettier": {
     "printWidth": 120,
     "singleQuote": true
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^2.2.0",
+    "@types/node": "^20.11.17",
     "@types/pako": "^2.0.3",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/parser": "^7.0.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "@webgpu/types": "^0.1.40",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "postcss-scss": "^4.0.9",
-    "rollup-plugin-visualizer": "^5.11.0",
-    "stylelint": "^16.0.2",
-    "stylelint-scss": "^6.0.0",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "stylelint": "^16.2.0",
+    "stylelint-scss": "^6.1.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10",
-    "vite-tsconfig-paths": "^4.2.2"
+    "typescript-eslint": "^7.0.1",
+    "vite": "^5.0.12",
+    "vite-tsconfig-paths": "^4.3.1"
   }
 }

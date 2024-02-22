@@ -1,18 +1,16 @@
 import { createSphereMesh } from '../meshes/sphere';
 import sphereShaders from '../shaders/sphere.wgsl?raw';
-import { mat4 } from 'wgpu-matrix';
 import {
   configureContext,
   createBindGroup,
-  createIndexBuffer,
   createLinearSampler,
   createPipeline,
   createRenderPassDescriptor,
   createTexture,
   createUniformBuffer,
-  createVertexBuffer,
   getGpuDevice,
   getSphereTransformationMatrix,
+  mat4,
   updateMultisampleTexture,
 } from '../utils.webgpu';
 
@@ -60,10 +58,17 @@ const paintSphere = async (
   const sphereTexture = createTexture(gpu, imageBitmap);
   const sampler = createLinearSampler(gpu);
 
-  const verticesBuffer = createVertexBuffer(gpu, sphere.vertices);
-  const indicesBuffer = createIndexBuffer(gpu, sphere.indices);
+  const verticesBuffer = createUniformBuffer(gpu, sphere.vertices.byteLength, sphere.vertices, {
+    usage: GPUBufferUsage.VERTEX,
+    array: 'float32',
+  });
 
-  const sphereTransform = mat4.create() as Float32Array;
+  const indicesBuffer = createUniformBuffer(gpu, sphere.indices.byteLength, sphere.indices, {
+    usage: GPUBufferUsage.INDEX,
+    array: 'uint16',
+  });
+
+  const sphereTransform = mat4.create();
   mat4.identity(sphereTransform);
 
   const uniformBindGroup = createBindGroup(gpu, pipeline, {
@@ -130,7 +135,9 @@ self.addEventListener('message', async (event) => {
 
   if (type === 'start') {
     ref.current = 'start';
-  } else if (type === 'stop') {
+  }
+
+  if (type === 'stop') {
     ref.current = 'stop';
     return;
   }

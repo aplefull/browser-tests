@@ -1,6 +1,5 @@
 import styles from './styles.module.scss';
 import React, { FormEvent, CompositionEvent, ClipboardEvent, useEffect, useRef, useState, WheelEvent } from 'react';
-import { Section } from '@/app/components/Section/Section';
 
 const KeyboardEvents = () => {
   const [keyDownEvent, setKeyDownEvent] = useState('');

@@ -47,16 +47,11 @@
       transition: 1s ease-in-out;
       transition-property: padding-bottom;
       overflow: hidden;
-      padding: 0 20px;
       position: relative;
     }
 
     &.open {
       grid-template-rows: 1fr;
-
-      > div {
-        padding: 0 20px 20px 20px;
-      }
     }
   }
 }

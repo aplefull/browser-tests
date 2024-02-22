@@ -2,9 +2,13 @@ import React, { useRef, useState } from 'react';
 import { clamp } from '@/utils/utils';
 import styles from '@/app/components/ColorPicker/styles.module.scss';
 import classNames from 'classnames';
+import { Color } from '@/app/components/ColorPicker/Color';
 
 type THSLPaletteProps = {
   setHueAndLightness: ({ hue, lightness }: { hue: number; lightness: number }) => void;
+  hue: number;
+  saturation: number;
+  lightness: number;
 };
 
 const cartesianToPolar = (x: number, y: number) => {
@@ -24,12 +28,13 @@ const limitPointToCircle = (x: number, y: number, cx: number, cy: number, r: num
   return { x, y };
 };
 
-export const HSLPalette = ({ setHueAndLightness }: THSLPaletteProps) => {
+export const HSLPalette = ({ setHueAndLightness, hue, saturation, lightness }: THSLPaletteProps) => {
   const [draggablePos, setDraggablePos] = useState({
     x: 0,
     y: 0,
   });
 
+  const currentLocalColorRef = useRef<Color>(new Color().fromHSL(hue, saturation, lightness));
   const paletteRef = useRef<HTMLDivElement>(null);
 
   const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {

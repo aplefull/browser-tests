@@ -1,19 +1,13 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import allLocales from '@assets/data/locales.json';
 import { getErrorMessage, isOneOf, nextElement, prevElement } from '@/utils/utils';
-import styles from '@/app/pages/js-tests/components/TestIntl/styles.module.scss';
+import styles from './styles.module.scss';
 import { NumberInput } from '@/app/components/NumberInput/NumberInput';
 import { Code } from '@/app/components/Code/Code';
-import {
-  createSelects,
-  getSupportedLocales,
-  getSupportedLocalesAsync,
-  SelectsLayout,
-} from '@/app/pages/js-tests/components/TestIntl/TestIntl';
+import { createSelects, getSupportedLocales, SelectsLayout } from '@/app/pages/js-tests/components/TestIntl/TestIntl';
 
 export const RelativeTimeFormatTest = () => {
   const [currentLocale, setCurrentLocale] = useState(new Intl.RelativeTimeFormat().resolvedOptions().locale);
-  const [supportedLocales, setSupportedLocales] = useState([currentLocale]);
   const [intlOptions, setIntlOptions] = useState<Intl.RelativeTimeFormatOptions>({
     numeric: 'auto',
     style: 'long',
@@ -22,6 +16,8 @@ export const RelativeTimeFormatTest = () => {
   const [value, setValue] = useState(10);
 
   const intl = new Intl.RelativeTimeFormat(currentLocale, intlOptions);
+
+  const supportedLocales = useMemo(getSupportedLocales(Intl.RelativeTimeFormat), []);
 
   const values = {
     numeric: {
@@ -94,10 +90,6 @@ export const RelativeTimeFormatTest = () => {
       return getErrorMessage(error);
     }
   };
-
-  useEffect(() => {
-    getSupportedLocalesAsync(Intl.DisplayNames).then(setSupportedLocales);
-  }, []);
 
   return (
     <div className={styles.testContainer}>

@@ -9,6 +9,8 @@ self.onmessage = (event: MessageEvent) => {
     for (let i = -100_000_000; i < 100_000_000; i++) {
       sum += QMath.sin(QMath.cos(i));
     }
+
+    return sum;
   };
 
   doHeavyWork();

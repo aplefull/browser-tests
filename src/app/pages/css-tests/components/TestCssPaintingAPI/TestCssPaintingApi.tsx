@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import gradientCircle from './worklets/painter?url';
+import worklet from './worklets/painter?script';
 import { useEffect } from 'react';
 import classNames from 'classnames';
 
@@ -10,7 +10,7 @@ export const TestCssPaintingApi = () => {
     const init = async () => {
       if (!isSupported) return;
 
-      await CSS.paintWorklet.addModule(gradientCircle);
+      await CSS.paintWorklet.addModule(worklet);
     };
 
     init().catch(console.error);

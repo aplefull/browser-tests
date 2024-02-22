@@ -18,6 +18,7 @@ export const HSVPalette = ({ setSaturationAndValue, hue, xPercent, yPercent }: T
   });
 
   const currentLocalColorRef = useRef<Color>(new Color().fromHSV(hue, xPercent / 100, 1 - yPercent / 100));
+  const paletteRef = useRef<HTMLDivElement>(null);
 
   const percentageToPos = (percentage: { x: number; y: number }) => {
     const { current } = paletteRef;
@@ -35,8 +36,6 @@ export const HSVPalette = ({ setSaturationAndValue, hue, xPercent, yPercent }: T
 
     return { x, y };
   };
-
-  const paletteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const { current } = paletteRef;

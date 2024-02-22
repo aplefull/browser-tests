@@ -1,0 +1,54 @@
+.test-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.collator {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .collator-test {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-row-gap: 5px;
+    grid-column-gap: 10px;
+
+    .pass {
+      color: $color-green;
+    }
+
+    .fail {
+      color: $color-red;
+    }
+  }
+}
+
+.description {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.test-string-input {
+  display: flex;
+  gap: 10px;
+}
+
+.test-string-output {
+  @include scroll;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.test-settings {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  gap: 5px;
+  margin-bottom: 15px;
+}

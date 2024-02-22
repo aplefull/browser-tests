@@ -1,21 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { isOneOf, nextElement, prevElement } from '@/utils/utils';
 import allLocales from '@assets/data/locales.json';
-import styles from '@/app/pages/js-tests/components/TestIntl/styles.module.scss';
+import styles from './styles.module.scss';
 import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 import { Code } from '@/app/components/Code/Code';
 import classNames from 'classnames';
-import {
-  createSelects,
-  getSupportedLocales,
-  getSupportedLocalesAsync,
-  SelectsLayout,
-} from '@/app/pages/js-tests/components/TestIntl/TestIntl';
+import { createSelects, getSupportedLocales, SelectsLayout } from '@/app/pages/js-tests/components/TestIntl/TestIntl';
 
 export const DateTimeFormatTest = () => {
   const [now, setNow] = useState(new Date());
   const [currentLocale, setCurrentLocale] = useState(Intl.DateTimeFormat().resolvedOptions().locale);
-  const [supportedLocales, setSupportedLocales] = useState([currentLocale]);
   const [rtl, setRtl] = useState(false);
   const [intlOptions, setIntlOptions] = useState<Intl.DateTimeFormatOptions>({
     year: 'numeric',
@@ -32,6 +26,8 @@ export const DateTimeFormatTest = () => {
   });
 
   const intl = Intl.DateTimeFormat(currentLocale, intlOptions);
+
+  const supportedLocales = useMemo(getSupportedLocales(Intl.DateTimeFormat), []);
 
   const values = {
     weekday: {
@@ -282,8 +278,6 @@ export const DateTimeFormatTest = () => {
     const interval = setInterval(() => {
       setNow(new Date());
     }, 1000);
-
-    getSupportedLocalesAsync(Intl.DisplayNames).then(setSupportedLocales);
 
     return () => clearInterval(interval);
   }, []);

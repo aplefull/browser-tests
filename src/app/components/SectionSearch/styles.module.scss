@@ -1,7 +1,23 @@
-.overlay {
+.container {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
   display: grid;
   place-items: center;
+  align-items: start;
+  translate: 0 -100%;
+  transition: translate 0.3s ease-in-out;
+  padding: 60px 0;
+  z-index: 1000;
+
+  &.open {
+    translate: 0 0;
+  }
+
+  .input {
+    height: 50px;
+    width: 500px;
+    max-width: 95%;
+    background-color: $color-charcoal;
+    box-shadow: var(--shadow-5);
+  }
 }

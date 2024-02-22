@@ -1,29 +1,30 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft } from 'tabler-icons-react';
-import { createPortal } from 'react-dom';
+import { ChevronLeft, X } from 'tabler-icons-react';
 import { TSelectOption } from '@/types';
-import { isNode } from '@/utils/utils';
+import { Options } from '@/app/components/Select/Options';
+import { Popover } from '@/app/components/Popover/Popover';
 
-type TSelectSeparator = {
-  label?: string;
-  type: string;
+export type TSelectGroup = {
+  group: string;
+  items: (string | TSelectOption)[];
 };
 
-type WithSeparator<T> = T extends Array<infer U> ? (U | TSelectSeparator)[] : T;
+type TSelectAcceptedOptions = string | TSelectOption | TSelectGroup;
 
 type TSelectProps = {
-  options: WithSeparator<string[]> | WithSeparator<readonly string[]> | WithSeparator<TSelectOption[]>;
-  onChange: (value: string, entry: TSelectOption) => void;
-  onDeselect?: () => void;
+  options: TSelectAcceptedOptions[] | readonly TSelectAcceptedOptions[];
+  onChange: (value: string, option: TSelectOption) => void;
+  onClear?: () => void;
   value?: string | TSelectOption;
   title?: string;
   label?: string;
   placeholder?: string;
   className?: string;
   wrapWords?: boolean;
-  allowDeselect?: boolean;
+  clearable?: boolean;
+  searchable?: boolean;
   disabled?: boolean;
 };
 
@@ -35,21 +36,38 @@ const getLabel = (value: string | TSelectOption) => {
   return value.label;
 };
 
+export const isGroup = (options: TSelectAcceptedOptions[]): options is TSelectGroup[] => {
+  return typeof options[0] === 'object' && 'group' in options[0];
+};
+
+export const toSelectOption = (value: string | number | boolean | TSelectOption): TSelectOption => {
+  if (typeof value === 'string') {
+    return { label: value, value };
+  }
+
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return { label: String(value), value };
+  }
+
+  return value;
+};
+
 export function Select({
   options: initialOptions,
   onChange,
-  onDeselect,
+  onClear,
   value,
   placeholder = 'Select an option...',
   label,
   title,
   className,
   wrapWords = false,
-  allowDeselect = false,
+  clearable = false,
+  searchable = false,
   disabled,
 }: TSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [filterString, setFilterString] = useState('');
+  const [selectWidth, setSelectWidth] = useState(0);
 
   const ref = useRef<HTMLDivElement | null>(null);
   const optionsRef = useRef<HTMLDivElement | null>(null);
@@ -60,17 +78,13 @@ export function Select({
     setIsOpen((isOpen) => !isOpen);
   };
 
-  const handleChange = (option: TSelectOption) => () => {
+  const handleChange = (option: TSelectOption) => {
     setIsOpen(false);
 
-    onChange(String(option.value), option);
+    onChange(option.value, option);
   };
 
   const getButtonText = () => {
-    if (isOpen && filterString) {
-      return filterString;
-    }
-
     if (value) {
       return getLabel(value);
     }
@@ -94,48 +108,17 @@ export function Select({
     }
   };
 
-  const options = initialOptions.map((option) => {
-    if (typeof option === 'string') {
-      return { label: option, value: option };
-    } else {
-      return option;
-    }
-  });
-
-  const { width = 0, left = 0, bottom = 0 } = ref.current?.getBoundingClientRect() || {};
-  const scrollY = window.scrollY;
-
-  const optionsStyle = {
-    width: width,
-    transform: `translate(${left}px, ${bottom + scrollY}px)`,
-  };
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setIsOpen(false);
       }
 
-      if (isOpen) {
-        setFilterString((filterString) => {
-          if (event.key === 'Backspace') {
-            return filterString.slice(0, -1);
-          }
-
-          if (event.key.length === 1) {
-            return filterString + event.key;
-          }
-
-          return filterString;
-        });
-      }
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      const { target } = event;
-
-      if (ref.current && isNode(target) && !ref.current.contains(target)) {
-        setIsOpen(false);
+      if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+        if (!isOpen && document.activeElement === ref.current) {
+          event.preventDefault();
+          setIsOpen(true);
+        }
       }
     };
 
@@ -144,97 +127,80 @@ export function Select({
     }
 
     document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('click', handleClickOutside);
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('click', handleClickOutside);
-
-      setFilterString('');
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const onResize = (entries: ResizeObserverEntry[]) => {
+      const { width } = entries[0].contentRect;
+      setSelectWidth(width);
+    };
+
+    const observer = new ResizeObserver(onResize);
+
+    observer.observe(ref.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const options = isGroup(initialOptions) ? initialOptions : initialOptions.map(toSelectOption);
+
+  const optionsStyle = {
+    width: `${selectWidth}px`,
+  };
+
   return (
-    <div
-      ref={ref}
-      title={title}
-      className={classNames(styles.selectContainer, className, {
-        [styles.disabled]: disabled,
-      })}
+    <Popover
+      isOpen={isOpen}
+      onClickOutside={() => setIsOpen(false)}
+      className={styles.popover}
+      zIndex={100}
+      content={
+        <Options
+          ref={optionsRef}
+          options={options}
+          onSelect={handleChange}
+          value={value === undefined ? undefined : toSelectOption(value)}
+          style={optionsStyle}
+          wrapWords={wrapWords}
+          searchable={searchable}
+        />
+      }
     >
-      {label && <span className={styles.label}>{label}</span>}
       <div
-        className={classNames(styles.select, {
-          [styles.open]: isOpen,
+        ref={ref}
+        tabIndex={0}
+        role="button"
+        title={title}
+        className={classNames(styles.selectContainer, className, {
+          [styles.disabled]: disabled,
         })}
-        onClick={handleClick}
       >
-        <div className={styles.value}>{getButtonText()}</div>
-        <div className={classNames(styles.icon)}>
-          <ChevronLeft size={20} />
+        {label && <span className={styles.label}>{label}</span>}
+        <div
+          className={classNames(styles.select, {
+            [styles.open]: isOpen,
+          })}
+          onClick={handleClick}
+        >
+          <div className={styles.value}>{getButtonText()}</div>
+          {clearable && value && (
+            <div className={classNames(styles.icon, styles.static)} onClick={onClear}>
+              <X size={20} />
+            </div>
+          )}
+          <div className={styles.icon}>
+            <ChevronLeft size={20} />
+          </div>
         </div>
       </div>
-      {isOpen &&
-        createPortal(
-          <div ref={optionsRef} style={optionsStyle} className={styles.options}>
-            <div className={styles.optionsInner}>
-              {allowDeselect && (
-                <div
-                  className={classNames(styles.option, styles.deselect, {
-                    [styles.selected]: !value,
-                  })}
-                  onClick={() => {
-                    setIsOpen(false);
-
-                    if (onDeselect) {
-                      onDeselect();
-                    }
-                  }}
-                >
-                  Deselect
-                </div>
-              )}
-              {options
-                .filter((element) => {
-                  if (!('value' in element)) return true;
-
-                  const label = element.label.toLowerCase();
-
-                  return label.includes(filterString.toLowerCase());
-                })
-                .map((option, index) => {
-                  const isSeparator = 'type' in option && option.type === 'separator';
-
-                  if (isSeparator) {
-                    return (
-                      <div key={index} className={styles.separator}>
-                        {option.label}
-                      </div>
-                    );
-                  }
-
-                  if (!('value' in option)) return null;
-
-                  const isSelected = option.value === value;
-
-                  return (
-                    <div
-                      key={index}
-                      className={classNames(styles.option, {
-                        [styles.selected]: isSelected,
-                        [styles.wrap]: wrapWords,
-                        [styles.ellipsis]: !wrapWords,
-                      })}
-                      onClick={handleChange(option)}
-                    >
-                      {option.label}
-                    </div>
-                  );
-                })}
-            </div>
-          </div>,
-          document.body,
-        )}
-    </div>
+    </Popover>
   );
 }

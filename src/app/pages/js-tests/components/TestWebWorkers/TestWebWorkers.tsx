@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
-import dedicatedWorker from './workers/dedicatedWorker?url';
-import sharedWorker from './workers/sharedWorker?url';
-import serviceWorker from '../../../../../../serviceWorker?url';
+import dedicatedWorker from './workers/dedicatedWorker?script';
+import sharedWorker from './workers/sharedWorker?script';
+import serviceWorker from '../../../../../../serviceWorker?script';
 import { useEffect, useState } from 'react';
 import { getErrorMessage } from '@/utils/utils';
 import { BROADCAST_CHANNEL_ID } from '@/utils/constants';
@@ -17,7 +17,7 @@ type TMessageEvent = MessageEvent<{ result: string; type: string }>;
 const testClientApi = async (registration?: ServiceWorkerRegistration) => {
   return new Promise<string>((resolve) => {
     if (!registration || registration.active === null || registration.active === undefined) {
-      resolve('Service worker is not registered [This message is from service worker]');
+      resolve('Service worker is not registered');
       return;
     }
 

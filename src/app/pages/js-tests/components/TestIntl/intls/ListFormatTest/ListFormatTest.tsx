@@ -1,26 +1,22 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import allLocales from '@assets/data/locales.json';
 import { getErrorMessage, isOneOf, nextElement, prevElement } from '@/utils/utils';
-import styles from '@/app/pages/js-tests/components/TestIntl/styles.module.scss';
+import styles from './styles.module.scss';
 import { Code } from '@/app/components/Code/Code';
-import {
-  createSelects,
-  getSupportedLocales,
-  getSupportedLocalesAsync,
-  SelectsLayout,
-} from '@/app/pages/js-tests/components/TestIntl/TestIntl';
+import { createSelects, getSupportedLocales, SelectsLayout } from '@/app/pages/js-tests/components/TestIntl/TestIntl';
 
 const tests = [['Apple, Banana'], ['Apple', 'Banana', 'Cherry']];
 
 export const ListFormatTest = () => {
   const [currentLocale, setCurrentLocale] = useState(new Intl.ListFormat().resolvedOptions().locale);
-  const [supportedLocales, setSupportedLocales] = useState([currentLocale]);
   const [intlOptions, setIntlOptions] = useState<Intl.ListFormatOptions>({
     style: 'long',
     type: 'conjunction',
   });
 
   const intl = new Intl.ListFormat(currentLocale, intlOptions);
+
+  const supportedLocales = useMemo(getSupportedLocales(Intl.ListFormat), []);
 
   const values = {
     style: {
@@ -64,10 +60,6 @@ export const ListFormatTest = () => {
       return getErrorMessage(error);
     }
   };
-
-  useEffect(() => {
-    getSupportedLocalesAsync(Intl.DisplayNames).then(setSupportedLocales);
-  }, []);
 
   return (
     <div className={styles.testContainer}>

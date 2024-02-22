@@ -53,6 +53,28 @@ const parseSingleMathValue = (value: string) => {
   return parseFloat(trimmedArg);
 };
 
+const evaluateExpression = (expression: string) => {
+  const parts = expression.split(' ');
+  if (parts.length > 3) {
+    console.error('We only support expressions with 2 operands and 1 operator.');
+    return NaN;
+  }
+
+  if (parts.length === 1) return parseFloat(parts[0]);
+
+  const operator = parts[1];
+  const left = parseFloat(parts[0]);
+  const right = parseFloat(parts[2]);
+
+  if (operator === '+') return left + right;
+  if (operator === '-') return left - right;
+  if (operator === '*') return left * right;
+  if (operator === '/') return left / right;
+
+  console.error(`Operator ${operator} is not supported.`);
+  return NaN;
+};
+
 const clearExpression = (value: string) => {
   const cssFunctions = ['calc', 'rotate', 'scale', 'translate', 'skew'];
 
@@ -214,8 +236,7 @@ export const parseExpression = (expression: string): number => {
     return parseSingleMathValue(part);
   });
 
-  // TODO why does it work with window.eval but not with eval?
-  return window.eval(transformedParts.join(' '));
+  return evaluateExpression(transformedParts.join(' '));
 };
 
 export const TestCssFunctions = () => {
@@ -260,7 +281,7 @@ export const TestCssFunctions = () => {
 
     const elements: ChildNode[] = [...elementsWrapper.childNodes];
 
-    const data = elements.map((element, index) => {
+    const data = elements.map((element) => {
       const computedStyle = window.getComputedStyle(element as Element);
       const angle = getRotationAngle(computedStyle.transform);
       const width = computedStyle.width;

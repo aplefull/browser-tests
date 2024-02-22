@@ -1,25 +1,36 @@
 import styles from './styles.module.scss';
-import { ChangeEvent } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 
 type InputProps = {
   placeholder?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+  onChange?: (value: string) => void;
   value: string;
   className?: string;
   inputClassName?: string;
+  leftSlot?: ReactNode;
+  rightSlot?: ReactNode;
 };
 
-export const Input = ({ placeholder, inputClassName, className, value, onChange }: InputProps) => {
-  return (
-    <div className={classNames(styles.inputContainer, className)}>
-      <input
-        className={classNames(styles.input, inputClassName)}
-        placeholder={placeholder}
-        onChange={onChange}
-        value={value}
-        type="text"
-      />
-    </div>
-  );
-};
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ placeholder, disabled, inputClassName, className, value, onChange, leftSlot, rightSlot }, ref) => {
+    return (
+      <div className={classNames(styles.inputContainer, className)}>
+        {leftSlot && <>{leftSlot}</>}
+        <input
+          ref={ref}
+          disabled={disabled}
+          className={classNames(styles.input, inputClassName)}
+          placeholder={placeholder}
+          onChange={(event) => {
+            onChange && onChange(event.target.value);
+          }}
+          value={value}
+          type="text"
+        />
+        {rightSlot && <>{rightSlot}</>}
+      </div>
+    );
+  },
+);

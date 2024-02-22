@@ -1,16 +1,11 @@
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import allLocales from '@assets/data/locales.json';
 import { isOneOf, nextElement, prevElement } from '@/utils/utils';
-import styles from '@/app/pages/js-tests/components/TestIntl/styles.module.scss';
+import styles from './styles.module.scss';
 import { Input } from '@/app/components/Input/Input';
 import { Button } from '@/app/components/Button/Button';
 import { Code } from '@/app/components/Code/Code';
-import {
-  createSelects,
-  getSupportedLocales,
-  getSupportedLocalesAsync,
-  SelectsLayout,
-} from '@/app/pages/js-tests/components/TestIntl/TestIntl';
+import { createSelects, getSupportedLocales, SelectsLayout } from '@/app/pages/js-tests/components/TestIntl/TestIntl';
 
 const tests = [
   'Hey! This is a string to test how Intl segmenter works.',
@@ -24,13 +19,14 @@ const defaultTestString = tests.join(' ');
 
 export const SegmenterTest = () => {
   const [currentLocale, setCurrentLocale] = useState(new Intl.Segmenter().resolvedOptions().locale);
-  const [supportedLocales, setSupportedLocales] = useState([currentLocale]);
   const [intlOptions, setIntlOptions] = useState<Intl.SegmenterOptions>({
     granularity: 'grapheme',
   });
   const [testString, setTestString] = useState(defaultTestString);
 
   const intl = new Intl.Segmenter(currentLocale, intlOptions);
+
+  const supportedLocales = useMemo(getSupportedLocales(Intl.Segmenter), []);
 
   const values = {
     granularity: {
@@ -61,10 +57,6 @@ export const SegmenterTest = () => {
     });
   };
 
-  const handleTestStringChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTestString(event.target.value);
-  };
-
   const handleReset = () => {
     setTestString(defaultTestString);
   };
@@ -76,10 +68,6 @@ export const SegmenterTest = () => {
       return [];
     }
   };
-
-  useEffect(() => {
-    getSupportedLocalesAsync(Intl.Segmenter).then(setSupportedLocales);
-  }, []);
 
   return (
     <div className={styles.testContainer}>
@@ -95,7 +83,7 @@ export const SegmenterTest = () => {
         onSelectChange={setCurrentLocale}
       />
       <div className={styles.testStringInputContainer}>
-        <Input value={testString} onChange={handleTestStringChange} />
+        <Input value={testString} onChange={setTestString} />
         <Button text="Reset" onClick={handleReset} />
       </div>
       <div className={styles.segmentsContainer}>

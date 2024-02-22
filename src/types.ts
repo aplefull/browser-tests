@@ -35,10 +35,6 @@ export type TEmoji = {
   emoji: string;
 };
 
-export type TSeparator = {
-  type: 'separator';
-};
-
 export type TNoArgumentFunction = () => number;
 export type TSingleArgumentFunction = (a: number) => number;
 export type TDoubleArgumentFunction = (a: number, b: number) => number;

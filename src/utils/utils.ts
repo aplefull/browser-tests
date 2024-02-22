@@ -166,6 +166,28 @@ export const fitToBox = (originalWidth: number, originalHeight: number, boxWidth
   };
 };
 
+// same as object-fit: cover
+export const coverBox = (originalWidth: number, originalHeight: number, boxWidth: number, boxHeight: number) => {
+  const boxAspectRatio = boxWidth / boxHeight;
+  const originalAspectRatio = originalWidth / originalHeight;
+
+  if (originalAspectRatio > boxAspectRatio) {
+    return {
+      width: boxHeight * originalAspectRatio,
+      height: boxHeight,
+      top: 0,
+      left: (boxWidth - boxHeight * originalAspectRatio) / 2,
+    };
+  }
+
+  return {
+    width: boxWidth,
+    height: boxWidth / originalAspectRatio,
+    top: (boxHeight - boxWidth / originalAspectRatio) / 2,
+    left: 0,
+  };
+};
+
 export const getPage = (title: string, pages: RootState['settings']['dropdowns']['pages']): TSettingsPages | null => {
   const isPageType = (page: string): page is TSettingsPages => {
     for (const pageType of ['html', 'css', 'js', 'misc']) {
@@ -428,14 +450,51 @@ export const isNode = (target: EventTarget | null): target is Node => {
   return target instanceof Node;
 };
 
+export const isNotPartOf = <T, S>(value: T, part: unknown): value is Exclude<T, S> => {
+  return value !== part;
+};
+
 export const noop = () => {};
 
 export const sleep = async (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
-export const getImageBitmap = async (url: string) => {
+export const getImageBitmap = async (url: string, width?: number, height?: number) => {
   const image = new Image();
   image.src = url;
   await image.decode();
 
+  if (width && height) {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+
+    const {
+      width: imgWidth,
+      height: imgHeight,
+      top,
+      left,
+    } = coverBox(image.naturalWidth, image.naturalHeight, width, height);
+    ctx?.drawImage(image, left, top, imgWidth, imgHeight);
+    return await createImageBitmap(canvas);
+  }
+
   return await createImageBitmap(image);
+};
+
+export const getImageSize = async (url: string) => {
+  const image = new Image();
+  image.src = url;
+
+  await image.decode();
+
+  return {
+    width: image.naturalWidth,
+    height: image.naturalHeight,
+  };
+};
+
+export const isIterable = <T>(obj: unknown): obj is Iterable<T> => {
+  return Symbol.iterator in Object(obj);
 };

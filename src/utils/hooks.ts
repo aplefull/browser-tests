@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
+import { isNode } from '@utils';
 
 export const useDoubleKeyPress = (targetKey: string, onDoubleKeyPress: () => void) => {
   const delay = 300;
@@ -26,4 +27,25 @@ export const useDoubleKeyPress = (targetKey: string, onDoubleKeyPress: () => voi
   }, []);
 
   return null;
+};
+
+export const useClickOutside = (
+  onClickOutside: () => void,
+  refs: RefObject<HTMLElement> | RefObject<HTMLElement>[],
+) => {
+  useEffect(() => {
+    const arr = Array.isArray(refs) ? refs : [refs];
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (arr.every((ref) => ref.current && isNode(event.target) && !ref.current.contains(event.target))) {
+        onClickOutside();
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 };

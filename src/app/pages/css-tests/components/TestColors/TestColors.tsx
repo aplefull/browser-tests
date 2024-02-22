@@ -1,6 +1,5 @@
 import styles from './styles.module.scss';
 import { useState } from 'react';
-import { Input } from '@/app/components/Input/Input';
 import { RangeInput } from '@/app/components/RangeInput/RangeInput';
 
 export const TestColors = () => {

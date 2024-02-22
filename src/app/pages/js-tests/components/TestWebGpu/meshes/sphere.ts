@@ -1,5 +1,5 @@
-import { vec3 } from 'wgpu-matrix';
 import { range } from '@utils';
+import { vec3 } from '@/app/pages/js-tests/components/TestWebGpu/utils.webgpu';
 
 export const createSphereMesh = (radius: number, widthSegments = 32, heightSegments = 16) => {
   const vertices = [];

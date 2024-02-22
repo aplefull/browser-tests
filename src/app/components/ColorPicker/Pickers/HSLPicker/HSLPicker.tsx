@@ -44,19 +44,30 @@ export const HSLPicker = ({ onChange, value }: TPickerProps) => {
     setAlpha(a);
   }, [value]);
 
+  console.log(value.toHSLString());
+
   const alphaBGStyle = {
     background: `linear-gradient(to top, rgba(0, 0, 0, 0), ${currentColor.toRGBString()})`,
   };
 
-  const alphaValuePercent = alpha * 100;
+  const alphaValuePercent = (1 - alpha) * 100;
   const saturationValuePercent = saturation * 100;
 
   return (
     <>
-      <HSLPalette setHueAndLightness={handleHueAndLightnessChange} />
+      <HSLPalette
+        setHueAndLightness={handleHueAndLightnessChange}
+        hue={hue}
+        saturation={saturation}
+        lightness={lightness}
+      />
       <div className={styles.tracks}>
-        <DraggableTrack className={styles.saturation} value={alphaValuePercent} onChange={handleSaturationChange} />
-        <DraggableTrack onChange={handleAlphaChange} value={saturationValuePercent}>
+        <DraggableTrack
+          className={styles.saturation}
+          value={saturationValuePercent}
+          onChange={handleSaturationChange}
+        />
+        <DraggableTrack onChange={handleAlphaChange} value={alphaValuePercent}>
           <div className={classNames(styles.bg, styles.checkered)} />
           <div className={styles.bg} style={alphaBGStyle} />
         </DraggableTrack>

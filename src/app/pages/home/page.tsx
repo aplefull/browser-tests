@@ -1,10 +1,6 @@
 import styles from './styles.module.scss';
-import { testQMath } from '@/utils/math';
 
 export const IndexPage = () => {
-  // TODO remove
-  testQMath();
-
   return (
     <div className={styles.index}>
       <p className={styles.mainText}>
@@ -13,8 +9,11 @@ export const IndexPage = () => {
         Currently not a single browser supports all of them :^) <br />
         (I think it says a lot about <span>society</span> how web is a big mess)
       </p>
+      <p>There are some shortcuts available:</p>
       <div className={styles.notes}>
-        <p>You can double press "U" to scroll to the top on any page</p>
+        <p>Double press "U" to scroll to the top on any page</p>
+        <p>Double press "C" to close all sections on current page</p>
+        <p>Double press "F" to open section search</p>
       </div>
     </div>
   );

@@ -2,17 +2,6 @@
   width: 100%;
   padding: 20px;
 
-  .with-url {
-    > h2 {
-      margin-bottom: 0;
-    }
-
-    > a {
-      margin: 10px 0;
-      display: block;
-    }
-  }
-
   h2 {
     @include subtitle;
   }
@@ -27,7 +16,9 @@
   }
 
   .iframes-container {
-    padding: 0 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
     a {
       margin: 10px 0;
@@ -62,6 +53,46 @@
 
       &:hover {
         text-decoration: underline;
+      }
+    }
+  }
+}
+
+.project {
+  margin-top: 10px;
+}
+
+.with-url {
+  &.project {
+    margin-top: 0;
+  }
+
+  > a {
+    margin: 10px 0;
+    display: block;
+  }
+}
+
+.collapse {
+  padding: 0;
+
+  .collapse-head {
+    padding-left: 0;
+
+    .head-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+
+      .icon {
+        transition: transform 1s;
+      }
+
+      &.open {
+        .icon {
+          transform: rotate(90deg);
+        }
       }
     }
   }

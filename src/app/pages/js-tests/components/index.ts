@@ -11,3 +11,4 @@ export { TestIntl } from './TestIntl/TestIntl';
 export { TestWebWorkers } from './TestWebWorkers/TestWebWorkers';
 export { TestWebGpu } from './TestWebGpu/TestWebGpu';
 export { TestObservers } from './TestObservers/TestObservers';
+export { TestEyeDropper } from './TestEyeDropper/TestEyeDropper';

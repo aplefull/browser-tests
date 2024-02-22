@@ -1,17 +1,43 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Input } from '@/app/components/Input/Input';
 import styles from './styles.module.scss';
 import { useDoubleKeyPress } from '@/utils/hooks';
+import classNames from 'classnames';
 
 export const SectionSearch = () => {
   const [inputValue, setInputValue] = useState('');
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+  const ref = useRef<HTMLInputElement | null>(null);
+
+  const close = () => {
+    setIsOpen(false);
+    setInputValue('');
+    ref.current?.blur();
   };
 
-  useDoubleKeyPress('o', () => setOpen((prev) => !prev));
+  const open = () => {
+    const activeElement = document.activeElement;
+
+    if (activeElement && activeElement.tagName === 'INPUT') return;
+
+    setIsOpen((prev) => {
+      if (prev) {
+        close();
+        return false;
+      }
+
+      setTimeout(() => {
+        if (ref.current) {
+          ref.current.focus();
+        }
+      }, 0);
+
+      return true;
+    });
+  };
+
+  useDoubleKeyPress('f', open);
 
   useEffect(() => {
     // Yes, query selector in react. Fight me.
@@ -21,7 +47,7 @@ export const SectionSearch = () => {
       return section.textContent?.toLowerCase().includes(inputValue.toLowerCase());
     });
 
-    if (!filteredSections.length) return;
+    if (!filteredSections.length || !isOpen || !inputValue) return;
 
     const firstMatch = filteredSections[0];
 
@@ -29,15 +55,39 @@ export const SectionSearch = () => {
       top: firstMatch.getBoundingClientRect().top + window.scrollY,
       behavior: 'smooth',
     });
-  }, [inputValue]);
+  }, [inputValue, isOpen]);
 
-  if (!open) return null;
+  useEffect(() => {
+    const closeSearch = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+
+      close();
+    };
+
+    if (ref.current) {
+      ref.current.focus();
+    }
+
+    window.addEventListener('keydown', closeSearch);
+
+    return () => {
+      window.removeEventListener('keydown', closeSearch);
+    };
+  }, []);
 
   return (
-    <div className={styles.overlay}>
-      <div>
-        <Input onChange={handleInputChange} value={inputValue} />
-      </div>
+    <div
+      className={classNames(styles.container, {
+        [styles.open]: isOpen,
+      })}
+    >
+      <Input
+        ref={ref}
+        className={styles.input}
+        placeholder="Search section name..."
+        onChange={setInputValue}
+        value={inputValue}
+      />
     </div>
   );
 };

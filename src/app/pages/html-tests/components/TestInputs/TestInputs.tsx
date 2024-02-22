@@ -1,6 +1,5 @@
 import styles from './styles.module.scss';
 import spaceCat from '@assets/images/cats/space-cat.jpg';
-import { Section } from '@/app/components/Section/Section';
 
 type TInputSkeleton = {
   title: string;

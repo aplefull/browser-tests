@@ -1,0 +1,36 @@
+.test-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.number-input {
+  max-width: min(100%, 150px);
+}
+
+.warning {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  span {
+    color: $color-warning;
+  }
+}
+
+.pre {
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0;
+
+  &.rtl {
+    direction: rtl;
+  }
+}

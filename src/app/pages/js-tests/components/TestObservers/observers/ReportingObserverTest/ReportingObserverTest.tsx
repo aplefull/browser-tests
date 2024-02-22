@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import iframeScript from './iframeScript?url';
+import iframeScript from './iframeScript?script';
 import { Json } from '@/app/pages/js-tests/components/subcomponents/Json/Json';
 
 type TReport = {
@@ -17,13 +17,14 @@ const runCspViolation = (iframeRoot: Document) => {
   const head = iframeRoot.head;
 
   const testScriptElement = iframeRoot.createElement('script');
+  testScriptElement.type = 'module';
   testScriptElement.src = iframeScript;
   body.appendChild(testScriptElement);
 
   const meta = iframeRoot.createElement('meta');
   meta.setAttribute('http-equiv', 'Content-Security-Policy');
   meta.setAttribute('content', "script-src 'none'");
-  head.appendChild(meta);
+  //head.appendChild(meta);
 
   const violationScript = iframeRoot.createElement('script');
   violationScript.src = 'https://www.google.com';
@@ -32,7 +33,7 @@ const runCspViolation = (iframeRoot: Document) => {
 
 const runDeprecation = () => {
   const request = new XMLHttpRequest();
-  request.open('GET', 'http://numbersapi.com/100', false);
+  request.open('GET', 'https://api.spacexdata.com/v5/launches/latest', false);
   request.send(null);
 
   const img = document.createElement('img');
@@ -50,7 +51,7 @@ const runDeprecation = () => {
   });
 };
 
-export const getReportData = (report: Report): TReport | null => {
+export const getReportData = (report: Report): TReport => {
   const reportType = report.type;
 
   if (reportType === 'deprecation') {
@@ -88,7 +89,11 @@ export const getReportData = (report: Report): TReport | null => {
     };
   }
 
-  return null;
+  return {
+    type: report.type,
+    url: report.url,
+    body: report.body?.toJSON() || null,
+  };
 };
 
 type TReportTestIframeProps = {
@@ -160,7 +165,7 @@ export const ReportingObserverTest = () => {
   const runTests = async () => {
     await runDeprecation();
     await iframeRef.current?.runCspViolation();
-    setRandomKey(window.crypto.randomUUID());
+    //setRandomKey(window.crypto.randomUUID());
   };
 
   const reset = () => {

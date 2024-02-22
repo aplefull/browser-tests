@@ -10,10 +10,12 @@ import { NumberFormatTest } from '@/app/pages/js-tests/components/TestIntl/intls
 import { RelativeTimeFormatTest } from '@/app/pages/js-tests/components/TestIntl/intls/RelativeTimeFormatTest/RelativeTimeFormatTest';
 import { SegmenterTest } from '@/app/pages/js-tests/components/TestIntl/intls/SegmenterTest/SegmenterTest';
 import { PluralRulesTest } from '@/app/pages/js-tests/components/TestIntl/intls/PluralRulesTest/PluralRulesTest';
-import { isKeyOf, noop } from '@/utils/utils';
+import { isKeyOf, isNotPartOf, noop } from '@/utils/utils';
 import { SectionErrorBoundary } from '@/app/components/SectionErrorBoundary/SectionErrorBoundary';
+import { LocaleTest } from '@/app/pages/js-tests/components/TestIntl/intls/LocaleTest/LocaleTest';
 
 export type TIntlFormats =
+  | typeof Intl.Locale
   | typeof Intl.DateTimeFormat
   | typeof Intl.RelativeTimeFormat
   | typeof Intl.ListFormat
@@ -26,17 +28,24 @@ export type TIntlFormats =
 export const getSupportedLocales = (intlFormat?: TIntlFormats) => () => {
   if (!intlFormat) return [];
 
-  return allLocales.filter((locale) => {
-    return intlFormat.supportedLocalesOf(locale).length > 0;
-  });
-};
+  if (intlFormat === Intl.Locale) {
+    return allLocales.filter((locale) => {
+      try {
+        new Intl.Locale(locale);
+        return true;
+      } catch {
+        return false;
+      }
+    });
+  }
 
-export const getSupportedLocalesAsync = async (intlFormat?: TIntlFormats) => {
-  if (!intlFormat) return [];
+  if (isNotPartOf<TIntlFormats, typeof Intl.Locale>(intlFormat, Intl.Locale)) {
+    return allLocales.filter((locale) => {
+      return intlFormat.supportedLocalesOf(locale).length > 0;
+    });
+  }
 
-  return allLocales.filter((locale) => {
-    return intlFormat.supportedLocalesOf(locale).length > 0;
-  });
+  return [];
 };
 
 export const createSelects = (
@@ -50,12 +59,14 @@ export const createSelects = (
     }
   >,
   handlers: Record<string, (value: string) => void>,
+  clearOption?: (key: string) => () => void,
 ) => {
   return Object.entries(values).map(([key, value]) => {
     if (isKeyOf(key, handlers)) {
       return {
         ...value,
         onChange: handlers[key],
+        onClear: clearOption ? clearOption(key) : undefined,
       };
     }
 
@@ -63,6 +74,7 @@ export const createSelects = (
     return {
       ...value,
       onChange: noop,
+      onClear: noop,
     };
   });
 };
@@ -93,7 +105,7 @@ export const SelectsLayout = ({
       <span>{`Supported locales: ${supportedLocales} out of ${totalLocales} tested`}</span>
       <div className={styles.select}>
         <Switcher onNext={onNext} onPrev={onPrev}>
-          <Select options={selectOptions} onChange={onSelectChange} value={selectValue} />
+          <Select options={selectOptions} onChange={onSelectChange} value={selectValue} searchable />
         </Switcher>
       </div>
       <div className={styles.selectsGrid}>
@@ -104,8 +116,10 @@ export const SelectsLayout = ({
               <Select
                 options={select.options}
                 onChange={select.onChange}
+                onClear={select.onClear}
                 value={select.value?.toString()}
                 disabled={select.disabled}
+                clearable
               />
             </div>
           );
@@ -116,6 +130,7 @@ export const SelectsLayout = ({
 };
 
 const components = [
+  LocaleTest,
   CollatorTest,
   DateTimeFormatTest,
   ListFormatTest,

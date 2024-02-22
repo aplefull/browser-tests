@@ -1,5 +1,5 @@
 import { visualizer } from 'rollup-plugin-visualizer';
-import { defineConfig, Plugin, splitVendorChunkPlugin } from 'vite';
+import { defineConfig, Plugin, ResolvedConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
@@ -20,9 +20,56 @@ const redirectsPlugin = (): Plugin => {
   };
 };
 
+const scriptImportPlugin = (): Plugin => {
+  let config: ResolvedConfig | null = null;
+  const files = new Map<string, string>();
+
+  return {
+    name: 'script-import',
+    enforce: 'pre',
+    resolveId: {
+      order: 'pre',
+      async handler(id, importer, options) {
+        if (id.endsWith('?script')) {
+          if (config?.command === 'build') {
+            const resolvedPath = path.resolve(path.dirname(importer || ''), id).replace(/\?script$/, '.ts');
+
+            const assetId = this.emitFile({
+              type: 'chunk',
+              id: resolvedPath,
+            });
+
+            files.set(id, assetId);
+
+            return id;
+          }
+
+          if (config?.command === 'serve') {
+            const transformedPath = `${id.replace(/\?script$/, '.ts')}?url`;
+
+            return await this.resolve(transformedPath, importer, {
+              skipSelf: true,
+              ...options,
+            });
+          }
+        }
+      },
+    },
+    configResolved(resolvedConfig) {
+      config = resolvedConfig;
+    },
+    load(id) {
+      if (files.has(id)) {
+        return `export default import.meta.ROLLUP_FILE_URL_${files.get(id)};`;
+      }
+    },
+  };
+};
+
 export default defineConfig({
   plugins: [
     react(),
+    scriptImportPlugin(),
     tsconfigPaths(),
     redirectsPlugin(),
     visualizer({
@@ -32,7 +79,7 @@ export default defineConfig({
     }),
     splitVendorChunkPlugin(),
   ],
-  assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.adts', '**/*.tiff', '**/*.bmp'],
+  assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.adts', '**/*.tiff', '**/*.bmp', '**/*.cur'],
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',

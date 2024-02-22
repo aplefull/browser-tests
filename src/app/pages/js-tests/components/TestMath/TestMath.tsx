@@ -25,11 +25,18 @@ export const TestMath = () => {
   });
 
   const selectOptions = [
-    ...functions,
-    { type: 'separator' },
-    ...doubleArgFunctions,
-    { type: 'separator' },
-    ...zeroArgFunctions,
+    {
+      group: 'Single argument',
+      items: functions,
+    },
+    {
+      group: 'Two arguments',
+      items: doubleArgFunctions,
+    },
+    {
+      group: 'Zero arguments',
+      items: zeroArgFunctions,
+    },
   ];
 
   const mathConstants = [

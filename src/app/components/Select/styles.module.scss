@@ -21,9 +21,9 @@
   display: flex;
   align-items: center;
   padding: 2px 4px;
-  background-color: $color-ink;
-  border: 1px solid $color-white;
-  border-radius: 3px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--gray-a7);
+  border-radius: var(--radius-2);
   cursor: pointer;
 
   .value {
@@ -47,10 +47,7 @@
   }
 
   &.open {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-
-    .icon {
+    .icon:not(.static) {
       svg {
         rotate: -90deg;
       }
@@ -58,56 +55,77 @@
   }
 }
 
+.popover {
+  width: 100%;
+}
+
 .options {
+  padding: 8px;
+  margin-top: 10px;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 100;
-  background-color: $color-ink;
-  border: 1px solid $color-white;
+  background-color: var(--color-panel-solid);
   border-top: none;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-5);
   overflow: hidden;
 
   .options-inner {
+    @include scroll;
+
+    margin-top: 10px;
+    padding-right: 5px;
     overflow-y: auto;
     max-height: 300px;
-    scrollbar-width: thin;
+  }
 
-    &::-webkit-scrollbar {
-      width: 15px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: $color-ink;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $color-white;
-      border-radius: 10px;
-      border: 4px solid $color-ink;
-    }
+  .empty {
+    display: grid;
+    place-items: center;
+    padding: 10px 4px 2px;
+    color: var(--gray-a10);
   }
 
   .separator {
-    height: 1px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     margin: 10px auto 5px auto;
-    background-color: $color-white;
+
+    span {
+      line-height: 1;
+      font-size: 0.875rem;
+      color: var(--gray-a10);
+    }
+
+    div {
+      background-color: var(--gray-a10);
+      height: 1px;
+      flex: 1;
+      translate: 0 100%;
+    }
   }
 
   .option {
-    color: $color-white;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    color: var(--gray-12);
     padding: 2px;
     overflow: hidden;
     cursor: pointer;
 
-    &:hover {
-      background-color: $color-ink-light-10;
-    }
+    &:hover,
+    &.pseudo-selected {
+      background-color: var(--accent-12);
+      color: var(--accent-1);
+      border-radius: var(--radius-2);
 
-    &.selected {
-      background-color: $color-ink-light-20;
+      .check.selected {
+        color: var(--accent-1);
+      }
     }
 
     &.ellipsis:not(.wrap) {
@@ -119,8 +137,19 @@
       overflow-wrap: break-word;
     }
 
-    &.deselect {
-      border-bottom: 1px solid $color-white;
+    .check {
+      color: var(--gray-12);
+      opacity: 0;
+
+      &.selected {
+        opacity: 1;
+      }
     }
   }
+}
+
+.search-icon {
+  height: 60%;
+  aspect-ratio: 1;
+  padding-left: 4px;
 }

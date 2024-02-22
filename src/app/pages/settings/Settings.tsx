@@ -1,7 +1,6 @@
 import styles from './styles.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/redux/store';
-import { ChangeEvent } from 'react';
 import { setDropdownState, setPreferUnmount } from '@/app/redux/slices/settings';
 import { DROPDOWN_STATE } from '@/utils/constants';
 import { getPage } from '@/utils/utils';

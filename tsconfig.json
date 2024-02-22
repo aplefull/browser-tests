@@ -21,8 +21,8 @@
       "@mixins": ["./src/app/mixins.scss"],
       "@utils": ["./src/utils/utils.ts"],
       "@math": ["./src/utils/math.ts"],
-    }
+    },
   },
   "exclude": ["node_modules", "dist", "./src/assets", "./public"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
 }

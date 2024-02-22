@@ -1,0 +1,16 @@
+.container {
+  padding: 30px 0;
+  width: min(100%, 300px);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.preview {
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  outline: 0.5px solid $color-white-transparent-50;
+}

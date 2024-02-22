@@ -1,5 +1,4 @@
 import { TDimensions } from '@/types';
-import { HTMLAttributes } from 'react';
 
 declare global {
   const registerPaint: ((name: string, classRef: PaintWorkletImplementer) => void) | undefined;
@@ -137,6 +136,12 @@ declare global {
     naturalWidth: number;
     renderTime: number;
     startTime: number;
+  }
+
+  interface EyeDropper {
+    open: () => Promise<{
+      sRGBHex: string;
+    }>;
   }
 }
 

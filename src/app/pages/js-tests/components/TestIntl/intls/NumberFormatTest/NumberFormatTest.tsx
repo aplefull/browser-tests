@@ -1,34 +1,22 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import allLocales from '@assets/data/locales.json';
 import { getErrorMessage, isOneOf, nextElement, prevElement } from '@/utils/utils';
-import styles from '@/app/pages/js-tests/components/TestIntl/styles.module.scss';
+import styles from './styles.module.scss';
 import { NumberInput } from '@/app/components/NumberInput/NumberInput';
 import { Code } from '@/app/components/Code/Code';
-import {
-  createSelects,
-  getSupportedLocales,
-  getSupportedLocalesAsync,
-  SelectsLayout,
-} from '@/app/pages/js-tests/components/TestIntl/TestIntl';
-
-const limitNumberOptions = (arr: string[], limit?: number) => {
-  if (!limit) return arr;
-
-  return arr.filter((el) => {
-    return parseFloat(el) <= limit;
-  });
-};
+import { createSelects, getSupportedLocales, SelectsLayout } from '@/app/pages/js-tests/components/TestIntl/TestIntl';
 
 export const NumberFormatTest = () => {
   const [value, setValue] = useState(123456.789);
   const [currentLocale, setCurrentLocale] = useState(Intl.NumberFormat().resolvedOptions().locale);
-  const [supportedLocales, setSupportedLocales] = useState([currentLocale]);
   const [intlOptions, setIntlOptions] = useState<Intl.NumberFormatOptions>({
     style: 'decimal',
     useGrouping: true,
   });
 
   const intl = new Intl.NumberFormat(currentLocale, intlOptions);
+
+  const supportedLocales = useMemo(getSupportedLocales(Intl.NumberFormat), []);
 
   const values = {
     style: {
@@ -214,10 +202,6 @@ export const NumberFormatTest = () => {
       return getErrorMessage(error);
     }
   };
-
-  useEffect(() => {
-    getSupportedLocalesAsync(Intl.DisplayNames).then(setSupportedLocales);
-  }, []);
 
   return (
     <div className={styles.testContainer}>

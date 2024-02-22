@@ -98,7 +98,7 @@ export type TPickerProps = {
 const Picker = memo(({ onChange, value, type }: TPickerProps) => {
   const CurrentPicker = useMemo(() => {
     switch (type) {
-      case 'HSL':
+      case 'HSV':
         return HSLPicker;
 
       case 'HSV':

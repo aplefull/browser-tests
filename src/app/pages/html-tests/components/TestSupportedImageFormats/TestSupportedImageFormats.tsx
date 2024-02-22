@@ -6,6 +6,7 @@ import flyingCatGif from '@assets/images/flying_cat/flying-cat.gif';
 import flyingCatSvg from '@assets/images/flying_cat/flying-cat.svg';
 import flyingCatBmp from '@assets/images/flying_cat/flying-cat.bmp';
 import flyingCatIco from '@assets/images/flying_cat/flying-cat.ico';
+import flyingCatCur from '@assets/images/flying_cat/flying-cat.cur';
 import flyingCatTiff from '@assets/images/flying_cat/flying-cat.tiff';
 import flyingCatAvif from '@assets/images/flying_cat/flying-cat.avif';
 import flyingCatJfif from '@assets/images/flying_cat/flying-cat.jfif';
@@ -40,6 +41,10 @@ export const TestSupportedImageFormats = () => {
       <div>
         <img src={flyingCatIco} alt="ico image" />
         <span>ICO</span>
+      </div>
+      <div>
+        <img src={flyingCatCur} alt="cur image" />
+        <span>CUR</span>
       </div>
       <div>
         <img src={flyingCatTiff} alt="tiff image" />

@@ -66,7 +66,7 @@ export const routes = [
   {
     path: '/others-projects',
     element: <OthersProjectsPage />,
-    navText: 'HEY',
+    navText: 'OTHER',
   },
   {
     path: '/settings',

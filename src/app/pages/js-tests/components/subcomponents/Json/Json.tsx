@@ -1,6 +1,6 @@
-import { Fragment, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import styles from './styles.module.scss';
-import { ChevronDown, ChevronRight } from 'tabler-icons-react';
+import { ChevronDown } from 'tabler-icons-react';
 import classNames from 'classnames';
 import { Wrapper } from '@/app/components/Wrapper/Wrapper';
 
@@ -173,7 +173,7 @@ const JObject = ({ value, parentKey, collapsible, defaultOpen = true, level, set
         collapsible={collapsible && !isEmpty}
         propertyKey={parentKey}
       >
-        {entries.map(([key, value], index) => {
+        {entries.map(([key, value]) => {
           return <Json key={key} parentKey={key} data={value} level={level + 1} settings={settings} />;
         })}
       </CurlyBraces>

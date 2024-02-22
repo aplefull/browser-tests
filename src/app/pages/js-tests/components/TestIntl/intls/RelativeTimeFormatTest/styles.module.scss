@@ -1,0 +1,9 @@
+.test-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.number-input {
+  max-width: min(100%, 150px);
+}

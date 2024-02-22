@@ -1,7 +1,6 @@
 import styles from './styles.module.scss';
 import flyingCat from '@assets/images/cats/flying-cat.png';
 import spaceCat from '@assets/images/cats/space-cat.jpg';
-import { Section } from '@/app/components/Section/Section';
 
 export const TestCssBlendModes = () => {
   const modes = [

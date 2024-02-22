@@ -1,0 +1,11 @@
+.computeContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+  span {
+    word-break: break-word;
+  }
+}

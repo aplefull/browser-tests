@@ -8,6 +8,8 @@ import { Init } from '@/app/components/Init/Init';
 import styles from './pages/home/styles.module.scss';
 
 import './styles/globals.scss';
+// TODO remove
+import './styles/temp.css';
 
 const RootLayout = () => {
   return (

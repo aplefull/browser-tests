@@ -1,0 +1,34 @@
+.test-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.segments-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .segments {
+    @include scroll;
+
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-height: 300px;
+    overflow-y: auto;
+
+    .segment {
+      padding: 4px;
+      overflow: hidden;
+      min-width: 16px;
+      display: grid;
+      place-items: center;
+    }
+  }
+}
+
+.test-string-input-container {
+  display: flex;
+  gap: 5px;
+}

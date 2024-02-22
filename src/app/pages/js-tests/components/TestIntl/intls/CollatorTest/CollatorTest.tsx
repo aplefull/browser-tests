@@ -1,28 +1,24 @@
-import { ChangeEvent, Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { isOneOf, nextElement, prevElement } from '@/utils/utils';
 import allLocales from '@assets/data/locales.json';
-import styles from '@/app/pages/js-tests/components/TestIntl/styles.module.scss';
+import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { Code } from '@/app/components/Code/Code';
 import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 import { Input } from '@/app/components/Input/Input';
 import { Button } from '@/app/components/Button/Button';
-import {
-  createSelects,
-  getSupportedLocales,
-  getSupportedLocalesAsync,
-  SelectsLayout,
-} from '@/app/pages/js-tests/components/TestIntl/TestIntl';
+import { createSelects, getSupportedLocales, SelectsLayout } from '@/app/pages/js-tests/components/TestIntl/TestIntl';
 
 export const CollatorTest = () => {
   const [currentLocale, setCurrentLocale] = useState(Intl.Collator().resolvedOptions().locale);
-  const [supportedLocales, setSupportedLocales] = useState([currentLocale]);
   const [intlOptions, setIntlOptions] = useState<Intl.CollatorOptions>({});
   const [testString, setTestString] = useState('');
   const [trim, setTrim] = useState(true);
   const [separator, setSeparator] = useState(' ');
 
   const intl = new Intl.Collator(currentLocale, intlOptions);
+
+  const supportedLocales = useMemo(getSupportedLocales(Intl.Collator), []);
 
   const values = {
     usage: {
@@ -127,10 +123,6 @@ export const CollatorTest = () => {
   const onNext = () => setCurrentLocale(nextElement(supportedLocales, currentLocale));
   const onPrev = () => setCurrentLocale(prevElement(supportedLocales, currentLocale));
 
-  const handleTestStringChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTestString(event.target.value);
-  };
-
   const tests = [
     {
       input: ['Offenbach', 'Österreich', 'Odenwald'],
@@ -203,10 +195,6 @@ export const CollatorTest = () => {
     return string.split(separatorRegex).map((str) => (trim ? str.trim() : str));
   };
 
-  useEffect(() => {
-    getSupportedLocalesAsync(Intl.Collator).then(setSupportedLocales);
-  }, []);
-
   return (
     <div className={styles.testContainer}>
       <h2>Collator</h2>
@@ -257,11 +245,11 @@ export const CollatorTest = () => {
         </span>
         <div className={styles.testSettings}>
           <span>Separator:</span>
-          <Input onChange={(e) => setSeparator(e.target.value)} value={separator} />
+          <Input onChange={setSeparator} value={separator} />
           <Checkbox checked={trim} onChange={setTrim} label="Trim" />
         </div>
         <div className={styles.testStringInput}>
-          <Input value={testString} onChange={handleTestStringChange} />
+          <Input value={testString} onChange={setTestString} />
           <Button onClick={() => setTestString('')} text="Clear" />
         </div>
       </div>

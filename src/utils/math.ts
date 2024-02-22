@@ -1,19 +1,130 @@
-import { getArray, getErrorMessage, range, table } from '@utils';
+import { getArray } from '@utils';
 
 export class QMath {
+  constructor() {
+    const all = [
+      QMath.isInteger,
+      QMath.isFloat,
+      QMath.isOdd,
+      QMath.isEven,
+      QMath.integerPart,
+      QMath.fractionalPart,
+      QMath.mod,
+      QMath.quotient,
+      QMath.max,
+      QMath.min,
+      QMath.random,
+      QMath.randomInt,
+      QMath.randomSample,
+      QMath.sort,
+      QMath.lerp,
+      QMath.discreteDelta,
+      QMath.kroneckerDelta,
+      QMath.unitStep,
+      QMath.isPrime,
+      QMath.prime,
+      QMath.primePi,
+      QMath.divisors,
+      QMath.sumOfSquares,
+      QMath.sum,
+      QMath.product,
+      QMath.meanGeometric,
+      QMath.mean,
+      QMath.median,
+      QMath.pow,
+      QMath.exp,
+      QMath.sqrt,
+      QMath.cbrt,
+      QMath.root,
+      QMath.log,
+      QMath.ln,
+      QMath.log2,
+      QMath.log10,
+      QMath.abs,
+      QMath.sign,
+      QMath.ceil,
+      QMath.floor,
+      QMath.round,
+      QMath.roundTo,
+      QMath.trunc,
+      QMath.toFixed,
+      QMath.sin,
+      QMath.cos,
+      QMath.tan,
+      QMath.cot,
+      QMath.sec,
+      QMath.csc,
+      QMath.asin,
+      QMath.acos,
+      QMath.atan,
+      QMath.acot,
+      QMath.asec,
+      QMath.acsc,
+      QMath.sinh,
+      QMath.cosh,
+      QMath.tanh,
+      QMath.coth,
+      QMath.sech,
+      QMath.csch,
+      QMath.asinh,
+      QMath.acosh,
+      QMath.atanh,
+      QMath.acoth,
+      QMath.asech,
+      QMath.acsch,
+      QMath.sinc,
+      QMath.factorial,
+      QMath.doubleFactorial,
+      QMath.gamma,
+      QMath.beta,
+      QMath.erf,
+      QMath.pochhammer,
+      QMath.gcd,
+      QMath.lcm,
+      QMath.fibonacci,
+      QMath.lucas,
+      QMath.factorInteger,
+      QMath.moebiusMu,
+    ];
+
+    Object.assign(this, ...all);
+  }
+
   static INDETERMINATE = NaN;
 
   static isInteger(n: number) {
     return Number.isInteger(n);
   }
 
+  static chop(n: number) {
+    const diff = n - parseFloat(n.toFixed(5));
+
+    if (diff < 0.00001) {
+      return parseFloat(n.toFixed(5));
+    }
+
+    return n;
+  }
+
+  static chopToInt = (n: number) => {
+    if (Math.abs(n - Math.round(n)) < 0.00001) {
+      return Math.round(n);
+    }
+
+    return n;
+  };
+
   static isFloat(n: number) {
+    if (Number.isNaN(n) || n === Infinity || n === -Infinity) {
+      return false;
+    }
+
     return !Number.isInteger(n);
   }
 
   static isOdd(n: number) {
     if (!QMath.isInteger(n)) {
-      throw new Error('Expected integer value for isOdd');
+      return false;
     }
 
     return n % 2 !== 0;
@@ -21,7 +132,7 @@ export class QMath {
 
   static isEven(n: number) {
     if (!QMath.isInteger(n)) {
-      throw new Error('Expected integer value for isEven');
+      return false;
     }
 
     return n % 2 === 0;
@@ -48,11 +159,19 @@ export class QMath {
       return QMath.INDETERMINATE;
     }
 
-    if (m === 0) {
-      return Infinity;
+    if (Number.isNaN(n) || Number.isNaN(m)) {
+      return QMath.INDETERMINATE;
     }
 
-    return (n - this.mod(n, m)) / m;
+    const signN = n < 0 ? -1 : 1;
+    const signM = m < 0 ? -1 : 1;
+    const sign = signN * signM;
+
+    if (m === 0) {
+      return sign * Infinity;
+    }
+
+    return sign * QMath.integerPart(QMath.chopToInt(QMath.abs(n) / QMath.abs(m)));
   }
 
   static max(...args: number[] | number[][]) {
@@ -63,7 +182,186 @@ export class QMath {
     return Math.min(...getArray(args));
   }
 
+  static random(from?: number, to?: number, includeEnd?: boolean) {
+    if (from === undefined) {
+      return Math.random();
+    }
+
+    if (to === undefined) {
+      return Math.random() * from;
+    }
+
+    if (includeEnd) {
+      return Math.random() * (to - from + 1) + from;
+    }
+
+    return Math.random() * (to - from) + from;
+  }
+
+  static randomInt(from?: number, to?: number, includeEnd?: boolean) {
+    return Math.round(QMath.random(from, to, includeEnd));
+  }
+
+  static randomSample<T>(array: T[], size: number = 1) {
+    const result = [];
+
+    for (let i = 0; i < size; i++) {
+      result.push(array[Math.floor(Math.random() * array.length)]);
+    }
+
+    return result;
+  }
+
+  static sort(array: number[], order: 'asc' | 'desc' = 'asc') {
+    return array.sort((a, b) => (order === 'asc' ? a - b : b - a));
+  }
+
+  static lerp(from: number, to: number, t: number) {
+    return from + (to - from) * t;
+  }
+
+  static discreteDelta(...args: number[] | number[][]) {
+    const array = getArray(args);
+
+    if (array.some((value) => Number.isNaN(value))) return QMath.INDETERMINATE;
+
+    if (array.length === 1) {
+      return array[0] === 0 ? 1 : 0;
+    }
+
+    return array.every((value) => value === 0) ? 1 : 0;
+  }
+
+  static kroneckerDelta(...args: number[] | number[][]) {
+    const array = getArray(args);
+
+    if (array.some((value) => Number.isNaN(value))) return QMath.INDETERMINATE;
+
+    if (array.length === 1) {
+      return array[0] === 0 ? 1 : 0;
+    }
+
+    return array.every((value) => value === array[0]) ? 1 : 0;
+  }
+
+  static unitStep(...args: number[] | number[][]) {
+    const array = getArray(args);
+
+    if (array.length === 1) {
+      return array[0] < 0 ? 0 : 1;
+    }
+
+    return array.every((value) => value < 0) ? 0 : 1;
+  }
+
+  static isPrime(n: number) {
+    if (n < 2) {
+      return false;
+    }
+
+    if (Number.isNaN(n) || n === Infinity || n === -Infinity) {
+      return false;
+    }
+
+    for (let i = 2; i < n; i++) {
+      if (n % i === 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  static prime(n: number) {
+    if (n < 1) {
+      return QMath.INDETERMINATE;
+    }
+
+    if (Number.isNaN(n) || n === Infinity || n === -Infinity) {
+      return QMath.INDETERMINATE;
+    }
+
+    let count = 0;
+    let i = 2;
+
+    while (count < n) {
+      if (QMath.isPrime(i)) {
+        count++;
+      }
+
+      i++;
+    }
+
+    return i - 1;
+  }
+
+  static primePi(n: number) {
+    if (n < 2) {
+      return 0;
+    }
+
+    if (Number.isNaN(n) || n === Infinity || n === -Infinity) {
+      return QMath.INDETERMINATE;
+    }
+
+    let count = 0;
+
+    for (let i = 2; i <= n; i++) {
+      if (QMath.isPrime(i)) {
+        count++;
+      }
+    }
+
+    return count;
+  }
+
+  static divisors(n: number) {
+    const divisors = [];
+
+    for (let i = 1; i <= n / 2; i++) {
+      if (n % i === 0) {
+        divisors.push(i);
+      }
+    }
+
+    return divisors;
+  }
+
+  static sumOfSquares(...args: number[] | number[][]) {
+    return getArray(args).reduce((acc, curr) => acc + curr ** 2, 0);
+  }
+
+  static sum(...args: number[] | number[][]) {
+    return getArray(args).reduce((acc, curr) => acc + curr, 0);
+  }
+
+  static product(...args: number[] | number[][]) {
+    return getArray(args).reduce((acc, curr) => acc * curr, 1);
+  }
+
+  static meanGeometric(...args: number[] | number[][]) {
+    return QMath.product(...getArray(args)) ** (1 / getArray(args).length);
+  }
+
+  static mean(...args: number[] | number[][]) {
+    return QMath.sum(...getArray(args)) / getArray(args).length;
+  }
+
+  static median(...args: number[] | number[][]) {
+    const array = QMath.sort(getArray(args));
+    const middle = Math.floor(array.length / 2);
+
+    if (array.length % 2 === 0) {
+      return (array[middle - 1] + array[middle]) / 2;
+    }
+
+    return array[middle];
+  }
+
   static pow(base: number, exponent: number) {
+    if (Number.isNaN(base) || Number.isNaN(exponent)) return QMath.INDETERMINATE;
+    if (base === -Infinity && exponent === Infinity) return QMath.INDETERMINATE;
+
     return base ** exponent;
   }
 
@@ -79,15 +377,28 @@ export class QMath {
     return Math.cbrt(n);
   }
 
-  static root(base: number, root: number) {
-    return base ** (1 / root);
+  static root(value: number, power: number) {
+    if (power === 0) return QMath.INDETERMINATE;
+    if (Number.isNaN(value) || Number.isNaN(power)) return QMath.INDETERMINATE;
+    if (QMath.abs(value) === Infinity && QMath.abs(power) === Infinity) return QMath.INDETERMINATE;
+
+    return value ** (1 / power);
   }
 
-  static log(n: number) {
-    return Math.log(n);
+  static log(n: number, base: number = Math.E) {
+    if (n === 0 && base === 1) return QMath.INDETERMINATE;
+    if (n === 1 && base === Infinity) return QMath.INDETERMINATE;
+    if (n === 1 && base === 0) return QMath.INDETERMINATE;
+
+    return QMath.ln(n) / QMath.ln(base);
   }
 
   static ln(n: number) {
+    if (n === 0) return -Infinity;
+    if (n === 1) return 0;
+    if (n === Infinity) return Infinity;
+    if (n > 0 && n < 1) return -Infinity;
+
     return Math.log(n);
   }
 
@@ -120,6 +431,10 @@ export class QMath {
   }
 
   static roundTo(n: number, decimals: number) {
+    if (!QMath.isInteger(decimals) || decimals < 0) {
+      return QMath.INDETERMINATE;
+    }
+
     return Math.round(n * 10 ** decimals) / 10 ** decimals;
   }
 
@@ -128,6 +443,10 @@ export class QMath {
   }
 
   static toFixed(n: number, decimals: number) {
+    if (!QMath.isInteger(decimals) || decimals < 0 || QMath.abs(decimals) === Infinity) {
+      return QMath.INDETERMINATE.toString();
+    }
+
     return n.toFixed(decimals);
   }
 
@@ -168,6 +487,10 @@ export class QMath {
   }
 
   static acot(n: number) {
+    if (n === 0) {
+      return QMath.INDETERMINATE;
+    }
+
     return Math.atan(1 / n);
   }
 
@@ -220,10 +543,18 @@ export class QMath {
   }
 
   static asech(n: number) {
+    if (n === 0) {
+      return QMath.INDETERMINATE;
+    }
+
     return Math.acosh(1 / n);
   }
 
   static acsch(n: number) {
+    if (n === 0) {
+      return QMath.INDETERMINATE;
+    }
+
     return Math.asinh(1 / n);
   }
 
@@ -236,14 +567,16 @@ export class QMath {
   }
 
   static factorial(n: number) {
-    const round = Math.round(n);
+    if (n === Infinity) return Infinity;
+    if (n === -Infinity) return QMath.INDETERMINATE;
+    if (n === 0) return 1;
 
-    if (round !== n || n < 0) {
-      throw new Error('Factorial can only be applied to positive integers');
+    if (n < 0 || !QMath.isInteger(n)) {
+      return QMath.INDETERMINATE;
     }
 
-    let value = round;
-    for (let i = round - 1; i > 0; i--) {
+    let value = n;
+    for (let i = n - 1; i > 0; i--) {
       value *= i;
     }
 
@@ -251,14 +584,16 @@ export class QMath {
   }
 
   static doubleFactorial(n: number) {
-    const round = Math.round(n);
+    if (n === Infinity) return Infinity;
+    if (n === -Infinity) return QMath.INDETERMINATE;
+    if (n === 0) return 1;
 
-    if (round !== n || n < 0) {
-      throw new Error('Double factorial can only be applied to positive integers');
+    if (n < 0 || !QMath.isInteger(n)) {
+      return QMath.INDETERMINATE;
     }
 
-    let value = round;
-    for (let i = round - 2; i > 0; i -= 2) {
+    let value = n;
+    for (let i = n - 2; i > 0; i -= 2) {
       value *= i;
     }
 
@@ -266,12 +601,12 @@ export class QMath {
   }
 
   static gamma(n: number) {
-    if (n < 0 && this.isInteger(n)) {
-      throw new Error('Gamma function is not defined for negative integers');
-    }
+    if (n === Infinity) return Infinity;
+    if (n === -Infinity) return QMath.INDETERMINATE;
+    if (n === 0) return QMath.INDETERMINATE;
 
-    if (n === 0) {
-      return Infinity;
+    if (n < 0 && QMath.isInteger(n)) {
+      return QMath.INDETERMINATE;
     }
 
     const p = [
@@ -288,13 +623,48 @@ export class QMath {
       result += p[i] / (n + i);
     }
 
-    result *= this.exp(-(n + length)) * this.pow(n + length, n + 0.5);
+    result *= QMath.exp(-(n + length)) * QMath.pow(n + length, n + 0.5);
 
     return result / n;
   }
 
+  static beta(x: number, y: number) {
+    if (
+      (x > 0 && y > 0) ||
+      (!QMath.isInteger(y) && x > 0) ||
+      (!QMath.isInteger(x) && y > 0) ||
+      (!QMath.isInteger(x) && !QMath.isInteger(y))
+    ) {
+      if (QMath.isInteger(QMath.chop(x + y)) && x + y < 0) return 0;
+      if (QMath.chop(x + y) === 0) return 0;
+
+      return (QMath.gamma(x) * QMath.gamma(y)) / QMath.gamma(x + y);
+    }
+
+    return QMath.INDETERMINATE;
+  }
+
+  static erf(n: number) {
+    const a1 = 0.254829592;
+    const a2 = -0.284496736;
+    const a3 = 1.421413741;
+    const a4 = -1.453152027;
+    const a5 = 1.061405429;
+    const p = 0.3275911;
+
+    const sign = n < 0 ? -1 : 1;
+    const x = QMath.abs(n);
+
+    const t = 1 / (1 + p * x);
+    const y = 1 - ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * QMath.exp(-x * x);
+
+    return sign * y;
+  }
+
   static pochhammer(x: number, n: number) {
-    return this.gamma(x + n) / this.gamma(x);
+    if (x + n <= 0) return QMath.INDETERMINATE;
+
+    return QMath.gamma(QMath.chop(x + n)) / QMath.gamma(QMath.chop(x));
   }
 
   static gcd(...args: number[]) {
@@ -321,7 +691,7 @@ export class QMath {
 
   static lcm(...args: number[]) {
     const lcm2 = (a: number, b: number): number => {
-      return (a * b) / this.gcd(a, b);
+      return (a * b) / QMath.gcd(a, b);
     };
 
     let result = args[0];
@@ -333,25 +703,21 @@ export class QMath {
     return result;
   }
 
-  static erf(n: number) {
-    const a1 = 0.254829592;
-    const a2 = -0.284496736;
-    const a3 = 1.421413741;
-    const a4 = -1.453152027;
-    const a5 = 1.061405429;
-    const p = 0.3275911;
+  static fibonacci(n: number) {
+    if (n === Infinity) return Infinity;
+    if (n === -Infinity) return -Infinity;
 
-    const sign = n < 0 ? -1 : 1;
-    const x = this.abs(n);
+    if (QMath.isInteger(n)) {
+      if (n < 0) {
+        const values = [0, 1];
 
-    const t = 1 / (1 + p * x);
-    const y = 1 - ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * this.exp(-x * x);
+        for (let i = -1; i >= n; i--) {
+          values.unshift(values[1] - values[0]);
+        }
 
-    return sign * y;
-  }
+        return values[0];
+      }
 
-  static fibonacchi(n: number) {
-    if (this.isInteger(n)) {
       const values = [0, 1];
 
       for (let i = 2; i <= n; i++) {
@@ -362,13 +728,13 @@ export class QMath {
     }
 
     return (
-      (this.pow((1 + this.sqrt(5)) / 2, n) - this.cos(n * Math.PI) * this.pow((1 - this.sqrt(5)) / 2, -n)) /
-      this.sqrt(5)
+      (QMath.pow((1 + QMath.sqrt(5)) / 2, n) - QMath.cos(n * Math.PI) * QMath.pow((1 - QMath.sqrt(5)) / 2, -n)) /
+      QMath.sqrt(5)
     );
   }
 
   static lucas(n: number) {
-    if (this.isInteger(n)) {
+    if (QMath.isInteger(n)) {
       const values = [2, 1];
 
       for (let i = 2; i <= n; i++) {
@@ -378,17 +744,19 @@ export class QMath {
       return values[n];
     }
 
-    return this.pow((1 + this.sqrt(5)) / 2, n) + this.pow((1 - this.sqrt(5)) / 2, -n) * this.cos(n * Math.PI);
+    return QMath.pow((1 + QMath.sqrt(5)) / 2, n) + QMath.pow((1 - QMath.sqrt(5)) / 2, -n) * QMath.cos(n * Math.PI);
   }
 
   static factorInteger(n: number) {
-    if (!this.isInteger(n)) {
-      throw new Error('Expected integer value for factorInteger');
+    if (!QMath.isInteger(n)) {
+      return [];
     }
 
-    if (n === 0) return [];
+    const sign = n < 0 ? -1 : 1;
+    n = QMath.abs(n);
 
-    if (n === 1) return [1];
+    if (n === 0) return [0];
+    if (n === 1) return [sign * 1];
 
     const result = [];
 
@@ -399,10 +767,14 @@ export class QMath {
       }
     }
 
-    return result;
+    return [sign * result[0], ...result.slice(1)];
   }
 
-  static mobiusMu(n: number) {
+  static moebiusMu(n: number) {
+    if (!QMath.isInteger(n)) {
+      return QMath.INDETERMINATE;
+    }
+
     if (n === 1) {
       return 1;
     }
@@ -416,134 +788,3 @@ export class QMath {
     return factors.length % 2 === 0 ? 1 : -1;
   }
 }
-
-// TODO move?
-const diff = <T>(arr1: T[], arr2: T[]) => {
-  if (arr1.length !== arr2.length) {
-    return null;
-  }
-
-  const result = [];
-  for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i] !== arr2[i]) {
-      result.push({ value1: arr1[i], value2: arr2[i] });
-    }
-  }
-
-  return result;
-};
-
-export const testQMath = async () => {
-  // Some default test inputs
-  const DEFAULT_TEST_VALUES = {
-    Infinity: [-Infinity, Infinity],
-    NaN: [NaN],
-    ZERO: [-0, 0],
-    SPECIAL_MATH: [-Infinity, -0, 0, Infinity],
-    SPECIAL_JS: [-Infinity, -0, 0, Infinity, NaN],
-  };
-
-  const testValues = await import('@data/qmathTestData.json');
-
-  const tests = [
-    {
-      name: 'isInteger',
-      fn: QMath.isInteger,
-      values: range(-100, 100, 0.2),
-      expected: range(-100, 100, 0.2).map((n) => Number.isInteger(n)),
-    },
-    {
-      name: 'isFloat',
-      fn: QMath.isFloat,
-      values: range(-100, 100, 0.2),
-      expected: range(-100, 100, 0.2).map((n) => !Number.isInteger(n)),
-    },
-    {
-      name: 'isOdd',
-      fn: QMath.isOdd,
-      values: range(-100, 100, 0.2),
-      expected: range(-100, 100, 0.2).map((n) => {
-        if (!Number.isInteger(n)) {
-          return 'Expected integer value for isOdd';
-        }
-
-        return n % 2 !== 0;
-      }),
-    },
-    {
-      name: 'isEven',
-      fn: QMath.isEven,
-      values: range(-100, 100, 0.2),
-      expected: range(-100, 100, 0.2).map((n) => {
-        if (!Number.isInteger(n)) {
-          return 'Expected integer value for isEven';
-        }
-
-        return n % 2 === 0;
-      }),
-    },
-    {
-      name: 'integerPart',
-      fn: QMath.integerPart,
-      values: range(-100, 100, 0.2),
-      expected: range(-100, 100, 0.2).map((n) => Math.trunc(n)),
-    },
-    {
-      name: 'fractionalPart',
-      fn: QMath.fractionalPart,
-      values: range(-100, 100, 0.2),
-      expected: range(-100, 100, 0.2).map((n) => n - Math.trunc(n)),
-    },
-    {
-      name: 'mod',
-      fn: QMath.mod,
-      values: table(range(-10, 10, 0.2), range(-10, 10, 0.2)).flat(),
-      expected: testValues.mod.map((n) => {
-        if (n === 'Indeterminate') {
-          return QMath.INDETERMINATE;
-        }
-
-        return n;
-      }),
-    },
-    {
-      name: 'quotient',
-      fn: QMath.quotient,
-      values: table(range(-10, 10, 0.2), range(-10, 10, 0.2)).flat(),
-      expected: testValues.quotient.map((n) => {
-        if (n === 'Indeterminate') {
-          return QMath.INDETERMINATE;
-        }
-
-        if (n === 'Infinity') {
-          return Infinity;
-        }
-
-        return n;
-      }),
-    },
-  ];
-
-  return;
-
-  tests.forEach(({ name, fn, values, expected }) => {
-    const actual = values.map((value) => {
-      try {
-        if (typeof value === 'number') {
-          return fn(value);
-        }
-
-        return fn(value.x, value.y);
-      } catch (e) {
-        return getErrorMessage(e);
-      }
-    });
-    const passed = actual.every((value, index) => value === expected[index]);
-
-    console.log(`Test ${name} ${passed ? 'passed' : 'failed'}`);
-
-    if (!passed) {
-      console.log(diff(actual, expected));
-    }
-  });
-};

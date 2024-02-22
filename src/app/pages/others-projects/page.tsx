@@ -1,10 +1,53 @@
 import classNames from 'classnames';
 import styles from './page.module.scss';
+import { useState } from 'react';
+import { Collapse } from '@/app/components/Collapse/Collapse';
+import { ChevronRight } from 'tabler-icons-react';
 
 type TIframeEntry = {
-  src: string;
+  name: string;
   title: string;
   url?: string;
+};
+
+type TProjectProps = TIframeEntry;
+
+const Project = ({ name, url, title }: TProjectProps) => {
+  const [open, setOpen] = useState(false);
+
+  const baseUrl = 'https://projects-cdn.netlify.app/projects';
+  const src = `${baseUrl}/${name}/index.html`;
+
+  const collapseHead = (
+    <div
+      className={classNames(styles.headContent, {
+        [styles.open]: open,
+      })}
+    >
+      <ChevronRight className={styles.icon} size={24} />
+      <span>{title}</span>
+    </div>
+  );
+
+  return (
+    <Collapse
+      head={collapseHead}
+      headClassName={styles.collapseHead}
+      className={styles.collapse}
+      open={open}
+      onChange={setOpen}
+      title={title}
+    >
+      <div className={classNames(styles.project, { [styles.withUrl]: !!url })}>
+        {url && (
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            {url}
+          </a>
+        )}
+        <iframe src={src} loading="lazy" className={styles.iframe} />
+      </div>
+    </Collapse>
+  );
 };
 
 export const OthersProjectsPage = () => {
@@ -21,38 +64,38 @@ export const OthersProjectsPage = () => {
   ];
 
   const iframes: TIframeEntry[] = [
-    { src: '/projects/rgb-cube/index.html', title: 'RGB Cube', url: 'https://codepen.io/roborich/pen/wRMKaK' },
+    { name: 'rgb-cube', title: 'RGB Cube', url: 'https://codepen.io/roborich/pen/wRMKaK' },
     {
-      src: '/projects/cats-game/index.html',
+      name: 'cats-game',
       title: 'Game',
     },
     {
-      src: '/projects/css-art-nezuko/index.html',
+      name: 'css-art-nezuko',
       url: 'https://codepen.io/t_afif/pen/abEeMyY',
       title: 'CSS art',
     },
     {
-      src: '/projects/wavy-range-slider/index.html',
+      name: 'wavy-range-slider',
       url: 'https://codepen.io/t_afif/full/abQvjxP',
       title: 'Wavy range slider',
     },
     {
-      src: '/projects/blob-effect/index.html',
+      name: 'blob-effect',
       url: 'https://codepen.io/t_afif/pen/OJpKeWa',
       title: 'CSS blob effect',
     },
     {
-      src: '/projects/css-game/index.html',
+      name: 'css-game',
       url: 'https://codepen.io/ivorjetski/pen/OJXbvdL',
       title: 'Amazing CSS mini game',
     },
     {
-      src: '/projects/css-pixel-art/index.html',
+      name: 'css-pixel-art',
       url: 'https://codepen.io/ivorjetski/pen/xxKBWBN',
       title: 'Zero divs CSS pixel art animation',
     },
     {
-      src: '/projects/css-painting-landscape/index.html',
+      name: 'css-painting-landscape',
       url: 'https://codepen.io/ivorjetski/pen/xxGYWQG',
       title: 'CSS painting',
     },
@@ -62,18 +105,8 @@ export const OthersProjectsPage = () => {
     <div className={styles.container}>
       <h1>This page contains other's people cool projects.</h1>
       <div className={styles.iframesContainer}>
-        {iframes.map(({ title, src, url }) => {
-          return (
-            <div key={src} className={classNames({ [styles.withUrl]: !!url })}>
-              <h2>{title}</h2>
-              {url && (
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  {url}
-                </a>
-              )}
-              <iframe src={src} loading="lazy" className={styles.iframe} />
-            </div>
-          );
+        {iframes.map((data) => {
+          return <Project key={data.name} {...data} />;
         })}
       </div>
       <h2>Other interesting pages to see</h2>

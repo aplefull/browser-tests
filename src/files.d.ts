@@ -23,7 +23,17 @@ declare module '*.adts' {
   export default content;
 }
 
+declare module '*.cur' {
+  const content: string;
+  export default content;
+}
+
 declare module '*.mpeg' {
   const content: string;
   export default content;
+}
+
+declare module '*?script' {
+  const src: string;
+  export default src;
 }

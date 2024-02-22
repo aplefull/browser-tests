@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { iteratorToArray } from '@/utils/utils';
 import { Json } from '@/app/pages/js-tests/components/subcomponents/Json/Json';
 import { Button } from '@/app/components/Button/Button';

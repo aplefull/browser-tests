@@ -1,20 +1,14 @@
 import allLocales from '@assets/data/locales.json';
 import regionCodes from '@data/region-codes.json';
 import scriptCodes from '@data/script-codes.json';
-import { useEffect, useMemo, useState } from 'react';
-import { getErrorMessage, isOneOf, nextElement, prevElement, range } from '@/utils/utils';
-import styles from '@/app/pages/js-tests/components/TestIntl/styles.module.scss';
+import { useMemo, useState } from 'react';
+import { getErrorMessage, isOneOf, nextElement, prevElement } from '@/utils/utils';
+import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { Switcher } from '@/app/components/Switcher/Switcher';
 import { Select } from '@/app/components/Select/Select';
 import { Code } from '@/app/components/Code/Code';
-import {
-  createSelects,
-  getSupportedLocales,
-  getSupportedLocalesAsync,
-  SelectsLayout,
-  TIntlFormats,
-} from '@/app/pages/js-tests/components/TestIntl/TestIntl';
+import { createSelects, getSupportedLocales, SelectsLayout } from '@/app/pages/js-tests/components/TestIntl/TestIntl';
 
 const testValues = {
   calendar: Intl.supportedValuesOf('calendar'),
@@ -40,13 +34,14 @@ const testValues = {
 
 export const DisplayNamesTest = () => {
   const [currentLocale, setCurrentLocale] = useState(new Intl.DateTimeFormat().resolvedOptions().locale);
-  const [supportedLocales, setSupportedLocales] = useState([currentLocale]);
   const [intlOptions, setIntlOptions] = useState<Intl.DisplayNamesOptions>({
     type: 'region',
   });
   const [testValue, setTestValue] = useState(testValues[intlOptions.type][0]);
 
   const intl = new Intl.DisplayNames(currentLocale, intlOptions);
+
+  const supportedLocales = useMemo(getSupportedLocales(Intl.DisplayNames), []);
 
   const values = {
     type: {
@@ -118,10 +113,6 @@ export const DisplayNamesTest = () => {
       return getErrorMessage(error);
     }
   };
-
-  useEffect(() => {
-    getSupportedLocalesAsync(Intl.DisplayNames).then(setSupportedLocales);
-  }, []);
 
   return (
     <div className={styles.testContainer}>

@@ -1,6 +1,6 @@
 import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import dynamicResolutionWebmCalm from '@assets/videos/out_smooth.webm';
-import dynamicResolutionWebmCrazy from '@assets/videos/cat.webm';
+import dynamicResolutionWebmCrazy from '@assets/videos/out_random.webm';
 import { Select } from '@/app/components/Select/Select';
 import { RangeInput } from '@/app/components/RangeInput/RangeInput';
 import { getVideoResolution, map } from '@/utils/utils';

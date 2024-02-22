@@ -106,7 +106,7 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
     });
 
     // 4. calculate images x and y positions
-    const imagesRects = recalculatedImagesDimensionsSecondPass.map(({ rowHeight, images }, rowIndex) => {
+    const imagesRects = recalculatedImagesDimensionsSecondPass.map(({ images }, rowIndex) => {
       return images.map((dimensions, columnIndex) => {
         // 4.1 calculate x position by summing all previous images widths
         const x =

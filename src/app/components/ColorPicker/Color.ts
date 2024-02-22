@@ -21,6 +21,18 @@ export class Color {
   s: number;
   v: number;
 
+  hsv: {
+    h: number;
+    s: number;
+    v: number;
+  };
+
+  hsl: {
+    h: number;
+    s: number;
+    l: number;
+  };
+
   constructor() {
     this.r = 0;
     this.g = 0;
@@ -30,12 +42,27 @@ export class Color {
     this.h = 0;
     this.s = 0;
     this.v = 0;
+
+    this.hsv = {
+      h: 0,
+      s: 0,
+      v: 0,
+    };
+
+    this.hsl = {
+      h: 0,
+      s: 0,
+      l: 0,
+    };
   }
 
   fromRGB(r: number, g: number, b: number) {
     this.r = r;
     this.g = g;
     this.b = b;
+
+    this.hsv = RGBToHSV(r, g, b);
+    this.hsl = RGBToHSL(r, g, b);
 
     return this;
   }
@@ -56,24 +83,22 @@ export class Color {
     this.b = rgb.b;
 
     this.h = h;
-    this.s = hsv.s;
+    this.s = s;
     this.v = hsv.v;
+
+    this.hsv = hsv;
+    this.hsl = {
+      h,
+      s,
+      l,
+    };
 
     return this;
   }
 
   fromHSLA(h: number, s: number, l: number, a: number) {
-    const rgba = HSLAToRGBA(h, s, l, a);
-    const hsva = RGBAToHSVA(rgba.r, rgba.g, rgba.b, rgba.a);
-
-    this.r = rgba.r;
-    this.g = rgba.g;
-    this.b = rgba.b;
+    this.fromHSL(h, s, l);
     this.a = a;
-
-    this.h = h;
-    this.s = hsva.s;
-    this.v = hsva.v;
 
     return this;
   }
@@ -88,6 +113,13 @@ export class Color {
     this.h = h;
     this.s = s;
     this.v = v;
+
+    this.hsv = {
+      h,
+      s,
+      v,
+    };
+    this.hsl = RGBToHSL(rgb.r, rgb.g, rgb.b);
 
     return this;
   }
@@ -134,11 +166,14 @@ export class Color {
   }
 
   toHSL() {
-    return RGBToHSL(this.r, this.g, this.b);
+    return this.hsl;
   }
 
   toHSLA() {
-    return RGBAToHSLA(this.r, this.g, this.b, this.a);
+    return {
+      ...this.toHSL(),
+      a: this.a,
+    };
   }
 
   toHSLString() {

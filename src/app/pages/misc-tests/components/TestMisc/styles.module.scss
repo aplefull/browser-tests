@@ -16,27 +16,6 @@
       scale: 0.5;
     }
   }
-
-  .nested-divs-container {
-    padding: 10px 0 0 0;
-
-    .nested-divs {
-      display: flex;
-      justify-content: center;
-      padding-top: 20px;
-      contain: content;
-
-      div {
-        width: fit-content;
-      }
-
-      *:empty {
-        width: 100px;
-        aspect-ratio: 1;
-        background-color: $color-green;
-      }
-    }
-  }
 }
 
 .sprite-container {

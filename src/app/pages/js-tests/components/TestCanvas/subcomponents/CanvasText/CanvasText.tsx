@@ -15,8 +15,6 @@ import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 import globalStyles from '../../styles.module.scss';
 import classNames from 'classnames';
 import { Switcher } from '@/app/components/Switcher/Switcher';
-import { type } from 'os';
-import { TSeparator } from '@/types';
 
 const fillText = (
   ctx: CanvasRenderingContext2D,
@@ -72,7 +70,7 @@ const drawText = (ctx: CanvasRenderingContext2D) => {
   const hieroglyphsText = 'Hieroglyphs: 田中さんにあげて下さい';
   const mathText = 'Math symbols: ∑(n=1,∞) n²/2ⁿ';
 
-  const { width, height } = getCanvasDimensions(ctx);
+  const { width } = getCanvasDimensions(ctx);
 
   ctx.font = '24px sans-serif';
   ctx.textBaseline = 'top';
@@ -155,14 +153,13 @@ const drawLargeEmojis = (emoji: string) => (ctx: CanvasRenderingContext2D) => {
   fillText(ctx, emoji, width / 2, height / 2);
 };
 
-const emojis = ['🇯🇵', '🇦🇮', '🇦🇬', '🇦🇪🇦🇫', '🇮', '🇦'];
 const lines = getDataFromBlns(blns).flatMap((data) => data.strings);
 
 export const CanvasText = () => {
   const [fitText, setFitText] = useState(false);
   const [currentString, setCurrentString] = useState(lines[0]);
   const [loaded, setLoaded] = useState(false);
-  const [emojis, setEmojis] = useState<(string | TSeparator)[]>([]);
+  const [emojis, setEmojis] = useState<string[]>([]);
   const [currentEmoji, setCurrentEmoji] = useState<string>('😀');
 
   const additionalEmojis = [
@@ -205,28 +202,18 @@ export const CanvasText = () => {
     setCurrentString(prevElement(lines, currentString));
   };
 
-  const filterEmoji = (emoji: string | TSeparator): emoji is string => typeof emoji === 'string';
-
   const nextEmoji = () => {
-    const emojisWithoutSeparators = emojis.filter(filterEmoji);
-    setCurrentEmoji(nextElement(emojisWithoutSeparators, currentEmoji));
+    setCurrentEmoji(nextElement([...emojis, ...additionalEmojis], currentEmoji));
   };
 
   const prevEmoji = () => {
-    const emojisWithoutSeparators = emojis.filter(filterEmoji);
-    setCurrentEmoji(prevElement(emojisWithoutSeparators, currentEmoji));
+    setCurrentEmoji(prevElement([...emojis, ...additionalEmojis], currentEmoji));
   };
 
   useEffect(() => {
     const load = async () => {
       const emojis = await requestEmojis();
-      setEmojis([
-        ...emojis.map((emoji) => emoji.char),
-        {
-          type: 'separator',
-        },
-        ...additionalEmojis,
-      ]);
+      setEmojis(emojis.map((emoji) => emoji.char));
 
       await loadNotoFont();
       setLoaded(true);
@@ -255,7 +242,20 @@ export const CanvasText = () => {
       <div className={styles.canvasContainer}>
         <Canvas onResize={drawLargeEmojis(currentEmoji)} />
         <Switcher onNext={nextEmoji} onPrev={prevEmoji}>
-          <Select options={emojis} onChange={setCurrentEmoji} value={currentEmoji} />
+          <Select
+            options={[
+              {
+                group: 'Emojis',
+                items: emojis,
+              },
+              {
+                group: 'Emojis from language tags',
+                items: additionalEmojis,
+              },
+            ]}
+            onChange={setCurrentEmoji}
+            value={currentEmoji}
+          />
         </Switcher>
       </div>
     </div>
