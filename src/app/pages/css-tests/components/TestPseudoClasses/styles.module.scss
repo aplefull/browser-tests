@@ -1,12 +1,9 @@
-:root {
-  --pseudo-selector-test-root: 'Pass';
-}
-
-:scope {
-  --pseudo-selector-test-scope: 'Pass';
-}
-
 .pseudo {
+  overflow-y: auto;
+  max-height: 1000px;
+
+  @include scroll;
+
   h3 {
     width: 100%;
     border-bottom: 1px solid transparentize($color-white, 0.6);
@@ -16,7 +13,7 @@
 
   .before {
     &:before {
-      content: 'It works! 🐞';
+      content: ':before works if you see this! 🐞';
     }
   }
 
@@ -57,44 +54,25 @@
   }
 
   .placeholder {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    input {
-      width: 120px;
-      padding: 2px;
-      border-radius: 3px;
-      outline: none;
-      background-color: $color-ink;
-      border: 1px solid $color-white;
-      caret-color: $color-white;
-      color: $color-white;
-
-      &::placeholder {
-        font-family: monospace;
-        color: $color-green;
-      }
+    ::placeholder {
+      color: $color-green;
     }
   }
 
   .selection {
     span::selection {
       background: $color-green;
-      color: $color-white;
+      color: var(--color-panel-solid);
     }
   }
 
   .active {
     display: flex;
     flex-direction: column;
+    align-items: start;
     gap: 10px;
 
     button {
-      cursor: pointer;
-      width: min-content;
-      padding: 2px 5px;
-
       &:active {
         outline: none;
         color: $color-green;
@@ -106,13 +84,10 @@
   .hover {
     display: flex;
     flex-direction: column;
+    align-items: start;
     gap: 10px;
 
     button {
-      cursor: pointer;
-      width: min-content;
-      padding: 2px 5px;
-
       &:hover {
         outline: none;
         color: $color-green;
@@ -122,17 +97,13 @@
   }
 
   .empty {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
     p {
       margin: 0;
     }
 
     span {
-      width: 100px;
-      min-height: 20px;
+      width: 40px;
+      aspect-ratio: 1;
       border-radius: 4px;
       background-color: $color-red;
 
@@ -167,45 +138,24 @@
 
   .disabled {
     input:disabled {
-      display: none;
-
-      + span {
-        &:before {
-          content: 'Pass';
-          color: $color-green;
-        }
+      &::placeholder {
+        color: $color-green;
       }
     }
   }
 
   .enabled {
     input:enabled {
-      display: none;
-
-      + span {
-        &:before {
-          content: 'Pass';
-          color: $color-green;
-        }
+      &::placeholder {
+        color: $color-green;
       }
     }
   }
 
   .focus {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
     input {
-      width: 120px;
-
       &:focus {
-        + span {
-          &:before {
-            content: 'Everything works :)';
-            color: $color-green;
-          }
-        }
+        color: $color-green;
       }
     }
   }
@@ -354,32 +304,9 @@
   }
 
   .fullscreen {
-    span {
-      margin-bottom: 5px;
-    }
-
-    div {
-      aspect-ratio: 1;
-      width: 100px;
-      border-radius: 10px;
-      background-color: $color-charcoal;
-      cursor: pointer;
-
-      &:fullscreen {
-        background-color: $color-green;
-      }
-    }
-  }
-
-  .in-range {
-    input:in-range {
-      display: none;
-
-      + span {
-        &:before {
-          content: 'Pass';
-          color: $color-green;
-        }
+    &:fullscreen {
+      .text {
+        color: $color-green;
       }
     }
   }
@@ -398,22 +325,16 @@
 
   .valid {
     input {
-      margin-left: 10px;
-
       &:valid {
-        margin-left: 10px;
-        outline: 5px solid $color-green;
+        color: $color-green;
       }
     }
   }
 
   .invalid {
     input {
-      margin-left: 10px;
-
       &:invalid {
-        margin-left: 10px;
-        outline: 5px solid $color-green;
+        color: $color-green;
       }
     }
   }
@@ -421,15 +342,10 @@
   .lang-en {
     :lang(en) {
       color: $color-green;
-      font-weight: bold;
     }
   }
 
   .dir-ltr {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
     span {
       text-align: left;
 
@@ -497,6 +413,19 @@
     }
   }
 
+  .in-range {
+    input:in-range {
+      display: none;
+
+      + span {
+        &:before {
+          content: 'Pass';
+          color: $color-green;
+        }
+      }
+    }
+  }
+
   .out-of-range {
     input:out-of-range {
       display: none;
@@ -536,34 +465,13 @@
     }
   }
 
-  .root {
-    &:before {
-      content: var(--pseudo-selector-test-root);
-      color: $color-green;
-    }
-  }
-
-  @scope (.scope) {
-    :scope {
-      background: $color-green;
-
-      &:before {
-        content: var(--pseudo-selector-test-scope);
-      }
-    }
-
-    .scope {
-      &:before {
-        content: var(--pseudo-selector-test-scope);
-      }
-    }
+  .iframe {
+    width: 100%;
+    height: 40px;
+    border: none;
   }
 
   .target {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
     a {
       color: $color-white;
 
@@ -575,13 +483,13 @@
 }
 
 @page :first {
-  // margin: 2in;
+  margin: 0.3in;
 }
 
 @page :left {
-  margin-left: 1in;
+  margin: 0.3in 0.3in 0.3in 0.5in;
 }
 
 @page :right {
-  margin-right: 1in;
+  margin: 0.3in 0.5in 0.3in 0.3in;
 }

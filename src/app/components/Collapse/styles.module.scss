@@ -1,9 +1,9 @@
 .collapse {
   width: 100%;
   border-radius: 5px;
+  overflow: hidden;
 
   .collapse-head {
-    border-bottom: 1px solid $color-white;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -38,20 +38,8 @@
   }
 
   .collapse-body {
-    grid-template-rows: 0fr;
-    display: grid;
-    transition: 1s ease-in-out;
-    transition-property: grid-template-rows;
-
-    > div {
-      transition: 1s ease-in-out;
-      transition-property: padding-bottom;
-      overflow: hidden;
-      position: relative;
-    }
-
-    &.open {
-      grid-template-rows: 1fr;
-    }
+    overflow-y: hidden;
+    transition: height 1s ease-in-out;
+    position: relative;
   }
 }

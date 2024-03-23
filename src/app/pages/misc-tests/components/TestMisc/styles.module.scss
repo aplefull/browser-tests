@@ -1,6 +1,6 @@
 .misc {
-  h2 {
-    @include subtitle;
+  .collapse {
+    border: none;
   }
 
   .glow {
@@ -35,6 +35,20 @@
       display: block;
     }
   }
+}
+
+.iframe {
+  width: 100%;
+  height: 300px;
+  border: none;
+}
+
+.pass {
+  color: $color-green;
+}
+
+.fail {
+  color: $color-red;
 }
 
 @keyframes sprite-animation {

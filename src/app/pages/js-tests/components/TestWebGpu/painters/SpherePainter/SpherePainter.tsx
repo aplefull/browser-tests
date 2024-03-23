@@ -29,26 +29,9 @@ export const SpherePainter = () => {
       workerRef.current = worker;
     };
 
-    init();
-    /*const resizeObserver = new ResizeObserver((entries) => {
-      const target = entries[0].target;
-
-      if (!(target instanceof HTMLCanvasElement)) return;
-
-      const width = target.clientWidth;
-      const height = target.clientHeight;
-
-      target.width = width;
-      target.height = height;
-
-      animationIdRef.current && cancelAnimationFrame(animationIdRef.current);
-      paintTriangle(gpu, ctx, animationIdRef);
-    });*/
-
-    //resizeObserver.observe(canvas);
+    init().catch(console.error);
 
     return () => {
-      // resizeObserver.disconnect();
       workerRef.current?.postMessage({ type: 'stop' });
     };
   }, []);

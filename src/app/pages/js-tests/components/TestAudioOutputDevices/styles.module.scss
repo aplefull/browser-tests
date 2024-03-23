@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .button {
+    min-width: fit-content;
+  }
+
+  .row {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+}

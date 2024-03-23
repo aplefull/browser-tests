@@ -34,7 +34,7 @@ export const TransparentVideo = () => {
           <ColorPicker onChange={setBackgroundColor} value={backgroundColor} />
           <Button
             className={styles.resetColor}
-            variant="dark"
+            variant="outline"
             text="Reset color"
             onClick={() => setBackgroundColor(new Color().parse('transparent'))}
           />

@@ -2,16 +2,19 @@ import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
 import { getErrorMessage } from '@utils';
 import { useState } from 'react';
+import { ErrorMessage } from '@/app/components/ErrorMessage/ErrorMessage';
 
 export const TestEyeDropper = () => {
   const [result, setResult] = useState<string | null>(null);
   const [cancelled, setCancelled] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const eyeDropper = new EyeDropper();
 
   const open = async () => {
     try {
       setCancelled(false);
+      setResult(null);
       const result = await eyeDropper.open();
       setResult(result.sRGBHex);
     } catch (error) {
@@ -25,7 +28,7 @@ export const TestEyeDropper = () => {
       ) {
         setCancelled(true);
       } else {
-        console.warn(getErrorMessage(error));
+        setError(getErrorMessage(error));
       }
     }
   };
@@ -40,8 +43,12 @@ export const TestEyeDropper = () => {
   return (
     <div className={styles.container}>
       <Button text="Open Eye Dropper" onClick={open} />
-      <div>Selected color: {getResults()}</div>
-      <div className={styles.preview} style={{ backgroundColor: result || '' }} />
+      <div className={styles.results}>
+        <span>Selected color:</span>
+        {result && <div className={styles.preview} style={{ backgroundColor: result }} />}
+        <span>{getResults()}</span>
+      </div>
+      <ErrorMessage message={error} />
     </div>
   );
 };

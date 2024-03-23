@@ -10,6 +10,7 @@ export class QMath {
       QMath.integerPart,
       QMath.fractionalPart,
       QMath.mod,
+      QMath.clamp,
       QMath.quotient,
       QMath.max,
       QMath.min,
@@ -152,6 +153,10 @@ export class QMath {
     }
 
     return parseFloat((((n % m) + m) % m).toFixed(10));
+  }
+
+  static clamp(n: number, min: number, max: number) {
+    return Math.min(Math.max(n, min), max);
   }
 
   static quotient(n: number, m: number) {

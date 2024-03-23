@@ -91,12 +91,21 @@ export const adjustFontSize = (
   return left;
 };
 
-export const measureText = (text: string, font?: string) => {
+export const measureText = (
+  text: string,
+  font?: string,
+  contextSettings?: {
+    textBaseline?: CanvasTextBaseline;
+    textAlign?: CanvasTextAlign;
+  },
+) => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
   if (!ctx) return { width: 0, height: 0 };
   ctx.font = font || '24px sans-serif';
+  ctx.textBaseline = contextSettings?.textBaseline || 'middle';
+  ctx.textAlign = contextSettings?.textAlign || 'center';
 
   const measurement = ctx.measureText(text);
 

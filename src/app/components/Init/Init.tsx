@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { PAGES } from '@/utils/constants';
 import { useDispatch } from 'react-redux';
-import { getCurrentPage } from '@/utils/utils';
+import { getCurrentPage, isActiveElementInput } from '@/utils/utils';
 import { AppDispatch } from '@/app/redux/store';
 import { useDoubleKeyPress } from '@/utils/hooks';
 import { sections as jsSections } from '@/app/pages/js-tests/sections';
@@ -17,7 +17,7 @@ export const Init = () => {
   const onDoubleU = () => {
     const activeElement = document.activeElement;
 
-    if (activeElement && activeElement.tagName === 'INPUT') return null;
+    if (isActiveElementInput()) return;
 
     window.scrollTo({
       top: 0,
@@ -27,10 +27,8 @@ export const Init = () => {
 
   const onDoubleC = () => {
     const currentPage = getCurrentPage();
-    const activeElement = document.activeElement;
 
-    if (currentPage === 'unknown') return;
-    if (activeElement && activeElement.tagName === 'INPUT') return;
+    if (currentPage === 'unknown' || isActiveElementInput()) return;
 
     switch (currentPage) {
       case PAGES.HTML_TESTS:

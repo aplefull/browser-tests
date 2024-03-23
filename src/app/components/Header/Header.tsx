@@ -11,8 +11,8 @@ export const Header = () => {
           if (!route.navText) return null;
 
           return (
-            <Link key={route.path} to={route.path}>
-              <Button text={route.navText} variant="dark" width={100} textVariant="large" noHoverStyle />
+            <Link className={styles.link} key={route.path} to={route.path}>
+              {route.navText}
             </Link>
           );
         })}

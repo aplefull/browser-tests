@@ -11,7 +11,6 @@ export const TestSupportedVideoFormats = () => {
     { name: 'mp4', codec: 'AV1', src: videoAv1 },
     { name: 'mp4', codec: 'H.264', src: videoH264 },
     { name: 'mp4', codec: 'H.265', src: videoH265 },
-    { name: 'ogg', codec: 'Theora', src: videoOGG },
     { name: 'webm', codec: 'VP8', src: videoVP8 },
     { name: 'webm', codec: 'VP9', src: videoVP9 },
   ];

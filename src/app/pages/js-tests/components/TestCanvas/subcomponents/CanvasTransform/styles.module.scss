@@ -1,20 +1,23 @@
 .canvas-transform {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 20px;
 
-  > div {
+  .innerContainer {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
+  }
 
-    canvas {
-      max-width: 400px;
-    }
+  canvas {
+    max-width: 400px;
   }
 
   .controls {
+    width: 100%;
     min-width: 200px;
   }
 }

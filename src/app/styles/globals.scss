@@ -16,14 +16,17 @@ body {
   flex-direction: column;
   gap: 20px;
   margin: 0;
-  background-color: $color-ink;
+  background-color: var(--mauve-1);
   color: $color-white;
   scroll-behavior: smooth;
 }
 
+::selection {
+  background-color: var(--accent-a5);
+}
+
 section {
   width: 100%;
-  padding-top: 20px;
   border: 1px solid #ccc;
   border-radius: 3px;
 
@@ -33,8 +36,8 @@ section {
     font-size: 1.5rem;
   }
 
-  > h2 {
-    margin: 0;
+  h2 {
+    margin-top: 0;
   }
 }
 

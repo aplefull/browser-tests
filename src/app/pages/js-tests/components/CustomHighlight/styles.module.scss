@@ -1,0 +1,6 @@
+.container {
+  *::highlight(ranges-highlight) {
+    background-color: var(--accent-a3);
+    color: var(--accent-11);
+  }
+}

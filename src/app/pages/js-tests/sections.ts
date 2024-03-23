@@ -5,7 +5,6 @@ import {
   TestDates,
   TestEvents,
   TestIntl,
-  TestLabelingLoops,
   TestMath,
   TestNavigatorFeatures,
   TestObservers,
@@ -14,14 +13,16 @@ import {
   TestWebStorage,
   TestWebWorkers,
   TestEyeDropper,
+  TestIdleDetection,
+  TestAudioOutputDevices,
+  TestSensors,
+  TestWebSpeech,
+  TestPointerLock,
+  CustomHighlight,
+  TestWebGl,
 } from '@/app/pages/js-tests/components';
 
 export const sections = [
-  {
-    name: 'JS labels',
-    Component: TestLabelingLoops,
-    initialState: DROPDOWN_STATE.CLOSED,
-  },
   {
     name: 'Interactions with tab',
     Component: TestTabInteractions,
@@ -78,6 +79,11 @@ export const sections = [
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
+    name: 'WebGL',
+    Component: TestWebGl,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
     name: 'Observers',
     Component: TestObservers,
     initialState: DROPDOWN_STATE.CLOSED,
@@ -85,6 +91,36 @@ export const sections = [
   {
     name: 'Eye Dropper',
     Component: TestEyeDropper,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Idle detection API',
+    Component: TestIdleDetection,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Audio output devices',
+    Component: TestAudioOutputDevices,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Sensor API',
+    Component: TestSensors,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Web Speech API',
+    Component: TestWebSpeech,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Pointer Lock API',
+    Component: TestPointerLock,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'CSS Custom Highlight API',
+    Component: CustomHighlight,
     initialState: DROPDOWN_STATE.CLOSED,
   },
 ];

@@ -26,7 +26,7 @@ const drawTransform = (translate: { x: number; y: number }, rotate: number) => (
   const translateX = map(translate.x, -100, 100, 0, width - shapeSize);
   const translateY = map(translate.y, -100, 100, 0, height - shapeSize);
 
-  bg(ctx);
+  bg(ctx, 'transparent');
 
   ctx.save();
   ctx.translate(translateX, translateY);
@@ -47,12 +47,12 @@ export const CanvasTransform = () => {
 
   return (
     <div className={classNames(styles.canvasTransform, globalStyles.gridLayout)}>
-      <div>
+      <div className={styles.innerContainer}>
         <Canvas onResize={drawTransform(translate, rotate)} />
         <div className={styles.controls}>
-          <RangeInput label="X" value={translate.x} min={-100} max={100} onChange={setX} />
-          <RangeInput label="Y" value={translate.y} min={-100} max={100} onChange={setY} />
-          <RangeInput label="Rotation" value={rotate} min={0} max={360} onChange={setRotation} />
+          <RangeInput labelPosition="left" label="X" value={translate.x} min={-100} max={100} onChange={setX} />
+          <RangeInput labelPosition="left" label="Y" value={translate.y} min={-100} max={100} onChange={setY} />
+          <RangeInput labelPosition="left" label="Rotation" value={rotate} min={0} max={360} onChange={setRotation} />
         </div>
       </div>
     </div>

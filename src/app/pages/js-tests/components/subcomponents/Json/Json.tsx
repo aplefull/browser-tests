@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 import { ChevronDown } from 'tabler-icons-react';
 import classNames from 'classnames';
 import { Wrapper } from '@/app/components/Wrapper/Wrapper';
+import { Container } from '@/app/components/Container/Container';
 
 type TPrimitive = string | number | boolean | null | undefined;
 
@@ -203,10 +204,10 @@ const JArray = ({ value, parentKey, collapsible, defaultOpen = true, level, sett
       >
         {value.map((item: unknown, index) => {
           return (
-            <div key={index}>
+            <Container direction="row" key={index}>
               <Json parentKey={index.toString()} data={item} level={level + 1} settings={settings} />
               {isPrimitive(item) && <Comma />}
-            </div>
+            </Container>
           );
         })}
       </SquareBrackets>

@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
-import React, { useRef } from 'react';
-import { calculateThumbPosition, clamp, map } from '@/utils/utils';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { calculateThumbPosition, clamp, map, wait } from '@/utils/utils';
 import classNames from 'classnames';
 import { TLabelPosition } from '@/types';
 
@@ -13,6 +13,7 @@ type TRangeInputProps = {
   label?: string;
   labelPosition?: TLabelPosition;
   className?: string;
+  disabled?: boolean;
 };
 
 type PointerEvent = React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent;
@@ -73,7 +74,10 @@ export const RangeInput = ({
   label,
   labelPosition,
   className,
+  disabled,
 }: TRangeInputProps) => {
+  const [percentage, setPercentage] = useState(0);
+
   const ref = useRef<HTMLDivElement>(null);
   const thumbRef = useRef<HTMLDivElement>(null);
 
@@ -129,13 +133,29 @@ export const RangeInput = ({
     window.addEventListener('blur', onTouchEnd);
   };
 
-  const { width: thumbWidth = 13 } = thumbRef.current?.getBoundingClientRect() || {};
-  const { width: containerWidth = 100 } = thumbRef.current?.parentElement?.getBoundingClientRect() || {};
+  const calculatePercentage = async (shouldWait?: boolean) => {
+    if (shouldWait) {
+      await wait(50);
+    }
 
-  const minThumbLeft = calculateThumbPosition(min, min, max, thumbWidth, containerWidth);
-  const maxThumbLeft = calculateThumbPosition(max, min, max, thumbWidth, containerWidth);
+    const { width: thumbWidth = 13 } = thumbRef.current?.getBoundingClientRect() || {};
+    const { width: containerWidth = 100 } = thumbRef.current?.parentElement?.getBoundingClientRect() || {};
 
-  const percentage = clamp(map(value, min, max, 0, 100), minThumbLeft, maxThumbLeft);
+    const minThumbLeft = calculateThumbPosition(min, min, max, thumbWidth, containerWidth);
+    const maxThumbLeft = calculateThumbPosition(max, min, max, thumbWidth, containerWidth);
+
+    const percentage = clamp(map(value, min, max, 0, 100), minThumbLeft, maxThumbLeft);
+
+    setPercentage(percentage);
+  };
+
+  useEffect(() => {
+    calculatePercentage(true).catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    calculatePercentage().catch(console.error);
+  }, [value, min, max]);
 
   return (
     <div
@@ -144,6 +164,7 @@ export const RangeInput = ({
         [styles.labelBottom]: labelPosition === 'bottom',
         [styles.labelLeft]: labelPosition === 'left',
         [styles.labelRight]: labelPosition === 'right',
+        [styles.disabled]: disabled,
       })}
     >
       {label && <span>{label}</span>}

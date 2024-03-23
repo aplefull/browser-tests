@@ -2,7 +2,7 @@ import styles from './styles.module.scss';
 import { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 
-type InputProps = {
+export type TInputProps = {
   placeholder?: string;
   disabled?: boolean;
   onChange?: (value: string) => void;
@@ -11,15 +11,26 @@ type InputProps = {
   inputClassName?: string;
   leftSlot?: ReactNode;
   rightSlot?: ReactNode;
+  pattern?: string;
+  required?: boolean;
 };
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ placeholder, disabled, inputClassName, className, value, onChange, leftSlot, rightSlot }, ref) => {
+export const Input = forwardRef<HTMLInputElement, TInputProps>(
+  (
+    { placeholder, disabled, inputClassName, className, value, onChange, leftSlot, rightSlot, pattern, required },
+    ref,
+  ) => {
     return (
-      <div className={classNames(styles.inputContainer, className)}>
+      <div
+        className={classNames(styles.inputContainer, className, {
+          [styles.disabled]: disabled,
+        })}
+      >
         {leftSlot && <>{leftSlot}</>}
         <input
           ref={ref}
+          pattern={pattern}
+          required={required}
           disabled={disabled}
           className={classNames(styles.input, inputClassName)}
           placeholder={placeholder}

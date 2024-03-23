@@ -1,0 +1,85 @@
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .button-with-icon {
+    display: grid;
+    place-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    color: $color-white-transparent-30;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: $color-white;
+    }
+  }
+
+  .volume-slider {
+    width: 80px;
+
+    > div {
+      height: 8px;
+    }
+  }
+
+  .time {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .progress-bar-container {
+    position: relative;
+    width: 100%;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .progress-bar {
+      width: 100%;
+      height: 50%;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: $color-white-transparent-50;
+      cursor: pointer;
+
+      .progress-bar-progress {
+        width: 0;
+        height: 100%;
+        background-color: $color-white;
+        border-radius: 10px;
+      }
+
+      .progress-bar-loaded {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background-color: $color-red;
+        border-radius: 10px;
+      }
+    }
+
+    .thumb {
+      position: absolute;
+      left: 0;
+      height: 100%;
+      aspect-ratio: 1;
+      background-color: $color-white;
+      border-radius: 50%;
+      cursor: pointer;
+      translate: -50% 0;
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+}

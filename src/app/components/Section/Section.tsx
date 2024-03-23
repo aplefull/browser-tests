@@ -50,7 +50,7 @@ export const Section = ({ title, info, className, children }: TSectionProps) => 
   return (
     <section>
       <Collapse
-        childrenClassName={className}
+        bodyClassName={className}
         headClassName={styles.head}
         className={styles.sectionCollapse}
         head={<SectionHead title={title} info={info} />}

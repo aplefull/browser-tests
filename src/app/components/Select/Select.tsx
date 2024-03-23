@@ -36,17 +36,29 @@ const getLabel = (value: string | TSelectOption) => {
   return value.label;
 };
 
-export const isGroup = (options: TSelectAcceptedOptions[]): options is TSelectGroup[] => {
+export const isGroup = (
+  options: TSelectAcceptedOptions[] | readonly TSelectAcceptedOptions[],
+): options is TSelectGroup[] => {
   return typeof options[0] === 'object' && 'group' in options[0];
 };
 
-export const toSelectOption = (value: string | number | boolean | TSelectOption): TSelectOption => {
+export const toSelectOption = (value: string | number | boolean | TSelectOption | TSelectGroup): TSelectOption => {
   if (typeof value === 'string') {
     return { label: value, value };
   }
 
   if (typeof value === 'number' || typeof value === 'boolean') {
     return { label: String(value), value };
+  }
+
+  if ('group' in value) {
+    const item = value.items[0];
+
+    if (typeof item === 'string') {
+      return { label: item, value: item };
+    }
+
+    return item;
   }
 
   return value;
@@ -81,11 +93,33 @@ export function Select({
   const handleChange = (option: TSelectOption) => {
     setIsOpen(false);
 
+    if (typeof option.value !== 'string') {
+      console.warn('[Temporal LOG]: Select option value is not a string', option.value);
+
+      if (option.value === null) {
+        onChange('null', option);
+        return;
+      }
+
+      if (option.value === undefined) {
+        onChange('undefined', option);
+        return;
+      }
+
+      if (typeof option.value === 'object') {
+        onChange(option.value.toString(), option);
+        return;
+      }
+
+      onChange(String(option.value), option);
+      return;
+    }
+
     onChange(option.value, option);
   };
 
   const getButtonText = () => {
-    if (value) {
+    if (value !== undefined) {
       return getLabel(value);
     }
 
@@ -162,6 +196,15 @@ export function Select({
       onClickOutside={() => setIsOpen(false)}
       className={styles.popover}
       zIndex={100}
+      anchorMargin={0}
+      anchor={{
+        horizontal: 'left',
+        vertical: 'bottom',
+      }}
+      target={{
+        horizontal: 'right',
+        vertical: 'top',
+      }}
       content={
         <Options
           ref={optionsRef}

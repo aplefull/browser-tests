@@ -1,70 +1,102 @@
 import styles from './styles.module.scss';
+import { Iframe } from '@/app/components/Iframe/Iframe';
+import { Input, TInputProps } from '@/app/components/Input/Input';
+import { Button } from '@/app/components/Button/Button';
+import { Container } from '@/app/components/Container/Container';
+import { useRef, useState } from 'react';
+
+type TUncontrolledInputProps = {
+  defaultValue?: string;
+} & Omit<TInputProps, 'value' | 'onChange'>;
+
+const UncontrolledInput = (props: TUncontrolledInputProps) => {
+  const [value, setValue] = useState(props.defaultValue || '');
+
+  return <Input onChange={setValue} {...props} value={value} />;
+};
 
 export const TestPseudoClasses = () => {
+  const fullscreenElementRef = useRef<HTMLDivElement | null>(null);
+
   const toggleFullscreen = async () => {
     if (document.fullscreenElement) {
       await document.exitFullscreen();
-    } else {
-      await document.documentElement.requestFullscreen();
+      return;
     }
+
+    if (fullscreenElementRef.current) {
+      await fullscreenElementRef.current.requestFullscreen();
+    }
+  };
+
+  const resetTarget = () => {
+    window.location.hash = window.crypto.randomUUID();
   };
 
   const randomHref = window.crypto.randomUUID();
 
   return (
     <div className={styles.pseudo}>
-      <h3>::before</h3>
-      <div className={styles.before} />
-      <h3>::after</h3>
-      <div className={styles.after} />
-      <h3>::first-letter</h3>
-      <div className={styles.firstLetter} />
-      <h3>::first-line</h3>
-      <div className={styles.firstLine} />
-      <h3>::placeholder</h3>
-      <div className={styles.placeholder}>
-        <div>Placeholder should be green</div>
-        <input type="text" placeholder="Placeholder" />
+      <div>
+        <h3>::before</h3>
+        <div className={styles.before} />
       </div>
-      <h3>::selection</h3>
+      <div>
+        <h3>::after</h3>
+        <div className={styles.after} />
+      </div>
+      <div>
+        <h3>::first-letter</h3>
+        <div className={styles.firstLetter} />
+      </div>
+      <div>
+        <h3>::first-line</h3>
+        <div className={styles.firstLine} />
+      </div>
+      <div>
+        <h3>::placeholder</h3>
+        <Input className={styles.placeholder} value="" placeholder="This text should be green!" />
+      </div>
       <div className={styles.selection}>
-        <span>Select me! I should have green background.</span>
+        <h3>::selection</h3>
+        <span>Select me! I should have a green background.</span>
       </div>
-      <h3>:active</h3>
       <div className={styles.active}>
-        <span>Text is green when button is active</span>
-        <button className={styles.active}>Hello!</button>
+        <h3>:active</h3>
+        <span>Text should be green when button is active</span>
+        <Button text="Press me!" />
       </div>
-      <h3>:hover</h3>
       <div className={styles.hover}>
-        <span>Text is green when button is hovered</span>
-        <button className={styles.hover}>Hello!</button>
+        <h3>:hover</h3>
+        <span>Text should be green when button is hovered</span>
+        <Button text="Hover me!" />
       </div>
-      <h3>:empty</h3>
-      <div className={styles.empty}>
-        <p>First span should be green, second should be red</p>
-        <span></span>
-        <span> </span>
-      </div>
-      <h3>:checked</h3>
+      <Container className={styles.empty}>
+        <h3>:empty</h3>
+        <p>First rectangle should be green, second should be red</p>
+        <Container direction="row">
+          <span></span>
+          <span> </span>
+        </Container>
+      </Container>
       <div className={styles.checked}>
+        <h3>:checked</h3>
         <input type="checkbox" id="checkbox-checked" defaultChecked />
         <label htmlFor="checkbox-checked" />
       </div>
-      <h3>:disabled</h3>
       <div className={styles.disabled}>
-        <input type="text" placeholder="You shouldn't see this input" disabled />
+        <h3>:disabled</h3>
+        <Input value="" placeholder="This text should be green" disabled />
         <span />
       </div>
-      <h3>:enabled</h3>
       <div className={styles.enabled}>
-        <input type="text" placeholder="You shouldn't see this input" />
+        <h3>:enabled</h3>
+        <Input value="" placeholder="This text should be green" />
         <span />
       </div>
-      <h3>:focus</h3>
       <div className={styles.focus}>
-        <input type="text" placeholder="Focus me!" />
-        <span />
+        <h3>:focus</h3>
+        <Input value="This text should be green when input is focused" />
       </div>
       <h3>:default</h3>
       <div className={styles.default}>
@@ -143,17 +175,11 @@ export const TestPseudoClasses = () => {
         <div>You are not supposed to see this text</div>
         <div />
       </div>
-      {/*TODO*/}
-      <h3>:fullscreen</h3>
-      <div className={styles.fullscreen}>
-        <span>This square should be green when document is in full screen mode. (Click the square)</span>
-        <div onClick={toggleFullscreen} />
-      </div>
-      <h3>:in-range</h3>
-      <div className={styles.inRange}>
-        <input type="number" min="0" max="10" />
-        <span />
-      </div>
+      <Container align="start" ref={fullscreenElementRef} className={styles.fullscreen}>
+        <h3>:fullscreen</h3>
+        <span className={styles.text}>This text should be green when in fullscreen mode!</span>
+        <Button text="Toggle fullscreen" onClick={toggleFullscreen} />
+      </Container>
       <h3>:indeterminate</h3>
       <div className={styles.indeterminate}>
         You should see green outlines until you choose something :)
@@ -163,29 +189,28 @@ export const TestPseudoClasses = () => {
           <input type="radio" name="radio" />
         </form>
       </div>
-      <h3>:valid</h3>
       <div className={styles.valid}>
-        This input will have a green outline if it contains the word "hello".
-        <input type="text" pattern=".*\b[Hh]ello\b.*" required />
+        <h3>:valid</h3>
+        Input text should be green if it contains the word "hello".
+        <UncontrolledInput defaultValue="Hello!" pattern=".*\b[Hh]ello\b.*" required />
       </div>
-      <h3>:invalid</h3>
       <div className={styles.invalid}>
-        This input will have a green outline if it does not contain the word "hello".
-        <input type="text" pattern=".*\b[Hh]ello\b.*" required />
+        <h3>:invalid</h3>
+        Input text should be green if it doesn't contain the word "hello".
+        <UncontrolledInput defaultValue="Hey!" pattern=".*\b[Hh]ello\b.*" required />
       </div>
-      <h3>:lang(en)</h3>
       <div className={styles.langEn}>
+        <h3>:lang(en)</h3>
         <p lang="ru-BY">
           Out of all of this text, only <span lang="en-US">this</span> and <span lang="en-Us">this</span> words should
           be green.
         </p>
       </div>
-      <h3>:dir(ltr)</h3>
-      <div className={styles.dirLtr}>
-        <span>Not yet supported by browsers...</span>
+      <Container className={styles.dirLtr}>
+        <h3>:dir(ltr)</h3>
         <span dir="ltr">This text should be green</span>
         <span dir="rtl">This text should be red</span>
-      </div>
+      </Container>
       <h3>:link</h3>
       <div className={styles.link}>
         <span>
@@ -206,6 +231,14 @@ export const TestPseudoClasses = () => {
           Link
         </a>
       </div>
+      <Container align="start" gap={10} className={styles.target}>
+        <h3>:target</h3>
+        <span>Link should be green after you click it.</span>
+        <a href="#target" id="target">
+          Click me
+        </a>
+        <Button text="Reset" onClick={resetTarget} />
+      </Container>
       <h3>:optional</h3>
       <div className={styles.optional}>
         <input type="text" placeholder="You shouldn't see this input" />
@@ -216,8 +249,13 @@ export const TestPseudoClasses = () => {
         <input type="text" required placeholder="You shouldn't see this input" />
         <span />
       </div>
-      <h3>:out-of-range</h3>
+      <div className={styles.inRange}>
+        <h3>:in-range</h3>
+        <input type="number" min="0" max="10" />
+        <span />
+      </div>
       <div className={styles.outOfRange}>
+        <h3>:out-of-range</h3>
         <input type="number" min="0" max="10" defaultValue="11" placeholder="You shouldn't see this input" />
         <span />
       </div>
@@ -232,16 +270,56 @@ export const TestPseudoClasses = () => {
         <span />
       </div>
       <h3>:root</h3>
-      <div className={styles.root}></div>
+      <div className={styles.root}>
+        <Iframe className={styles.iframe} addDefaultStyles>
+          <div />
+          <style>
+            {`
+            
+            html {
+              --test-content: 'Fail';
+              --color: red;
+            }
+              :root {
+                --test-content: 'Pass';
+                --color: green;
+              }
+              
+              div {
+                color: var(--color);
+              }
+              
+              div::before {
+                content: var(--test-content);
+              }
+            `}
+          </style>
+        </Iframe>
+      </div>
       {/* TODO */}
       <h3>:scope</h3>
-      <div className={styles.scope}></div>
-      <h3>:target</h3>
-      <div className={styles.target}>
-        <span>Link should be green after you click it.</span>
-        <a href="#target" id="target">
-          Click me
-        </a>
+      <div className={styles.scope}>
+        <Iframe className={styles.iframe}>
+          <div>This text should be green</div>
+          <div>And this should be white!</div>
+          <style>
+            {`
+              :scope, body {
+                font-family: sans-serif;
+                margin: 0;
+                padding: 0;
+              }
+            
+              :scope > body > div:first-of-type {
+                color: green;
+              }
+              
+              div {
+                color: white;
+              }
+            `}
+          </style>
+        </Iframe>
       </div>
       <h3>:first</h3>
       <div>Check print dialog!</div>

@@ -5,6 +5,10 @@ declare global {
 
   interface Window {
     registerPaint;
+    SpeechRecognition?: SpeechRecognition;
+    webkitSpeechRecognition?: SpeechRecognition;
+    SpeechGrammarList?: SpeechGrammarList;
+    webkitSpeechGrammarList?: SpeechGrammarList;
   }
 
   interface PaintWorkletImplementer {
@@ -142,6 +146,180 @@ declare global {
     open: () => Promise<{
       sRGBHex: string;
     }>;
+  }
+
+  interface IdleDetector {
+    start: ({ threshold, signal }: { threshold?: number; signal?: AbortSignal }) => Promise<void>;
+    addEventListener: (
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: boolean | AddEventListenerOptions,
+    ) => void;
+    screenState: 'locked' | 'unlocked';
+    userState: 'active' | 'idle';
+    onchange: EventHandlerNonNull;
+  }
+
+  abstract class Sensor extends EventTarget {
+    onreading: EventHandlerNonNull;
+    onerror: EventHandlerNonNull;
+    start: () => void;
+    stop: () => void;
+  }
+
+  abstract class OrientationSensor extends Sensor {
+    quaternion: number[] | null;
+    populateMatrix: (targetMatrix: Float32Array | Float64Array) => void;
+  }
+
+  interface AbsoluteOrientationSensor extends OrientationSensor {}
+
+  interface RelativeOrientationSensor extends OrientationSensor {}
+
+  interface Accelerometer extends Sensor {
+    x: number | null;
+    y: number | null;
+    z: number | null;
+  }
+
+  interface AmbientLightSensor extends Sensor {
+    illuminance: number | null;
+  }
+
+  interface Gyroscope extends Sensor {
+    x: number | null;
+    y: number | null;
+    z: number | null;
+  }
+
+  interface GravitySensor extends Accelerometer {}
+
+  interface Magnetometer extends Sensor {
+    x: number | null;
+    y: number | null;
+    z: number | null;
+  }
+
+  interface LinearAccelerationSensor extends Accelerometer {}
+
+  interface Highlight {
+    priority: number;
+    readonly size: number;
+    type: string;
+
+    add: (range: Range) => void;
+    clear: () => void;
+    delete: (range: Range) => void;
+    entries: () => IterableIterator<Highlight>;
+    forEach: (callback: (value: Highlight, key: Highlight, map: Map<Highlight, Highlight>) => void) => void;
+    has: (range: Range) => boolean;
+    keys: () => IterableIterator<Highlight>;
+    values: () => IterableIterator<Highlight>;
+  }
+
+  interface SpeechGrammar {
+    src: string;
+    weight?: number;
+  }
+
+  interface SpeechGrammarList {
+    readonly length: number;
+
+    addFromUri: (src: string) => void;
+    addFromString: (string: string, weight?: number) => void;
+    item: (index: number) => SpeechGrammar;
+  }
+
+  interface SpeechRecognition extends EventTarget {
+    continuous: boolean;
+    grammars?: SpeechGrammarList;
+    interimResults: boolean;
+    lang: string;
+    maxAlternatives: number;
+    serviceURI: string;
+
+    onaudiostart: EventHandlerNonNull;
+    onaudioend: EventHandlerNonNull;
+    onend: EventHandlerNonNull;
+    onerror: EventHandlerNonNull;
+    onnomatch: EventHandlerNonNull;
+    onresult: EventHandlerNonNull;
+    onsoundstart: EventHandlerNonNull;
+    onsoundend: EventHandlerNonNull;
+    onspeechend: EventHandlerNonNull;
+    onspeechstart: EventHandlerNonNull;
+    onstart: EventHandlerNonNull;
+
+    abort: () => void;
+    start: () => void;
+    stop: () => void;
+
+    addEventListener(
+      type:
+        | 'audiostart'
+        | 'audioend'
+        | 'start'
+        | 'end'
+        | 'soundstart'
+        | 'soundend'
+        | 'speechstart'
+        | 'speechend'
+        | 'nomatch',
+      listener: EventListenerOrEventListenerObject | null,
+      options?: boolean | AddEventListenerOptions | undefined,
+    ): void;
+
+    addEventListener(
+      type: 'error',
+      listener: (event: SpeechRecognitionErrorEvent) => void | null,
+      options?: boolean | AddEventListenerOptions | undefined,
+    ): void;
+
+    addEventListener(
+      type: 'result',
+      listener: (event: SpeechRecognitionEvent) => void | null,
+      options?: boolean | AddEventListenerOptions | undefined,
+    ): void;
+  }
+
+  interface SpeechRecognitionAlternative {
+    readonly confidence: number;
+    readonly transcript: string;
+  }
+
+  interface SpeechRecognitionResult {
+    readonly isFinal: boolean;
+    readonly length: number;
+
+    item: (index: number) => SpeechRecognitionAlternative;
+  }
+
+  interface SpeechRecognitionEvent extends Event {
+    readonly resultIndex: number;
+    readonly results: SpeechRecognitionResultList;
+  }
+
+  interface SpeechRecognitionErrorEvent extends Event {
+    readonly error: string;
+    readonly message: string;
+  }
+
+  interface SpeechRecognitionResultList {
+    readonly length: number;
+
+    item: (index: number) => SpeechRecognitionResult;
+  }
+
+  interface MediaDevices {
+    selectAudioOutput?: () => Promise<MediaDeviceInfo>;
+  }
+
+  interface HTMLAudioElement {
+    setSinkId?: (sinkId: string) => Promise<void>;
+  }
+
+  interface HTMLElement {
+    requestPointerLock: (options?: { unadjustedMovement?: boolean }) => void;
   }
 }
 

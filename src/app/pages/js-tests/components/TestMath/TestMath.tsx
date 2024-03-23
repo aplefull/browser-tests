@@ -1,21 +1,19 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import styles from './styles.module.scss';
 import { parseExpression } from '@/app/pages/css-tests/components/TestCssFunctions/TestCssFunctions';
 import { Select } from '@/app/components/Select/Select';
 import { Canvas } from '@/app/components/Canvas/Canvas';
-import { MATH_MAP } from '@/utils/constants';
+import { MATH_CONSTANTS, MATH_MAP, MATH_SPECIAL_VALUES } from '@/utils/constants';
 import { isDoubleArgumentFunction, isSingleArgumentFunction, isZeroArgumentsFunction, map, omit } from '@/utils/utils';
 import { Table } from '@/app/components/Table/Table';
 import { Switcher } from '@/app/components/Switcher/Switcher';
+import { QMath } from '@math';
 
 const mathMap = omit(MATH_MAP, ['mod', 'rem']);
 
-// TODO refactor
 export const TestMath = () => {
   const [canvasScale, setCanvasScale] = useState(5);
   const [currentFunction, setCurrentFunction] = useState<string>('abs');
-
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const doubleArgFunctions = ['atan2', 'pow', 'hypot', 'imul', 'max', 'min'];
   const zeroArgFunctions = ['random'];
@@ -39,102 +37,9 @@ export const TestMath = () => {
     },
   ];
 
-  const mathConstants = [
-    {
-      name: 'E',
-      value: Math.E,
-    },
-    {
-      name: 'LN2',
-      value: Math.LN2,
-    },
-    {
-      name: 'LN10',
-      value: Math.LN10,
-    },
-    {
-      name: 'LOG2E',
-      value: Math.LOG2E,
-    },
-    {
-      name: 'LOG10E',
-      value: Math.LOG10E,
-    },
-    {
-      name: 'PI',
-      value: Math.PI,
-    },
-    {
-      name: 'SQRT1_2',
-      value: Math.SQRT1_2,
-    },
-    {
-      name: 'SQRT2',
-      value: Math.SQRT2,
-    },
-  ];
-
-  const specialValues = [
-    'sin(Infinity)',
-    'cos(-Infinity)',
-    'tan(0)',
-    'asin(1)',
-    'acos(0)',
-    'atan(0)',
-    'atan(Infinity)',
-    'atan(-Infinity)',
-    'atan2(0, -1)',
-    'atan2(0, 1)',
-    'sinh(pi)',
-    'cosh(0)',
-    'tanh(0)',
-    'asinh(pi)',
-    'asinh(infinity)',
-    'sqrt(-1)',
-    'sqrt(-1.3)',
-    'cbrt(-1)',
-    'cbrt(-pi)',
-    'cbrt(-Infinity)',
-    'clz32(-00000)',
-    'clz32(Infinity)',
-    'expm1(0)',
-    'expm1(-pi)',
-    'expm1(Infinity)',
-    'expm1(-Infinity)',
-    'log1p(0)',
-    'log1p(-1)',
-    'log1p(pi)',
-    'log1p(Infinity)',
-    'exp(-Infinity)',
-    'pow(0, 0)',
-    'pow(0, -1)',
-    'pow(0, -Infinity)',
-    'pow(0, Infinity)',
-    'pow(Infinity, 0)',
-    'pow(Infinity, -1)',
-    'pow(Infinity, -Infinity)',
-    'pow(Infinity, Infinity)',
-    'pow(1, Infinity)',
-    'pow(-1, Infinity)',
-    'pow(pi, pi)',
-    'pow(-pi, pi)',
-    'pow(Infinity, -pi)',
-    'round(Infinity)',
-    'ceil(Infinity)',
-    'floor(Infinity)',
-    'trunc(Infinity)',
-    'fround(Infinity)',
-    'max(Infinity, -Infinity)',
-    'min(Infinity, -Infinity)',
-    'max()',
-    'min()',
-  ];
-
   const bg = (canvas: HTMLCanvasElement) => {
     const context = canvas.getContext('2d');
-    if (!context) {
-      return;
-    }
+    if (!context) return;
 
     const width = canvas.width;
     const height = canvas.height;
@@ -147,9 +52,7 @@ export const TestMath = () => {
 
   const axis = (canvas: HTMLCanvasElement, from: number, to: number) => {
     const context = canvas.getContext('2d');
-    if (!context) {
-      return;
-    }
+    if (!context) return;
 
     const width = canvas.width;
     const height = canvas.height;
@@ -173,7 +76,7 @@ export const TestMath = () => {
     // Labels
     for (let val = 0; val <= width; val += step) {
       const isFirst = val === 0;
-      const isLast = val === width;
+      const isLast = QMath.chop(val) === width;
       const isCenter = Math.round(val) === Math.round(width / 2);
 
       // Lines
@@ -221,7 +124,6 @@ export const TestMath = () => {
   };
 
   const plot = (functionName: string, scale: number) => (context: CanvasRenderingContext2D) => {
-    //const context = canvas?.getContext('2d');
     const canvas = context.canvas;
 
     if (!context || !canvas) return;
@@ -269,25 +171,17 @@ export const TestMath = () => {
 
   const handleFunctionSelect = (func: string) => {
     setCurrentFunction(func);
-
-    if (canvasRef.current) {
-      //plot(canvasRef.current, func, canvasScale);
-    }
   };
 
   const increaseCanvasScale = () => {
     setCanvasScale((prev) => {
-      const newScale = prev < 10 ? prev + 1 : prev;
-      //plot(canvasRef.current, currentFunction, newScale);
-      return newScale;
+      return prev < 10 ? prev + 1 : prev;
     });
   };
 
   const decreaseCanvasScale = () => {
     setCanvasScale((prev) => {
-      const newScale = prev > 1 ? prev - 1 : prev;
-      // plot(canvasRef.current, currentFunction, newScale);
-      return newScale;
+      return prev > 1 ? prev - 1 : prev;
     });
   };
 
@@ -317,7 +211,7 @@ export const TestMath = () => {
     handleFunctionSelect(prevFunctionName);
   };
 
-  const specialValuesTableData = specialValues.map((value) => {
+  const specialValuesTableData = MATH_SPECIAL_VALUES.map((value) => {
     const result = parseExpression(value);
     return {
       expression: value,
@@ -325,7 +219,7 @@ export const TestMath = () => {
     };
   });
 
-  const constantsTableData = mathConstants.map((constant) => {
+  const constantsTableData = MATH_CONSTANTS.map((constant) => {
     return {
       name: constant.name,
       value: constant.value.toString(),

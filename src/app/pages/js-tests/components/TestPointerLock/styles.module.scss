@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lockArea {
+  height: 200px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px dashed $color-white;
+  position: relative;
+  overflow: hidden;
+
+  .pointer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-color: $color-white;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+
+    &.hidden {
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+}

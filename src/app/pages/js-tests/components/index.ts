@@ -1,4 +1,3 @@
-export { TestLabelingLoops } from './TestLabelingLoops/TestLabelingLoops';
 export { TestTabInteractions } from './TestTabInteractions/TestTabInteractions';
 export { TestEvents } from './TestEvents/TestEvents';
 export { TestNavigatorFeatures } from './TestNavigatorFeatures/TestNavigatorFeatures';
@@ -10,5 +9,12 @@ export { TestDates } from './TestDates/TestDates';
 export { TestIntl } from './TestIntl/TestIntl';
 export { TestWebWorkers } from './TestWebWorkers/TestWebWorkers';
 export { TestWebGpu } from './TestWebGpu/TestWebGpu';
+export { TestWebGl } from './TestWebGl/TestWebGl';
 export { TestObservers } from './TestObservers/TestObservers';
 export { TestEyeDropper } from './TestEyeDropper/TestEyeDropper';
+export { TestIdleDetection } from './TestIdleDetection/TestIdleDetection';
+export { TestAudioOutputDevices } from './TestAudioOutputDevices/TestAudioOutputDevices';
+export { TestSensors } from './TestSensors/TestSensors';
+export { TestWebSpeech } from './TestWebSpeech/TestWebSpeech';
+export { TestPointerLock } from './TestPointerLock/TestPointerLock';
+export { CustomHighlight } from './CustomHighlight/CustomHighlight';

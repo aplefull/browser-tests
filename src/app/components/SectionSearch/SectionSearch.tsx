@@ -3,6 +3,7 @@ import { Input } from '@/app/components/Input/Input';
 import styles from './styles.module.scss';
 import { useDoubleKeyPress } from '@/utils/hooks';
 import classNames from 'classnames';
+import { isActiveElementInput } from '@utils';
 
 export const SectionSearch = () => {
   const [inputValue, setInputValue] = useState('');
@@ -17,9 +18,7 @@ export const SectionSearch = () => {
   };
 
   const open = () => {
-    const activeElement = document.activeElement;
-
-    if (activeElement && activeElement.tagName === 'INPUT') return;
+    if (isActiveElementInput()) return;
 
     setIsOpen((prev) => {
       if (prev) {

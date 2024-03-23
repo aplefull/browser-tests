@@ -11,7 +11,7 @@ import {
   VolumeOff,
 } from 'tabler-icons-react';
 import classNames from 'classnames';
-import { calculateThumbPosition, clamp } from '@/utils/utils';
+import { calculateThumbPosition, clamp, formatTime } from '@/utils/utils';
 import { RangeInput } from '@/app/components/RangeInput/RangeInput';
 
 type TVideoProps = {
@@ -20,18 +20,6 @@ type TVideoProps = {
   style?: React.CSSProperties;
   className?: string;
   videoClassName?: string;
-};
-
-const formatTime = (time: number) => {
-  const hours = Math.floor(time / 3600);
-  const minutes = Math.floor((time % 3600) / 60);
-  const seconds = Math.floor(time % 60);
-
-  const hoursString = hours ? `${hours.toString().padStart(2, '0')}:` : '';
-  const minutesString = `${minutes.toString().padStart(2, '0')}:`;
-  const secondsString = seconds.toString().padStart(2, '0');
-
-  return `${hoursString}${minutesString}${secondsString}`;
 };
 
 export const Video = ({ src, style, initialVolume = 0.5, className, videoClassName }: TVideoProps) => {

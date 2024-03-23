@@ -1,0 +1,31 @@
+.container {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--gray-3);
+  cursor: pointer;
+
+  .icon {
+    height: 70%;
+    aspect-ratio: 1;
+  }
+}
+
+.infoTooltip {
+  background-color: var(--color-panel-solid);
+  box-shadow: 0 0 5px 1px var(--shadow-6);
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 300px;
+
+  span {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    font-size: 0.8rem;
+    font-family: monospace;
+    word-break: break-word;
+  }
+}

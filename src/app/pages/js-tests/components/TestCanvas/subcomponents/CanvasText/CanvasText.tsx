@@ -15,6 +15,8 @@ import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 import globalStyles from '../../styles.module.scss';
 import classNames from 'classnames';
 import { Switcher } from '@/app/components/Switcher/Switcher';
+import { Info } from '@/app/components/Info/Info';
+import { Container } from '@/app/components/Container/Container';
 
 const fillText = (
   ctx: CanvasRenderingContext2D,
@@ -106,41 +108,49 @@ const drawEmojis = (ctx: CanvasRenderingContext2D) => {
   });
 };
 
-const drawBlnsText = (string: string, fitText: boolean) => async (ctx: CanvasRenderingContext2D) => {
-  const { width, height } = getCanvasDimensions(ctx);
+const drawBlnsText =
+  (string: string, fitText: boolean, fitTextDefault: boolean) => async (ctx: CanvasRenderingContext2D) => {
+    const { width, height } = getCanvasDimensions(ctx);
 
-  bg(ctx);
+    bg(ctx);
 
-  const gradient = ctx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, 'rgb(255, 0, 128)');
-  gradient.addColorStop(1, 'rgb(255, 153, 51)');
-  ctx.fillStyle = gradient;
+    const gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, 'rgb(255, 0, 128)');
+    gradient.addColorStop(1, 'rgb(255, 153, 51)');
+    ctx.fillStyle = gradient;
 
-  ctx.font = '24px sans-serif';
-  ctx.textBaseline = 'middle';
-  ctx.textAlign = 'center';
+    ctx.font = '24px sans-serif';
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
 
-  if (fitText) {
-    fillText(ctx, string, width / 2, height / 4, true, (height * 0.9) / 4);
-    const adjustedFontSize = adjustFontSize(string, width * 0.9, height * 0.5, 'sans-serif', 24);
-    const {
-      width: textWidth,
-      actualBoundingBoxAscent,
-      actualBoundingBoxDescent,
-    } = measureText(string, `${adjustedFontSize}px sans-serif`);
+    if (fitText && !fitTextDefault) {
+      fillText(ctx, string, width / 2, height / 4, true, (height * 0.9) / 4);
+      const adjustedFontSize = adjustFontSize(string, width * 0.9, height * 0.5, 'sans-serif', 24);
 
-    printMeasurements(ctx, string, {
-      width: textWidth,
-      actualBoundingBoxAscent: actualBoundingBoxAscent || 0,
-      actualBoundingBoxDescent: actualBoundingBoxDescent || 0,
-    });
+      const {
+        width: textWidth,
+        actualBoundingBoxAscent,
+        actualBoundingBoxDescent,
+      } = measureText(string, `${adjustedFontSize}px sans-serif`);
 
-    return;
-  }
+      printMeasurements(ctx, string, {
+        width: textWidth,
+        actualBoundingBoxAscent: actualBoundingBoxAscent || 0,
+        actualBoundingBoxDescent: actualBoundingBoxDescent || 0,
+      });
 
-  ctx.fillText(string, width / 2, height / 4);
-  printMeasurements(ctx, string);
-};
+      return;
+    }
+
+    if (fitTextDefault) {
+      ctx.fillText(string, width / 2, height / 4, width * 0.9);
+      printMeasurements(ctx, string);
+      return;
+    }
+
+    ctx.fillText(string, width / 2, height / 4);
+    printMeasurements(ctx, string);
+  };
 
 const drawLargeEmojis = (emoji: string) => (ctx: CanvasRenderingContext2D) => {
   const { width, height } = getCanvasDimensions(ctx);
@@ -157,6 +167,7 @@ const lines = getDataFromBlns(blns).flatMap((data) => data.strings);
 
 export const CanvasText = () => {
   const [fitText, setFitText] = useState(false);
+  const [fitTextWithDefaultMethod, setFitTextWithDefaultMethod] = useState(false);
   const [currentString, setCurrentString] = useState(lines[0]);
   const [loaded, setLoaded] = useState(false);
   const [emojis, setEmojis] = useState<string[]>([]);
@@ -222,7 +233,7 @@ export const CanvasText = () => {
     load().catch(console.error);
   }, []);
 
-  if (!loaded) return null;
+  if (!loaded) return <span>Loading font...</span>;
 
   return (
     <div className={classNames(styles.canvasText, globalStyles.gridLayout)}>
@@ -233,11 +244,29 @@ export const CanvasText = () => {
         <Canvas onResize={drawEmojis} />
       </div>
       <div className={styles.canvasContainer}>
-        <Canvas onResize={drawBlnsText(currentString, fitText)} />
+        <Canvas onResize={drawBlnsText(currentString, fitText, fitTextWithDefaultMethod)} />
         <Switcher onNext={nextString} onPrev={prevString}>
           <Select options={lines} onChange={setCurrentString} value={currentString} />
         </Switcher>
-        <Checkbox checked={fitText} onChange={setFitText} label="Always fit text to canvas (why?)" />
+        <Checkbox
+          disabled={fitTextWithDefaultMethod}
+          checked={fitText}
+          onChange={setFitText}
+          label="Fit text to canvas"
+        />
+        <Checkbox
+          disabled={fitText}
+          checked={fitTextWithDefaultMethod}
+          onChange={setFitTextWithDefaultMethod}
+          label={
+            <Container gap={10} direction="row" align="center">
+              <span>Fit text using built-in function</span>
+              <Info
+                text={`Uses 3rd argument of drawText function in order to fit text to canvas width. It doesn't guarantee that text will also  fit vertically. If using this option, canvas measurements will show measurments before text is fit to width.`}
+              />
+            </Container>
+          }
+        />
       </div>
       <div className={styles.canvasContainer}>
         <Canvas onResize={drawLargeEmojis(currentEmoji)} />

@@ -1,6 +1,7 @@
 import { ForwardedRef, forwardRef, MutableRefObject, useEffect, useRef } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
+import { assignRefs } from '@utils';
 
 type TCanvasProps = {
   width?: number;
@@ -11,15 +12,6 @@ type TCanvasProps = {
   onResize?: (ctx: CanvasRenderingContext2D) => void;
   onMount?: (ctx: CanvasRenderingContext2D) => void;
 };
-
-const assignRefs =
-  <T extends unknown>(...refs: MutableRefObject<T | null | undefined>[] | ForwardedRef<T>[]) =>
-  (node: T) => {
-    refs.forEach((ref) => {
-      if (typeof ref === 'function') ref(node);
-      else if (ref) ref.current = node;
-    });
-  };
 
 export const Canvas = forwardRef<HTMLCanvasElement, TCanvasProps>(
   ({ width, height, className, title, isStatic = false, onResize, onMount }, ref) => {

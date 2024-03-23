@@ -55,14 +55,6 @@ export const Settings = () => {
                         checked={value.initialState === DROPDOWN_STATE.OPEN}
                         onChange={handleSectionChange(value.name)}
                       />
-                      /*<label>
-                        {value.name}
-                        <input
-                          type="checkbox"
-                          checked={value.initialState === DROPDOWN_STATE.OPEN}
-                          onChange={handleSectionChange(value.name)}
-                        />
-                      </label>*/
                     );
                   })}
                 </div>

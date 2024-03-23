@@ -8,6 +8,7 @@ import {
   TSettingsPages,
   TSingleArgumentFunction,
 } from '@/types';
+import { ForwardedRef, MutableRefObject } from 'react';
 
 export const lorem = (n: number, start = 0) => {
   const sentences = LOREM_TEXT.split(/(?<=[.?!])\s+/);
@@ -498,3 +499,29 @@ export const getImageSize = async (url: string) => {
 export const isIterable = <T>(obj: unknown): obj is Iterable<T> => {
   return Symbol.iterator in Object(obj);
 };
+
+export const formatTime = (time: number) => {
+  const hours = Math.floor(time / 3600);
+  const minutes = Math.floor((time % 3600) / 60);
+  const seconds = Math.floor(time % 60);
+
+  const hoursString = hours ? `${hours.toString().padStart(2, '0')}:` : '';
+  const minutesString = `${minutes.toString().padStart(2, '0')}:`;
+  const secondsString = seconds.toString().padStart(2, '0');
+
+  return `${hoursString}${minutesString}${secondsString}`;
+};
+
+export const isActiveElementInput = () => {
+  const activeElement = document.activeElement;
+  return activeElement instanceof HTMLInputElement || activeElement instanceof HTMLTextAreaElement;
+};
+
+export const assignRefs =
+  <T extends unknown>(...refs: MutableRefObject<T | null | undefined>[] | ForwardedRef<T>[]) =>
+  (node: T) => {
+    refs.forEach((ref) => {
+      if (typeof ref === 'function') ref(node);
+      else if (ref) ref.current = node;
+    });
+  };

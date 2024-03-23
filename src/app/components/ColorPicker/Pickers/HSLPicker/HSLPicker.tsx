@@ -14,19 +14,19 @@ export const HSLPicker = ({ onChange, value }: TPickerProps) => {
 
   const currentColor = new Color().fromHSLA(hue, saturation, lightness, alpha);
 
-  const handleSaturationChange = (newSaturation: number) => {
-    const color = new Color().fromHSLA(hue, newSaturation, lightness, alpha);
+  const handleLightnessChange = (newLightness: number) => {
+    const color = new Color().fromHSLA(hue, saturation, 1 - newLightness, alpha);
     onChange(color);
   };
 
-  const handleHueAndLightnessChange = ({
+  const handleHueAndSaturationChange = ({
     hue: newHue,
-    lightness: newLightness,
+    saturation: newSaturation,
   }: {
     hue: number;
-    lightness: number;
+    saturation: number;
   }) => {
-    const color = new Color().fromHSLA(newHue, saturation, newLightness, alpha);
+    const color = new Color().fromHSLA(newHue, newSaturation, lightness, alpha);
     onChange(color);
   };
 
@@ -44,29 +44,24 @@ export const HSLPicker = ({ onChange, value }: TPickerProps) => {
     setAlpha(a);
   }, [value]);
 
-  console.log(value.toHSLString());
-
   const alphaBGStyle = {
     background: `linear-gradient(to top, rgba(0, 0, 0, 0), ${currentColor.toRGBString()})`,
   };
 
+  const lightnessBGStyle = {
+    background: `linear-gradient(to top, ${[0, 20, 40, 60, 80, 100].map((el) => `hsl(${hue}, ${saturation * 100}%, ${el}%)`).join(', ')})`,
+  };
+
   const alphaValuePercent = (1 - alpha) * 100;
-  const saturationValuePercent = saturation * 100;
+  const lightnessValuePercent = (1 - lightness) * 100;
 
   return (
     <>
-      <HSLPalette
-        setHueAndLightness={handleHueAndLightnessChange}
-        hue={hue}
-        saturation={saturation}
-        lightness={lightness}
-      />
+      <HSLPalette setHueAndSaturation={handleHueAndSaturationChange} />
       <div className={styles.tracks}>
-        <DraggableTrack
-          className={styles.saturation}
-          value={saturationValuePercent}
-          onChange={handleSaturationChange}
-        />
+        <DraggableTrack value={lightnessValuePercent} onChange={handleLightnessChange}>
+          <div className={styles.bg} style={lightnessBGStyle} />
+        </DraggableTrack>
         <DraggableTrack onChange={handleAlphaChange} value={alphaValuePercent}>
           <div className={classNames(styles.bg, styles.checkered)} />
           <div className={styles.bg} style={alphaBGStyle} />
