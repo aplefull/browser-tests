@@ -45,7 +45,7 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3",
     "typescript-eslint": "^7.0.2",
-    "vite": "^5.1.4",
+    "vite": "^5.1.7",
     "vite-tsconfig-paths": "^4.3.1"
   }
 }
