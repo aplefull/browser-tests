@@ -525,3 +525,19 @@ export const assignRefs =
       else if (ref) ref.current = node;
     });
   };
+
+export const decompressResponse = async (response: Response) => {
+  const body = response.body;
+
+  if (!body) {
+    throw new Error('Response body is null');
+  }
+
+  const readableStream = response.body.pipeThrough(new DecompressionStream('gzip'));
+
+  return new Response(readableStream);
+};
+
+export const isTruthy = <T>(value: T | null | undefined): value is T => {
+  return value !== null && value !== undefined;
+};

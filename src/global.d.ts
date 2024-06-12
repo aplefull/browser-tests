@@ -9,6 +9,7 @@ declare global {
     webkitSpeechRecognition?: SpeechRecognition;
     SpeechGrammarList?: SpeechGrammarList;
     webkitSpeechGrammarList?: SpeechGrammarList;
+    cookieStore?: CookieStore;
   }
 
   interface PaintWorkletImplementer {
@@ -51,6 +52,36 @@ declare global {
       lock?: () => Promise<void>;
       unlock?: () => Promise<void>;
     };
+    contacts?: {
+      select: (
+        properties: string[],
+        options?: {
+          multiple?: boolean;
+        },
+      ) => Promise<Contact[]>;
+      getProperties: () => Promise<string[]>;
+    };
+  }
+
+  interface Address {
+    readonly addressLine: string[];
+    readonly country: string;
+    readonly city: string;
+    readonly dependentLocality: string;
+    readonly organization: string;
+    readonly phone: string;
+    readonly postalCode: string;
+    readonly recipient: string;
+    readonly region: string;
+    readonly sortingCode: string;
+  }
+
+  interface Contact {
+    address: Address[];
+    email: string[];
+    icon: Blob[];
+    name: string[];
+    tel: string[];
   }
 
   interface CanvasRenderingContext2D {
@@ -320,6 +351,43 @@ declare global {
 
   interface HTMLElement {
     requestPointerLock: (options?: { unadjustedMovement?: boolean }) => void;
+  }
+
+  interface CookieStore extends EventTarget {
+    delete: (name: string) => Promise<void>;
+    get: (name: string) => Promise<Cookie | null>;
+    getAll: () => Promise<Cookie[]>;
+    set: (options: {
+      name: string;
+      value: string;
+      domain?: string;
+      expires?: number;
+      partitioned?: boolean;
+      path?: string;
+      sameSite?: 'strict' | 'lax' | 'none';
+    }) => Promise<void>;
+
+    addEventListener(
+      type: 'change',
+      listener: (event: CookieChangeEvent) => void | null,
+      options?: boolean | AddEventListenerOptions | undefined,
+    ): void;
+  }
+
+  interface Cookie {
+    domain: string | null;
+    expires: number | null;
+    name: string;
+    partitioned: boolean;
+    path: string | null;
+    sameSite: 'strict' | 'lax' | 'none' | null;
+    secure: boolean;
+    value: string;
+  }
+
+  interface CookieChangeEvent extends Event {
+    changed: Cookie[];
+    deleted: Cookie[];
   }
 }
 

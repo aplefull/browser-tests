@@ -1,9 +1,11 @@
-import styles from './styles.module.scss';
 import { Iframe } from '@/app/components/Iframe/Iframe';
 import { Input, TInputProps } from '@/app/components/Input/Input';
 import { Button } from '@/app/components/Button/Button';
 import { Container } from '@/app/components/Container/Container';
 import { useRef, useState } from 'react';
+import styles from './styles.module.scss';
+import rootTestStyles from './styles/rootTestStyles.module.scss?raw';
+import { RadioButton } from '@/app/components/RadioButton/RadioButton';
 
 type TUncontrolledInputProps = {
   defaultValue?: string;
@@ -111,6 +113,9 @@ export const TestPseudoClasses = () => {
             <input type="radio" name="radio-default" defaultChecked />
             <input type="radio" name="radio-default" />
             <input type="radio" name="radio-default" />
+            <RadioButton checked={false} />
+            <RadioButton checked={true} />
+            <RadioButton checked={false} />
           </div>
         </form>
       </div>
@@ -211,26 +216,26 @@ export const TestPseudoClasses = () => {
         <span dir="ltr">This text should be green</span>
         <span dir="rtl">This text should be red</span>
       </Container>
-      <h3>:link</h3>
-      <div className={styles.link}>
+      <Container gap={10} className={styles.link}>
+        <h3>:link</h3>
         <span>
-          Link should be green until you click it. Don't worry, you get a new link every time you refresh the page, so
-          click ahead! (It will lead to 404 page)
+          Link should be green until you click it, opens in a new tab and leads to 404 page. You get a new link every
+          time you refresh the page.
         </span>
         <a href={randomHref} target="_blank">
           Link
         </a>
-      </div>
-      <h3>:visited</h3>
-      <div className={styles.visited}>
+      </Container>
+      <Container gap={10} className={styles.visited}>
+        <h3>:visited</h3>
         <span>
-          Same here, but the opposite - link should be green only after you visit it. (It leads to the same place as the
-          link above, so they should change color at the same time!)
+          Same here, but the opposite - link should be green only after you visit it. It leads to the same place as the
+          link above, so they should change color at the same time!
         </span>
         <a href={randomHref} target="_blank">
           Link
         </a>
-      </div>
+      </Container>
       <Container align="start" gap={10} className={styles.target}>
         <h3>:target</h3>
         <span>Link should be green after you click it.</span>
@@ -273,27 +278,7 @@ export const TestPseudoClasses = () => {
       <div className={styles.root}>
         <Iframe className={styles.iframe} addDefaultStyles>
           <div />
-          <style>
-            {`
-            
-            html {
-              --test-content: 'Fail';
-              --color: red;
-            }
-              :root {
-                --test-content: 'Pass';
-                --color: green;
-              }
-              
-              div {
-                color: var(--color);
-              }
-              
-              div::before {
-                content: var(--test-content);
-              }
-            `}
-          </style>
+          <style>{rootTestStyles}</style>
         </Iframe>
       </div>
       {/* TODO */}

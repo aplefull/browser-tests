@@ -1,0 +1,17 @@
+html {
+  --test-content: 'Fail';
+  --color: red;
+}
+
+:root {
+  --test-content: 'Pass';
+  --color: green;
+}
+
+div {
+  color: var(--color);
+}
+
+div::before {
+  content: var(--test-content);
+}

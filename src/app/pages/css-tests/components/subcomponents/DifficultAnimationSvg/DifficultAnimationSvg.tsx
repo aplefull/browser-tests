@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 import { TDimensions } from '@/types';
-import { fitToBox } from '@/utils/utils';
+import { decompressResponse, fitToBox } from '@/utils/utils';
 import { useEffect, useState } from 'react';
 import { Button } from '@/app/components/Button/Button';
 
@@ -82,11 +82,11 @@ export const DifficultAnimationSvg = ({ width, height }: TDimensions) => {
 
   useEffect(() => {
     const loadSvgData = async () => {
-      const svgDataRes = await fetch('https://files.catbox.moe/76gavq.json');
-      const svgData = await svgDataRes.json();
-      if (!isSvgData(svgData)) {
-        return;
-      }
+      const response = await fetch('https://files.catbox.moe/5znk46.gz');
+      const decompressedResponse = await decompressResponse(response);
+      const svgData = await decompressedResponse.json();
+
+      if (!isSvgData(svgData)) return;
 
       setSvgData(svgData);
     };

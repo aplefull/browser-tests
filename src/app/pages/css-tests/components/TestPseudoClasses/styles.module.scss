@@ -340,8 +340,11 @@
   }
 
   .lang-en {
-    :lang(en) {
-      color: $color-green;
+    p,
+    span {
+      :lang(en) {
+        color: $color-green;
+      }
     }
   }
 
@@ -360,10 +363,6 @@
   }
 
   .link {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
     a {
       color: $color-white;
     }
@@ -374,10 +373,6 @@
   }
 
   .visited {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
     a {
       color: $color-white;
     }

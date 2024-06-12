@@ -18,3 +18,6 @@ export { TestSensors } from './TestSensors/TestSensors';
 export { TestWebSpeech } from './TestWebSpeech/TestWebSpeech';
 export { TestPointerLock } from './TestPointerLock/TestPointerLock';
 export { CustomHighlight } from './CustomHighlight/CustomHighlight';
+export { CompressionStreams } from './CompressionStreams/CompressionStreams';
+export { ContactPicker } from './ContactPicker/ContactPicker';
+export { CookieStore } from './CookieStore/CookieStore';

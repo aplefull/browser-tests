@@ -1,20 +1,21 @@
-import { useState } from 'react';
-import pako from 'pako';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
-import { getErrorMessage } from '@/utils/utils';
+import { decompressResponse, getErrorMessage } from '@/utils/utils';
 
 const fetchVideoCss = async (controller: AbortController, onComplete: () => void) => {
   try {
-    const res = await fetch('https://files.catbox.moe/559pye.css', { signal: controller.signal });
-    const compressedCss = await res.arrayBuffer();
+    const response = await fetch('https://files.catbox.moe/p9ddvn.gz', {
+      signal: controller.signal,
+    });
 
-    const cssArrayBuffer = pako.inflate(compressedCss);
-    const css = new TextDecoder('utf-8').decode(cssArrayBuffer);
+    const decompressedResponse = await decompressResponse(response);
+    const css = await decompressedResponse.text();
 
     const style = document.createElement('style');
     style.innerHTML = css;
+    style.setAttribute('data-css-video', 'true');
 
     document.head.appendChild(style);
 
@@ -66,6 +67,18 @@ export const CssVideo = () => {
     setLoading(false);
     setShowCssVideo(false);
   };
+
+  useEffect(() => {
+    return () => {
+      const styles = document.querySelectorAll('style[data-css-video]');
+
+      styles.forEach((style) => {
+        style.remove();
+      });
+
+      controller.abort();
+    };
+  }, []);
 
   return (
     <div>

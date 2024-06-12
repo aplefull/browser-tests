@@ -21,15 +21,41 @@ type TCoordinateReading = {
 
 type TQuaternionReading = number[] | null | undefined;
 
+type TAmbientLightReading = { illuminance?: number | null };
+
 export const TestSensors = () => {
   const [magnetometerData, setMagnetometerData] = useState<TCoordinateReading | null>();
   const [accelerometerData, setAccelerometerData] = useState<TCoordinateReading | null>();
   const [gyroscopeData, setGyroscopeData] = useState<TCoordinateReading | null>();
-  const [ambientLightData, setAmbientLightData] = useState<{ illuminance?: number | null } | null>();
+  const [ambientLightData, setAmbientLightData] = useState<TAmbientLightReading | null>();
   const [gravityData, setGravityData] = useState<TCoordinateReading | null>();
   const [linearAccelerationData, setLinearAccelerationData] = useState<TCoordinateReading | null>();
   const [relativeOrientationData, setRelativeOrientationData] = useState<TQuaternionReading | null>();
   const [absoluteOrientationData, setAbsoluteOrientationData] = useState<TQuaternionReading | null>();
+
+  const dataToFixed = (data?: TCoordinateReading | TQuaternionReading | TAmbientLightReading | null) => {
+    if (data === null || data === undefined) {
+      return null;
+    }
+
+    if (Array.isArray(data)) {
+      return data.map((value) => (value === null ? null : value.toFixed(4)));
+    }
+
+    if ('illuminance' in data) {
+      return {
+        illuminance: data.illuminance === null || data.illuminance === undefined ? null : data.illuminance.toFixed(4),
+      };
+    }
+
+    if ('x' in data && 'y' in data && 'z' in data) {
+      return {
+        x: data.x === null || data.x === undefined ? null : data.x.toFixed(4),
+        y: data.y === null || data.y === undefined ? null : data.y.toFixed(4),
+        z: data.z === null || data.z === undefined ? null : data.z.toFixed(4),
+      };
+    }
+  };
 
   const sensorsRef = useRef<TSensorsRef>({
     accelerometer: null,
@@ -255,35 +281,47 @@ export const TestSensors = () => {
     <div className={styles.container}>
       <div className={styles.group}>
         <span>Magnetometer:</span>
-        {magnetometerData === null ? <span>Unavailable</span> : <Json data={magnetometerData} />}
+        {magnetometerData === null ? <span>Unavailable</span> : <Json data={dataToFixed(magnetometerData)} />}
       </div>
       <div className={styles.group}>
         <span>Accelerometer:</span>
-        {accelerometerData === null ? <span>Unavailable</span> : <Json data={accelerometerData} />}
+        {accelerometerData === null ? <span>Unavailable</span> : <Json data={dataToFixed(accelerometerData)} />}
       </div>
       <div className={styles.group}>
         <span>Gyroscope:</span>
-        {gyroscopeData === null ? <span>Unavailable</span> : <Json data={gyroscopeData} />}
+        {gyroscopeData === null ? <span>Unavailable</span> : <Json data={dataToFixed(gyroscopeData)} />}
       </div>
       <div className={styles.group}>
         <span>Ambient Light Sensor:</span>
-        {ambientLightData === null ? <span>Unavailable</span> : <Json data={ambientLightData} />}
+        {ambientLightData === null ? <span>Unavailable</span> : <Json data={dataToFixed(ambientLightData)} />}
       </div>
       <div className={styles.group}>
         <span>Gravity Sensor:</span>
-        {gravityData === null ? <span>Unavailable</span> : <Json data={gravityData} />}
+        {gravityData === null ? <span>Unavailable</span> : <Json data={dataToFixed(gravityData)} />}
       </div>
       <div className={styles.group}>
         <span>Linear Acceleration:</span>
-        {linearAccelerationData === null ? <span>Unavailable</span> : <Json data={linearAccelerationData} />}
+        {linearAccelerationData === null ? (
+          <span>Unavailable</span>
+        ) : (
+          <Json data={dataToFixed(linearAccelerationData)} />
+        )}
       </div>
       <div className={styles.group}>
         <span>Relative Orientation:</span>
-        {relativeOrientationData === null ? <span>Unavailable</span> : <Json data={relativeOrientationData} />}
+        {relativeOrientationData === null ? (
+          <span>Unavailable</span>
+        ) : (
+          <Json data={dataToFixed(relativeOrientationData)} />
+        )}
       </div>
       <div className={styles.group}>
         <span>Absolute Orientation:</span>
-        {absoluteOrientationData === null ? <span>Unavailable</span> : <Json data={absoluteOrientationData} />}
+        {absoluteOrientationData === null ? (
+          <span>Unavailable</span>
+        ) : (
+          <Json data={dataToFixed(absoluteOrientationData)} />
+        )}
       </div>
     </div>
   );

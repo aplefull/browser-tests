@@ -1,0 +1,24 @@
+.container {
+  h2 {
+    @include subtitle;
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    > div {
+      display: flex;
+      gap: 5px;
+    }
+
+    .success {
+      color: $color-green;
+    }
+
+    .error {
+      color: $color-red;
+    }
+  }
+}

@@ -20,6 +20,9 @@ import {
   TestPointerLock,
   CustomHighlight,
   TestWebGl,
+  CompressionStreams,
+  ContactPicker,
+  CookieStore,
 } from '@/app/pages/js-tests/components';
 
 export const sections = [
@@ -121,6 +124,21 @@ export const sections = [
   {
     name: 'CSS Custom Highlight API',
     Component: CustomHighlight,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Compression Streams API',
+    Component: CompressionStreams,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Contact Picker API',
+    Component: ContactPicker,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Cookie Store API',
+    Component: CookieStore,
     initialState: DROPDOWN_STATE.CLOSED,
   },
 ];

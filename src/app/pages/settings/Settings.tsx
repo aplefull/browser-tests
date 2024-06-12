@@ -6,6 +6,12 @@ import { DROPDOWN_STATE } from '@/utils/constants';
 import { getPage } from '@/utils/utils';
 import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 
+const sortByLetters = ([str1]: [string, unknown], [str2]: [string, unknown]) => {
+  const order = 'hcjm';
+
+  return order.indexOf(str1[0]) - order.indexOf(str2[0]);
+};
+
 export const Settings = () => {
   const { preferUnmount, dropdowns } = useSelector((state: RootState) => state.settings);
   const dispatch = useDispatch<AppDispatch>();
@@ -41,26 +47,28 @@ export const Settings = () => {
       <div>
         <span>Initial dropdowns states:</span>
         <div className={styles.dropdownsGrid}>
-          {Object.entries(dropdowns.pages).map(([page, values]) => {
-            return (
-              <div key={page} className={styles.column}>
-                <p>{page}</p>
-                <div className={styles.columnContent}>
-                  {values.map((value) => {
-                    return (
-                      <Checkbox
-                        key={value.name}
-                        label={value.name}
-                        labelPosition="left"
-                        checked={value.initialState === DROPDOWN_STATE.OPEN}
-                        onChange={handleSectionChange(value.name)}
-                      />
-                    );
-                  })}
+          {Object.entries(dropdowns.pages)
+            .toSorted(sortByLetters)
+            .map(([page, values]) => {
+              return (
+                <div key={page} className={styles.column}>
+                  <p>{page}</p>
+                  <div className={styles.columnContent}>
+                    {values.map((value) => {
+                      return (
+                        <Checkbox
+                          key={value.name}
+                          label={value.name}
+                          labelPosition="left"
+                          checked={value.initialState === DROPDOWN_STATE.OPEN}
+                          onChange={handleSectionChange(value.name)}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </div>

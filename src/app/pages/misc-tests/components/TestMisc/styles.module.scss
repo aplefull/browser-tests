@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+
 .misc {
   .collapse {
     border: none;
@@ -14,6 +16,49 @@
 
     @media (width < 600px) {
       scale: 0.5;
+    }
+  }
+
+  .examples {
+    h2 {
+      @include subtitle;
+    }
+
+    .replaced-element-container-size {
+      padding: 10px;
+      display: flex;
+      height: 60px;
+
+      > div {
+        outline: 1px solid $color-red;
+      }
+
+      .icon {
+        height: 100%;
+      }
+    }
+
+    .crashOnHover {
+      padding: 10px;
+      width: 100px;
+      height: 100px;
+      background: $color-green;
+    }
+
+    .emojis {
+      padding: 10px;
+
+      .container {
+        overflow-y: auto;
+        width: 130px;
+        outline: 1px solid red;
+        word-break: break-all;
+        font-size: 16px;
+
+        span {
+          font-family: 'Noto Color Emoji', sans-serif;
+        }
+      }
     }
   }
 }
