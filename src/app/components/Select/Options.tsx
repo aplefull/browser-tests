@@ -49,7 +49,13 @@ export const Options = forwardRef<HTMLDivElement, TOptionsProps>(
                 [styles.selected]: isSelected,
               })}
             />
-            <span>{option.label}</span>
+            <span
+              className={classNames(styles.text, {
+                [styles.ellipsis]: !wrapWords,
+              })}
+            >
+              {option.label}
+            </span>
           </div>
         );
       });

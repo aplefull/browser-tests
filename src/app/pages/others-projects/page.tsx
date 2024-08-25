@@ -52,15 +52,19 @@ const Project = ({ name, url, title }: TProjectProps) => {
 
 export const OthersProjectsPage = () => {
   const otherUrls = [
-    'https://www.ohne-makler.net/',
     'https://www.shadertoy.com/',
-    'https://www.joshwcomeau.com/shadow-palette/',
     'https://editor.audio/',
     'https://icones.js.org/',
+    'https://www.joshwcomeau.com/shadow-palette/',
+    'https://shadows.brumm.af/',
     'https://css-generators.com/custom-corners/',
     'https://katex.org/',
     'https://yqnn.github.io/svg-path-editor/',
     'https://www.yourworldoftext.com/',
+    'https://rauno.me/',
+    'https://0x40.mon.im/',
+    'https://www.doubango.org/webapps/alpr/',
+    'https://mozjpeg.com/',
   ];
 
   const iframes: TIframeEntry[] = [
@@ -72,7 +76,11 @@ export const OthersProjectsPage = () => {
     {
       name: 'css-art-nezuko',
       url: 'https://codepen.io/t_afif/pen/abEeMyY',
-      title: 'CSS art',
+      title: 'CSS art #1',
+    },
+    {
+      name: 'css-art-miku',
+      title: 'CSS art #2',
     },
     {
       name: 'wavy-range-slider',
@@ -109,7 +117,7 @@ export const OthersProjectsPage = () => {
           return <Project key={data.name} {...data} />;
         })}
       </div>
-      <h2>Other interesting pages to see</h2>
+      <h2>These are pages I use to test Ladybird browser progress :^)</h2>
       <div className={styles.links}>
         {otherUrls.map((url) => (
           <a key={url} target="_blank" rel="noopener noreferrer" href={url}>

@@ -10,6 +10,7 @@ declare global {
     SpeechGrammarList?: SpeechGrammarList;
     webkitSpeechGrammarList?: SpeechGrammarList;
     cookieStore?: CookieStore;
+    queryLocalFonts?: () => Promise<FontData[]>;
   }
 
   interface PaintWorkletImplementer {
@@ -388,6 +389,15 @@ declare global {
   interface CookieChangeEvent extends Event {
     changed: Cookie[];
     deleted: Cookie[];
+  }
+
+  interface FontData {
+    family: string;
+    fullName: string;
+    postscriptName: string;
+    style: string;
+
+    blob: () => Promise<Blob>;
   }
 }
 

@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { forwardRef, ReactNode } from 'react';
+import { CSSProperties, forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
 
 export type TInputProps = {
@@ -8,6 +8,7 @@ export type TInputProps = {
   onChange?: (value: string) => void;
   value: string;
   className?: string;
+  style?: CSSProperties;
   inputClassName?: string;
   leftSlot?: ReactNode;
   rightSlot?: ReactNode;
@@ -17,7 +18,19 @@ export type TInputProps = {
 
 export const Input = forwardRef<HTMLInputElement, TInputProps>(
   (
-    { placeholder, disabled, inputClassName, className, value, onChange, leftSlot, rightSlot, pattern, required },
+    {
+      placeholder,
+      disabled,
+      inputClassName,
+      className,
+      style,
+      value,
+      onChange,
+      leftSlot,
+      rightSlot,
+      pattern,
+      required,
+    },
     ref,
   ) => {
     return (
@@ -38,6 +51,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
             onChange && onChange(event.target.value);
           }}
           value={value}
+          style={style}
           type="text"
         />
         {rightSlot && <>{rightSlot}</>}

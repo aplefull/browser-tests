@@ -4,10 +4,12 @@ export const IndexPage = () => {
   return (
     <div className={styles.index}>
       <p className={styles.mainText}>
-        Heeey :) Welcome to the whatever this website is! <br />
-        It's made to test browsers for their support of different features. <br />
-        Currently not a single browser supports all of them :^) <br />
-        (I think it says a lot about <span>society</span> how web is a big mess)
+        Hello there! This website began as a simple tool for testing layouts in the Ladybird browser during its
+        development. It has since expanded to include a variety of HTML, CSS, JavaScript, and Web API tests. You can use
+        these tests to check browser support for specific features. Use the navigation bar above to head to test pages.
+        <br />
+        <br />
+        Currently not a single browser supports all features :^)
       </p>
       <p>There are some shortcuts available:</p>
       <div className={styles.notes}>

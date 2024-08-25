@@ -239,6 +239,11 @@ export const parseExpression = (expression: string): number => {
   return evaluateExpression(transformedParts.join(' '));
 };
 
+const toFixed = (value: number) => {
+  const isInteger = value % 1 === 0;
+  return isInteger ? value : value.toFixed(3);
+};
+
 export const TestCssFunctions = () => {
   const elementsRef = useRef<HTMLDivElement | null>(null);
   const [measurements, setMeasurements] = useState<string[]>([]);
@@ -286,7 +291,7 @@ export const TestCssFunctions = () => {
       const angle = getRotationAngle(computedStyle.transform);
       const width = computedStyle.width;
 
-      return angle !== 0 ? `${angle}deg` : width;
+      return angle !== 0 ? `${toFixed(angle)}deg` : `${toFixed(parseFloat(width))}px`;
     });
 
     setMeasurements(data);
@@ -314,9 +319,9 @@ export const TestCssFunctions = () => {
 
             const getJsResult = (res: number, type: string) => {
               if (Number.isNaN(res)) return 'NaN';
-              if (type === 'angle') return `${(res * 180) / Math.PI}deg`;
+              if (type === 'angle') return `${toFixed((res * 180) / Math.PI)}deg`;
 
-              return `${res}px`;
+              return `${toFixed(res)}px`;
             };
 
             const jsResult = getJsResult(jsResultNumerical, type);

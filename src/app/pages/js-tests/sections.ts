@@ -23,6 +23,7 @@ import {
   CompressionStreams,
   ContactPicker,
   CookieStore,
+  LocalFonts,
 } from '@/app/pages/js-tests/components';
 
 export const sections = [
@@ -139,6 +140,11 @@ export const sections = [
   {
     name: 'Cookie Store API',
     Component: CookieStore,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Local Font Access API',
+    Component: LocalFonts,
     initialState: DROPDOWN_STATE.CLOSED,
   },
 ];

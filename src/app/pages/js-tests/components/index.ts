@@ -21,3 +21,4 @@ export { CustomHighlight } from './CustomHighlight/CustomHighlight';
 export { CompressionStreams } from './CompressionStreams/CompressionStreams';
 export { ContactPicker } from './ContactPicker/ContactPicker';
 export { CookieStore } from './CookieStore/CookieStore';
+export { LocalFonts } from './TestLocalFonts/TestLocalFonts';

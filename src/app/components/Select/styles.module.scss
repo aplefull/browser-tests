@@ -140,10 +140,17 @@
     .check {
       color: var(--gray-12);
       opacity: 0;
+      flex: none;
 
       &.selected {
         opacity: 1;
       }
+    }
+
+    .text.ellipsis {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

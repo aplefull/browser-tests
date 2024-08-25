@@ -1,4 +1,3 @@
-import { MikuArt } from '@/app/pages/misc-tests/components/subcomponents/MikuArt/MikuArt';
 import { Glow } from '@/app/pages/misc-tests/components/subcomponents/Glow/Glow';
 import { CounterAnimation } from '@/app/pages/misc-tests/components/subcomponents/CounterAnimation/CounterAnimation';
 import { SpriteVideo } from '@/app/pages/misc-tests/components/subcomponents/SpriteVideo/SpriteVideo';
@@ -504,9 +503,6 @@ export const TestMisc = () => {
         <div className={styles.glow}>
           <Glow brightness={50} />
         </div>
-      </Subsection>
-      <Subsection title="CSS art">
-        <MikuArt />
       </Subsection>
       <Subsection title="Counter-animation">
         <CounterAnimation />
