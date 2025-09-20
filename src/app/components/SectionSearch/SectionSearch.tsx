@@ -86,6 +86,7 @@ export const SectionSearch = () => {
         placeholder="Search section name..."
         onChange={setInputValue}
         value={inputValue}
+        tabIndex={isOpen ? 0 : -1}
       />
     </div>
   );

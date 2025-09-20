@@ -1,41 +1,56 @@
-import { ReactNode } from 'react';
-import { Collapse } from '@/app/components/Collapse/Collapse';
+import { ReactNode, useState, useEffect, useRef } from 'react';
 import styles from './styles.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/redux/store';
 import { DROPDOWN_STATE } from '@/utils/constants';
 import { setDropdownState } from '@/app/redux/slices/settings';
 import { getCollapseState, getPage } from '@/utils/utils';
+import { ChevronRight } from 'tabler-icons-react';
+import classNames from 'classnames';
 
 type TSectionProps = {
   title: string;
   info?: string;
-  className?: string;
   children: ReactNode;
+  index?: number;
 };
 
-const SectionHead = ({ title, info }: Pick<TSectionProps, 'title' | 'info'>) => {
-  if (info) {
-    return (
-      <div>
-        <h1>{title}</h1>
-        <span>{info}</span>
-      </div>
-    );
-  }
-
-  return <h1>{title}</h1>;
-};
-
-export const Section = ({ title, info, className, children }: TSectionProps) => {
+export const Section = ({ title, info, children, index }: TSectionProps) => {
   const { pages } = useSelector((state: RootState) => state.settings.dropdowns);
   const dispatch = useDispatch<AppDispatch>();
+  const [shouldRenderChildren, setShouldRenderChildren] = useState(false);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   const page = getPage(title, pages);
 
-  if (!page) return null;
+  const collapseState = page && getCollapseState(title, page, pages);
+  const isOpen = collapseState === DROPDOWN_STATE.OPEN;
 
-  const collapseState = getCollapseState(title, page, pages);
+  useEffect(() => {
+    const bodyElement = bodyRef.current;
+    if (!bodyElement) return;
+
+    const handleTransitionEnd = (event: TransitionEvent) => {
+      if (event.target === bodyElement && event.propertyName === 'height') {
+        if (!isOpen) {
+          setShouldRenderChildren(false);
+        }
+      }
+    };
+
+    if (isOpen) {
+      setShouldRenderChildren(true);
+    }
+
+    bodyElement.addEventListener('transitionend', handleTransitionEnd);
+    return () => bodyElement.removeEventListener('transitionend', handleTransitionEnd);
+  }, [isOpen]);
+
+  useEffect(() => {
+    setShouldRenderChildren(isOpen);
+  }, []);
+
+  if (!page) return null;
 
   const handleChange = (open: boolean) => {
     dispatch(
@@ -47,20 +62,28 @@ export const Section = ({ title, info, className, children }: TSectionProps) => 
     );
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleChange(!isOpen);
+    }
+  };
+
   return (
-    <section>
-      <Collapse
-        bodyClassName={className}
-        headClassName={styles.head}
-        className={styles.sectionCollapse}
-        head={<SectionHead title={title} info={info} />}
-        title={title}
-        unmountChildren
-        open={collapseState === DROPDOWN_STATE.OPEN}
-        onChange={handleChange}
-      >
-        {children}
-      </Collapse>
+    <section
+      className={classNames(styles.section, { [styles.open]: isOpen })}
+      aria-label={title}
+      aria-expanded={isOpen}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+    >
+      <div className={styles.head} onClick={() => handleChange(!isOpen)}>
+        <span>{title}</span>
+        <ChevronRight size={18} className={styles.chevron} />
+      </div>
+      <div ref={bodyRef} className={styles.body}>
+        {shouldRenderChildren && children}
+      </div>
     </section>
   );
 };

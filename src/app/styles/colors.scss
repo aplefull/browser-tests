@@ -1,17 +1,32 @@
 @use "sass:color";
 
-/* main colors */
-$color-green: #38cc76;
+$color-green: #22c55e;
 $color-green-dark-10: color.adjust($color-green, $lightness: -10%);
-$color-red: #cc3838;
-$color-warning: #d53b3b;
-$color-white: #eeeef0;
-$color-white-transparent-10: color.adjust($color-white, $alpha: -0.1);
-$color-white-transparent-20: color.adjust($color-white, $alpha: -0.2);
-$color-white-transparent-30: color.adjust($color-white, $alpha: -0.3);
-$color-white-transparent-40: color.adjust($color-white, $alpha: -0.4);
-$color-white-transparent-50: color.adjust($color-white, $alpha: -0.5);
-$color-gray: #adadad;
+$color-red: #ef4444;
+$color-warning: #f59e0b;
+$color-blue: #3b82f6;
+$color-purple: #8b5cf6;
+
+$color-text-primary: #f8fafc;
+$color-text-secondary: #cbd5e1;
+$color-text-muted: #94a3b8;
+$color-text-subtle: #64748b;
+
+$color-background-primary: var(--mauve-1);
+$color-background-secondary: var(--mauve-2);
+$color-background-elevated: var(--mauve-3);
+
+$color-border-subtle: var(--mauve-6);
+$color-border-default: var(--mauve-7);
+$color-border-strong: var(--mauve-8);
+
+$color-white: #f8fafc;
+$color-white-transparent-10: color.adjust(#f8fafc, $alpha: -0.1);
+$color-white-transparent-20: color.adjust(#f8fafc, $alpha: -0.2);
+$color-white-transparent-30: color.adjust(#f8fafc, $alpha: -0.3);
+$color-white-transparent-40: color.adjust(#f8fafc, $alpha: -0.4);
+$color-white-transparent-50: color.adjust(#f8fafc, $alpha: -0.5);
+$color-gray: #94a3b8;
 $color-black: #000000;
 $color-charcoal: #171717;
 $color-ink: #1e1e1e;
@@ -21,7 +36,6 @@ $color-ink-light-30: color.adjust($color-ink, $lightness: 30%);
 $color-ink-light-40: color.adjust($color-ink, $lightness: 40%);
 $color-ink-light-50: color.adjust($color-ink, $lightness: 50%);
 
-$color-blue: #3b8bd5;
 $color-transparent: transparent;
 
 /* special colors */

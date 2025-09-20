@@ -14,6 +14,7 @@ export type TInputProps = {
   rightSlot?: ReactNode;
   pattern?: string;
   required?: boolean;
+  tabIndex?: number;
 };
 
 export const Input = forwardRef<HTMLInputElement, TInputProps>(
@@ -30,6 +31,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
       rightSlot,
       pattern,
       required,
+      tabIndex = 0,
     },
     ref,
   ) => {
@@ -53,6 +55,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
           value={value}
           style={style}
           type="text"
+          tabIndex={tabIndex}
         />
         {rightSlot && <>{rightSlot}</>}
       </div>

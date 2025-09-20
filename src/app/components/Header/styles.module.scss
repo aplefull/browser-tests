@@ -1,28 +1,57 @@
 .header {
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  padding: $space-5 $space-6;
+  background: var(--mauve-2);
+  border-bottom: 1px solid var(--mauve-8);
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
 
   nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    padding: 20px 10px;
+    gap: $space-6;
+    width: 100%;
   }
 
   .link {
-    width: 100px;
-    outline: 1px solid transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $color-white;
+    padding: $space-2 $space-3;
+    color: var(--mauve-11);
     text-decoration: none;
-    padding: 4px 2px;
+    font-weight: $font-medium;
+    font-size: $text-sm;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
 
     &:hover {
-      text-decoration: underline;
+      color: var(--mauve-12);
     }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent-8);
+      outline-offset: 2px;
+    }
+
+    &.active {
+      color: var(--mauve-12);
+      border-bottom-color: var(--purple-9);
+      font-weight: $font-semibold;
+    }
+
+    @media (max-width: $bp-sm) {
+      padding: $space-2;
+      font-size: $text-xs;
+    }
+  }
+
+  @media (max-width: $bp-md) {
+    padding: $space-4 $space-5;
   }
 }

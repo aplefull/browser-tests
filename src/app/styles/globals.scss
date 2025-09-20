@@ -1,5 +1,5 @@
 * {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   box-sizing: border-box;
 }
 
@@ -8,17 +8,28 @@ html {
   --pseudo-selector-test-scope: 'Fail';
 }
 
+:root {
+  interpolate-size: allow-keywords;
+}
+
 html,
 body {
   @include scroll;
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $space-6;
   margin: 0;
+  padding: 0;
   background-color: var(--mauve-1);
-  color: $color-white;
+  color: var(--mauve-12);
   scroll-behavior: smooth;
+  font-size: $text-base;
+  line-height: $leading-relaxed;
+  font-weight: $font-normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
@@ -26,18 +37,25 @@ body {
 }
 
 section {
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-
-  > h1 {
-    text-align: center;
-    margin: 0 0 20px 0;
-    font-size: 1.5rem;
+  h2 {
+    margin: $space-6 0 $space-3 0;
+    font-weight: $font-semibold;
+    color: var(--mauve-12);
+    letter-spacing: $tracking-tight;
+    font-size: $text-lg;
   }
 
-  h2 {
-    margin-top: 0;
+  h3 {
+    margin: $space-4 0 $space-2 0;
+    font-weight: $font-medium;
+    color: var(--mauve-12);
+    font-size: $text-base;
+  }
+
+  p {
+    color: var(--mauve-11);
+    margin-bottom: $space-4;
+    line-height: $leading-relaxed;
   }
 }
 

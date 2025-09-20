@@ -1,10 +1,19 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-  padding: 8px;
-  color: $color-white;
+  padding: $space-6;
+  width: 100%;
+  color: var(--mauve-12);
+  background: var(--mauve-1);
+  min-height: 100vh;
+
+  @media (min-width: $bp-2xl) {
+    margin: 0 auto;
+  }
+
+  @media (max-width: $bp-md) {
+    padding: $space-4;
+  }
 
   .index {
     width: 100%;
@@ -12,14 +21,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: $space-16 $space-6;
 
     .main-text {
-      max-width: 680px;
-      font-size: 1.22rem;
+      max-width: 48rem;
+      font-size: $text-xl;
       text-align: center;
+      line-height: $leading-relaxed;
+      color: var(--mauve-11);
+      font-weight: $font-normal;
 
       span {
         text-decoration: line-through;
+        color: var(--mauve-10);
+      }
+    }
+
+    @media (max-width: $bp-md) {
+      padding: $space-12 $space-4;
+
+      .main-text {
+        font-size: $text-lg;
       }
     }
   }
@@ -27,10 +49,26 @@
   .notes {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: $space-3;
+    background: var(--mauve-3);
+    padding: $space-6;
+    border-radius: $radius-xl;
+    border: 1px solid var(--mauve-8);
+    margin-bottom: $space-6;
+    margin-left: auto;
+    margin-right: auto;
 
     p {
       margin: 0;
+      color: var(--mauve-11);
+      font-size: $text-sm;
+      line-height: $leading-normal;
+    }
+
+    @media (max-width: $bp-md) {
+      padding: $space-4;
+      gap: $space-2;
+      margin-bottom: $space-4;
     }
   }
 }

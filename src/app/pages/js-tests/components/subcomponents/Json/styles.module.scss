@@ -28,8 +28,8 @@ $line-height: 1.65;
   .icon {
     rotate: -90deg;
     transition: rotate 0.2s ease-in-out;
-    color: $color-gray;
-    opacity: 0.6;
+    color: $color-text-muted;
+    opacity: 0.8;
   }
 
   &.open {
@@ -41,21 +41,22 @@ $line-height: 1.65;
 
 .key {
   font-family: monospace;
-  color: $color-gray;
-  opacity: 0.6;
+  color: $color-text-muted;
+  opacity: 0.8;
   margin-right: 5px;
 }
 
 .text-dark {
-  color: $color-gray;
+  color: $color-text-muted;
   font-family: monospace;
   line-height: $line-height;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .text-light {
   font-family: monospace;
   line-height: $line-height;
+  color: $color-text-secondary;
 }
 
 .key-value {

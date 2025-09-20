@@ -1,6 +1,9 @@
 @use 'colors';
 @forward 'colors';
 
+@use 'design-tokens';
+@forward 'design-tokens';
+
 $breakpoint-400: 400px;
 $breakpoint-425: 425px;
 $breakpoint-600: 600px;

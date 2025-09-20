@@ -1,19 +1,22 @@
 .button {
   border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  transition:
-    background-color 0.2s ease-in-out,
-    filter 0.2s ease-in-out,
-    box-shadow 0.2s ease-in-out,
-    color 0.2s ease-in-out;
+  border-radius: $radius-lg;
+  padding: $space-3 $space-4;
+  transition: $transition-all;
   transform-origin: center;
   cursor: pointer;
-  font-size: 14px;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  white-space: nowrap;
 
   &.solid {
     background-color: var(--accent-9);
-    color: $color-white;
+    color: white;
 
     &:hover:not(:disabled) {
       background-color: var(--accent-10);
@@ -59,8 +62,9 @@
   }
 
   &.disabled:disabled {
-    color: $color-ink-light-50;
+    color: $text-disabled;
     cursor: not-allowed;
+    opacity: 0.6;
 
     &.solid {
       background-color: var(--gray-a3);

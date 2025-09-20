@@ -1,6 +1,5 @@
 .collapse {
   width: 100%;
-  border-radius: 5px;
   overflow: hidden;
 
   .collapse-head {
@@ -8,8 +7,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 5px 0 5px 10px;
-    font-size: 26px;
     cursor: pointer;
+    background: transparent;
+    transition: background-color 0.2s ease;
+    color: var(--mauve-12);
+
 
     .left {
       display: flex;
@@ -19,14 +21,16 @@
     .right {
       display: flex;
       align-items: center;
+      color: var(--mauve-10);
     }
 
     .icon-container {
       display: flex;
-      margin-right: 5px;
+      color: var(--mauve-10);
 
       .icon {
-        transition: transform 1s ease-in-out;
+        transition: transform 0.2s ease;
+        font-size: 18px;
       }
 
       &.open {
@@ -35,11 +39,22 @@
         }
       }
     }
+
+    @media (max-width: $bp-md) {
+      padding: $space-3;
+    }
   }
 
   .collapse-body {
     overflow-y: hidden;
-    transition: height 1s ease-in-out;
+    transition: height 0.2s ease;
     position: relative;
+    background: var(--mauve-2);
+    color: var(--mauve-11);
+    font-size: $text-sm;
+
+    @media (max-width: $bp-md) {
+      padding: $space-3;
+    }
   }
 }
