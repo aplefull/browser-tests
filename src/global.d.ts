@@ -350,10 +350,6 @@ declare global {
     setSinkId?: (sinkId: string) => Promise<void>;
   }
 
-  interface HTMLElement {
-    requestPointerLock: (options?: { unadjustedMovement?: boolean }) => void;
-  }
-
   interface CookieStore extends EventTarget {
     delete: (name: string) => Promise<void>;
     get: (name: string) => Promise<Cookie | null>;

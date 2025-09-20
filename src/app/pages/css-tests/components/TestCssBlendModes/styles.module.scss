@@ -14,7 +14,7 @@
     gap: 10px;
     width: 100px;
     aspect-ratio: 1;
-    border: 1px solid transparentize(aliceblue, 0.5);
+    border: 1px solid color.adjust(aliceblue, $alpha: -0.5);
     position: relative;
 
     span {

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700');
 
 .squiggly-text-container {
-  border: 1px solid transparentize(aliceblue, 0.5);
+  border: 1px solid color.adjust(aliceblue, $alpha: -0.5);
 
   .editable {
     width: 100%;

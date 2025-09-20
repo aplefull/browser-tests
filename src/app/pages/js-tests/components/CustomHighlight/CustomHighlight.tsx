@@ -41,7 +41,7 @@ const createRange = (parentNode: Node, start: number, end: number) => {
 };
 
 export const CustomHighlight = () => {
-  const textRef = useRef<HTMLParagraphElement | null>(null);
+  const textRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const textNode = textRef.current;

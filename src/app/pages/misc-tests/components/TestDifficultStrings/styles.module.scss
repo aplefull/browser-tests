@@ -29,8 +29,8 @@
 
     svg {
       text {
-        fill: transparentize(#2e97f6, 0.1);
-        stroke: transparentize(#2e97f6, 0.1);
+        fill: color.adjust(#2e97f6, $alpha: -0.1);
+        stroke: color.adjust(#2e97f6, $alpha: -0.1);
       }
     }
   }

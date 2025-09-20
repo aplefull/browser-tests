@@ -1,5 +1,5 @@
 import { visualizer } from 'rollup-plugin-visualizer';
-import { defineConfig, Plugin, ResolvedConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig, Plugin, ResolvedConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
@@ -77,7 +77,6 @@ export default defineConfig({
       open: true,
       gzipSize: true,
     }),
-    splitVendorChunkPlugin(),
   ],
   assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.adts', '**/*.tiff', '**/*.bmp', '**/*.cur'],
   css: {
@@ -86,7 +85,7 @@ export default defineConfig({
     },
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "@variables"; @import "@mixins";`,
+        additionalData: `@use "sass:color"; @use "@variables" as *; @use "@mixins" as *;`,
       },
     },
   },
@@ -102,5 +101,17 @@ export default defineConfig({
   },
   build: {
     cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) {
+              return 'vendor_react';
+            }
+            return 'vendor_other';
+          }
+        }
+      }
+    }
   },
 });

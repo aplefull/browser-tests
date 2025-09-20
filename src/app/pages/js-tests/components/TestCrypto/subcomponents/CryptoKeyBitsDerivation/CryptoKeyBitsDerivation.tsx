@@ -164,7 +164,7 @@ const hkdf = async (message: string) => {
     256,
   );
 
-  const keyString = toHexString(new Uint8Array(keyBits));
+  const keyString = toHexString(keyBits);
 
   if (keyString.length !== 64) {
     throw new Error(`Got invalid string length from deriving bits: ${keyString}`);

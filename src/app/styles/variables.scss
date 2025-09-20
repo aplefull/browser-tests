@@ -1,4 +1,5 @@
-@import 'colors';
+@use 'colors';
+@forward 'colors';
 
 $breakpoint-400: 400px;
 $breakpoint-425: 425px;

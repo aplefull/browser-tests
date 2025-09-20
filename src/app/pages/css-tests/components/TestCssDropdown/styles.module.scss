@@ -1,5 +1,5 @@
 .dropdown {
-  --dropdown-color: #{darken($color-ink, 3%)};
+  --dropdown-color: #{color.adjust($color-ink, $lightness: -3%)};
   --transparent: transparent;
   --transition: 1s ease-in-out;
 

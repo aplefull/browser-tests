@@ -35,7 +35,7 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const progressBarContainerRef = useRef<HTMLDivElement>(null);
-  const hideControlsTimeoutRef = useRef<NodeJS.Timeout>();
+  const hideControlsTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const isCursorOverControlsRef = useRef(false);
 
   const play = async () => {
@@ -149,22 +149,22 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
 
       case 'ArrowLeft':
         event.preventDefault();
-        videoElement.currentTime = Math.max(videoRef.current?.currentTime - 5, 0);
+        videoElement.currentTime = Math.max((videoRef.current?.currentTime ?? 0) - 5, 0);
         break;
 
       case 'ArrowRight':
         event.preventDefault();
-        videoElement.currentTime = Math.min(videoRef.current?.currentTime + 5, videoRef.current?.duration);
+        videoElement.currentTime = Math.min((videoRef.current?.currentTime ?? 0) + 5, videoRef.current?.duration ?? 0);
         break;
 
       case 'KeyJ':
         event.preventDefault();
-        videoElement.currentTime = Math.max(videoRef.current?.currentTime - 10, 0);
+        videoElement.currentTime = Math.max((videoRef.current?.currentTime ?? 0) - 10, 0);
         break;
 
       case 'KeyL':
         event.preventDefault();
-        videoElement.currentTime = Math.min(videoRef.current?.currentTime + 10, videoRef.current?.duration);
+        videoElement.currentTime = Math.min((videoRef.current?.currentTime ?? 0) + 10, videoRef.current?.duration ?? 0);
         break;
 
       default:

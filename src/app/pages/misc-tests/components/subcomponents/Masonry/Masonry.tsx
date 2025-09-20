@@ -4,7 +4,7 @@ import { splitIntoChunks } from '@/utils/utils';
 
 type MasonryProps = {
   images: string[];
-  containerRef: RefObject<HTMLDivElement>;
+  containerRef: RefObject<HTMLDivElement> | null;
 };
 
 type RawImageBox = { width: number; height: number; src: string };
@@ -146,7 +146,7 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
   };
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef || !containerRef.current) return;
 
     const resizeObserver = new ResizeObserver((entries) => {
       const boundingRect = entries[0].contentRect;

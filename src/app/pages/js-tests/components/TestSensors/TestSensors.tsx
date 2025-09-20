@@ -128,7 +128,7 @@ export const TestSensors = () => {
     const init = async () => {
       const names = ['accelerometer', 'magnetometer', 'gyroscope', 'ambient-light-sensor'] as const;
 
-      const permissionPromises = names.map((name) => navigator.permissions.query({ name }));
+      const permissionPromises = names.map((name) => navigator.permissions.query({ name: name as PermissionName }));
 
       const permissions = await Promise.allSettled(permissionPromises);
 

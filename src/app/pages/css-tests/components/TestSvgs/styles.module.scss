@@ -14,7 +14,7 @@
       align-items: center;
 
       svg {
-        border: 1px solid transparentize(aliceblue, 0.5);
+        border: 1px solid color.adjust(aliceblue, $alpha: -0.5);
       }
     }
   }
