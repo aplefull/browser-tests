@@ -7,11 +7,7 @@ export const TestLargeImage = () => {
 
   return (
     <div className={styles.testLargeImage}>
-      <Checkbox
-        checked={animationEnabled}
-        onChange={setAnimationEnabled}
-        label="Enable animation"
-      />
+      <Checkbox checked={animationEnabled} onChange={setAnimationEnabled} label="Enable animation" />
       <div className={animationEnabled ? styles.animated : undefined}>
         <img src="https://files.catbox.moe/zjiokj.png" alt="very large image" />
       </div>

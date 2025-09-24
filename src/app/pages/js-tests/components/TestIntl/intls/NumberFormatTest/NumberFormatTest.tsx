@@ -86,7 +86,7 @@ export const NumberFormatTest = () => {
     },
   };
 
-  const setStyleOption = (style: string) => {
+  const setStyleOption = (style: Intl.NumberFormatOptions['style']) => {
     if (style === 'currency') {
       setCurrencyOption('USD');
     }
@@ -98,15 +98,15 @@ export const NumberFormatTest = () => {
     setIntlOptions((options) => ({ ...options, currency }));
   };
 
-  const setCurrencySignOption = (currencySign: string) => {
+  const setCurrencySignOption = (currencySign: Intl.NumberFormatOptions['currencySign']) => {
     setIntlOptions((options) => ({ ...options, currencySign }));
   };
 
-  const setCurrencyDisplayOption = (currencyDisplay: string) => {
+  const setCurrencyDisplayOption = (currencyDisplay: Intl.NumberFormatOptions['currencyDisplay']) => {
     setIntlOptions((options) => ({ ...options, currencyDisplay }));
   };
 
-  const setNotationOption = (notation: string) => {
+  const setNotationOption = (notation: Intl.NumberFormatOptions['notation']) => {
     if (isOneOf(notation, values.notation.options)) {
       setIntlOptions((options) => ({ ...options, notation }));
     }

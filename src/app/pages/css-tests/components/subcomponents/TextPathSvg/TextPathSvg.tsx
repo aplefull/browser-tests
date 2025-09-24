@@ -40,12 +40,12 @@ const PathText = ({ width, height }: TDimensions) => {
 
   useEffect(() => {
     if (textRef.current) {
-        const bbox = textRef.current.getBBox();
-        const x = width / 2 - (bbox.x + bbox.width / 2);
-        const y = height / 2 - (bbox.y + bbox.height / 2);
-        const scale = Math.min((width * 0.9) / bbox.width, (height * 0.9) / bbox.height, 1);
+      const bbox = textRef.current.getBBox();
+      const x = width / 2 - (bbox.x + bbox.width / 2);
+      const y = height / 2 - (bbox.y + bbox.height / 2);
+      const scale = Math.min((width * 0.9) / bbox.width, (height * 0.9) / bbox.height, 1);
 
-        setTextTransform({ x, y, scale });
+      setTextTransform({ x, y, scale });
     }
   }, [width, height]);
 
@@ -100,15 +100,15 @@ export const TextPathSvg = ({ width, height }: TDimensions) => {
         <form>
           <label>
             <RadioButton checked={option === '1'} onChange={() => setOption('1')} />
-              <span>1</span>
+            <span>1</span>
           </label>
           <label>
             <RadioButton checked={option === '2'} onChange={() => setOption('2')} />
-              <span>2</span>
+            <span>2</span>
           </label>
           <label>
             <RadioButton checked={option === '3'} onChange={() => setOption('3')} />
-              <span>3</span>
+            <span>3</span>
           </label>
         </form>
       </div>

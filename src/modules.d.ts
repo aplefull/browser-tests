@@ -1,6 +1,14 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 declare module 'react' {
+  interface ImgHTMLAttributes<T> extends React.HTMLAttributes<T> {
+    elementtiming?: string;
+  }
+
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    elementtiming?: string;
+  }
+
   namespace JSX {
     interface IntrinsicElements {
       marquee: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;

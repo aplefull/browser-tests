@@ -33,7 +33,6 @@
       font-weight: bold;
       text-align: center;
 
-
       &.a {
         grid-area: a;
       }
@@ -50,7 +49,6 @@
         position: absolute;
         color: var(--gray-7);
 
-
         @media screen and (width < 900px) {
           font-size: 1rem;
         }
@@ -65,7 +63,6 @@
       }
     }
   }
-
 
   .grid-auto-fit-minmax {
     display: grid;

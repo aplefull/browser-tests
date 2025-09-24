@@ -26,14 +26,12 @@ export const TestCssGrid = () => {
       </div>
       <div>
         <h2>Auto-fit minmax</h2>
-        <Checkbox
-          checked={animationEnabled}
-          onChange={setAnimationEnabled}
-          label="Enable animation"
-        />
-        <div className={classNames(styles.gridAutoFitMinmax, {
-          [styles.animated]: animationEnabled
-        })}>
+        <Checkbox checked={animationEnabled} onChange={setAnimationEnabled} label="Enable animation" />
+        <div
+          className={classNames(styles.gridAutoFitMinmax, {
+            [styles.animated]: animationEnabled,
+          })}
+        >
           <div className={styles.gridItem}>1</div>
           <div className={styles.gridItem}>2</div>
           <div className={styles.gridItem}>3</div>

@@ -25,6 +25,16 @@ export type TIntlFormats =
   | typeof Intl.Collator
   | typeof Intl.DisplayNames;
 
+const getSupportedLocalesOf = (
+  intlFormat: Omit<TIntlFormats, keyof Intl.Locale>,
+): typeof Intl.NumberFormat.supportedLocalesOf | null => {
+  if ('supportedLocalesOf' in intlFormat && typeof intlFormat.supportedLocalesOf === 'function') {
+    return intlFormat.supportedLocalesOf.bind(intlFormat);
+  }
+
+  return null;
+};
+
 export const getSupportedLocales = (intlFormat?: TIntlFormats) => () => {
   if (!intlFormat) return [];
 
@@ -40,17 +50,25 @@ export const getSupportedLocales = (intlFormat?: TIntlFormats) => () => {
   }
 
   if (isNotPartOf<TIntlFormats, typeof Intl.Locale>(intlFormat, Intl.Locale)) {
+    const supportedLocalesOf = getSupportedLocalesOf(intlFormat);
+
+    if (!supportedLocalesOf) return [];
+
     return allLocales.filter((locale) => {
-      return intlFormat.supportedLocalesOf(locale).length > 0;
+      try {
+        return supportedLocalesOf(locale).length > 0;
+      } catch {
+        return false;
+      }
     });
   }
 
   return [];
 };
 
-export const createSelects = (
+export const createSelects = <THandlers extends Record<string, (value: any) => void>>(
   values: Record<
-    string,
+    keyof THandlers & string,
     {
       label: string;
       options: readonly string[];
@@ -58,23 +76,23 @@ export const createSelects = (
       disabled?: boolean;
     }
   >,
-  handlers: Record<string, (value: string) => void>,
-  clearOption?: (key: string) => () => void,
+  handlers: THandlers,
+  clearOption?: (key: keyof THandlers & string) => () => void,
 ) => {
   return Object.entries(values).map(([key, value]) => {
-    if (isKeyOf(key, handlers)) {
+    if (key in handlers) {
       return {
         ...value,
-        onChange: handlers[key],
-        onClear: clearOption ? clearOption(key) : undefined,
+        onChange: handlers[key as keyof THandlers],
+        onClear: clearOption ? clearOption(key as keyof THandlers & string) : undefined,
       };
     }
 
     console.warn(`Handler for ${key} is not defined`);
     return {
       ...value,
-      onChange: noop,
-      onClear: noop,
+      onChange: () => {},
+      onClear: () => {},
     };
   });
 };

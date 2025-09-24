@@ -13,6 +13,17 @@ declare global {
     queryLocalFonts?: () => Promise<FontData[]>;
   }
 
+  interface CookieListItem {
+    name: string;
+    value: string;
+    domain: string;
+    path: string;
+    expires: number;
+    secure: boolean;
+    partitioned: boolean;
+    sameSite: 'strict' | 'lax' | 'none';
+  }
+
   interface PaintWorkletImplementer {
     new (): {
       paint(

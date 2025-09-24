@@ -4,7 +4,7 @@ import { splitIntoChunks } from '@/utils/utils';
 
 type MasonryProps = {
   images: string[];
-  containerRef: RefObject<HTMLDivElement> | null;
+  containerRef: RefObject<HTMLDivElement | null>;
 };
 
 type RawImageBox = { width: number; height: number; src: string };

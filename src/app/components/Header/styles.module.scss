@@ -25,7 +25,9 @@
     font-size: var(--text-sm);
     white-space: nowrap;
     border-bottom: 2px solid transparent;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
 
     &:hover {
       color: var(--gray-12);

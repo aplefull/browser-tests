@@ -11,7 +11,8 @@
 
   .gradient-mesh {
     background-color: var(--color-special-hsl-1);
-    background-image: radial-gradient(at 22% 82%, var(--color-special-hsl-2) 0px, transparent 50%),
+    background-image:
+      radial-gradient(at 22% 82%, var(--color-special-hsl-2) 0px, transparent 50%),
       radial-gradient(at 28% 48%, var(--color-special-hsl-3) 0px, transparent 50%),
       radial-gradient(at 51% 15%, var(--color-special-hsl-4) 0px, transparent 50%),
       radial-gradient(at 30% 41%, var(--color-special-hsl-5) 0px, transparent 50%),
@@ -77,7 +78,11 @@
   }
 
   .gradient6 {
-    background-image: repeating-linear-gradient(192deg, var(--color-special-pure-red) 0px, var(--color-special-pure-blue) 0.15px);
+    background-image: repeating-linear-gradient(
+      192deg,
+      var(--color-special-pure-red) 0px,
+      var(--color-special-pure-blue) 0.15px
+    );
   }
 
   .svg-gradient {

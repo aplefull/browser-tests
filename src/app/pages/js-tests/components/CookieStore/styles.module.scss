@@ -4,4 +4,12 @@
   align-items: start;
   row-gap: 5px;
   column-gap: 20px;
+
+  .pass {
+    color: var(--color-green);
+  }
+
+  .fail {
+    color: var(--color-red);
+  }
 }

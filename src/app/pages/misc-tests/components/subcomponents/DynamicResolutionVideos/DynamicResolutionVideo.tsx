@@ -42,7 +42,7 @@ export const DynamicResolutionVideos = () => {
     label: 'Calm',
     value: dynamicResolutionWebmCalm,
   });
-  const [constraint, setConstraint] = useState<any>('none');
+  const [constraint, setConstraint] = useState<string>('none');
   const [resolution, setResolution] = useState<TResolution | null>(null);
   const [forcedVideoCurrentTime, setForcedVideoCurrentTime] = useState(0);
 
@@ -70,7 +70,7 @@ export const DynamicResolutionVideos = () => {
   };
 
   const handleConstraintChange = (_: string, option: TSelectOption) => {
-    setConstraint(option.value);
+    setConstraint(typeof option.value === 'string' ? option.value : 'none');
   };
 
   const handleProgressChange = (val: number) => {

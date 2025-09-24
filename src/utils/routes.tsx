@@ -14,7 +14,11 @@ import { sections as cssSections } from '@/app/pages/css-tests/sections';
 import { sections as jsSections } from '@/app/pages/js-tests/sections';
 import { sections as miscSections } from '@/app/pages/misc-tests/sections';
 
-const Page = ({sections}: {sections: {Component: (() => JSX.Element | null) | (LazyExoticComponent<() => JSX.Element>); name: string}[]}) => {
+const Page = ({
+  sections,
+}: {
+  sections: { Component: (() => JSX.Element | null) | LazyExoticComponent<() => JSX.Element>; name: string }[];
+}) => {
   return (
     <div>
       {sections.map(({ Component, name }, index) => (
@@ -28,7 +32,7 @@ const Page = ({sections}: {sections: {Component: (() => JSX.Element | null) | (L
       ))}
     </div>
   );
-}
+};
 
 const baseRoutes = [
   {
@@ -67,13 +71,15 @@ const baseRoutes = [
   },
 ];
 
-const devRoutes = import.meta.env.DEV ? [
-  {
-    path: '/dev-demo',
-    element: <DevDemoPage />,
-    navText: 'DEV',
-  },
-] : [];
+const devRoutes = import.meta.env.DEV
+  ? [
+      {
+        path: '/dev-demo',
+        element: <DevDemoPage />,
+        navText: 'DEV',
+      },
+    ]
+  : [];
 
 export const routes = [
   ...baseRoutes,

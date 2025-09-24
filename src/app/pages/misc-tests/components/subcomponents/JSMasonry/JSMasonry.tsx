@@ -9,7 +9,7 @@ type TJSMasonryProps = {
 };
 
 export const JSMasonry = ({ urls, className }: TJSMasonryProps) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className={classNames(styles.masonry, className)} ref={containerRef}>

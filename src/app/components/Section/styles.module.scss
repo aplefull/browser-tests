@@ -3,7 +3,7 @@
 
   overflow: hidden;
   border-bottom: 1px solid #2a2627;
- 
+
   .head {
     display: flex;
     justify-content: space-between;
@@ -13,27 +13,27 @@
     color: var(--gray-12);
     background-color: #1b1718;
 
-
     &:hover {
       background-color: rgba(255, 255, 255, 0.05);
     }
   }
-  
+
   .body {
     height: 0;
     padding: 0 var(--space-4);
     overflow: hidden;
     border-left: 1px solid #2a2627;
     border-right: 1px solid #2a2627;
-    transition: height var(--state-transition-duration) ease, padding var(--state-transition-duration) ease;
+    transition:
+      height var(--state-transition-duration) ease,
+      padding var(--state-transition-duration) ease;
   }
 
-  
   .chevron {
     transition: transform var(--state-transition-duration) ease;
   }
 
-   &.open {
+  &.open {
     .chevron {
       transform: rotate(90deg);
     }
@@ -43,7 +43,7 @@
       padding: var(--space-4);
     }
   }
-  
+
   &:focus-visible {
     outline: 2px solid var(--accent-8);
     outline-offset: 2px;
