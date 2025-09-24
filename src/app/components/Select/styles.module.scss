@@ -120,8 +120,12 @@
     &:hover,
     &.pseudo-selected {
       background-color: var(--accent-12);
-      color: var(--accent-1);
+      color: var(--gray-5);
       border-radius: var(--radius-2);
+
+      span {
+        color: var(--gray-5 );
+      }
 
       .check.selected {
         color: var(--accent-1);

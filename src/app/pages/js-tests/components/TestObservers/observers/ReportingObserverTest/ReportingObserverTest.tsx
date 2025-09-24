@@ -165,7 +165,6 @@ export const ReportingObserverTest = () => {
   const runTests = async () => {
     await runDeprecation();
     await iframeRef.current?.runCspViolation();
-    //setRandomKey(window.crypto.randomUUID());
   };
 
   const reset = () => {

@@ -5,14 +5,15 @@
   container-type: inline-size;
 
   .controls {
+    width: 50%;
     margin-top: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 5px;
 
     @container (width < 450px) {
-      grid-template-columns: 1fr;
       width: 100%;
+      grid-template-columns: 1fr;
     }
   }
 

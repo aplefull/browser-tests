@@ -1,6 +1,7 @@
 @mixin subtitle {
   width: 100%;
-  border-bottom: 1px solid var(--color-white);
+  color: var(--gray-11);
+  border-bottom: 1px solid var(--gray-11);
   font-weight: normal;
 }
 

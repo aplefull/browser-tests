@@ -1,16 +1,4 @@
 .test-large-image {
-  input[type='checkbox'] {
-    margin-bottom: 15px;
-
-    + label {
-      cursor: pointer;
-    }
-
-    &:not(:checked) + label + div {
-      animation: none;
-    }
-  }
-
   > div {
     display: flex;
     justify-content: center;
@@ -18,7 +6,10 @@
     width: 90%;
     height: 300px;
     margin-inline: auto;
-    animation: resize 5s ease-in-out infinite;
+
+    &.animated {
+      animation: resize 5s ease-in-out infinite;
+    }
 
     img {
       width: 100%;

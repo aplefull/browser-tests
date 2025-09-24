@@ -1,7 +1,8 @@
 import styles from './styles.module.scss';
 
-import { ChangeEvent, useReducer } from 'react';
+import { useReducer } from 'react';
 import { TAction, TDimensions } from '@/types';
+import { RangeInput } from '@/app/components/RangeInput/RangeInput';
 
 enum actionTypes {
   CHANGE_SPOT_LIGHT_X = 'CHANGE_SPOT_LIGHT_X',
@@ -94,64 +95,56 @@ export const SpotLightSvg = ({ width, height }: TDimensions) => {
       min: 0,
       max: width,
       value: spotLightX,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_SPOT_LIGHT_X', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_SPOT_LIGHT_X', payload: value }),
     },
     {
       label: 'Y',
       min: 0,
       max: height,
       value: spotLightY,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_SPOT_LIGHT_Y', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_SPOT_LIGHT_Y', payload: value }),
     },
     {
       label: 'Z',
       min: 0,
       max: 1000,
       value: spotLightZ,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_SPOT_LIGHT_Z', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_SPOT_LIGHT_Z', payload: value }),
     },
     {
       label: 'Points At X',
       min: 0,
       max: width,
       value: spotLightPointsAtX,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_X', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_X', payload: value }),
     },
     {
       label: 'Points At Y',
       min: 0,
       max: height,
       value: spotLightPointsAtY,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_Y', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_Y', payload: value }),
     },
     {
       label: 'Points At Z',
       min: 0,
       max: 1000,
       value: spotLightPointsAtZ,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_Z', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_SPOT_LIGHT_POINTS_AT_Z', payload: value }),
     },
     {
       label: 'Specular Exponent',
       min: 0,
       max: 128,
       value: specularExponent,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_SPECULAR_EXPONENT', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_SPECULAR_EXPONENT', payload: value }),
     },
     {
       label: 'Limiting Cone Angle',
       min: 0.001,
       max: 90,
       value: limitingConeAngle,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_LIMITING_CONE_ANGLE', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_LIMITING_CONE_ANGLE', payload: value }),
     },
   ];
 
@@ -159,17 +152,15 @@ export const SpotLightSvg = ({ width, height }: TDimensions) => {
     <div style={{ width }} className={styles.container}>
       <div className={styles.controls}>
         {spotLightControls.map((control) => (
-          <div key={control.label} className={styles.input}>
-            <label htmlFor={control.label}>{control.label}</label>
-            <input
-              id={control.label}
-              type="range"
-              min={control.min}
-              max={control.max}
-              value={control.value}
-              onChange={control.onChange}
-            />
-          </div>
+          <RangeInput
+            key={control.label}
+            label={control.label}
+            min={control.min}
+            max={control.max}
+            value={control.value}
+            onChange={control.onChange}
+            className={styles.input}
+          />
         ))}
       </div>
 

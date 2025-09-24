@@ -1,11 +1,18 @@
 import styles from './styles.module.scss';
+import { Checkbox } from '@/app/components/Checkbox/Checkbox';
+import { useState } from 'react';
 
 export const TestLargeImage = () => {
+  const [animationEnabled, setAnimationEnabled] = useState(false);
+
   return (
     <div className={styles.testLargeImage}>
-      <input type="checkbox" id="large-image-animation" defaultChecked={false} />
-      <label htmlFor="large-image-animation">Enable animation</label>
-      <div>
+      <Checkbox
+        checked={animationEnabled}
+        onChange={setAnimationEnabled}
+        label="Enable animation"
+      />
+      <div className={animationEnabled ? styles.animated : undefined}>
         <img src="https://files.catbox.moe/zjiokj.png" alt="very large image" />
       </div>
     </div>

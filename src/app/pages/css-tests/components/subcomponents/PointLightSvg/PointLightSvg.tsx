@@ -1,7 +1,8 @@
 import styles from './styles.module.scss';
 
-import { ChangeEvent, useReducer } from 'react';
+import { useReducer } from 'react';
 import { TAction, TDimensions } from '@/types';
+import { RangeInput } from '@/app/components/RangeInput/RangeInput';
 
 enum actionTypes {
   CHANGE_POINT_LIGHT_X = 'CHANGE_POINT_LIGHT_X',
@@ -50,24 +51,21 @@ export const PointLightSvg = ({ width, height }: TDimensions) => {
       min: 0,
       max: width,
       value: pointLightX,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_POINT_LIGHT_X', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_POINT_LIGHT_X', payload: value }),
     },
     {
       label: 'Y',
       min: 0,
       max: height,
       value: pointLightY,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_POINT_LIGHT_Y', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_POINT_LIGHT_Y', payload: value }),
     },
     {
       label: 'Z',
       min: -200,
       max: 200,
       value: pointLightZ,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_POINT_LIGHT_Z', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_POINT_LIGHT_Z', payload: value }),
     },
   ];
 
@@ -75,17 +73,15 @@ export const PointLightSvg = ({ width, height }: TDimensions) => {
     <div style={{ width }} className={styles.container}>
       <div className={styles.controls}>
         {pointLightControls.map((control) => (
-          <div key={control.label} className={styles.input}>
-            <label htmlFor={control.label}>{control.label}</label>
-            <input
-              id={control.label}
-              type="range"
-              min={control.min}
-              max={control.max}
-              value={control.value}
-              onChange={control.onChange}
-            />
-          </div>
+          <RangeInput
+            key={control.label}
+            label={control.label}
+            min={control.min}
+            max={control.max}
+            value={control.value}
+            onChange={control.onChange}
+            className={styles.input}
+          />
         ))}
       </div>
 

@@ -4,9 +4,6 @@
   padding: var(--space-5) var(--space-6);
   background: var(--gray-2);
   border-bottom: 1px solid var(--gray-8);
-  position: sticky;
-  top: 0;
-  z-index: var(--z-sticky);
 
   nav {
     display: flex;

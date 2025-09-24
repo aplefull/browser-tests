@@ -50,13 +50,13 @@
 
     &.checked {
       background-color: var(--accent-9);
-      color: var(--color-white);
       box-shadow: none;
 
       .check-mark {
         display: block;
         opacity: 1;
         scale: 1;
+        color: var(--gray-12);
       }
     }
 

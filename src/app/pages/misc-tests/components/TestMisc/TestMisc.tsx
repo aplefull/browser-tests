@@ -21,25 +21,7 @@ const Subsection = ({ title, children }: { title: string; children: ReactNode })
 };
 
 export const TestMisc = () => {
-  const [testLabeledLoopBreakResult, setTestLabeledLoopBreakResult] = useState<number | null>(null);
   const [supportedEncodings, setSupportedEncodings] = useState<string[]>([]);
-
-  const testLabeledLoopBreak = () => {
-    let test = 0;
-    outer: for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        for (let k = 0; k < 3; k++) {
-          test++;
-
-          if (i === 2 && j === 1 && k === 2) {
-            break outer;
-          }
-        }
-      }
-    }
-
-    setTestLabeledLoopBreakResult(test);
-  };
 
   const testEncodingDecoding = () => {
     const encodings = [
@@ -493,7 +475,6 @@ export const TestMisc = () => {
   };
 
   useEffect(() => {
-    testLabeledLoopBreak();
     testEncodingDecoding();
   }, []);
 
@@ -515,16 +496,6 @@ export const TestMisc = () => {
       </Subsection>
       <Subsection title="Iframe referencing current page">
         <iframe src={window.location.href} className={styles.iframe} />
-      </Subsection>
-      <Subsection title="Labeled loop break statement">
-        <Container direction="row" gap={10}>
-          <span>Labeled loop break:</span>
-          {testLabeledLoopBreakResult === 24 ? (
-            <span className={styles.pass}>Test passed</span>
-          ) : (
-            <span className={styles.fail}>Test failed</span>
-          )}
-        </Container>
       </Subsection>
       <Subsection title="Supported encodings">
         <Container direction="row" gap={10}>

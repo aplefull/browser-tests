@@ -18,12 +18,12 @@ export const UseSvg = ({ width, height }: TUseSvgProps) => {
     const observer = new ResizeObserver((entries) => {
       const { width: useWidth, height: useHeight } = entries[0].contentRect;
 
-      setScale(Math.min(width / useBox.width, height / useBox.height) * 0.9);
-
       setUseBox({
         width: useWidth,
         height: useHeight,
       });
+
+      setScale(Math.min(width / useWidth, height / useHeight) * 0.9);
     });
 
     if (useElementRef.current) {

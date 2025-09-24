@@ -1,6 +1,7 @@
 import styles from './styles.module.scss';
-import { ChangeEvent, useReducer } from 'react';
+import { useReducer } from 'react';
 import { TAction, TDimensions } from '@/types';
+import { RangeInput } from '@/app/components/RangeInput/RangeInput';
 
 enum actionTypes {
   CHANGE_AZIMUTH = 'CHANGE_AZIMUTH',
@@ -42,16 +43,14 @@ export const DistantLightSvg = ({ width, height }: TDimensions) => {
       min: 0,
       max: 360,
       value: azimuth,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_AZIMUTH', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_AZIMUTH', payload: value }),
     },
     {
       label: 'Elevation',
       min: 0,
       max: 360,
       value: elevation,
-      onChange: (e: ChangeEvent<HTMLInputElement>) =>
-        dispatch({ type: 'CHANGE_ELEVATION', payload: Number(e.target.value) }),
+      onChange: (value: number) => dispatch({ type: 'CHANGE_ELEVATION', payload: value }),
     },
   ];
 
@@ -59,17 +58,15 @@ export const DistantLightSvg = ({ width, height }: TDimensions) => {
     <div style={{ width }} className={styles.container}>
       <div className={styles.controls}>
         {distantLightControls.map((control) => (
-          <div key={control.label} className={styles.input}>
-            <label htmlFor={control.label}>{control.label}</label>
-            <input
-              id={control.label}
-              type="range"
-              min={control.min}
-              max={control.max}
-              value={control.value}
-              onChange={control.onChange}
-            />
-          </div>
+          <RangeInput
+            key={control.label}
+            label={control.label}
+            min={control.min}
+            max={control.max}
+            value={control.value}
+            onChange={control.onChange}
+            className={styles.input}
+          />
         ))}
       </div>
 

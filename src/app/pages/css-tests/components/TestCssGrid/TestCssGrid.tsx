@@ -2,8 +2,12 @@ import styles from './styles.module.scss';
 import classNames from 'classnames';
 import spaceCat from '@assets/images/cats/space-cat.jpg';
 import flyingCat from '@assets/images/cats/flying-cat.png';
+import { Checkbox } from '@/app/components/Checkbox/Checkbox';
+import { useState } from 'react';
 
 export const TestCssGrid = () => {
+  const [animationEnabled, setAnimationEnabled] = useState(false);
+
   return (
     <div className={styles.cssGrid}>
       <div>
@@ -22,9 +26,14 @@ export const TestCssGrid = () => {
       </div>
       <div>
         <h2>Auto-fit minmax</h2>
-        <input type="checkbox" id="animation-grid-minmax" defaultChecked={false} />
-        <label htmlFor="animation-grid-minmax">Enable animation</label>
-        <div className={styles.gridAutoFitMinmax}>
+        <Checkbox
+          checked={animationEnabled}
+          onChange={setAnimationEnabled}
+          label="Enable animation"
+        />
+        <div className={classNames(styles.gridAutoFitMinmax, {
+          [styles.animated]: animationEnabled
+        })}>
           <div className={styles.gridItem}>1</div>
           <div className={styles.gridItem}>2</div>
           <div className={styles.gridItem}>3</div>

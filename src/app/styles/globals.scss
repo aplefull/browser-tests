@@ -38,27 +38,8 @@ body {
   background-color: var(--accent-a5);
 }
 
-section {
-  h2 {
-    margin: var(--space-6) 0 var(--space-3) 0;
-    font-weight: var(--font-semibold);
-    color: var(--gray-12);
-    letter-spacing: var(--tracking-tight);
-    font-size: var(--text-lg);
-  }
-
-  h3 {
-    margin: var(--space-4) 0 var(--space-2) 0;
-    font-weight: var(--font-medium);
-    color: var(--gray-12);
-    font-size: var(--text-base);
-  }
-
-  p {
-    color: var(--gray-11);
-    margin-bottom: var(--space-4);
-    line-height: var(--leading-relaxed);
-  }
+h1, h2, h3, h4, h5, h6, p, span, div {
+  color: var(--gray-11);
 }
 
 @keyframes rotate {
