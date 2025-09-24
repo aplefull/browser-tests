@@ -40,7 +40,7 @@ export const SectionSearch = () => {
 
   useEffect(() => {
     // Yes, query selector in react. Fight me.
-    const sectionTitles = Array.from(document.querySelectorAll('section > div > div > h1'));
+    const sectionTitles = Array.from(document.querySelectorAll('section > div:first-of-type > span'));
 
     const filteredSections = sectionTitles.filter((section) => {
       return section.textContent?.toLowerCase().includes(inputValue.toLowerCase());

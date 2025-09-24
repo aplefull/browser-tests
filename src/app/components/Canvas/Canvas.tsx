@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, MutableRefObject, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { assignRefs } from '@utils';
@@ -17,9 +17,9 @@ export const Canvas = forwardRef<HTMLCanvasElement, TCanvasProps>(
   ({ width, height, className, title, isStatic = false, onResize, onMount }, ref) => {
     const canvasRef = useRef(null);
 
-    if (typeof ref === 'function') return null;
-
     useEffect(() => {
+      if (typeof ref === 'function') return;
+
       const canvas = ref?.current ?? canvasRef.current;
       if (!canvas || isStatic) return;
 
@@ -41,12 +41,16 @@ export const Canvas = forwardRef<HTMLCanvasElement, TCanvasProps>(
     }, [onResize, isStatic]);
 
     useEffect(() => {
+      if (typeof ref === 'function') return;
+
       const canvas = ref?.current ?? canvasRef.current;
       const ctx = canvas?.getContext('2d');
       if (!ctx) return;
 
       if (onMount) onMount(ctx);
     }, [onMount]);
+
+    if (typeof ref === 'function') return null;
 
     return (
       <canvas

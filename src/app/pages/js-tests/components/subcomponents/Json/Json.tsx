@@ -17,6 +17,10 @@ const isPrimitive = (value: unknown): value is TPrimitive => {
   );
 };
 
+function isCallable(value: unknown): value is (...args: unknown[]) => unknown {
+  return typeof value === 'function';
+}
+
 const prepareValue = (value: TPrimitive, settings?: TJsonSettings) => {
   if (value === null) return 'null';
   if (value === undefined) return 'undefined';
@@ -215,7 +219,7 @@ const JArray = ({ value, parentKey, collapsible, defaultOpen = true, level, sett
   );
 };
 
-const Function = ({ value }: { value: Function }) => {
+const Function = ({ value }: { value: (...args: unknown[]) => unknown }) => {
   return <span className={styles.textLight}>{value.toString()}</span>;
 };
 
@@ -247,7 +251,7 @@ export const Json = ({ data, collapsible = true, parentKey, level = 0, settings 
     return <JObject value={data} parentKey={parentKey} collapsible={collapsible} level={level} settings={settings} />;
   }
 
-  if (typeof data === 'function') {
+  if (isCallable(data)) {
     return <Function value={data} />;
   }
 

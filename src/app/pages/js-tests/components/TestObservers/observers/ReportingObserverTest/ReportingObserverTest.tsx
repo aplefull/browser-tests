@@ -11,7 +11,7 @@ type TReport = {
 };
 
 type TReportingObserverResults = Record<string, (TReport | null)[]>;
-
+// TODO
 const runCspViolation = (iframeRoot: Document) => {
   const body = iframeRoot.body;
   const head = iframeRoot.head;

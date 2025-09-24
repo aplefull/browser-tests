@@ -16,7 +16,7 @@
 
   &.solid {
     background-color: var(--accent-9);
-    color: white;
+    color: var(--gray-12);
 
     &:hover:not(:disabled) {
       background-color: var(--accent-10);

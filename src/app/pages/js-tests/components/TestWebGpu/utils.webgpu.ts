@@ -424,44 +424,36 @@ export const mat4 = {
     coords.y = coords.y / len;
     coords.z = coords.z / len;
 
-    let s, c, t;
-    let a00, a01, a02, a03;
-    let a10, a11, a12, a13;
-    let a20, a21, a22, a23;
-    let b00, b01, b02;
-    let b10, b11, b12;
-    let b20, b21, b22;
+    const s = Math.sin(angle);
+    const c = Math.cos(angle);
+    const t = 1 - c;
 
-    s = Math.sin(angle);
-    c = Math.cos(angle);
-    t = 1 - c;
-
-    a00 = a[0];
-    a01 = a[1];
-    a02 = a[2];
-    a03 = a[3];
-    a10 = a[4];
-    a11 = a[5];
-    a12 = a[6];
-    a13 = a[7];
-    a20 = a[8];
-    a21 = a[9];
-    a22 = a[10];
-    a23 = a[11];
+    const a00 = a[0];
+    const a01 = a[1];
+    const a02 = a[2];
+    const a03 = a[3];
+    const a10 = a[4];
+    const a11 = a[5];
+    const a12 = a[6];
+    const a13 = a[7];
+    const a20 = a[8];
+    const a21 = a[9];
+    const a22 = a[10];
+    const a23 = a[11];
 
     const nx = coords.x;
     const ny = coords.y;
     const nz = coords.z;
 
-    b00 = nx * nx * t + c;
-    b01 = ny * nx * t + nz * s;
-    b02 = nz * nx * t - ny * s;
-    b10 = nx * ny * t - nz * s;
-    b11 = ny * ny * t + c;
-    b12 = nz * ny * t + nx * s;
-    b20 = nx * nz * t + ny * s;
-    b21 = ny * nz * t - nx * s;
-    b22 = nz * nz * t + c;
+    const b00 = nx * nx * t + c;
+    const b01 = ny * nx * t + nz * s;
+    const b02 = nz * nx * t - ny * s;
+    const b10 = nx * ny * t - nz * s;
+    const b11 = ny * ny * t + c;
+    const b12 = nz * ny * t + nx * s;
+    const b20 = nx * nz * t + ny * s;
+    const b21 = ny * nz * t - nx * s;
+    const b22 = nz * nz * t + c;
 
     out[0] = a00 * b00 + a10 * b01 + a20 * b02;
     out[1] = a01 * b00 + a11 * b01 + a21 * b02;

@@ -8,7 +8,7 @@ import { CryptoWrapUnwrap } from '@/app/pages/js-tests/components/TestCrypto/sub
 import { CryptoKeyBitsDerivation } from '@/app/pages/js-tests/components/TestCrypto/subcomponents/CryptoKeyBitsDerivation/CryptoKeyBitsDerivation';
 
 export const encodeMessage = (message: string) => {
-  let enc = new TextEncoder();
+  const enc = new TextEncoder();
   return enc.encode(message);
 };
 

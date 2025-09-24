@@ -1,11 +1,13 @@
 {
   "rules": {
     "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
-    "declaration-property-value-allowed-list": {
-      "color": "/^\\$.*$/",
-      "background-color": "/^\\$.*$/",
-      "border-color": "/^\\$.*$/",
-      "background": "/^\\$.*$/"
+    "declaration-property-value-disallowed-list": {
+      "color": ["/^#[0-9a-fA-F]+$/", "/^rgb\\(/", "/^rgba\\(/", "/^hsl\\(/", "/^hsla\\(/"],
+      "background-color": ["/^#[0-9a-fA-F]+$/", "/^rgb\\(/", "/^rgba\\(/", "/^hsl\\(/", "/^hsla\\(/"],
+      "border-color": ["/^#[0-9a-fA-F]+$/", "/^rgb\\(/", "/^rgba\\(/", "/^hsl\\(/", "/^hsla\\(/"],
+      "fill": ["/^#[0-9a-fA-F]+$/", "/^rgb\\(/", "/^rgba\\(/", "/^hsl\\(/", "/^hsla\\(/"],
+      "stroke": ["/^#[0-9a-fA-F]+$/", "/^rgb\\(/", "/^rgba\\(/", "/^hsl\\(/", "/^hsla\\(/"],
+      "outline-color": ["/^#[0-9a-fA-F]+$/", "/^rgb\\(/", "/^rgba\\(/", "/^hsl\\(/", "/^hsla\\(/"]
     }
   },
   "plugins": ["stylelint-scss"],

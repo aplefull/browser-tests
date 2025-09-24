@@ -10,12 +10,10 @@ import classNames from 'classnames';
 
 type TSectionProps = {
   title: string;
-  info?: string;
   children: ReactNode;
-  index?: number;
 };
 
-export const Section = ({ title, info, children, index }: TSectionProps) => {
+export const Section = ({ title, children }: TSectionProps) => {
   const { pages } = useSelector((state: RootState) => state.settings.dropdowns);
   const dispatch = useDispatch<AppDispatch>();
   const [shouldRenderChildren, setShouldRenderChildren] = useState(false);

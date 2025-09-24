@@ -198,7 +198,7 @@ export const TestSensors = () => {
         sensor.start();
 
         sensors.magnetometer = sensor;
-      } catch (error) {
+      } catch {
         setMagnetometerData(null);
       }
 
@@ -209,7 +209,7 @@ export const TestSensors = () => {
         sensor.start();
 
         sensors.accelerometer = sensor;
-      } catch (error) {
+      } catch {
         setAccelerometerData(null);
       }
 
@@ -220,7 +220,7 @@ export const TestSensors = () => {
         sensor.start();
 
         sensors.gyroscope = sensor;
-      } catch (error) {
+      } catch {
         setGyroscopeData(null);
       }
 
@@ -231,7 +231,7 @@ export const TestSensors = () => {
         sensor.start();
 
         sensors.ambientLight = sensor;
-      } catch (error) {
+      } catch {
         setAmbientLightData(null);
       }
 
@@ -242,7 +242,7 @@ export const TestSensors = () => {
         sensor.start();
 
         sensors.gravity = sensor;
-      } catch (error) {
+      } catch {
         setGravityData(null);
       }
 
@@ -253,7 +253,7 @@ export const TestSensors = () => {
         sensor.start();
 
         sensors.linearAcceleration = sensor;
-      } catch (error) {
+      } catch {
         setLinearAccelerationData(null);
       }
 
@@ -264,7 +264,7 @@ export const TestSensors = () => {
         sensor.start();
 
         sensors.relativeOrientation = sensor;
-      } catch (error) {
+      } catch {
         setRelativeOrientationData(null);
       }
 
@@ -278,7 +278,7 @@ export const TestSensors = () => {
         sensor.start();
 
         sensors.absoluteOrientation = sensor;
-      } catch (error) {
+      } catch {
         setAbsoluteOrientationData(null);
       }
     };

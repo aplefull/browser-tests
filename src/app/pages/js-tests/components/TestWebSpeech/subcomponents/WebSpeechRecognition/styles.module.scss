@@ -1,4 +1,4 @@
-.controlsContainer {
+.controls-container {
   width: fit-content;
   background-color: var(--color-surface);
   box-shadow: inset 0 0 0 1px var(--gray-a7);
@@ -7,12 +7,12 @@
   margin: 20px 0 10px 0;
 }
 
-.grammarListSelect,
-.languageSelect {
+.grammar-list-select,
+.language-select {
   width: clamp(100px, 150px, 100%);
 }
 
-.statusContainer {
+.status-container {
   width: fit-content;
 
   .status {
@@ -40,13 +40,13 @@
   }
 }
 
-.recognizedTextContainer {
+.recognized-text-container {
   border: 1px solid var(--gray-a7);
   background-color: var(--color-surface);
   padding: 10px;
   border-radius: 5px;
 
-  .textArea {
+  .text-area {
     width: 100%;
     min-height: 200px;
     max-height: 300px;
@@ -61,7 +61,7 @@
     }
   }
 
-  .clearButton {
+  .clear-button {
     align-self: end;
   }
 }

@@ -1,5 +1,5 @@
 import React, { useRef, ReactNode, useState, useEffect } from 'react';
-import { calculateThumbPosition, clamp, map, wait } from '@/utils/utils';
+import { calculateThumbPosition, clamp, wait } from '@/utils/utils';
 import classNames from 'classnames';
 import styles from '@/app/components/ColorPicker/styles.module.scss';
 

@@ -106,7 +106,7 @@ const paintBlur = async (
     entries: [sampler, textures.horizontal.createView()],
   });
 
-  let blockSize = 128 - (settings.filterSize - 1);
+  const blockSize = 128 - (settings.filterSize - 1);
   gpu.queue.writeBuffer(blurParamsBuffer, 0, new Uint32Array([settings.filterSize, blockSize]));
 
   function frame() {

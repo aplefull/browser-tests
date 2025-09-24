@@ -49,7 +49,7 @@ const createDB = async (dbName: string, dbVersion: number, storeName: string) =>
       if (!db.objectStoreNames.contains(storeName)) {
         try {
           db.createObjectStore(storeName, { autoIncrement: true });
-        } catch (error) {
+        } catch {
           resolve({
             text: 'Error creating object store',
             type: 'error',
@@ -160,35 +160,19 @@ const deleteData = async (store: IDBObjectStore, key: string) => {
 };
 
 const testTransaction = async (db: IDBDatabase, store: string, data: unknown) => {
-  return new Promise<
-    | {
-        addResult: TIndexedDBResult;
-        getResult: TIndexedDBResult;
-        deleteResult: TIndexedDBResult;
-      }
-    | TIndexedDBResult
-  >(async (resolve) => {
-    try {
-      const transaction = db.transaction([store], 'readwrite');
-      const objectStore = transaction.objectStore(store);
+  try {
+    const transaction = db.transaction([store], 'readwrite');
+    const objectStore = transaction.objectStore(store);
 
-      const addResult = await addData(objectStore, data, 'test');
-      const getResult = await getData(objectStore, 'test');
-      const deleteResult = await deleteData(objectStore, 'test');
+    const addResult = await addData(objectStore, data, 'test');
+    const getResult = await getData(objectStore, 'test');
+    const deleteResult = await deleteData(objectStore, 'test');
 
-      resolve({
-        addResult,
-        getResult,
-        deleteResult,
-      });
-    } catch (error) {
-      const text = getErrorMessage(error, 'Error testing transaction');
-      resolve({
-        text,
-        type: 'error',
-      });
-    }
-  });
+    return { addResult, getResult, deleteResult };
+  } catch (error) {
+    const text = getErrorMessage(error, 'Error testing transaction');
+    return { text, type: 'error' };
+  }
 };
 
 export const TestWebStorage = () => {
@@ -265,7 +249,7 @@ export const TestWebStorage = () => {
       try {
         const result = await deleteDB(dbName);
         setIndexedDBResult((prev) => [...prev, result]);
-      } catch (error) {
+      } catch {
         updateResult({
           text: 'Error deleting existing database',
           type: 'error',

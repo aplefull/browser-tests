@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "prettier": "prettier -w ./src/**/*.{ts,tsx,js,jsx,json,css,scss,html}",
     "stylelint": "stylelint ./src/**/*.module.{css,scss}",
-    "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint ./src --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc --noEmit --incremental false --p tsconfig.json"
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "singleQuote": true
   },
   "devDependencies": {
+    "@eslint/js": "^9.36.0",
     "@reduxjs/toolkit": "^2.9.0",
     "@types/node": "^24.5.2",
     "@types/react": "^19.1.13",

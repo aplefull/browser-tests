@@ -78,7 +78,7 @@ const paintTriangle = (gl: WebGL2RenderingContext) => {
     return requestAnimationFrame(frame);
   };
 
-  const animationFrame = frame();
+  frame();
 };
 
 export const TestWebGl = () => {

@@ -8,7 +8,7 @@ import {
   TSettingsPages,
   TSingleArgumentFunction,
 } from '@/types';
-import { ForwardedRef, MutableRefObject } from 'react';
+import { ForwardedRef, RefObject } from 'react';
 
 export const lorem = (n: number, start = 0) => {
   const sentences = LOREM_TEXT.split(/(?<=[.?!])\s+/);
@@ -206,7 +206,7 @@ export const getPage = (title: string, pages: RootState['settings']['dropdowns']
 
   if (allPagesEmpty) return null;
 
-  const page = entries.find(([_, sections]) => {
+  const page = entries.find(([, sections]) => {
     return sections.find((section) => section.name === title);
   });
 
@@ -518,7 +518,7 @@ export const isActiveElementInput = () => {
 };
 
 export const assignRefs =
-  <T extends unknown>(...refs: MutableRefObject<T | null | undefined>[] | ForwardedRef<T>[]) =>
+  <T>(...refs: RefObject<T | null | undefined>[] | ForwardedRef<T>[]) =>
   (node: T) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') ref(node);

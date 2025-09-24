@@ -15,8 +15,6 @@ export const Init = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const onDoubleU = () => {
-    const activeElement = document.activeElement;
-
     if (isActiveElementInput()) return;
 
     window.scrollTo({

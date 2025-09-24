@@ -2,7 +2,6 @@ import styles from './styles.module.scss';
 import videoAv1 from '@assets/videos/cats_av1.mp4';
 import videoH264 from '@assets/videos/cats_h264.mp4';
 import videoH265 from '@assets/videos/cats_h265.mp4';
-import videoOGG from '@assets/videos/cats_theora.ogg';
 import videoVP8 from '@assets/videos/cats_vp8.webm';
 import videoVP9 from '@assets/videos/cats_vp9.webm';
 

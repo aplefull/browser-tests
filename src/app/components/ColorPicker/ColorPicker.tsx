@@ -31,7 +31,7 @@ const ColorInputs = ({ mode, color }: TColorInputsProps) => {
   const noop = () => {};
 
   switch (mode) {
-    case 'rgba':
+    case 'rgba': {
       const { r, g, b, a: a1 } = color.toRGBA();
       return (
         <>
@@ -41,8 +41,9 @@ const ColorInputs = ({ mode, color }: TColorInputsProps) => {
           <NumberInput value={a1} onChange={noop} min={0} max={1} />
         </>
       );
+    }
 
-    case 'hsla':
+    case 'hsla': {
       const { h, s, l, a: a2 } = color.toHSLA();
       return (
         <>
@@ -52,8 +53,9 @@ const ColorInputs = ({ mode, color }: TColorInputsProps) => {
           <NumberInput value={a2} onChange={noop} min={0} max={1} />
         </>
       );
+    }
 
-    case 'hsva':
+    case 'hsva': {
       const { h: h2, s: s2, v, a: a3 } = color.toHSVA();
       return (
         <>
@@ -63,10 +65,12 @@ const ColorInputs = ({ mode, color }: TColorInputsProps) => {
           <NumberInput value={a3} onChange={noop} min={0} max={1} />
         </>
       );
+    }
 
-    case 'hex':
+    case 'hex': {
       const hex = color.toHexaString();
       return <Input value={hex} onChange={noop} />;
+    }
   }
 };
 

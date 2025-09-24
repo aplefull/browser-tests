@@ -14,7 +14,7 @@
       background-color 0.2s,
       box-shadow 0.2s;
 
-    .radioInner {
+    .radio-inner {
       width: 100%;
       height: 100%;
       border-radius: 50%;
@@ -26,7 +26,7 @@
     &.checked {
       background-color: var(--accent-9);
 
-      .radioInner {
+      .radio-inner {
         transform: scale(0.5);
       }
     }

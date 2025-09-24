@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { calculateThumbPosition, clamp, map, wait } from '@/utils/utils';
 import classNames from 'classnames';
 import { TLabelPosition } from '@/types';

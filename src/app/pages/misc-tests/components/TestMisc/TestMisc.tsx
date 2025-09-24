@@ -465,7 +465,7 @@ export const TestMisc = () => {
           decoder.decode(data);
 
           return encoding;
-        } catch (e) {
+        } catch {
           return null;
         }
       })

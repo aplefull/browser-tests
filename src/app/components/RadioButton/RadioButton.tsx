@@ -1,6 +1,4 @@
 import styles from './styles.module.scss';
-import { ReactNode } from 'react';
-import { TLabelPosition } from '@/types';
 import classNames from 'classnames';
 
 type TRadioButtonProps = {

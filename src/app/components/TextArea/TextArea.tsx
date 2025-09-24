@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { ChangeEvent, ReactNode } from 'react';
+import { ChangeEvent } from 'react';
 import classNames from 'classnames';
 
 type TTextAreaProps = {

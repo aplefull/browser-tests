@@ -39,7 +39,6 @@ export const Popover = ({
   anchor = { horizontal: 'center', vertical: 'bottom' },
   target = { horizontal: 'center', vertical: 'top' },
 }: TPopoverProps) => {
-  const [readyToDisplay, setReadyToDisplay] = useState(false);
   const [childrenRect, setChildrenRect] = useState<DOMRect | null>(null);
   const [contentRect, setContentRect] = useState<DOMRect | null>(null);
 

@@ -217,15 +217,15 @@ export const parseExpression = (expression: string): number => {
         const mappedFunc = MATH_MAP[func];
 
         if (isSingleArgumentFunction(mappedFunc) && isSingleArg(parsedArgs)) {
-          return `${mappedFunc.apply(null, parsedArgs)}`;
+          return `${mappedFunc(...parsedArgs)}`;
         }
 
         if (isDoubleArgumentFunction(mappedFunc) && isDoubleArg(parsedArgs)) {
-          return `${mappedFunc.apply(null, parsedArgs)}`;
+          return `${mappedFunc(...parsedArgs)}`;
         }
 
         if (isZeroArg(parsedArgs)) {
-          return `${mappedFunc.apply(null, parsedArgs)}`;
+          return `${mappedFunc(...parsedArgs)}`;
         }
 
         console.error(`Function ${func} does not support ${parsedArgs.length} arguments.`);

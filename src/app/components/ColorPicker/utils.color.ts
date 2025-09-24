@@ -72,15 +72,6 @@ export const RGBToHSL = (r: number, g: number, b: number) => {
   };
 };
 
-export const RGBAToHSLA = (r: number, g: number, b: number, a: number) => {
-  const hsl = RGBToHSL(r, g, b);
-
-  return {
-    ...hsl,
-    a: a,
-  };
-};
-
 export const HSLToRGB = (h: number, s: number, l: number) => {
   const k = (n: number) => (n + h / 30) % 12;
   const a = s * Math.min(l, 1 - l);
@@ -90,14 +81,6 @@ export const HSLToRGB = (h: number, s: number, l: number) => {
     r: Math.round(f(0) * 255),
     g: Math.round(f(8) * 255),
     b: Math.round(f(4) * 255),
-  };
-};
-
-export const HSLAToRGBA = (h: number, s: number, l: number, a: number) => {
-  const rgb = HSLToRGB(h, s, l);
-  return {
-    ...rgb,
-    a: a,
   };
 };
 
@@ -115,17 +98,8 @@ export const RGBToHSV = (r: number, g: number, b: number) => {
   };
 };
 
-export const RGBAToHSVA = (r: number, g: number, b: number, a: number) => {
-  const hsv = RGBToHSV(r, g, b);
-
-  return {
-    ...hsv,
-    a: a,
-  };
-};
-
 export const HSVToRGB = (h: number, s: number, v: number) => {
-  let d = 0.0166666666666666 * h;
+  const d = 0.0166666666666666 * h;
   let c = v * s;
   let x = c - c * Math.abs((d % 2.0) - 1.0);
   let m = v - c;

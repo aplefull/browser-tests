@@ -10,7 +10,7 @@ import { NumberFormatTest } from '@/app/pages/js-tests/components/TestIntl/intls
 import { RelativeTimeFormatTest } from '@/app/pages/js-tests/components/TestIntl/intls/RelativeTimeFormatTest/RelativeTimeFormatTest';
 import { SegmenterTest } from '@/app/pages/js-tests/components/TestIntl/intls/SegmenterTest/SegmenterTest';
 import { PluralRulesTest } from '@/app/pages/js-tests/components/TestIntl/intls/PluralRulesTest/PluralRulesTest';
-import { isKeyOf, isNotPartOf, noop } from '@/utils/utils';
+import { isNotPartOf } from '@/utils/utils';
 import { SectionErrorBoundary } from '@/app/components/SectionErrorBoundary/SectionErrorBoundary';
 import { LocaleTest } from '@/app/pages/js-tests/components/TestIntl/intls/LocaleTest/LocaleTest';
 

@@ -64,7 +64,7 @@ export const SegmenterTest = () => {
   const getSegments = (string: string) => {
     try {
       return intl.segment(string);
-    } catch (error) {
+    } catch {
       return [];
     }
   };
