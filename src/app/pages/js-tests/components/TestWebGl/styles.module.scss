@@ -6,7 +6,7 @@
   .canvas {
     width: 50%;
     aspect-ratio: 1;
-    border: 1px solid $color-white;
+    border: 1px solid var(--color-white);
     margin-top: 10px;
   }
 }

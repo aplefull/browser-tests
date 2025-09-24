@@ -1,8 +1,6 @@
-@use 'colors' as *;
-
 @mixin subtitle {
   width: 100%;
-  border-bottom: 1px solid $color-white;
+  border-bottom: 1px solid var(--color-white);
   font-weight: normal;
 }
 
@@ -22,12 +20,12 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: $color-ink-light-30;
+      background: var(--color-ink-light-30);
       border-radius: 1000px;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-      background: $color-ink-light-40;
+      background: var(--color-ink-light-40);
     }
 
     &::-webkit-scrollbar-corner {

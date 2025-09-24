@@ -11,7 +11,7 @@
     justify-content: safe center;
     align-items: safe center;
     overflow: auto;
-    border: 1px solid $color-white;
+    border: 1px solid var(--color-white);
     container-type: size;
 
     &.horizontal {
@@ -36,7 +36,7 @@
   .intersection-element {
     aspect-ratio: 1;
     height: 90cqh;
-    background-color: $color-white;
+    background-color: var(--color-white);
   }
 
   .checkboxes {

@@ -14,11 +14,11 @@
     gap: 10px;
 
     .success {
-      color: $color-green;
+      color: var(--color-green);
     }
 
     .error {
-      color: $color-red;
+      color: var(--color-red);
 
       .buttons {
         margin-top: 10px;

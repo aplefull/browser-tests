@@ -47,11 +47,11 @@
     background: none;
     cursor: pointer;
     padding: 0;
-    color: $color-white-transparent-30;
+    color: var(--color-white-transparent-30);
     transition: color 0.2s ease-in-out;
 
     &:hover {
-      color: $color-white;
+      color: var(--color-white);
     }
   }
 
@@ -83,13 +83,13 @@
     height: 50%;
     border-radius: 10px;
     overflow: hidden;
-    background-color: $color-white-transparent-50;
+    background-color: var(--color-white-transparent-50);
     cursor: pointer;
 
     .progress-bar-progress {
       width: 0;
       height: 100%;
-      background-color: $color-white;
+      background-color: var(--color-white);
       border-radius: 10px;
     }
 
@@ -99,7 +99,7 @@
       left: 0;
       width: 0;
       height: 100%;
-      background-color: $color-red;
+      background-color: var(--color-red);
       border-radius: 10px;
     }
   }
@@ -109,7 +109,7 @@
     left: 0;
     height: 100%;
     aspect-ratio: 1;
-    background-color: $color-white;
+    background-color: var(--color-white);
     border-radius: 50%;
     cursor: pointer;
     translate: -50% 0;

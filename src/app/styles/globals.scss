@@ -1,3 +1,5 @@
+@use 'theme' as *;
+
 * {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   box-sizing: border-box;
@@ -18,15 +20,15 @@ body {
 
   display: flex;
   flex-direction: column;
-  gap: $space-6;
+  gap: var(--space-6);
   margin: 0;
   padding: 0;
-  background-color: var(--mauve-1);
-  color: var(--mauve-12);
+  background-color: var(--gray-1);
+  color: var(--gray-12);
   scroll-behavior: smooth;
-  font-size: $text-base;
-  line-height: $leading-relaxed;
-  font-weight: $font-normal;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  font-weight: var(--font-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -38,24 +40,24 @@ body {
 
 section {
   h2 {
-    margin: $space-6 0 $space-3 0;
-    font-weight: $font-semibold;
-    color: var(--mauve-12);
-    letter-spacing: $tracking-tight;
-    font-size: $text-lg;
+    margin: var(--space-6) 0 var(--space-3) 0;
+    font-weight: var(--font-semibold);
+    color: var(--gray-12);
+    letter-spacing: var(--tracking-tight);
+    font-size: var(--text-lg);
   }
 
   h3 {
-    margin: $space-4 0 $space-2 0;
-    font-weight: $font-medium;
-    color: var(--mauve-12);
-    font-size: $text-base;
+    margin: var(--space-4) 0 var(--space-2) 0;
+    font-weight: var(--font-medium);
+    color: var(--gray-12);
+    font-size: var(--text-base);
   }
 
   p {
-    color: var(--mauve-11);
-    margin-bottom: $space-4;
-    line-height: $leading-relaxed;
+    color: var(--gray-11);
+    margin-bottom: var(--space-4);
+    line-height: var(--leading-relaxed);
   }
 }
 

@@ -17,8 +17,8 @@
         display: grid;
         place-items: center;
         border-radius: 5px;
-        border: 1px dashed $color-white;
-        color: $color-white-transparent-50;
+        border: 1px dashed var(--color-white);
+        color: var(--color-white-transparent-50);
         font-size: 1.6rem;
 
         @media (width < 600px) {
@@ -32,12 +32,12 @@
     .test-area {
       width: 100%;
       height: 200px;
-      border: 1px dashed $color-white;
+      border: 1px dashed var(--color-white);
       border-radius: 5px;
       display: grid;
       place-items: center;
       font-size: 1.6rem;
-      color: $color-white-transparent-50;
+      color: var(--color-white-transparent-50);
     }
 
     .stats {

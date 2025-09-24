@@ -6,7 +6,7 @@
 
   h3 {
     width: 100%;
-    border-bottom: 1px solid color.adjust($color-white, $alpha: -0.6);
+    border-bottom: 1px solid var(--color-white-transparent-40);
     padding-bottom: 4px;
     font-weight: 400;
   }
@@ -36,7 +36,7 @@
     }
 
     &:first-letter {
-      color: $color-green;
+      color: var(--color-green);
     }
   }
 
@@ -49,19 +49,19 @@
     }
 
     &:first-line {
-      color: $color-green;
+      color: var(--color-green);
     }
   }
 
   .placeholder {
     ::placeholder {
-      color: $color-green;
+      color: var(--color-green);
     }
   }
 
   .selection {
     span::selection {
-      background: $color-green;
+      background: var(--color-green);
       color: var(--color-panel-solid);
     }
   }
@@ -75,8 +75,8 @@
     button {
       &:active {
         outline: none;
-        color: $color-green;
-        background-color: $color-ink;
+        color: var(--color-green);
+        background-color: var(--color-ink);
       }
     }
   }
@@ -90,8 +90,8 @@
     button {
       &:hover {
         outline: none;
-        color: $color-green;
-        background-color: $color-ink;
+        color: var(--color-green);
+        background-color: var(--color-ink);
       }
     }
   }
@@ -105,10 +105,10 @@
       width: 40px;
       aspect-ratio: 1;
       border-radius: 4px;
-      background-color: $color-red;
+      background-color: var(--color-red);
 
       &:empty {
-        background-color: $color-green;
+        background-color: var(--color-green);
       }
     }
   }
@@ -129,7 +129,7 @@
         + label {
           &:after {
             content: 'Everything works :)';
-            color: $color-green;
+            color: var(--color-green);
           }
         }
       }
@@ -139,7 +139,7 @@
   .disabled {
     input:disabled {
       &::placeholder {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -147,7 +147,7 @@
   .enabled {
     input:enabled {
       &::placeholder {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -155,7 +155,7 @@
   .focus {
     input {
       &:focus {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -183,7 +183,7 @@
       margin: 0;
 
       &:default {
-        outline: 1px solid $color-green;
+        outline: 1px solid var(--color-green);
         outline-offset: 2px;
       }
     }
@@ -191,7 +191,7 @@
 
   .first-child {
     span {
-      color: $color-green;
+      color: var(--color-green);
 
       &:first-child {
         display: none;
@@ -201,7 +201,7 @@
 
   .first-of-type {
     span {
-      color: $color-green;
+      color: var(--color-green);
 
       &:first-of-type {
         display: none;
@@ -211,7 +211,7 @@
 
   .last-of-type {
     span {
-      color: $color-green;
+      color: var(--color-green);
 
       &:last-of-type {
         display: none;
@@ -221,7 +221,7 @@
 
   .last-child {
     span {
-      color: $color-green;
+      color: var(--color-green);
 
       &:last-child {
         display: none;
@@ -231,7 +231,7 @@
 
   .nth-child-2 {
     span {
-      color: $color-green;
+      color: var(--color-green);
 
       &:nth-child(2) {
         display: none;
@@ -241,7 +241,7 @@
 
   .nth-last-child-2 {
     span {
-      color: $color-green;
+      color: var(--color-green);
 
       &:nth-last-child(2) {
         display: none;
@@ -251,7 +251,7 @@
 
   .nth-last-of-type-2 {
     span {
-      color: $color-green;
+      color: var(--color-green);
 
       &:nth-last-of-type(2) {
         display: none;
@@ -261,7 +261,7 @@
 
   .nth-of-type-2 {
     span {
-      color: $color-green;
+      color: var(--color-green);
 
       &:nth-of-type(2) {
         display: none;
@@ -275,7 +275,7 @@
 
       &:not(:last-child) {
         display: inline;
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -286,7 +286,7 @@
 
       &:only-child {
         display: inline;
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -298,7 +298,7 @@
 
       &:only-of-type {
         display: inline;
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -306,7 +306,7 @@
   .fullscreen {
     &:fullscreen {
       .text {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -317,7 +317,7 @@
       margin-left: 2.5px;
 
       input:indeterminate {
-        outline: 1px solid $color-green;
+        outline: 1px solid var(--color-green);
         outline-offset: 2px;
       }
     }
@@ -326,7 +326,7 @@
   .valid {
     input {
       &:valid {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -334,7 +334,7 @@
   .invalid {
     input {
       &:invalid {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -343,7 +343,7 @@
     p,
     span {
       :lang(en) {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
@@ -353,32 +353,32 @@
       text-align: left;
 
       &:dir(rtl) {
-        color: $color-red;
+        color: var(--color-red);
       }
 
       &:dir(ltr) {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
 
   .link {
     a {
-      color: $color-white;
+      color: var(--color-white);
     }
 
     a:link {
-      color: $color-green;
+      color: var(--color-green);
     }
   }
 
   .visited {
     a {
-      color: $color-white;
+      color: var(--color-white);
     }
 
     a:visited {
-      color: $color-green;
+      color: var(--color-green);
     }
   }
 
@@ -389,7 +389,7 @@
       + span {
         &:before {
           content: 'Pass';
-          color: $color-green;
+          color: var(--color-green);
         }
       }
     }
@@ -402,7 +402,7 @@
       + span {
         &:before {
           content: 'Pass';
-          color: $color-green;
+          color: var(--color-green);
         }
       }
     }
@@ -415,7 +415,7 @@
       + span {
         &:before {
           content: 'Pass';
-          color: $color-green;
+          color: var(--color-green);
         }
       }
     }
@@ -428,7 +428,7 @@
       + span {
         &:before {
           content: 'Pass';
-          color: $color-green;
+          color: var(--color-green);
         }
       }
     }
@@ -441,7 +441,7 @@
       + span {
         &:before {
           content: 'Pass';
-          color: $color-green;
+          color: var(--color-green);
         }
       }
     }
@@ -454,7 +454,7 @@
       + span {
         &:before {
           content: 'Pass';
-          color: $color-green;
+          color: var(--color-green);
         }
       }
     }
@@ -468,10 +468,10 @@
 
   .target {
     a {
-      color: $color-white;
+      color: var(--color-white);
 
       &:target {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }

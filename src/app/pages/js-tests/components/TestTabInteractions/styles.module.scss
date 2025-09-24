@@ -4,10 +4,10 @@
   align-items: center;
 
   button {
-    background-color: $color-charcoal;
+    background-color: var(--color-charcoal);
     border: none;
     border-radius: 5px;
-    color: $color-white;
+    color: var(--color-white);
     padding: 10px 20px;
     cursor: pointer;
   }

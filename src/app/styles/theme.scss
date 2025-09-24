@@ -1,0 +1,273 @@
+:root {
+  --shadow-1:
+    inset 0 -1px 1px 0 var(--gray-a3), inset 0 0 0 1px var(--gray-a3), inset 0 3px 4px 0 var(--black-a5),
+    inset 0 0 0 1px var(--gray-a4);
+  --shadow-2:
+    0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6)), 0 0 1px 1px var(--gray-a5),
+    0 1px 1px 0 var(--black-a6), 0 2px 1px -1px var(--black-a6), 0 1px 3px 0 var(--black-a8);
+  --shadow-3:
+    0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6)), 0 2px 3px -2px var(--black-a3),
+    0 3px 8px -2px var(--black-a6), 0 4px 12px -4px var(--black-a7);
+  --shadow-4:
+    0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6)), 0 8px 40px var(--black-a3),
+    0 12px 32px -16px var(--black-a5);
+  --shadow-5:
+    0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6)), 0 12px 60px var(--black-a5),
+    0 12px 32px -16px var(--black-a7);
+  --shadow-6:
+    0 0 0 1px color-mix(in oklab, var(--gray-a6), var(--gray-6)), 0 12px 60px var(--black-a4),
+    0 16px 64px var(--black-a6), 0 16px 36px -20px var(--black-a11);
+
+  --transition-all: all 0.2s ease-in-out;
+
+  --space-0: 0;
+  --space-1: 0.25rem; // 4px
+  --space-2: 0.5rem; // 8px
+  --space-3: 0.75rem; // 12px
+  --space-4: 1rem; // 16px
+  --space-5: 1.25rem; // 20px
+  --space-6: 1.5rem; // 24px
+  --space-7: 1.75rem; // 28px
+  --space-8: 2rem; // 32px
+  --space-9: 2.25rem; // 36px
+  --space-10: 2.5rem; // 40px
+  --space-12: 3rem; // 48px
+  --space-16: 4rem; // 64px
+  --space-20: 5rem; // 80px
+  --space-24: 6rem; // 96px
+
+  --text-xs: 0.75rem; // 12px
+  --text-sm: 0.875rem; // 14px
+  --text-base: 1rem; // 16px
+  --text-lg: 1.125rem; // 18px
+  --text-xl: 1.25rem; // 20px
+  --text-2xl: 1.5rem; // 24px
+  --text-3xl: 1.875rem; // 30px
+  --text-4xl: 2.25rem; // 36px
+  --text-5xl: 3rem; // 48px
+  --text-6xl: 3.75rem; // 60px
+
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  --tracking-tight: -0.025em;
+
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.65;
+  --leading-loose-lg: 2;
+
+  --z-hide: -1;
+  --z-auto: auto;
+  --z-base: 0;
+  --z-docked: 10;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-banner: 1200;
+  --z-overlay: 1300;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-skiplink: 1600;
+  --z-toast: 1700;
+  --z-tooltip: 1800;
+
+  --gray-1: #121113;
+  --gray-2: #1a191b;
+  --gray-3: #232225;
+  --gray-4: #2b292d;
+  --gray-5: #323035;
+  --gray-6: #3c393f;
+  --gray-7: #49474e;
+  --gray-8: #625f69;
+  --gray-9: #6f6d78;
+  --gray-10: #7c7a85;
+  --gray-11: #b5b2bc;
+  --gray-12: #eeeef0;
+
+  --gray-a1: #00000000;
+  --gray-a2: #f5f4f609;
+  --gray-a3: #ebeaf814;
+  --gray-a4: #eee5f81d;
+  --gray-a5: #efe6fe25;
+  --gray-a6: #f1e6fd30;
+  --gray-a7: #eee9ff40;
+  --gray-a8: #eee7ff5d;
+  --gray-a9: #eae6fd6e;
+  --gray-a10: #ece9fd7c;
+  --gray-a11: #f5f1ffb7;
+  --gray-a12: #fdfdffef;
+
+  --accent-1: #18111b;
+  --accent-2: #1e1523;
+  --accent-3: #301c3b;
+  --accent-4: #3d224e;
+  --accent-5: #48295c;
+  --accent-6: #54346b;
+  --accent-7: #664282;
+  --accent-8: #8457aa;
+  --accent-9: #8e4ec6;
+  --accent-10: #9a5cd0;
+  --accent-11: #d19dff;
+  --accent-12: #ecd9fa;
+
+  --accent-a1: #b412f90b;
+  --accent-a2: #b744f714;
+  --accent-a3: #c150ff2d;
+  --accent-a4: #bb53fd42;
+  --accent-a5: #be5cfd51;
+  --accent-a6: #c16dfd61;
+  --accent-a7: #c378fd7a;
+  --accent-a8: #c47effa4;
+  --accent-a9: #b661ffc2;
+  --accent-a10: #bc6fffcd;
+  --accent-a11: #d19dff;
+  --accent-a12: #f1ddfffa;
+
+  --black-a1: rgba(0, 0, 0, 0.05);
+  --black-a2: rgba(0, 0, 0, 0.1);
+  --black-a3: rgba(0, 0, 0, 0.15);
+  --black-a4: rgba(0, 0, 0, 0.2);
+  --black-a5: rgba(0, 0, 0, 0.3);
+  --black-a6: rgba(0, 0, 0, 0.4);
+  --black-a7: rgba(0, 0, 0, 0.5);
+  --black-a8: rgba(0, 0, 0, 0.6);
+  --black-a9: rgba(0, 0, 0, 0.7);
+  --black-a10: rgba(0, 0, 0, 0.8);
+  --black-a11: rgba(0, 0, 0, 0.9);
+  --black-a12: rgba(0, 0, 0, 0.95);
+
+  --red-1: #1f1315;
+  --red-2: #27181c;
+  --red-3: #3e2225;
+  --red-4: #4f2732;
+  --red-5: #5e2a3a;
+  --red-6: #6f2f44;
+  --red-7: #853748;
+  --red-8: #ac3d56;
+  --red-9: #e5484d;
+  --red-10: #ec5d5e;
+  --red-11: #ff9592;
+  --red-12: #ffd1d9;
+
+  --radius-1: 3px;
+  --radius-2: 4px;
+  --radius-3: 6px;
+  --radius-4: 8px;
+  --radius-5: 12px;
+  --radius-6: 16px;
+
+  --color-background: var(--gray-1);
+  --color-overlay: var(--black-a8);
+  --color-panel-solid: var(--gray-2);
+  --color-surface: rgba(0, 0, 0, 0.25);
+
+  --color-green: #22c55e;
+  --color-green-dark-10: #1a9948;
+
+  --color-red: #ef4444;
+  --color-warning: #f59e0b;
+  --color-blue: #3b82f6;
+
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+
+  --color-transparent: transparent;
+
+  --color-white: var(--gray-11);
+  --color-white-transparent-10: rgba(248, 250, 252, 0.9);
+  --color-white-transparent-20: rgba(248, 250, 252, 0.8);
+  --color-white-transparent-30: rgba(248, 250, 252, 0.7);
+  --color-white-transparent-40: rgba(248, 250, 252, 0.6);
+  --color-white-transparent-50: rgba(248, 250, 252, 0.5);
+
+  --color-gray: #94a3b8;
+  --color-black: #000000;
+  --color-charcoal: #171717;
+
+  --color-ink: #1e1e1e;
+  --color-ink-light-3: #171717;
+  --color-ink-light-10: #383838;
+  --color-ink-light-20: #525252;
+  --color-ink-light-30: #6b6b6b;
+  --color-ink-light-40: #858585;
+  --color-ink-light-50: #9e9e9e;
+
+  --color-special-hsl-1: hsl(223, 100%, 50%);
+  --color-special-hsl-2: hsla(350, 75%, 49%, 0.96);
+  --color-special-hsl-3: hsla(213, 68%, 75%, 1);
+  --color-special-hsl-4: hsla(226, 72%, 54%, 0.76);
+  --color-special-hsl-5: hsla(189, 100%, 74%, 1);
+  --color-special-hsl-6: hsla(350, 100%, 56%, 0.76);
+  --color-special-hsl-7: hsl(157, 100%, 52%);
+  --color-special-hsl-8: hsla(141, 100%, 76%, 1);
+  --color-special-hsl-9: hsl(205, 81%, 49%);
+  --color-special-hsl-10: hsl(278, 80%, 53%);
+  --color-special-hsl-11: hsl(0, 82%, 40%);
+
+  --color-special-oklch-1: oklch(77% 0.5 200);
+  --color-special-oklch-2: oklch(77% 0.5 230);
+  --color-special-oklch-3: oklch(77% 0.5 260);
+  --color-special-oklch-4: oklch(77% 0.5 280);
+  --color-special-oklch-5: oklch(77% 0.5 300);
+  --color-special-oklch-6: oklch(70% 0.3 0);
+  --color-special-oklch-7: oklch(100% 0.25 160);
+  --color-special-oklch-8: oklch(75% 0.5 180);
+  --color-special-oklch-9: oklch(75% 0.5 210);
+  --color-special-oklch-10: oklch(75% 0.5 230);
+  --color-special-oklch-11: oklch(75% 0.5 260);
+  --color-special-oklch-12: oklch(80% 0.3 305);
+
+  --color-special-pure-red: red;
+  --color-special-pure-green: #00ff00;
+  --color-special-pure-blue: blue;
+
+  --color-special-text-gradient-1: var(--color-special-pure-red);
+  --color-special-text-gradient-2: hsl(120, 100%, calc(90% - 10%));
+  --color-special-text-gradient-3: var(--color-special-pure-green);
+  --color-special-text-gradient-4: rgb(calc(0% + 10%), 0, 255);
+  --color-special-text-gradient-5: rgba(255, 0, 0, 1);
+  --color-special-text-gradient-6: rgb(0, 8, 227);
+  --color-special-text-gradient-7: rgb(255, 0, 189);
+  --color-special-text-gradient-8: hsl(0, 70%, 50%);
+  --color-special-text-gradient-9: hsl(180, 70%, 50%);
+  --color-special-text-gradient-10: hsl(360, 70%, 50%);
+
+  --text-primary: var(--gray-12);
+  --text-secondary: var(--gray-11);
+  --text-disabled: var(--gray-8);
+
+  --bg-canvas: var(--gray-1);
+  --bg-subtle: var(--gray-2);
+  --bg-ui: var(--gray-3);
+  --bg-hover: var(--gray-4);
+  --bg-active: var(--gray-5);
+
+  --border-subtle: var(--gray-6);
+  --border-ui: var(--gray-7);
+  --border-hover: var(--gray-8);
+  --border-strong: var(--gray-9);
+
+  --error-bg: var(--red-3);
+  --error-border: var(--red-7);
+  --error-text: var(--red-11);
+  --error-solid: var(--red-9);
+
+  --accent-bg: var(--accent-3);
+  --accent-border: var(--accent-7);
+  --accent-text: var(--accent-11);
+  --accent-solid: var(--accent-9);
+
+  --radius-none: 0;
+  --radius-sm: 0.125rem; // 2px
+  --radius-md: 0.375rem; // 6px
+  --radius-lg: 0.5rem; // 8px
+  --radius-xl: 0.75rem; // 12px
+  --radius-2xl: 1rem; // 16px
+  --radius-3xl: 1.5rem; // 24px
+  --radius-full: 9999px; // Pills
+}

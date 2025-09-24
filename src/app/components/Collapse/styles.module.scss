@@ -10,7 +10,7 @@
     cursor: pointer;
     background: transparent;
     transition: background-color 0.2s ease;
-    color: var(--mauve-12);
+    color: var(--gray-12);
 
 
     .left {
@@ -21,12 +21,12 @@
     .right {
       display: flex;
       align-items: center;
-      color: var(--mauve-10);
+      color: var(--gray-10);
     }
 
     .icon-container {
       display: flex;
-      color: var(--mauve-10);
+      color: var(--gray-10);
 
       .icon {
         transition: transform 0.2s ease;
@@ -41,7 +41,7 @@
     }
 
     @media (max-width: $bp-md) {
-      padding: $space-3;
+      padding: var(--space-3);
     }
   }
 
@@ -49,12 +49,12 @@
     overflow-y: hidden;
     transition: height 0.2s ease;
     position: relative;
-    background: var(--mauve-2);
-    color: var(--mauve-11);
-    font-size: $text-sm;
+    background: var(--gray-2);
+    color: var(--gray-11);
+    font-size: var(--text-sm);
 
     @media (max-width: $bp-md) {
-      padding: $space-3;
+      padding: var(--space-3);
     }
   }
 }

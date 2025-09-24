@@ -10,19 +10,19 @@
   }
 
   .plain-color {
-    -webkit-text-fill-color: $color-red;
-    -moz-text-fill-color: $color-red;
-    text-fill-color: $color-red;
+    -webkit-text-fill-color: var(--color-red);
+    -moz-text-fill-color: var(--color-red);
+    text-fill-color: var(--color-red);
   }
 
   .gradient {
     background: linear-gradient(
       45deg,
-      $color-special-text-gradient-1 0%,
-      $color-special-text-gradient-2 25%,
-      $color-special-text-gradient-3 50%,
-      $color-special-text-gradient-4 75%,
-      $color-special-text-gradient-5 100%
+      var(--color-special-text-gradient-1) 0%,
+      var(--color-special-text-gradient-2) 25%,
+      var(--color-special-text-gradient-3) 50%,
+      var(--color-special-text-gradient-4) 75%,
+      var(--color-special-text-gradient-5) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -31,9 +31,9 @@
   .animated-gradient {
     background: linear-gradient(
       90deg,
-      $color-special-text-gradient-6 0%,
-      $color-special-text-gradient-7 50%,
-      $color-special-text-gradient-6 100%
+      var(--color-special-text-gradient-6) 0%,
+      var(--color-special-text-gradient-7) 50%,
+      var(--color-special-text-gradient-6) 100%
     );
     animation: animated-gradient 5s linear infinite;
     background-size: 200%;
@@ -62,15 +62,15 @@
 
     @keyframes color-animation {
       0% {
-        color: $color-special-text-gradient-8;
+        color: var(--color-special-text-gradient-8);
       }
 
       50% {
-        color: $color-special-text-gradient-9;
+        color: var(--color-special-text-gradient-9);
       }
 
       100% {
-        color: $color-special-text-gradient-10;
+        color: var(--color-special-text-gradient-10);
       }
     }
   }

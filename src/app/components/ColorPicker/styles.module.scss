@@ -2,7 +2,7 @@
   width: 40px;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 1px solid $color-ink-light-20;
+  border: 1px solid var(--color-ink-light-20);
   cursor: pointer;
 }
 
@@ -13,7 +13,7 @@
   width: 300px;
   padding: 15px 15px 5px 15px;
   margin-top: 10px;
-  background-color: $color-charcoal;
+  background-color: var(--color-charcoal);
   box-shadow:
     0.2px 0.4px 0.4px hsl(0deg 0% 2% / 0.54),
     0.7px 1.3px 1.3px -0.4px hsl(0deg 0% 2% / 0.5),
@@ -63,7 +63,7 @@
         width: 10px;
         aspect-ratio: 1;
         border-radius: 50%;
-        background-color: $color-white;
+        background-color: var(--color-white);
         translate: -50% -50%;
       }
     }
@@ -101,7 +101,7 @@
         width: 10px;
         aspect-ratio: 1;
         border-radius: 50%;
-        background-color: $color-white;
+        background-color: var(--color-white);
         translate: -50% -50%;
       }
     }
@@ -126,7 +126,7 @@
         left: 0;
         width: 100%;
         aspect-ratio: 1;
-        background-color: $color-white;
+        background-color: var(--color-white);
         border-radius: 50px;
         scale: 1.2;
         translate: 0 -50%;
@@ -142,7 +142,7 @@
       }
 
       .checkered {
-        background: repeating-conic-gradient($color-ink-light-10 0% 25%, transparent 0% 50%) 50% / 100cqw 100cqw;
+        background: repeating-conic-gradient(var(--color-ink-light-10) 0% 25%, transparent 0% 50%) 50% / 100cqw 100cqw;
       }
 
       &.gradient {
@@ -156,7 +156,7 @@
     padding: 10px;
 
     div {
-      border: 1px solid $color-ink-light-20;
+      border: 1px solid var(--color-ink-light-20);
       border-radius: 10px;
       height: 40px;
     }
@@ -177,7 +177,7 @@
     .mode-button {
       border: none;
       background-color: transparent;
-      color: $color-ink-light-20;
+      color: var(--color-ink-light-20);
       text-transform: uppercase;
       font-weight: 600;
       font-size: 18px;

@@ -50,7 +50,7 @@
 
     &.checked {
       background-color: var(--accent-9);
-      color: $color-white;
+      color: var(--color-white);
       box-shadow: none;
 
       .check-mark {

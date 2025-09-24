@@ -9,8 +9,8 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    padding: $space-6 $space-7;
-    color: var(--mauve-12);
+    padding: var(--space-6) var(--space-7);
+    color: var(--gray-12);
     background-color: #1b1718;
 
 
@@ -21,7 +21,7 @@
   
   .body {
     height: 0;
-    padding: 0 $space-4;
+    padding: 0 var(--space-4);
     overflow: hidden;
     border-left: 1px solid #2a2627;
     border-right: 1px solid #2a2627;
@@ -40,7 +40,7 @@
 
     .body {
       height: auto;
-      padding: $space-4;
+      padding: var(--space-4);
     }
   }
   
@@ -50,12 +50,12 @@
   }
 
   &:first-of-type {
-    border-top-left-radius: $radius-xl;
-    border-top-right-radius: $radius-xl;
+    border-top-left-radius: var(--radius-xl);
+    border-top-right-radius: var(--radius-xl);
   }
 
   &:last-of-type {
-    border-bottom-left-radius: $radius-xl;
-    border-bottom-right-radius: $radius-xl;
+    border-bottom-left-radius: var(--radius-xl);
+    border-bottom-right-radius: var(--radius-xl);
   }
 }

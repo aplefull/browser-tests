@@ -9,7 +9,7 @@
     text-align: left;
 
     a {
-      color: $color-white;
+      color: var(--color-white);
       text-decoration: none;
 
       &:hover {
@@ -23,7 +23,7 @@
 
     span {
       display: block;
-      color: $color-warning;
+      color: var(--color-warning);
       font-weight: bold;
       text-transform: uppercase;
       text-align: center;

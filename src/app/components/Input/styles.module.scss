@@ -13,11 +13,11 @@
   width: 100%;
   height: 100%;
   padding: 5px 5px 5px 10px;
-  background-color: $color-transparent;
+  background-color: var(--color-transparent);
   outline: none;
   border: none;
   color: var(--gray-12);
-  -webkit-tap-highlight-color: $color-transparent;
+  -webkit-tap-highlight-color: var(--color-transparent);
 }
 
 .disabled {

@@ -8,7 +8,7 @@
 
   span {
     &.error {
-      color: $color-red;
+      color: var(--color-red);
     }
   }
 

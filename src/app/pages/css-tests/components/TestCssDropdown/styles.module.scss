@@ -1,5 +1,5 @@
 .dropdown {
-  --dropdown-color: #{color.adjust($color-ink, $lightness: -3%)};
+  --dropdown-color: var(--color-ink-light-3);
   --transparent: transparent;
   --transition: 1s ease-in-out;
 
@@ -52,7 +52,7 @@
       width: 0;
       height: 0;
       border-top: 5px solid var(--transparent);
-      border-left: 5px solid $color-white;
+      border-left: 5px solid var(--color-white);
       border-right: 0 solid var(--transparent);
       border-bottom: 5px solid var(--transparent);
       transition: transform var(--transition);

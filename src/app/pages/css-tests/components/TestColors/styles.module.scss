@@ -1,7 +1,7 @@
 .colors {
   h2 {
     width: 100%;
-    border-bottom: 1px solid $color-white;
+    border-bottom: 1px solid var(--color-white);
     font-weight: normal;
   }
 
@@ -72,7 +72,7 @@
           inset: 0;
           display: grid;
           place-items: center;
-          border: 1px solid $color-red;
+          border: 1px solid var(--color-red);
         }
 
         &::after {
@@ -100,7 +100,7 @@
         }
 
         &:nth-of-type(5)::after {
-          background-color: oklab(from $color-green-dark-10 r g 70%);
+          background-color: oklab(from var(--color-green-dark-10) r g 70%);
         }
       }
     }

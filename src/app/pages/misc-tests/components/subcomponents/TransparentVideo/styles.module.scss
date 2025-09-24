@@ -20,7 +20,7 @@
       height: auto;
 
       &.shadow {
-        filter: drop-shadow(2px 4px 10px $color-black);
+        filter: drop-shadow(2px 4px 10px var(--color-black));
       }
 
       &.blur {

@@ -23,8 +23,8 @@
   }
 
   .cell {
-    border-top: 1px solid $color-white;
-    border-left: 1px solid $color-white;
+    border-top: 1px solid var(--color-white);
+    border-left: 1px solid var(--color-white);
     padding: 5px 7px;
     font-family: monospace;
     word-break: break-all;
@@ -37,8 +37,8 @@
       padding: 10px;
       position: sticky;
       top: 0;
-      background-color: $color-charcoal;
-      border-bottom: 1px solid $color-white;
+      background-color: var(--color-charcoal);
+      border-bottom: 1px solid var(--color-white);
 
       &:first-of-type {
         border-top-left-radius: 6px;
@@ -46,13 +46,13 @@
 
       &:last-of-type {
         border-top-right-radius: 6px;
-        border-right: 1px solid $color-white;
+        border-right: 1px solid var(--color-white);
       }
     }
 
     &.body-cell {
       &.last-in-row {
-        border-right: 1px solid $color-white;
+        border-right: 1px solid var(--color-white);
       }
 
       &.first-row {
@@ -60,7 +60,7 @@
       }
 
       &.last-row {
-        border-bottom: 1px solid $color-white;
+        border-bottom: 1px solid var(--color-white);
         border-bottom-left-radius: 6px;
 
         ~ .last-row {

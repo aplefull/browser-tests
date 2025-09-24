@@ -9,10 +9,10 @@
   }
 
   .error {
-    color: $color-red;
+    color: var(--color-red);
   }
 
   .success {
-    color: $color-green;
+    color: var(--color-green);
   }
 }

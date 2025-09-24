@@ -1,66 +1,58 @@
 import { IndexPage } from '@/app/pages/home/page';
 import { NotFound } from '@/app/pages/not-found/NotFound';
 import { Settings } from '@/app/pages/settings/Settings';
-import { HTMLTestsPage } from '@/app/pages/html-tests/HTMLTestsPage';
-import { CSSTestsPage } from '@/app/pages/css-tests/page';
-import { JSTestsPage } from '@/app/pages/js-tests/page';
-import { MiscTestsPage } from '@/app/pages/misc-tests/page';
 import { OthersProjectsPage } from '@/app/pages/others-projects/page';
-
-import { lazy, ReactNode, Suspense } from 'react';
+import { DevDemoPage } from '@/app/pages/dev-demo/page';
+import { Section } from '@/app/components/Section/Section';
 import { Loader } from '@/app/components/Loader/Loader';
+import { SectionErrorBoundary } from '@/app/components/SectionErrorBoundary/SectionErrorBoundary';
 
-// TODO maybe use in separate heavy components
-const importer = (path: string) => {
-  return lazy<() => ReactNode>(async () => {
-    try {
-      /* @vite-ignore */
-      const module = await import(path);
-      const moduleName = Object.keys(module)[0];
+import { JSX, LazyExoticComponent, Suspense } from 'react';
 
-      if (!moduleName) throw new Error('Module name is not defined');
+import { sections as htmlSections } from '@/app/pages/html-tests/sections';
+import { sections as cssSections } from '@/app/pages/css-tests/sections';
+import { sections as jsSections } from '@/app/pages/js-tests/sections';
+import { sections as miscSections } from '@/app/pages/misc-tests/sections';
 
-      return { default: module[moduleName] };
-    } catch (error) {
-      console.error(error);
-      return { default: () => null };
-    }
-  });
-};
-
-const Async = ({ path }: { path: string }) => {
-  const Component = importer(path);
-
+const Page = ({sections}: {sections: {Component: (() => JSX.Element | null) | (LazyExoticComponent<() => JSX.Element>); name: string}[]}) => {
   return (
-    <Suspense fallback={<Loader fillPage />}>
-      <Component />
-    </Suspense>
+    <div>
+      {sections.map(({ Component, name }, index) => (
+        <Section key={name} title={name}>
+          <SectionErrorBoundary>
+            <Suspense fallback={<Loader fillContainer />}>
+              <Component key={index} />
+            </Suspense>
+          </SectionErrorBoundary>
+        </Section>
+      ))}
+    </div>
   );
-};
+}
 
-export const routes = [
+const baseRoutes = [
   {
     path: '/',
     element: <IndexPage />,
   },
   {
     path: '/html-tests',
-    element: <HTMLTestsPage />,
+    element: <Page sections={htmlSections} />,
     navText: 'HTML',
   },
   {
     path: '/css-tests',
-    element: <CSSTestsPage />,
+    element: <Page sections={cssSections} />,
     navText: 'CSS',
   },
   {
     path: '/js-tests',
-    element: <JSTestsPage />,
+    element: <Page sections={jsSections} />,
     navText: 'JS',
   },
   {
     path: '/misc-tests',
-    element: <MiscTestsPage />,
+    element: <Page sections={miscSections} />,
     navText: 'MISC',
   },
   {
@@ -73,6 +65,19 @@ export const routes = [
     element: <Settings />,
     navText: 'SETTINGS',
   },
+];
+
+const devRoutes = import.meta.env.DEV ? [
+  {
+    path: '/dev-demo',
+    element: <DevDemoPage />,
+    navText: 'DEV',
+  },
+] : [];
+
+export const routes = [
+  ...baseRoutes,
+  ...devRoutes,
   {
     path: '*',
     element: <NotFound />,

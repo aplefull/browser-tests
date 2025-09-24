@@ -7,7 +7,7 @@
   h2 {
     font-weight: normal;
     width: 100%;
-    border-bottom: 1px solid $color-white;
+    border-bottom: 1px solid var(--color-white);
   }
 
   .square-text {
@@ -19,7 +19,7 @@
       font-weight: normal;
       font-size: 0.9em;
       margin-right: 5px;
-      color: $color-white;
+      color: var(--color-white);
       text-decoration: underline;
       transition: opacity 0.2s ease-in-out;
       opacity: 0.7;
@@ -69,7 +69,7 @@
     span {
       display: block;
       width: 100%;
-      background-color: $color-red;
+      background-color: var(--color-red);
     }
 
     div {
@@ -101,7 +101,7 @@
 
     .scroll-content {
       contain: strict;
-      outline: 5px solid $color-green;
+      outline: 5px solid var(--color-green);
       outline-offset: -5px;
       border-radius: 10px;
 
@@ -136,7 +136,7 @@
     animation-timeline: scroll(self);
     overflow: auto;
     scrollbar-width: none;
-    color: $color-white;
+    color: var(--color-white);
 
     &::-webkit-scrollbar {
       display: none;
@@ -148,7 +148,7 @@
       width: 100%;
       height: 5000%;
       aspect-ratio: 1;
-      background-color: $color-charcoal;
+      background-color: var(--color-charcoal);
     }
   }
 }

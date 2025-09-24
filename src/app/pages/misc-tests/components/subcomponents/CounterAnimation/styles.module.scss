@@ -5,7 +5,7 @@
 }
 
 .counter-animation {
-  background-color: $color-red;
+  background-color: var(--color-red);
   width: 200px;
   aspect-ratio: 1;
   animation: rotation 1s infinite linear;
@@ -16,7 +16,7 @@
     content: '';
     width: 50%;
     aspect-ratio: 1;
-    background-color: $color-green;
+    background-color: var(--color-green);
     animation: counter-rotation 1s infinite linear;
   }
 }

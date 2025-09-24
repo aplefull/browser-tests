@@ -6,17 +6,17 @@
   .range-syntax {
     @media (400px < width <= 2000px) {
       span {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }
 
   .supports-rule {
     span {
-      color: $color-red;
+      color: var(--color-red);
 
       @supports (display: grid) {
-        color: $color-green;
+        color: var(--color-green);
       }
     }
   }

@@ -8,11 +8,11 @@
   }
 
   .success {
-    color: $color-green;
+    color: var(--color-green);
   }
 
   .error {
-    color: $color-red;
+    color: var(--color-red);
   }
 
   .service-worker-results {

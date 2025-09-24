@@ -9,14 +9,14 @@
     border-radius: 4px;
     padding: 10px;
     background: paint(outline);
-    --outline-color: #{$color-white};
+    --outline-color: #{var(--color-white)};
     --outline-width: 2px;
   }
 
   .dots {
     --dot-size: 10px;
     --gap-size: 5px;
-    --dot-color: #{$color-green};
+    --dot-color: var(--color-green);
 
     max-width: 100%;
     max-height: 100%;
@@ -42,7 +42,7 @@
     max-width: 100%;
     min-width: 40px;
     min-height: 40px;
-    color: $color-transparent;
+    color: var(--color-transparent);
     background-image: paint(gradient-text);
     background-clip: text;
     background-attachment: local;

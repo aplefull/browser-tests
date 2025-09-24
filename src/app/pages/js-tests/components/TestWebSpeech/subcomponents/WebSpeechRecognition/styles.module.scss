@@ -57,7 +57,7 @@
     @include scroll;
 
     span:hover {
-      outline: 1px solid $color-white-transparent-50;
+      outline: 1px solid var(--color-white-transparent-50);
     }
   }
 

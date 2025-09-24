@@ -1,17 +1,17 @@
 .button {
   border: none;
-  border-radius: $radius-lg;
-  padding: $space-3 $space-4;
-  transition: $transition-all;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  transition: var(--transition-all);
   transform-origin: center;
   cursor: pointer;
-  font-size: $text-sm;
-  font-weight: $font-medium;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
   font-family: inherit;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: $space-2;
+  gap: var(--space-2);
   white-space: nowrap;
 
   &.solid {
@@ -37,7 +37,7 @@
   }
 
   &.outline {
-    background-color: $color-transparent;
+    background-color: var(--color-transparent);
     color: var(--accent-a11);
     box-shadow: inset 0 0 0 1px var(--accent-a8);
 
@@ -62,7 +62,7 @@
   }
 
   &.disabled:disabled {
-    color: $text-disabled;
+    color: var(--text-disabled);
     cursor: not-allowed;
     opacity: 0.6;
 
@@ -74,7 +74,7 @@
     &.outline {
       color: var(--gray-a8);
       box-shadow: inset 0 0 0 1px var(--gray-a7);
-      background-color: $color-transparent;
+      background-color: var(--color-transparent);
     }
   }
 }

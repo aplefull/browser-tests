@@ -9,7 +9,7 @@
 
   .container {
     height: 120px;
-    border: 1px solid $color-white;
+    border: 1px solid var(--color-white);
     border-radius: 4px;
     padding: 10px;
   }
@@ -21,7 +21,7 @@
     max-width: 100%;
     min-height: 34px;
     max-height: 100%;
-    background-color: $color-white;
+    background-color: var(--color-white);
     display: grid;
     place-items: center;
     resize: both;
@@ -29,7 +29,7 @@
     container-type: size;
 
     .text-container {
-      color: $color-black;
+      color: var(--color-black);
       font-family: monospace;
       font-size: clamp(0.3rem, 8cqi, 34px);
 
