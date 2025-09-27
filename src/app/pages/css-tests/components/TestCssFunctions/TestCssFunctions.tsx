@@ -244,6 +244,10 @@ const toFixed = (value: number) => {
   return isInteger ? value : value.toFixed(3);
 };
 
+const isElement = (node: ChildNode): node is HTMLElement => {
+  return node.nodeType === Node.ELEMENT_NODE;
+};
+
 export const TestCssFunctions = () => {
   const elementsRef = useRef<HTMLDivElement | null>(null);
   const [measurements, setMeasurements] = useState<string[]>([]);
@@ -287,7 +291,9 @@ export const TestCssFunctions = () => {
     const elements: ChildNode[] = [...elementsWrapper.childNodes];
 
     const data = elements.map((element) => {
-      const computedStyle = window.getComputedStyle(element as Element);
+      if (!isElement(element)) return '';
+
+      const computedStyle = window.getComputedStyle(element);
       const angle = getRotationAngle(computedStyle.transform);
       const width = computedStyle.width;
 

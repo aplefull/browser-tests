@@ -226,12 +226,22 @@ export const TestMath = () => {
     };
   });
 
+  const constantsColumns = [
+    { key: 'name', header: 'Constant', width: '150px' },
+    { key: 'value', header: 'Value', width: '200px', align: 'right' as const },
+  ];
+
+  const specialValuesColumns = [
+    { key: 'expression', header: 'Expression', width: '200px' },
+    { key: 'result', header: 'Result', width: '150px', align: 'right' as const },
+  ];
+
   return (
     <div className={styles.math}>
       <h2>Constants and special values</h2>
       <div className={styles.constants}>
-        <Table data={constantsTableData} />
-        <Table maxHeight={249} data={specialValuesTableData} />
+        <Table columns={constantsColumns} data={constantsTableData} maxHeight={300} compact />
+        <Table columns={specialValuesColumns} data={specialValuesTableData} maxHeight={300} compact />
       </div>
       <h2>Functions</h2>
       <div className={styles.functions}>

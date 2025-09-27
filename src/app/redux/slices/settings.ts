@@ -15,14 +15,12 @@ export type TSections = {
 };
 
 export type TSettingsInitialState = {
-  preferUnmount: boolean;
   dropdowns: {
     pages: TSections;
   };
 };
 
 const initialState: TSettingsInitialState = {
-  preferUnmount: true,
   dropdowns: {
     pages: {
       html: [],
@@ -37,9 +35,6 @@ export const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    setPreferUnmount: (state, action) => {
-      state.preferUnmount = action.payload;
-    },
     setDropdownState: (
       state,
       action: PayloadAction<{
@@ -71,6 +66,6 @@ export const settingsSlice = createSlice({
   },
 });
 
-export const { setPreferUnmount, setDropdownState, setSectionsState, closeAllSectionsOnPage } = settingsSlice.actions;
+export const { setDropdownState, setSectionsState, closeAllSectionsOnPage } = settingsSlice.actions;
 
 export const settingsReducer = settingsSlice.reducer;
