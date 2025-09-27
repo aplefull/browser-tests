@@ -65,77 +65,83 @@
     width: 100%;
     overflow-y: auto;
     height: 500px;
-
-    * {
-      font-family: 'Courier New', Courier, monospace;
-    }
+    border-radius: var(--radius-1);
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-subtle);
+    box-shadow: var(--shadow-2);
 
     table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
-      margin: 0 5px 5px 0;
-
-      ::selection {
-        background-color: var(--color-gray);
-        color: var(--color-ink);
-      }
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: var(--text-sm);
 
       th {
-        border-left: 1px solid var(--color-white);
-        border-top: 1px solid var(--color-white);
-        border-bottom: 1px solid var(--color-white);
-        padding: 5px 10px;
+        background: var(--bg-ui);
+        color: var(--text-primary);
+        font-weight: var(--font-semibold);
+        padding: var(--space-2) var(--space-3);
+        text-align: left;
+        border-bottom: 1px solid var(--border-ui);
+        border-right: 1px solid var(--border-subtle);
+        position: sticky;
+        top: 0;
+        z-index: 10;
 
         &:first-child {
-          border-top-left-radius: 6px;
+          border-left: none;
         }
 
         &:last-child {
-          border-right: 1px solid var(--color-white);
-          border-top-right-radius: 6px;
+          border-right: none;
         }
       }
 
       tbody {
         tr {
+          transition: background-color 0.15s ease;
+
+          &:hover {
+            background: var(--bg-hover);
+          }
+
+          &:nth-child(even) {
+            background: var(--bg-canvas);
+
+            &:hover {
+              background: var(--bg-hover);
+            }
+          }
+
           td {
-            padding: 5px;
-            text-align: center;
-            border-left: 1px solid var(--color-white);
-            border-bottom: 1px solid var(--color-white);
+            padding: var(--space-2) var(--space-3);
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            border-right: 1px solid var(--border-subtle);
+            vertical-align: top;
 
             &:first-child {
               text-align: left;
               max-width: 450px;
               min-width: 450px;
-              word-break: break-all;
+              word-break: break-word;
+              border-left: none;
             }
 
             &:last-child {
-              border-right: 1px solid var(--color-white);
+              border-right: none;
             }
 
             &:not(:first-child) {
+              text-align: center;
               white-space: nowrap;
-            }
-
-            &:nth-child(8),
-            &:nth-child(9) {
-              padding-left: 20px;
-              padding-right: 20px;
             }
           }
 
           &:last-child {
             td {
-              &:first-child {
-                border-bottom-left-radius: 6px;
-              }
-
-              &:last-child {
-                border-bottom-right-radius: 6px;
-              }
+              border-bottom: none;
             }
           }
         }
@@ -149,68 +155,78 @@
     width: 100%;
     overflow-y: auto;
     height: 500px;
+    border-radius: var(--radius-1);
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-subtle);
+    box-shadow: var(--shadow-2);
 
     .grid {
-      margin: 0 5px 5px 0;
       display: grid;
       grid-template-columns: 450px repeat(8, 1fr);
-
-      * {
-        font-family: 'Courier New', Courier, monospace;
-      }
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: var(--text-sm);
 
       .header-cell {
-        font-weight: bold;
-        padding: 10px;
+        background: var(--bg-ui);
+        color: var(--text-primary);
+        font-weight: var(--font-semibold);
+        padding: var(--space-2) var(--space-3);
         display: flex;
-        justify-content: center;
         align-items: center;
-
-        border-top: 1px solid var(--color-white);
-        border-bottom: 1px solid var(--color-white);
-        border-left: 1px solid var(--color-white);
+        border-bottom: 1px solid var(--border-ui);
+        border-right: 1px solid var(--border-subtle);
+        position: sticky;
+        top: 0;
+        z-index: 10;
 
         &:first-child {
-          border-top-left-radius: 6px;
+          justify-content: flex-start;
+          border-left: none;
         }
 
-        &:has(+ .body-cell) {
-          border-right: 1px solid var(--color-white);
-          border-top-right-radius: 6px;
+        &:not(:first-child) {
+          justify-content: center;
+        }
+
+        &:last-child {
+          border-right: none;
         }
       }
 
       .body-cell {
-        display: grid;
+        padding: var(--space-2) var(--space-3);
+        color: var(--text-secondary);
+        display: flex;
         align-items: center;
-        border-left: 1px solid var(--color-white);
-        border-bottom: 1px solid var(--color-white);
-        padding: 5px;
+        border-bottom: 1px solid var(--border-subtle);
+        border-right: 1px solid var(--border-subtle);
+        transition: background-color 0.15s ease;
 
         &:nth-child(9n + 1) {
-          text-align: left;
-          word-break: break-all;
-        }
-
-        &:nth-child(9n) {
-          border-right: 1px solid var(--color-white);
+          justify-content: flex-start;
+          word-break: break-word;
+          border-left: none;
         }
 
         &:not(:nth-child(9n + 1)) {
+          justify-content: center;
           white-space: nowrap;
-          text-align: center;
         }
 
-        &:last-child {
-          border-bottom-right-radius: 6px;
+        &:nth-child(9n) {
+          border-right: none;
         }
 
-        &:nth-last-child(9) {
-          border-bottom-left-radius: 6px;
+        &.odd {
+          background: var(--bg-canvas);
+        }
+
+        &:hover {
+          background: var(--bg-hover);
         }
 
         &:nth-last-child(-n + 9) {
-          border-bottom: 1px solid var(--color-white);
+          border-bottom: none;
         }
       }
     }
