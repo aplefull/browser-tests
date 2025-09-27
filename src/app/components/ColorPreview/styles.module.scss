@@ -1,0 +1,172 @@
+.color-preview {
+  padding: var(--space-6);
+
+  h2 {
+    margin-bottom: var(--space-6);
+    color: var(--text-primary);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-semibold);
+  }
+}
+
+.color-group {
+  margin-bottom: var(--space-8);
+
+  h3 {
+    margin-bottom: var(--space-4);
+    color: var(--text-secondary);
+    font-size: var(--text-lg);
+    font-weight: var(--font-medium);
+  }
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.color-tile {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-3);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  background: var(--bg-subtle);
+  transition: var(--transition-all);
+
+  &:hover {
+    border-color: var(--border-ui);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-2);
+  }
+}
+
+.color-sample {
+  height: 80px;
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-conic-gradient(#ccc 0% 25%, white 0% 50%) 50% / 20px 20px;
+    z-index: -1;
+    border-radius: inherit;
+  }
+}
+
+.color-info {
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.color-name {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  font-weight: var(--font-medium);
+}
+
+.color-value {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+
+  &::before {
+    content: attr(data-color);
+  }
+}
+
+@each $color
+  in (
+    'gray-1',
+    'gray-2',
+    'gray-3',
+    'gray-4',
+    'gray-5',
+    'gray-6',
+    'gray-7',
+    'gray-8',
+    'gray-9',
+    'gray-10',
+    'gray-11',
+    'gray-12',
+    'gray-a1',
+    'gray-a2',
+    'gray-a3',
+    'gray-a4',
+    'gray-a5',
+    'gray-a6',
+    'gray-a7',
+    'gray-a8',
+    'gray-a9',
+    'gray-a10',
+    'gray-a11',
+    'gray-a12',
+    'accent-1',
+    'accent-2',
+    'accent-3',
+    'accent-4',
+    'accent-5',
+    'accent-6',
+    'accent-7',
+    'accent-8',
+    'accent-9',
+    'accent-10',
+    'accent-11',
+    'accent-12',
+    'accent-a1',
+    'accent-a2',
+    'accent-a3',
+    'accent-a4',
+    'accent-a5',
+    'accent-a6',
+    'accent-a7',
+    'accent-a8',
+    'accent-a9',
+    'accent-a10',
+    'accent-a11',
+    'accent-a12',
+    'red-1',
+    'red-2',
+    'red-3',
+    'red-4',
+    'red-5',
+    'red-6',
+    'red-7',
+    'red-8',
+    'red-9',
+    'red-10',
+    'red-11',
+    'red-12',
+    'black-a1',
+    'black-a2',
+    'black-a3',
+    'black-a4',
+    'black-a5',
+    'black-a6',
+    'black-a7',
+    'black-a8',
+    'black-a9',
+    'black-a10',
+    'black-a11',
+    'black-a12'
+  )
+{
+  .color-value[data-color='#{$color}']::before {
+    content: var(--#{$color});
+  }
+}
+
+.color-value[data-color^='color-']::before,
+.color-value[data-color^='text-']::before,
+.color-value[data-color^='bg-']::before,
+.color-value[data-color^='border-']::before,
+.color-value[data-color^='error-']::before,
+.color-value[data-color^='accent-']::before {
+  content: 'var(--' attr(data-color) ')';
+}

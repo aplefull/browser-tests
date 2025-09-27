@@ -1,5 +1,6 @@
 import { Header } from '@/app/components/Header/Header';
 import { ErrorMessage } from '@/app/components/ErrorMessage/ErrorMessage';
+import { ColorPreview } from '@/app/components/ColorPreview/ColorPreview';
 import styles from './styles.module.scss';
 
 export const DevDemoPage = () => {
@@ -46,6 +47,13 @@ export const DevDemoPage = () => {
               <pre>{mockError.stack}</pre>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h2>Color System</h2>
+        <div className={styles.demo}>
+          <ColorPreview />
         </div>
       </div>
     </div>
