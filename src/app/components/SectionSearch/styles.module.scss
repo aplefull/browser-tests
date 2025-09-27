@@ -3,21 +3,27 @@
   inset: 0;
   display: grid;
   place-items: center;
-  align-items: start;
   translate: 0 -100%;
   transition: translate 0.3s ease-in-out;
-  padding: 60px 0;
   z-index: 1000;
+  background-color: var(--overlay-3);
 
   &.open {
     translate: 0 0;
   }
 
   .input {
-    height: 50px;
-    width: 500px;
-    max-width: 95%;
-    background-color: var(--color-charcoal);
+    height: 56px;
+    width: min(600px, 90vw);
+    background-color: var(--color-surface);
+    border: 1px solid var(--gray-a7);
+    border-radius: var(--radius-3);
     box-shadow: var(--shadow-5);
+    backdrop-filter: blur(10px);
+
+    input {
+      color: var(--color-text);
+      font-size: var(--font-size-5);
+    }
   }
 }

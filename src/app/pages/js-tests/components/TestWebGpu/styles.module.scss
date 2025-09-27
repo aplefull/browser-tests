@@ -1,6 +1,23 @@
-.no-support {
+.no-support,
+.error,
+.loading {
   width: 100%;
   text-align: center;
+  padding: var(--space-4);
+  border-radius: var(--radius-2);
+}
+
+.no-support,
+.error {
+  background-color: var(--red-a3);
+  border: 1px solid var(--red-a7);
+  color: var(--red-11);
+}
+
+.loading {
+  background-color: var(--blue-a3);
+  border: 1px solid var(--blue-a7);
+  color: var(--blue-11);
 }
 
 .container {

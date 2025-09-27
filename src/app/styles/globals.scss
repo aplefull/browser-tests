@@ -79,3 +79,8 @@ div {
     transform: scale(1);
   }
 }
+
+.search-highlight {
+  background-color: var(--accent-a3);
+  transition: background-color 0.2s ease;
+}

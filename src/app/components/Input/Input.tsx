@@ -15,6 +15,7 @@ export type TInputProps = {
   pattern?: string;
   required?: boolean;
   tabIndex?: number;
+  autoFocus?: boolean;
 };
 
 export const Input = forwardRef<HTMLInputElement, TInputProps>(
@@ -32,6 +33,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
       pattern,
       required,
       tabIndex = 0,
+      autoFocus = false,
     },
     ref,
   ) => {
@@ -56,6 +58,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
           style={style}
           type="text"
           tabIndex={tabIndex}
+          autoFocus={autoFocus}
         />
         {rightSlot && <>{rightSlot}</>}
       </div>

@@ -272,11 +272,26 @@ export const CryptoKeyBitsDerivation = ({ message }: TCryptoTestComponentProps) 
 
   const test = async () => {
     for (const test of tests) {
+      updateResult(`${test.name} - waiting...`, 'waiting' as any);
       try {
         await test.method(message);
-        updateResult(test.name, 'success');
+        setResults((prevResults) => {
+          const newResults = [...prevResults];
+          const waitingIndex = newResults.findIndex((result) => result.text === `${test.name} - waiting...`);
+          if (waitingIndex !== -1) {
+            newResults[waitingIndex] = { text: test.name, type: 'success' };
+          }
+          return newResults;
+        });
       } catch (error) {
-        updateResult(getErrorMessage(error), 'error');
+        setResults((prevResults) => {
+          const newResults = [...prevResults];
+          const waitingIndex = newResults.findIndex((result) => result.text === `${test.name} - waiting...`);
+          if (waitingIndex !== -1) {
+            newResults[waitingIndex] = { text: getErrorMessage(error), type: 'error' };
+          }
+          return newResults;
+        });
       }
     }
   };

@@ -4,6 +4,15 @@
   gap: 10px;
 }
 
+.error {
+  padding: var(--space-3);
+  background-color: var(--red-a3);
+  border: 1px solid var(--red-a7);
+  color: var(--red-11);
+  border-radius: var(--radius-2);
+  text-align: center;
+}
+
 .lock-area {
   height: 200px;
   width: 100%;

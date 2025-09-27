@@ -57,5 +57,6 @@
     place-items: center;
     background-image: paint(gradient-text);
     mask-image: paint(polygon, 10);
+    color: var(--gray-4);
   }
 }

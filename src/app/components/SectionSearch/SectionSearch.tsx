@@ -15,6 +15,11 @@ export const SectionSearch = () => {
     setIsOpen(false);
     setInputValue('');
     ref.current?.blur();
+
+    const sectionTitles = Array.from(document.querySelectorAll('section > div:first-of-type > span'));
+    sectionTitles.forEach((section) => {
+      section.classList.remove('search-highlight');
+    });
   };
 
   const open = () => {
@@ -42,11 +47,21 @@ export const SectionSearch = () => {
     // Yes, query selector in react. Fight me.
     const sectionTitles = Array.from(document.querySelectorAll('section > div:first-of-type > span'));
 
+    sectionTitles.forEach((section) => {
+      section.classList.remove('search-highlight');
+    });
+
+    if (!isOpen || !inputValue) return;
+
     const filteredSections = sectionTitles.filter((section) => {
       return section.textContent?.toLowerCase().includes(inputValue.toLowerCase());
     });
 
-    if (!filteredSections.length || !isOpen || !inputValue) return;
+    filteredSections.forEach((section) => {
+      section.classList.add('search-highlight');
+    });
+
+    if (!filteredSections.length) return;
 
     const firstMatch = filteredSections[0];
 
@@ -87,6 +102,7 @@ export const SectionSearch = () => {
         onChange={setInputValue}
         value={inputValue}
         tabIndex={isOpen ? 0 : -1}
+        autoFocus={false}
       />
     </div>
   );

@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { requestEmojis } from '@/utils/utils';
 import { TEmoji } from '@/types';
+import { Checkbox } from '@/app/components/Checkbox/Checkbox';
+import { RangeInput } from '@/app/components/RangeInput/RangeInput';
 
 export const TestEmojis = () => {
   const [useEmojiFont, setUseEmojiFont] = useState(true);
@@ -21,21 +23,15 @@ export const TestEmojis = () => {
   return (
     <div className={styles.emojis}>
       <div className={styles.inputs}>
-        <label>
-          <input type="checkbox" checked={useEmojiFont} onChange={() => setUseEmojiFont(!useEmojiFont)} />
-          Use Noto Color Emoji font. (If used, every emoji should be rendered correctly)
-        </label>
-        <label>
-          <input
-            type="range"
-            min="10"
-            max="100"
-            step="1"
-            value={fontSize}
-            onChange={(event) => setFontSize(parseInt(event.target.value))}
-          />
-          Font size: {fontSize}px
-        </label>
+        <Checkbox
+          checked={useEmojiFont}
+          onChange={setUseEmojiFont}
+          label="Use Noto Color Emoji font. (If used, every emoji should be rendered correctly)"
+        />
+        <div className={styles.rangeContainer}>
+          <RangeInput min={10} max={100} step={1} value={fontSize} onChange={setFontSize} />
+          <span>Font size: {fontSize}px</span>
+        </div>
       </div>
       <div
         className={classNames(styles.container, {

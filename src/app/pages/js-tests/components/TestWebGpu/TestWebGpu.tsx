@@ -19,22 +19,37 @@ const SCENES = {
 export const TestWebGpu = () => {
   const [gpu, setGpu] = useState<GPUDevice | null>(null);
   const [scene, setScene] = useState<string>(SCENES.TRIANGLE);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!navigator.gpu) return;
+    if (!navigator.gpu) {
+      setLoading(false);
+      return;
+    }
 
     const init = async () => {
-      const gpu = await getGpuDevice();
-      if (!gpu) return;
-
-      setGpu(gpu);
+      try {
+        const gpu = await getGpuDevice();
+        if (!gpu) {
+          setError('Failed to get WebGPU device. Your browser may not support WebGPU or it may be disabled.');
+          return;
+        }
+        setGpu(gpu);
+      } catch (err) {
+        setError(`WebGPU initialization failed: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    init().catch(console.error);
+    init();
   }, []);
 
-  if (!navigator.gpu) return <div className={styles.noSupport}>WebGPU is not supported</div>;
-  if (!gpu) return null;
+  if (!navigator.gpu) return <div className={styles.noSupport}>WebGPU is not supported in this browser</div>;
+  if (loading) return <div className={styles.loading}>Initializing WebGPU...</div>;
+  if (error) return <div className={styles.error}>Error: {error}</div>;
+  if (!gpu) return <div className={styles.error}>WebGPU device not available</div>;
 
   return (
     <>
