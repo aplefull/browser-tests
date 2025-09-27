@@ -8,8 +8,10 @@ import { isActiveElementInput } from '@utils';
 export const SectionSearch = () => {
   const [inputValue, setInputValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
 
   const ref = useRef<HTMLInputElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const close = () => {
     setIsOpen(false);
@@ -31,6 +33,7 @@ export const SectionSearch = () => {
         return false;
       }
 
+      setShouldRender(true);
       setTimeout(() => {
         if (ref.current) {
           ref.current.focus();
@@ -39,6 +42,14 @@ export const SectionSearch = () => {
 
       return true;
     });
+  };
+
+  const handleTransitionEnd = (event: React.TransitionEvent<HTMLDivElement>) => {
+    if (event.target === containerRef.current && event.propertyName === 'translate') {
+      if (!isOpen) {
+        setShouldRender(false);
+      }
+    }
   };
 
   useDoubleKeyPress('f', open);
@@ -89,11 +100,17 @@ export const SectionSearch = () => {
     };
   }, []);
 
+  if (!shouldRender) {
+    return null;
+  }
+
   return (
     <div
+      ref={containerRef}
       className={classNames(styles.container, {
         [styles.open]: isOpen,
       })}
+      onTransitionEnd={handleTransitionEnd}
     >
       <Input
         name="section-search"

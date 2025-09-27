@@ -3,13 +3,17 @@
   inset: 0;
   display: grid;
   place-items: center;
-  translate: 0 -100%;
+  translate: 0 0;
   transition: translate 0.3s ease-in-out;
   z-index: 1000;
   background-color: var(--overlay-3);
 
-  &.open {
-    translate: 0 0;
+  @starting-style {
+    translate: 0 -100%;
+  }
+
+  &:not(.open) {
+    translate: 0 -100%;
   }
 
   .input {
