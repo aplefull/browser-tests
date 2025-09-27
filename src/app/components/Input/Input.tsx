@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 export type TInputProps = {
   placeholder?: string;
+  name?: string;
   disabled?: boolean;
   onChange?: (value: string) => void;
   value: string;
@@ -22,6 +23,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
   (
     {
       placeholder,
+      name,
       disabled,
       inputClassName,
       className,
@@ -46,6 +48,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
         {leftSlot && <>{leftSlot}</>}
         <input
           ref={ref}
+          name={name}
           pattern={pattern}
           required={required}
           disabled={disabled}

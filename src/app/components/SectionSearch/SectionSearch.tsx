@@ -96,6 +96,7 @@ export const SectionSearch = () => {
       })}
     >
       <Input
+        name="section-search"
         ref={ref}
         className={styles.input}
         placeholder="Search section name..."

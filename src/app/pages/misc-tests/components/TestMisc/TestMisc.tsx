@@ -14,7 +14,7 @@ const Subsection = ({ title, children }: { title: string; children: ReactNode })
   const [open, setOpen] = useState(false);
 
   return (
-    <Collapse unmountChildren className={styles.collapse} title={title} open={open} onChange={setOpen}>
+    <Collapse className={styles.collapse} title={title} open={open} onChange={setOpen}>
       {children}
     </Collapse>
   );

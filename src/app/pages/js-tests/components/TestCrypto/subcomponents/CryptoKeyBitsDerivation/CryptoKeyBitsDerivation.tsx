@@ -249,7 +249,7 @@ const pbkdf2 = async (message: string) => {
 export const CryptoKeyBitsDerivation = ({ message }: TCryptoTestComponentProps) => {
   const [results, setResults] = useState<TSubtleCryptoResult[]>([]);
 
-  const updateResult = (text: string, type: 'success' | 'error') => {
+  const updateResult = (text: string, type: 'success' | 'error' | 'waiting') => {
     setResults((prevResults) => {
       return [...prevResults, { text, type }];
     });
@@ -272,7 +272,7 @@ export const CryptoKeyBitsDerivation = ({ message }: TCryptoTestComponentProps) 
 
   const test = async () => {
     for (const test of tests) {
-      updateResult(`${test.name} - waiting...`, 'waiting' as any);
+      updateResult(`${test.name} - waiting...`, 'waiting');
       try {
         await test.method(message);
         setResults((prevResults) => {

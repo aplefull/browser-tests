@@ -26,7 +26,7 @@ export const toHexString = (arrayBuffer: ArrayBuffer) => {
 
 export type TSubtleCryptoResult = {
   text: string;
-  type: 'success' | 'error';
+  type: 'success' | 'error' | 'waiting';
 };
 
 export type TCryptoTestComponentProps = {
