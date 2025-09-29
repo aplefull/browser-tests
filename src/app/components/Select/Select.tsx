@@ -197,12 +197,13 @@ export function Select({
       className={styles.popover}
       zIndex={100}
       anchorMargin={0}
+      closeWhenTriggerOutOfViewport={true}
       anchor={{
-        horizontal: 'left',
+        horizontal: 'center',
         vertical: 'bottom',
       }}
       target={{
-        horizontal: 'right',
+        horizontal: 'center',
         vertical: 'top',
       }}
       content={

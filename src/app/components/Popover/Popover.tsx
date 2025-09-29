@@ -15,6 +15,7 @@ type TPopoverProps = {
   keepInViewport?: boolean;
   viewportMargin?: number;
   anchorMargin?: number;
+  closeWhenTriggerOutOfViewport?: boolean;
   anchor?: {
     horizontal: 'left' | 'center' | 'right';
     vertical: 'top' | 'center' | 'bottom';
@@ -36,6 +37,7 @@ export const Popover = ({
   keepInViewport = true,
   viewportMargin = 10,
   anchorMargin = 5,
+  closeWhenTriggerOutOfViewport = false,
   anchor = { horizontal: 'center', vertical: 'bottom' },
   target = { horizontal: 'center', vertical: 'top' },
 }: TPopoverProps) => {
@@ -57,7 +59,17 @@ export const Popover = ({
     const updatePosition = () => {
       if (!isOpen) return;
 
-      setChildrenRect(childrenRef.current?.getBoundingClientRect() || null);
+      const rect = childrenRef.current?.getBoundingClientRect() || null;
+      setChildrenRect(rect);
+
+      if (closeWhenTriggerOutOfViewport && rect && onClickOutside) {
+        const { innerWidth, innerHeight } = window;
+        const isOutOfViewport = rect.bottom < 0 || rect.top > innerHeight || rect.right < 0 || rect.left > innerWidth;
+
+        if (isOutOfViewport) {
+          onClickOutside();
+        }
+      }
     };
 
     const updateContentSize = (entries: ResizeObserverEntry[]) => {
@@ -91,7 +103,7 @@ export const Popover = ({
       resizeObserver.disconnect();
       contentResizeObserver.disconnect();
     };
-  }, [isOpen]);
+  }, [isOpen, closeWhenTriggerOutOfViewport, onClickOutside]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -185,7 +197,7 @@ export const Popover = ({
     }
 
     // Step 3:
-    if (keepInViewport) {
+    if (keepInViewport && contentRect.width > 0 && contentRect.height > 0) {
       if (x < viewportMargin) {
         x = viewportMargin;
       }
@@ -224,7 +236,13 @@ export const Popover = ({
       </div>
       {isOpen &&
         createPortal(
-          <div ref={contentRef} className={classNames(popoverClassName, styles.content)} style={popoverStyle}>
+          <div
+            ref={contentRef}
+            className={classNames(popoverClassName, styles.content, {
+              [styles.hidden]: !childrenRect || !contentRect,
+            })}
+            style={popoverStyle}
+          >
             {content}
           </div>,
           document.body,

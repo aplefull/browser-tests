@@ -46,6 +46,8 @@ export const Info = ({ text, className }: TInfoProps) => {
       content={infoTooltip}
       className={className}
       isOpen={isOpen}
+      closeWhenTriggerOutOfViewport={true}
+      onClickOutside={() => setIsOpen(false)}
     >
       <div className={styles.container} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         <QuestionMark className={styles.icon} />

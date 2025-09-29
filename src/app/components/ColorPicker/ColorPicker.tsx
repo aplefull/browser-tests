@@ -157,6 +157,7 @@ export const ColorPicker = ({ onChange, value, type = 'HSV' }: TPickerProps) => 
     <Popover
       isOpen={isPopoverOpen}
       onClickOutside={handleClickOutside}
+      closeWhenTriggerOutOfViewport={true}
       content={<Picker type={type} onChange={handleChange} value={color} />}
     >
       <div onClick={togglePopover} className={styles.colorPickerInput} style={inputStyle} />

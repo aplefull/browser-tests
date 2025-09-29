@@ -62,10 +62,7 @@
 .options {
   padding: 8px;
   margin-top: 10px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
+  position: relative;
   background-color: var(--color-panel-solid);
   border-top: none;
   border-radius: var(--radius-2);
