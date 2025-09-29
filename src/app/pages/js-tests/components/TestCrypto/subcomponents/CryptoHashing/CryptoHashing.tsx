@@ -6,7 +6,7 @@ import {
   toHexString,
   TSubtleCryptoResult,
 } from '@/app/pages/js-tests/components/TestCrypto/TestCrypto';
-import { getErrorMessage } from '@/utils/utils';
+import { runCryptoTests } from '@/app/pages/js-tests/components/TestCrypto/utils.crypto';
 
 const isValidSHAString = (str: string, algorithm: 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512') => {
   switch (algorithm) {
@@ -68,12 +68,6 @@ const sha512 = async (message: string) => {
 export const CryptoHashing = ({ message }: TCryptoTestComponentProps) => {
   const [results, setResults] = useState<TSubtleCryptoResult[]>([]);
 
-  const updateResult = (text: string, type: 'success' | 'error' | 'waiting') => {
-    setResults((prevResults) => {
-      return [...prevResults, { text, type }];
-    });
-  };
-
   const tests = [
     {
       name: 'SHA-1',
@@ -94,29 +88,7 @@ export const CryptoHashing = ({ message }: TCryptoTestComponentProps) => {
   ];
 
   const test = async () => {
-    for (const test of tests) {
-      updateResult(`${test.name} - waiting...`, 'waiting');
-      try {
-        await test.method(message);
-        setResults((prevResults) => {
-          const newResults = [...prevResults];
-          const waitingIndex = newResults.findIndex((result) => result.text === `${test.name} - waiting...`);
-          if (waitingIndex !== -1) {
-            newResults[waitingIndex] = { text: test.name, type: 'success' };
-          }
-          return newResults;
-        });
-      } catch (error) {
-        setResults((prevResults) => {
-          const newResults = [...prevResults];
-          const waitingIndex = newResults.findIndex((result) => result.text === `${test.name} - waiting...`);
-          if (waitingIndex !== -1) {
-            newResults[waitingIndex] = { text: getErrorMessage(error), type: 'error' };
-          }
-          return newResults;
-        });
-      }
-    }
+    await runCryptoTests(tests, message, setResults);
   };
 
   useEffect(() => {

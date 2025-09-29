@@ -21,7 +21,7 @@ export const NumberFormatTest = () => {
   const values = {
     style: {
       label: 'Style',
-      options: ['decimal', 'percent', 'currency', 'unit'] as const,
+      options: ['decimal', 'percent', 'currency'] as const,
       value: intlOptions.style,
     },
     currency: {

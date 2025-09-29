@@ -75,9 +75,10 @@ export const SectionSearch = () => {
     if (!filteredSections.length) return;
 
     const firstMatch = filteredSections[0];
+    const scrollOffset = 32;
 
     window.scrollTo({
-      top: firstMatch.getBoundingClientRect().top + window.scrollY,
+      top: firstMatch.getBoundingClientRect().top + window.scrollY - scrollOffset,
       behavior: 'smooth',
     });
   }, [inputValue, isOpen]);

@@ -48,7 +48,7 @@ export const TrianglePainter = () => {
       gl.vertexAttribPointer(colorLocation, 4, gl.FLOAT, false, 6 * 4, 2 * 4);
 
       const animate = () => {
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
         animationRef.current = requestAnimationFrame(animate);
@@ -57,7 +57,7 @@ export const TrianglePainter = () => {
       animate();
     };
 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.enable(gl.DEPTH_TEST);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 

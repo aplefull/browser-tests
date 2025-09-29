@@ -28,7 +28,7 @@ export const SpherePainter = () => {
       currentProgram = createProgram(gl, sphereVertexShader, sphereFragmentShader);
       if (!currentProgram) return;
 
-      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      gl.clearColor(0.0, 0.0, 0.0, 0.0);
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
       setupWebGLState(gl);
 
@@ -105,7 +105,7 @@ export const SpherePainter = () => {
 
         gl.uniformMatrix4fv(matWorldUniformLocation, false, worldMatrix);
 
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
         gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
 
         gl.drawElements(gl.TRIANGLES, sphereBuffers.numElements, gl.UNSIGNED_SHORT, 0);

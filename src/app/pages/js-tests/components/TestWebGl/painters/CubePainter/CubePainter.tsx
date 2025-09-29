@@ -28,7 +28,7 @@ export const CubePainter = () => {
       currentProgram = createProgram(gl, texturedVertexShader, texturedFragmentShader);
       if (!currentProgram) return;
 
-      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      gl.clearColor(0.0, 0.0, 0.0, 0.0);
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
       setupWebGLState(gl);
 
@@ -106,7 +106,7 @@ export const CubePainter = () => {
 
         gl.uniformMatrix4fv(matWorldUniformLocation, false, worldMatrix);
 
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
         gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
 
         gl.drawElements(gl.TRIANGLES, cubeBuffers.numElements, gl.UNSIGNED_SHORT, 0);

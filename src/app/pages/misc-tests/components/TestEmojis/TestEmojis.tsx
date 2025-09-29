@@ -32,6 +32,7 @@ export const TestEmojis = () => {
           <RangeInput min={10} max={100} step={1} value={fontSize} onChange={setFontSize} />
           <span>Font size: {fontSize}px</span>
         </div>
+        <span className={styles.totalEmojis}>Total emojis: {emojiList.length}</span>
       </div>
       <div
         className={classNames(styles.container, {

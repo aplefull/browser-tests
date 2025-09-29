@@ -26,13 +26,25 @@ export const Canvas = forwardRef<HTMLCanvasElement, TCanvasProps>(
       const ctx = canvas.getContext('2d', { willReadFrequently: true });
       if (!ctx) return;
 
+      ctx.canvas.width = canvas.clientWidth;
+      ctx.canvas.height = canvas.clientHeight;
+
+      if (ctx.canvas.width === 0 || ctx.canvas.height === 0) return;
+
       if (onResize) onResize(ctx);
 
       const observer = new ResizeObserver(() => {
-        ctx.canvas.width = canvas.clientWidth;
-        ctx.canvas.height = canvas.clientHeight;
+        const newWidth = canvas.clientWidth;
+        const newHeight = canvas.clientHeight;
 
-        if (onResize) onResize(ctx);
+        if (ctx.canvas.width !== newWidth || ctx.canvas.height !== newHeight) {
+          ctx.canvas.width = newWidth;
+          ctx.canvas.height = newHeight;
+
+          if (ctx.canvas.width === 0 || ctx.canvas.height === 0) return;
+
+          if (onResize) onResize(ctx);
+        }
       });
 
       observer.observe(canvas);

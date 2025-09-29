@@ -23,8 +23,11 @@
       color: var(--color-green);
     }
 
+    .waiting {
+      color: var(--color-warning);
+    }
+
     .error {
-      grid-column: 1 / 3;
       color: var(--color-red);
     }
   }

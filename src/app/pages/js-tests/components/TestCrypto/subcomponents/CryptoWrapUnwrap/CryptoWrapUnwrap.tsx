@@ -6,7 +6,7 @@ import {
   TSubtleCryptoResult,
 } from '@/app/pages/js-tests/components/TestCrypto/TestCrypto';
 import { useEffect, useState } from 'react';
-import { getErrorMessage } from '@/utils/utils';
+import { runCryptoTests } from '@/app/pages/js-tests/components/TestCrypto/utils.crypto';
 
 const aesKW = async (message: string) => {
   const subtleCrypto = window.crypto.subtle;
@@ -79,12 +79,6 @@ const aesKW = async (message: string) => {
 export const CryptoWrapUnwrap = ({ message }: TCryptoTestComponentProps) => {
   const [results, setResults] = useState<TSubtleCryptoResult[]>([]);
 
-  const updateResult = (text: string, type: 'success' | 'error' | 'waiting') => {
-    setResults((prevResults) => {
-      return [...prevResults, { text, type }];
-    });
-  };
-
   const tests = [
     {
       name: 'AES-KW',
@@ -93,29 +87,7 @@ export const CryptoWrapUnwrap = ({ message }: TCryptoTestComponentProps) => {
   ];
 
   const test = async () => {
-    for (const test of tests) {
-      updateResult(`${test.name} - waiting...`, 'waiting');
-      try {
-        await test.method(message);
-        setResults((prevResults) => {
-          const newResults = [...prevResults];
-          const waitingIndex = newResults.findIndex((result) => result.text === `${test.name} - waiting...`);
-          if (waitingIndex !== -1) {
-            newResults[waitingIndex] = { text: test.name, type: 'success' };
-          }
-          return newResults;
-        });
-      } catch (error) {
-        setResults((prevResults) => {
-          const newResults = [...prevResults];
-          const waitingIndex = newResults.findIndex((result) => result.text === `${test.name} - waiting...`);
-          if (waitingIndex !== -1) {
-            newResults[waitingIndex] = { text: getErrorMessage(error), type: 'error' };
-          }
-          return newResults;
-        });
-      }
-    }
+    await runCryptoTests(tests, message, setResults);
   };
 
   useEffect(() => {

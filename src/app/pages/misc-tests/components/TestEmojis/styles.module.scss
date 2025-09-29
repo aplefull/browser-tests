@@ -17,9 +17,17 @@
         white-space: nowrap;
       }
     }
+
+    .total-emojis {
+      font-style: italic;
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
   }
 
   .container {
+    @include scroll;
+
     word-break: break-all;
     max-height: 500px;
     overflow-y: auto;

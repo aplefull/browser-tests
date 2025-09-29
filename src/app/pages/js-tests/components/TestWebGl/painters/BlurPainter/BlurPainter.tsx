@@ -52,7 +52,7 @@ export const BlurPainter = () => {
       gl.uniform1f(blurRadiusLocation, blurRadius);
 
       const render = () => {
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
       };

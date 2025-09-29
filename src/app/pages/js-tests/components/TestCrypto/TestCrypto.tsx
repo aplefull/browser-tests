@@ -1,6 +1,5 @@
 import styles from './styles.module.scss';
 import { Fragment } from 'react';
-import classNames from 'classnames';
 import { CryptoEncryptionDecryption } from '@/app/pages/js-tests/components/TestCrypto/subcomponents/CryptoEncryptionDecryption/CryptoEncryptionDecryption';
 import { CryptoSigningVerification } from '@/app/pages/js-tests/components/TestCrypto/subcomponents/CryptoSigningVerification/CryptoSigningVerification';
 import { CryptoHashing } from '@/app/pages/js-tests/components/TestCrypto/subcomponents/CryptoHashing/CryptoHashing';
@@ -27,6 +26,7 @@ export const toHexString = (arrayBuffer: ArrayBuffer) => {
 export type TSubtleCryptoResult = {
   text: string;
   type: 'success' | 'error' | 'waiting';
+  duration?: number;
 };
 
 export type TCryptoTestComponentProps = {
@@ -36,17 +36,15 @@ export type TCryptoTestComponentProps = {
 export const SubtleCryptoResults = ({ results }: { results: TSubtleCryptoResult[] }) => {
   return (
     <div className={styles.subtleCryptoResults}>
-      {results.map(({ text, type }, index) => {
+      {results.map(({ text, type, duration }, index) => {
         return (
           <Fragment key={index}>
-            <span
-              className={classNames({
-                [styles.error]: type === 'error',
-              })}
-            >
-              {text}
-            </span>
-            {type === 'success' && <span className={styles.success}>pass</span>}
+            <span>{text}</span>
+            {type === 'error' && <span className={styles.error}>error</span>}
+            {type === 'success' && (
+              <span className={styles.success}>pass {duration !== undefined && `(${duration.toFixed(2)}ms)`}</span>
+            )}
+            {type === 'waiting' && <span className={styles.waiting}>waiting</span>}
           </Fragment>
         );
       })}

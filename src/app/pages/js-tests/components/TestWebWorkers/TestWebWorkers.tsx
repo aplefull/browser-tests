@@ -155,7 +155,6 @@ export const TestWebWorkers = () => {
     const testServiceWorker = async () => {
       const registration = await navigator.serviceWorker.register(serviceWorker, {
         type: 'module',
-        scope: '/',
       });
 
       await navigator.serviceWorker.ready;

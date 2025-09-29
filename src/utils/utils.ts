@@ -281,7 +281,7 @@ export const isDoubleArgumentFunction = (
 ): func is TDoubleArgumentFunction => func.length === 2;
 
 export const requestEmojis = async () => {
-  const emojiListUrl = 'https://unpkg.com/emoji.json@14.0.0/emoji.json';
+  const emojiListUrl = 'https://unpkg.com/emoji.json@16.0.0/emoji.json';
 
   const response = await fetch(emojiListUrl);
   const data: TRawEmoji[] = await response.json();
