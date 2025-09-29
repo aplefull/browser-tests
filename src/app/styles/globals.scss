@@ -11,11 +11,6 @@
   box-sizing: border-box;
 }
 
-html {
-  --pseudo-selector-test-root: 'Fail';
-  --pseudo-selector-test-scope: 'Fail';
-}
-
 :root {
   interpolate-size: allow-keywords;
 }

@@ -19,7 +19,7 @@ export const BlurPainter = () => {
     if (!gl) return;
 
     let currentProgram: WebGLProgram | null = null;
-    let buffers: { [key: string]: WebGLBuffer | null } = {};
+    const buffers: { [key: string]: WebGLBuffer | null } = {};
 
     const setupBlur = async () => {
       currentProgram = createProgram(gl, blurVertexShader, blurFragmentShader);

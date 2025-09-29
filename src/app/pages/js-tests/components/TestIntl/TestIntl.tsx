@@ -66,6 +66,10 @@ export const getSupportedLocales = (intlFormat?: TIntlFormats) => () => {
   return [];
 };
 
+// TODO: this any is wrong, but it's incredibly hard to type this properly.
+// createSelects accepts handlers taht should have specific parameters. And these parameters should match select
+// options. This is kind of a disaster for typescript. Maybe this function is too generic and architecture
+// should be changed, no clue for now.
 export const createSelects = <THandlers extends Record<string, (value: any) => void>>(
   values: Record<
     keyof THandlers & string,

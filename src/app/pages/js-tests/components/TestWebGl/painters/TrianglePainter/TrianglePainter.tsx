@@ -16,7 +16,7 @@ export const TrianglePainter = () => {
     if (!gl) return;
 
     let currentProgram: WebGLProgram | null = null;
-    let buffers: { [key: string]: WebGLBuffer | null } = {};
+    const buffers: { [key: string]: WebGLBuffer | null } = {};
 
     const cleanup = () => {
       if (animationRef.current) {

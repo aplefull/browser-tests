@@ -6,6 +6,7 @@ import { isOneOf, nextElement, prevElement } from '@utils';
 import scriptCodes from '@data/script-codes.json';
 import regionCodes from '@data/region-codes.json';
 import allLocales from '@assets/data/locales.json';
+import languages from '@data/language-codes.json';
 
 const getLocaleData = (intl: Intl.Locale) => {
   return {
@@ -42,8 +43,7 @@ export const LocaleTest = () => {
   const values = {
     language: {
       label: 'Language',
-      // TODO pass only languages, not locales
-      options: allLocales,
+      options: languages,
       value: intlOptions.language,
     },
     script: {

@@ -4,7 +4,6 @@ import { Button } from '@/app/components/Button/Button';
 import { Container } from '@/app/components/Container/Container';
 import { useRef, useState } from 'react';
 import styles from './styles.module.scss';
-import rootTestStyles from './styles/rootTestStyles.module.scss?raw';
 import { RadioButton } from '@/app/components/RadioButton/RadioButton';
 
 type TUncontrolledInputProps = {
@@ -222,7 +221,7 @@ export const TestPseudoClasses = () => {
           Link should be green until you click it, opens in a new tab and leads to 404 page. You get a new link every
           time you refresh the page.
         </span>
-        <a href={randomHref} target="_blank">
+        <a href={randomHref} target="_blank" rel="noreferrer noopener">
           Link
         </a>
       </Container>
@@ -232,7 +231,7 @@ export const TestPseudoClasses = () => {
           Same here, but the opposite - link should be green only after you visit it. It leads to the same place as the
           link above, so they should change color at the same time!
         </span>
-        <a href={randomHref} target="_blank">
+        <a href={randomHref} target="_blank" rel="noreferrer noopener">
           Link
         </a>
       </Container>
@@ -275,36 +274,53 @@ export const TestPseudoClasses = () => {
         <span />
       </div>
       <h3>:root</h3>
-      <div className={styles.root}>
-        {/* TODO */}
-        <Iframe className={styles.iframe} addDefaultStyles>
+      <div>
+        <Iframe className={styles.iframe} copyParentStyles>
           <div />
-          <style>{rootTestStyles}</style>
+          <style>{`
+            html {
+              --test-content: 'Fail';
+              --color: var(--color-red);
+            }
+
+            :root {
+              --test-content: 'Pass';
+              --color: var(--color-green);
+            }
+
+            div {
+              color: var(--color);
+            }
+
+            div::before {
+              content: var(--test-content);
+            }
+          `}</style>
         </Iframe>
       </div>
-      {/* TODO */}
       <h3>:scope</h3>
-      <div className={styles.scope}>
-        <Iframe className={styles.iframe}>
-          <div>This text should be green</div>
-          <div>And this should be white!</div>
-          <style>
-            {`
-              :scope, body {
-                font-family: sans-serif;
-                margin: 0;
-                padding: 0;
-              }
-            
-              :scope > body > div:first-of-type {
-                color: green;
-              }
-              
-              div {
-                color: white;
-              }
-            `}
-          </style>
+      <div>
+        <Iframe className={styles.iframe} copyParentStyles>
+          <div />
+          <style>{`
+            :root > body > div:first-of-type {
+              --color: var(--color-red);
+              --test-content: 'Fail';
+            }
+
+            :scope > body > div:first-of-type {
+              --color: var(--color-green);
+              --test-content: 'Pass';
+            }
+
+            body > div:first-of-type {
+              color: var(--color);
+            }
+
+            body > div:first-of-type::before {
+              content: var(--test-content);
+            }
+          `}</style>
         </Iframe>
       </div>
       <h3>:first</h3>

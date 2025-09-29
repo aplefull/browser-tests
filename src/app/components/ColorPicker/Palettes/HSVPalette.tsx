@@ -58,7 +58,7 @@ export const HSVPalette = ({ setSaturationAndValue, hue, xPercent, yPercent }: T
         y: clamp(y, 0, current.getBoundingClientRect().height),
       });
     }
-  }, [xPercent, yPercent]);
+  }, [xPercent, yPercent, hue]);
 
   const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     const { current } = paletteRef;

@@ -34,15 +34,20 @@ export default tseslint.config(
       },
     },
     rules: {
+      ...react.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
+      ...tseslint.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': 'error',
       'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
-      /* TODO check deps once everything else is fixed */
+      // Lots of false positives
       'react-hooks/exhaustive-deps': 'off',
       // Barks on all cases like `someCondition && doSomething()`
       '@typescript-eslint/no-unused-expressions': 'off',
+      'react/react-in-jsx-scope': 'off',
+      'react/display-name': 'off',
+      'react/no-unescaped-entities': 'off',
+      'react/no-unknown-property': 'off',
     },
     settings: {
       react: {
