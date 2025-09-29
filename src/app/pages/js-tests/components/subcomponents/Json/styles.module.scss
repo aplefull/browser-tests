@@ -13,6 +13,10 @@
 
   .key {
     cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 
@@ -30,6 +34,10 @@
     opacity: 0.8;
   }
 
+  &:hover .icon {
+    opacity: 1;
+  }
+
   &.open {
     .icon {
       rotate: 0deg;
@@ -42,6 +50,11 @@
   color: var(--color-text-muted);
   opacity: 0.8;
   margin-right: 5px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .text-dark {
@@ -69,4 +82,16 @@
 
 .left-offset {
   margin-left: 1rem;
+}
+
+.three-dots {
+  color: var(--color-text-muted);
+  font-family: monospace;
+  line-height: var(--leading-loose);
+  opacity: 0.8;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
 }
