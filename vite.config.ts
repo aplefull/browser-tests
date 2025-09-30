@@ -37,6 +37,7 @@ const scriptImportPlugin = (): Plugin => {
             const assetId = this.emitFile({
               type: 'chunk',
               id: resolvedPath,
+              fileName: resolvedPath.includes('serviceWorker') ? 'serviceWorker.js' : undefined,
             });
 
             files.set(id, assetId);
@@ -74,7 +75,7 @@ export default defineConfig({
     redirectsPlugin(),
     visualizer({
       template: 'treemap',
-      open: true,
+      open: false,
       gzipSize: true,
     }),
   ],

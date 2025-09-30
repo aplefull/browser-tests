@@ -16,23 +16,31 @@ type TMessageEvent = MessageEvent<{ result: string; type: string }>;
 
 const testClientApi = async (registration?: ServiceWorkerRegistration) => {
   return new Promise<string>((resolve) => {
+    const timeout = setTimeout(() => {
+      resolve('Client API test timed out');
+    }, 5000);
+
     if (!registration || registration.active === null || registration.active === undefined) {
+      clearTimeout(timeout);
       resolve('Service worker is not registered');
       return;
     }
 
+    const onMessage = (event: TMessageEvent) => {
+      if (event.data.type === 'CLIENT_API') {
+        clearTimeout(timeout);
+        resolve(event.data.result);
+        navigator.serviceWorker.removeEventListener('message', onMessage);
+      }
+    };
+
     try {
       registration.active.postMessage({ type: 'CLIENT_API' });
 
-      const onMessage = (event: TMessageEvent) => {
-        if (event.data.type === 'CLIENT_API') {
-          resolve(event.data.result);
-          navigator.serviceWorker.removeEventListener('message', onMessage);
-        }
-      };
-
       navigator.serviceWorker.addEventListener('message', onMessage);
     } catch (error) {
+      clearTimeout(timeout);
+      navigator.serviceWorker.removeEventListener('message', onMessage);
       resolve(getErrorMessage(error));
     }
   });
@@ -153,23 +161,36 @@ export const TestWebWorkers = () => {
     };
 
     const testServiceWorker = async () => {
-      const registration = await navigator.serviceWorker.register(serviceWorker, {
-        type: 'module',
-      });
+      try {
+        const existingRegistrations = await navigator.serviceWorker.getRegistrations();
+        for (const reg of existingRegistrations) {
+          await reg.unregister();
+        }
 
-      await navigator.serviceWorker.ready;
+        const registration = await navigator.serviceWorker.register(serviceWorker, {
+          type: 'module',
+        });
 
-      const clientApiResult = await testClientApi(registration);
-      const broadcastChannelApiResult = await testBroadcastChannelApi();
-      const messageChannelApiResult = await testMessageChannelApi(registration);
+        await navigator.serviceWorker.ready;
 
-      setServiceWorkerResult({
-        clientApi: clientApiResult,
-        broadcastChannelApi: broadcastChannelApiResult,
-        messageChannelApi: messageChannelApiResult,
-      });
+        const clientApiResult = await testClientApi(registration);
+        const broadcastChannelApiResult = await testBroadcastChannelApi();
+        const messageChannelApiResult = await testMessageChannelApi(registration);
 
-      await registration.unregister();
+        setServiceWorkerResult({
+          clientApi: clientApiResult,
+          broadcastChannelApi: broadcastChannelApiResult,
+          messageChannelApi: messageChannelApiResult,
+        });
+
+        await registration.unregister();
+      } catch (error) {
+        setServiceWorkerResult({
+          clientApi: getErrorMessage(error),
+          broadcastChannelApi: getErrorMessage(error),
+          messageChannelApi: getErrorMessage(error),
+        });
+      }
     };
 
     testDedicatedWorker().catch(console.error);

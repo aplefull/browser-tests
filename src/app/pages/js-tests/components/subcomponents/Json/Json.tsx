@@ -525,10 +525,9 @@ const TypedArrayValue = ({
   level: number;
   settings?: TJsonSettings;
 }) => {
-  // Handle BigInt arrays differently since they can't be directly Array.from'd to numbers
   const arrayValues =
     value instanceof BigInt64Array || value instanceof BigUint64Array
-      ? Array.from(value, (val) => val) // Keep as BigInt
+      ? Array.from(value, (val) => val)
       : Array.from(value as ArrayLike<number>);
 
   const typeName = value.constructor.name;
