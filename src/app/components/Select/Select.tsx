@@ -191,44 +191,44 @@ export function Select({
   };
 
   return (
-    <Popover
-      isOpen={isOpen}
-      onClickOutside={() => setIsOpen(false)}
-      className={styles.popover}
-      zIndex={100}
-      anchorMargin={0}
-      closeWhenTriggerOutOfViewport={true}
-      anchor={{
-        horizontal: 'center',
-        vertical: 'bottom',
-      }}
-      target={{
-        horizontal: 'center',
-        vertical: 'top',
-      }}
-      content={
-        <Options
-          ref={optionsRef}
-          options={options}
-          onSelect={handleChange}
-          value={value === undefined ? undefined : toSelectOption(value)}
-          style={optionsStyle}
-          wrapWords={wrapWords}
-          searchable={searchable}
-        />
-      }
+    <div
+      className={classNames(styles.selectContainer, className, {
+        [styles.disabled]: disabled,
+      })}
     >
-      <div
-        ref={ref}
-        tabIndex={0}
-        role="button"
-        title={title}
-        className={classNames(styles.selectContainer, className, {
-          [styles.disabled]: disabled,
-        })}
+      {label && <span className={styles.label}>{label}</span>}
+      <Popover
+        isOpen={isOpen}
+        onClickOutside={() => setIsOpen(false)}
+        className={styles.popover}
+        zIndex={100}
+        anchorMargin={0}
+        closeWhenTriggerOutOfViewport={true}
+        anchor={{
+          horizontal: 'center',
+          vertical: 'bottom',
+        }}
+        target={{
+          horizontal: 'center',
+          vertical: 'top',
+        }}
+        content={
+          <Options
+            ref={optionsRef}
+            options={options}
+            onSelect={handleChange}
+            value={value === undefined ? undefined : toSelectOption(value)}
+            style={optionsStyle}
+            wrapWords={wrapWords}
+            searchable={searchable}
+          />
+        }
       >
-        {label && <span className={styles.label}>{label}</span>}
         <div
+          ref={ref}
+          tabIndex={0}
+          role="button"
+          title={title}
           className={classNames(styles.select, {
             [styles.open]: isOpen,
           })}
@@ -244,7 +244,7 @@ export function Select({
             <ChevronLeft size={20} />
           </div>
         </div>
-      </div>
-    </Popover>
+      </Popover>
+    </div>
   );
 }

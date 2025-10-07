@@ -62,6 +62,10 @@ export const Section = ({ title, children }: TSectionProps) => {
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
+      const target = event.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.contentEditable === 'true') {
+        return;
+      }
       event.preventDefault();
       handleChange(!isOpen);
     }

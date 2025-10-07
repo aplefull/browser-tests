@@ -60,7 +60,15 @@ const sha256GPU = async (value: string, gpu: GPUDevice) => {
 
   await resultBuffer.mapAsync(GPUMapMode.READ);
 
-  return toHexString(resultBuffer.getMappedRange()).toLowerCase();
+  const mappedRange = resultBuffer.getMappedRange();
+  const resultArray = new Uint32Array(mappedRange);
+  const hashBytes = new Uint8Array(32);
+
+  for (let i = 0; i < 32; i++) {
+    hashBytes[i] = resultArray[i] & 0xff;
+  }
+
+  return toHexString(hashBytes.buffer).toLowerCase();
 };
 
 export const ComputePainter = ({ gpu }: TComputePainterProps) => {
