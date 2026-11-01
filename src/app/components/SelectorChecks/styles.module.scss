@@ -1,0 +1,35 @@
+.selector-checks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+
+  .summary {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .success {
+    color: var(--color-green);
+  }
+
+  .error {
+    color: var(--color-red);
+  }
+
+  .manual {
+    color: var(--color-text-muted);
+  }
+
+  .fixtures {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .reference {
+    color: var(--color-green);
+  }
+}

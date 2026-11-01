@@ -102,6 +102,7 @@ export default defineConfig({
   },
   build: {
     cssCodeSplit: true,
+    cssMinify: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -111,8 +112,8 @@ export default defineConfig({
             }
             return 'vendor_other';
           }
-        }
-      }
-    }
+        },
+      },
+    },
   },
 });

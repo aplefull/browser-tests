@@ -20,6 +20,7 @@ import {
   TestTextOverflow,
   TestWritingModes,
   TestPseudoClasses,
+  TestPseudoElements,
   TestCssPaintingApi,
   TestCursor,
   TestFieldSizing,
@@ -124,6 +125,11 @@ export const sections = [
   {
     name: 'Pseudo-classes',
     Component: TestPseudoClasses,
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
+    name: 'Pseudo-elements',
+    Component: TestPseudoElements,
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {

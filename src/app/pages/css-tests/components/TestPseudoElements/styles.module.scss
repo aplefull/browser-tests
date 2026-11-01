@@ -1,0 +1,221 @@
+.pseudo-elements {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  h2 {
+    @include subtitle;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: var(--text-base);
+    font-weight: var(--font-normal);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--space-2);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.before .target::before,
+.after .target::after {
+  content: '';
+}
+
+.link {
+  color: var(--color-white);
+}
+
+.spelling {
+  width: 240px;
+  max-width: 100%;
+}
+
+.dialog::backdrop {
+  background-color: color-mix(in srgb, var(--color-green) 30%, transparent);
+}
+
+.cue {
+  width: 240px;
+  max-width: 100%;
+}
+
+.custom-select {
+  appearance: base-select;
+}
+
+.custom-select::picker(select) {
+  appearance: base-select;
+  border: 1px solid var(--color-green);
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 240px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-marker-group: after;
+
+  > div {
+    display: flex;
+    flex: 0 0 100%;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    scroll-snap-align: start;
+    background-color: var(--color-ink-light-10);
+  }
+}
+
+.carousel::scroll-marker-group {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.carousel > div::scroll-marker {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-ink-light-30);
+}
+
+.carousel > div::scroll-marker:target-current {
+  background-color: var(--color-green);
+}
+
+.carousel::scroll-button(*) {
+  position: absolute;
+  top: 18px;
+  color: var(--color-green);
+}
+
+.carousel::scroll-button(left) {
+  content: '<';
+  left: var(--space-2);
+}
+
+.carousel::scroll-button(right) {
+  content: '>';
+  right: var(--space-2);
+}
+
+.columns {
+  width: 240px;
+  height: 40px;
+  overflow-x: auto;
+  columns: 1;
+  column-gap: 0;
+  scroll-snap-type: x mandatory;
+  scroll-marker-group: after;
+  background-color: var(--color-ink-light-10);
+
+  p {
+    break-after: column;
+  }
+}
+
+.columns::column {
+  scroll-snap-align: center;
+}
+
+.columns::column::scroll-marker {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-ink-light-30);
+}
+
+.columns::column::scroll-marker:target-current {
+  background-color: var(--color-green);
+}
+
+.columns::scroll-marker-group {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+$matches: (
+  '.before .target::before',
+  '.after .target::after',
+  '.marker .target::marker',
+  '.part .host::part(label)',
+  '.details-content details::details-content',
+  '.first-letter::first-letter',
+  '.first-line::first-line',
+  '.placeholder::placeholder',
+  '.file-selector-button::file-selector-button',
+  '.cue::cue',
+  '.custom-select::picker-icon',
+  '.custom-select option::checkmark'
+);
+
+@each $selector in $matches {
+  #{$selector} {
+    color: var(--color-green);
+  }
+}
+
+$highlights: ('.selection::selection', '::highlight(pseudo-elements-check)', '::target-text', '::search-text');
+
+@each $selector in $highlights {
+  #{$selector} {
+    background-color: var(--color-green);
+    color: var(--color-black);
+  }
+}
+
+.cue::cue(:future) {
+  color: var(--color-text-muted);
+}
+
+.spelling::spelling-error {
+  text-decoration: wavy underline var(--color-green);
+}
+
+.spelling::grammar-error {
+  text-decoration: wavy underline var(--color-warning);
+}
+
+@keyframes check {
+  to {
+    opacity: 1;
+  }
+}
+
+$transition-pseudos: (
+  ':root.checking::view-transition',
+  ':root.checking::view-transition-group(root)',
+  ':root.checking::view-transition-image-pair(root)',
+  ':root.checking::view-transition-old(root)',
+  ':root.checking::view-transition-new(root)'
+);
+
+@each $selector in $transition-pseudos {
+  #{$selector} {
+    animation: check 1ms;
+  }
+}

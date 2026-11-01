@@ -1,89 +1,75 @@
-.has-selector {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 100%;
+.success {
+  color: var(--color-green);
+}
 
-  > div {
-    width: 100%;
-    height: 26px;
-    background-color: var(--color-red);
-    display: flex;
-    align-items: center;
+.error {
+  color: var(--color-red);
+}
 
-    input[type='text'] {
-      height: 22px;
-      margin-left: 5px;
-      font-size: 0.7rem;
-      outline: none;
-    }
-  }
+.child .target:has(> .marker) {
+  color: var(--color-green);
+}
 
-  .i-have-a-class {
-    display: none;
-  }
+.descendant .target:has(span) {
+  color: var(--color-green);
+}
 
-  .before {
-    &:before {
-      content: '';
-    }
-  }
+.any .target:has(*) {
+  color: var(--color-green);
+}
 
-  input[type='checkbox'] {
-    cursor: pointer;
-  }
+.empty .target:not(:has(*)) {
+  color: var(--color-green);
+}
 
-  div:nth-of-type(1) {
-    &:has(> .i-have-a-class) {
-      background-color: var(--color-green);
-    }
-  }
+.next-sibling .target:has(+ .marker) {
+  color: var(--color-green);
+}
 
-  div:nth-of-type(2) {
-    &:has(span) {
-      background-color: var(--color-green);
-    }
-  }
+.subsequent-sibling .target:has(~ .marker) {
+  color: var(--color-green);
+}
 
-  div:nth-of-type(3) {
-    &:has(*) {
-      background-color: var(--color-green);
-    }
-  }
+.chained .target:has(> div):has(pre) {
+  color: var(--color-green);
+}
 
-  div:nth-of-type(4) {
-    &:not(:has(*)) {
-      background-color: var(--color-green);
-    }
-  }
+.is .target:has(:is(em, strong)) {
+  color: var(--color-green);
+}
 
-  div:nth-of-type(5) {
-    &:has(input:checked) {
-      background-color: var(--color-green);
-    }
-  }
+.lang .target:has(p:lang(de)) {
+  color: var(--color-green);
+}
 
-  div:nth-of-type(6) {
-    &:has(> div):has(pre) {
-      background-color: var(--color-green);
-    }
-  }
+.ancestor .scope:has(.marker) .target {
+  color: var(--color-green);
+}
 
-  div:nth-of-type(7) {
-    &:not(:has(> input:focus)) {
-      background-color: var(--color-green);
-    }
-  }
+.nested .target {
+  color: var(--color-green);
+}
 
-  div:nth-of-type(8) {
-    &:has(> input:placeholder-shown) {
-      background-color: var(--color-green);
-    }
-  }
+.nested .target:has(:has(*)) {
+  color: var(--color-red);
+}
 
-  div:nth-of-type(9) {
-    &:has(p:lang(en)) {
-      background-color: var(--color-green);
-    }
-  }
+.checked .target:has(input:checked) {
+  color: var(--color-green);
+}
+
+.focus .target:has(input:focus) {
+  color: var(--color-green);
+}
+
+.placeholder .target:has(input:not(:placeholder-shown)) {
+  color: var(--color-green);
+}
+
+.class-change .target:has(.on) {
+  color: var(--color-green);
+}
+
+.insertion .target:has(b) {
+  color: var(--color-green);
 }
