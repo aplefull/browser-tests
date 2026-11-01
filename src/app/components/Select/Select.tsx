@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, X } from 'tabler-icons-react';
+import { ChevronDown, X } from 'tabler-icons-react';
 import { TSelectOption } from '@/types';
 import { Options } from '@/app/components/Select/Options';
 import { Popover } from '@/app/components/Popover/Popover';
@@ -241,7 +241,7 @@ export function Select({
             </div>
           )}
           <div className={styles.icon}>
-            <ChevronLeft size={20} />
+            <ChevronDown size={16} />
           </div>
         </div>
       </Popover>

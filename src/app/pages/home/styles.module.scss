@@ -1,74 +1,63 @@
-.main {
+.index {
   display: flex;
   flex-direction: column;
-  padding: var(--space-6);
+  gap: var(--space-8);
   width: 100%;
-  color: var(--gray-12);
-  background: var(--gray-1);
-  min-height: 100vh;
-
-  @media (min-width: $bp-2xl) {
-    margin: 0 auto;
-  }
+  max-width: 40rem;
+  margin: var(--space-12) auto 0;
 
   @media (max-width: $bp-md) {
-    padding: var(--space-4);
+    margin-top: var(--space-4);
+  }
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+  }
+}
+
+.shortcuts {
+  padding: var(--space-5);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+
+  h2 {
+    margin: 0 0 var(--space-3);
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
   }
 
-  .index {
-    width: 100%;
+  dl {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: var(--space-16) var(--space-6);
+    gap: var(--space-2);
+    margin: 0;
+  }
+}
 
-    .main-text {
-      max-width: 48rem;
-      font-size: var(--text-xl);
-      text-align: center;
-      line-height: var(--leading-relaxed);
-      color: var(--gray-11);
-      font-weight: var(--font-normal);
+.shortcut {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
 
-      span {
-        text-decoration: line-through;
-        color: var(--gray-10);
-      }
-    }
-
-    @media (max-width: $bp-md) {
-      padding: var(--space-12) var(--space-4);
-
-      .main-text {
-        font-size: var(--text-lg);
-      }
-    }
+  dt {
+    display: flex;
+    gap: 2px;
+    width: 3.5rem;
   }
 
-  .notes {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    background: var(--gray-3);
-    padding: var(--space-6);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--gray-8);
-    margin-bottom: var(--space-6);
-    margin-left: auto;
-    margin-right: auto;
-
-    p {
-      margin: 0;
-      color: var(--gray-11);
-      font-size: var(--text-sm);
-      line-height: var(--leading-normal);
-    }
-
-    @media (max-width: $bp-md) {
-      padding: var(--space-4);
-      gap: var(--space-2);
-      margin-bottom: var(--space-4);
-    }
+  dd {
+    margin: 0;
+    color: var(--text-secondary);
   }
 }

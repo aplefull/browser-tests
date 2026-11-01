@@ -1,11 +1,18 @@
 .container {
   display: grid;
   place-items: center;
-  width: 24px;
+  width: 1.25rem;
   aspect-ratio: 1;
+  color: var(--text-muted);
   border-radius: 50%;
-  box-shadow: inset 0 0 0 1px var(--gray-3);
+  box-shadow: inset 0 0 0 1px var(--border-ui);
   cursor: pointer;
+  transition: color var(--transition-fast), box-shadow var(--transition-fast);
+
+  &:hover {
+    color: var(--text-primary);
+    box-shadow: inset 0 0 0 1px var(--border-hover);
+  }
 
   .icon {
     height: 70%;
@@ -14,18 +21,19 @@
 }
 
 .info-tooltip {
-  background-color: var(--color-panel-solid);
-  box-shadow: 0 0 5px 1px var(--shadow-6);
-  border-radius: 5px;
-  padding: 10px;
   max-width: 300px;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-ui);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-4);
 
   span {
     width: 100%;
     max-width: 100%;
     margin: 0;
-    font-size: 0.8rem;
-    font-family: monospace;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
     word-break: break-word;
   }
 }

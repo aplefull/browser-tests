@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { Table } from '@/app/components/Table/Table';
+import { Badge } from '@/app/components/Badge/Badge';
 import styles from './styles.module.scss';
 
 export type TSelectorStep = {
@@ -80,15 +81,15 @@ const isSupported = (selector: string) => {
 
 const Status = ({ value }: { value?: TResult }) => {
   if (value === undefined) return '-';
-  if (value === 'manual') return <span className={styles.manual}>Manual</span>;
+  if (value === 'manual') return <Badge>Manual</Badge>;
 
-  return <span className={value ? styles.success : styles.error}>{value ? 'Pass' : 'Fail'}</span>;
+  return <Badge variant={value ? 'success' : 'danger'}>{value ? 'Pass' : 'Fail'}</Badge>;
 };
 
 const Supported = ({ value }: { value?: boolean }) => {
   if (value === undefined) return '-';
 
-  return <span className={value ? styles.success : styles.error}>{value ? 'Yes' : 'No'}</span>;
+  return <Badge variant={value ? 'success' : 'danger'}>{value ? 'Yes' : 'No'}</Badge>;
 };
 
 export const SelectorChecks = ({ cases, targetClassName, children }: TSelectorChecksProps) => {

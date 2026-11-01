@@ -45,7 +45,7 @@
 
 .fullscreen:fullscreen {
   padding: var(--space-4);
-  background-color: var(--color-background);
+  background-color: var(--bg-canvas);
 }
 
 .user-validity:user-valid {
@@ -71,7 +71,7 @@
 
   a:target-before,
   a:target-after {
-    color: var(--color-text-muted);
+    color: var(--text-muted);
   }
 
   a:target-current {
@@ -94,7 +94,7 @@
     justify-content: center;
     height: 60px;
     scroll-snap-align: start;
-    background-color: var(--color-ink-light-10);
+    background-color: var(--gray-6);
   }
 }
 

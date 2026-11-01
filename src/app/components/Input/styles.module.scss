@@ -1,28 +1,45 @@
 .input-container {
-  width: 100%;
-  height: 32px;
+  @include field;
+
   display: flex;
   align-items: center;
-  gap: 5px;
-  box-shadow: inset 0 0 0 1px var(--gray-a7);
-  border-radius: var(--radius-2);
-  background-color: var(--color-surface);
+  gap: var(--space-1);
+  width: 100%;
+  overflow: hidden;
+
+  &:focus-within {
+    @include field-focus;
+  }
 }
 
 .input {
   width: 100%;
   height: 100%;
-  padding: 5px 5px 5px 10px;
+  padding: 0 var(--space-3);
   background-color: var(--color-transparent);
   outline: none;
   border: none;
-  color: var(--gray-11);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: inherit;
   -webkit-tap-highlight-color: var(--color-transparent);
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
 }
 
 .disabled {
-  background-color: var(--gray-a3);
-  color: var(--gray-a8);
+  background-color: var(--gray-a2);
+  color: var(--text-disabled);
   cursor: not-allowed;
-  box-shadow: inset 0 0 0 1px var(--gray-a7);
+
+  &:hover {
+    border-color: var(--border-ui);
+  }
+
+  .input {
+    color: var(--text-disabled);
+    cursor: not-allowed;
+  }
 }

@@ -1,49 +1,81 @@
 .settings {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: var(--space-6);
 
   h1 {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 30px;
+    margin: 0;
+    color: var(--text-primary);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+  }
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  h2 {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
   }
 }
 
 .dropdowns-grid {
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1rem;
-  overflow-x: auto;
-  padding-bottom: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  align-items: start;
+  gap: var(--space-4);
+}
 
-  .column {
+.column {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-canvas);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+
+  .column-head {
     display: flex;
-    flex-direction: column;
-    min-width: 200px;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
 
-    p {
-      text-align: center;
+    span:first-child {
+      color: var(--text-primary);
+      font-weight: var(--font-semibold);
       text-transform: uppercase;
-      border-bottom: 1px solid var(--color-white);
     }
 
-    .column-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
+    span:last-child {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+  }
 
-      label {
-        width: 80%;
-        display: grid;
-        grid-template-columns: 5fr 1fr;
-        align-items: start;
+  .column-content {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-1);
 
-        *:last-child {
-          order: 1;
-        }
+    label {
+      justify-content: space-between;
+      width: 100%;
+      padding: var(--space-1) var(--space-2);
+      color: var(--text-secondary);
+      line-height: var(--leading-normal);
+      border-radius: var(--radius-md);
+
+      &:hover {
+        color: var(--text-primary);
+        background: var(--gray-a2);
       }
     }
   }

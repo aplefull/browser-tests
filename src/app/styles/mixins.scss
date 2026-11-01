@@ -1,15 +1,21 @@
 @mixin subtitle {
   width: 100%;
-  color: var(--gray-11);
-  border-bottom: 1px solid var(--gray-11);
-  font-weight: normal;
+  margin: var(--space-6) 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
 }
 
 @mixin scroll {
   scrollbar-width: thin;
+  scrollbar-color: var(--gray-7) transparent;
 
   @supports selector(::-webkit-scrollbar) {
     scrollbar-width: auto;
+    scrollbar-color: auto;
 
     &::-webkit-scrollbar {
       width: 10px;
@@ -21,12 +27,15 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: var(--color-ink-light-30);
+      background: var(--gray-7);
+      border: 2px solid transparent;
+      background-clip: padding-box;
       border-radius: 1000px;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-      background: var(--color-ink-light-40);
+      background: var(--gray-8);
+      background-clip: padding-box;
     }
 
     &::-webkit-scrollbar-corner {
@@ -40,4 +49,29 @@
   @include scroll;
 
   padding-right: 5px;
+}
+
+@mixin focus-ring($offset: 2px) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: $offset;
+}
+
+@mixin field {
+  height: var(--control-height);
+  color: var(--text-primary);
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-ui);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+
+  &:hover {
+    border-color: var(--border-hover);
+  }
+}
+
+@mixin field-focus {
+  border-color: var(--accent-8);
+  box-shadow: 0 0 0 1px var(--accent-8);
 }

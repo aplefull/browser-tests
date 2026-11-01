@@ -100,7 +100,7 @@
         }
 
         &:nth-of-type(5)::after {
-          background-color: oklab(from var(--color-green-dark-10) l 90% b);
+          background-color: oklab(from var(--green-9) l 90% b);
         }
       }
     }

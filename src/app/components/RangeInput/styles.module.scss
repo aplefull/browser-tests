@@ -6,7 +6,7 @@
     flex-direction: column;
 
     .input {
-      margin-top: 3px;
+      margin-top: var(--space-2);
     }
   }
 
@@ -14,26 +14,28 @@
     flex-direction: column-reverse;
 
     .input {
-      margin-bottom: 3px;
+      margin-bottom: var(--space-2);
     }
   }
 
   &.label-left {
     flex-direction: row;
-    align-items: baseline;
-    gap: 10px;
+    align-items: center;
+    gap: var(--space-3);
   }
 
   &.label-right {
     flex-direction: row-reverse;
-    align-items: baseline;
-    gap: 10px;
+    align-items: center;
+    gap: var(--space-3);
   }
 
   &.disabled {
+    cursor: not-allowed;
+
     .thumb {
-      background-color: var(--gray-1);
-      box-shadow: 0 0 0 1px var(--gray-5);
+      background-color: var(--gray-8);
+      box-shadow: none;
     }
 
     .foreground {
@@ -43,45 +45,44 @@
     .input {
       pointer-events: none;
     }
-
-    cursor: not-allowed;
   }
 
   .input {
-    width: 100%;
-    height: 10px;
     position: relative;
+    width: 100%;
+    height: 6px;
     cursor: pointer;
   }
 
   .background {
-    z-index: 1;
     position: absolute;
+    z-index: 1;
     width: 100%;
     height: 100%;
-    background-color: var(--gray-a4);
-    border-radius: 4px;
+    background-color: var(--gray-a5);
+    border-radius: var(--radius-full);
   }
 
   .foreground {
-    z-index: 2;
     position: absolute;
+    z-index: 2;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--accent-9);
-    border-radius: 4px;
+    background-color: var(--accent-solid);
+    border-radius: var(--radius-full);
   }
 
   .thumb {
     position: absolute;
     z-index: 3;
-    height: 100%;
+    top: 50%;
+    width: 14px;
     aspect-ratio: 1;
-    background-color: var(--color-white);
+    background-color: var(--gray-12);
     border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--accent-solid), 0 1px 3px var(--black-a6);
     cursor: pointer;
-    translate: -50%;
-    scale: 1.3;
+    translate: -50% -50%;
   }
 }

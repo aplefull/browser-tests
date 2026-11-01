@@ -52,8 +52,8 @@
   gap: var(--space-6);
   padding: var(--space-8);
   margin: var(--space-6);
-  background: var(--error-bg);
-  border: 1px solid var(--error-border);
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-border);
   border-radius: var(--radius-xl);
   overflow-x: hidden;
   max-width: 800px;
@@ -62,7 +62,7 @@
 
   h1 {
     margin: 0;
-    color: var(--error-text);
+    color: var(--danger-text);
     font-size: var(--text-2xl);
     font-weight: var(--font-semibold);
     text-align: center;
@@ -80,7 +80,7 @@
     padding: 0;
 
     span {
-      color: var(--error-text);
+      color: var(--danger-text);
       font-weight: var(--font-semibold);
       font-family: monospace;
     }

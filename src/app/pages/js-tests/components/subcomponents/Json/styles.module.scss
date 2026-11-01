@@ -8,7 +8,7 @@
   flex-direction: row;
   align-items: center;
   gap: 5px;
-  font-family: monospace;
+  font-family: var(--font-mono);
   line-height: var(--leading-loose);
 
   .key {
@@ -24,13 +24,13 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-family: monospace;
+  font-family: var(--font-mono);
   line-height: var(--leading-loose);
 
   .icon {
     rotate: -90deg;
     transition: rotate 0.2s ease-in-out;
-    color: var(--color-text-muted);
+    color: var(--text-muted);
     opacity: 0.8;
   }
 
@@ -46,8 +46,8 @@
 }
 
 .key {
-  font-family: monospace;
-  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  color: var(--text-muted);
   opacity: 0.8;
   margin-right: 5px;
   cursor: pointer;
@@ -58,20 +58,20 @@
 }
 
 .text-dark {
-  color: var(--color-text-muted);
-  font-family: monospace;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
   line-height: var(--leading-loose);
   opacity: 0.8;
 }
 
 .text-light {
-  font-family: monospace;
+  font-family: var(--font-mono);
   line-height: var(--leading-loose);
-  color: var(--color-text-secondary);
+  color: var(--text-secondary);
 }
 
 .key-value {
-  font-family: monospace;
+  font-family: var(--font-mono);
   line-height: var(--leading-loose);
 }
 
@@ -85,8 +85,8 @@
 }
 
 .three-dots {
-  color: var(--color-text-muted);
-  font-family: monospace;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
   line-height: var(--leading-loose);
   opacity: 0.8;
   cursor: pointer;

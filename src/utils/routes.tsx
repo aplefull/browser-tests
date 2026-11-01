@@ -8,6 +8,7 @@ import { Loader } from '@/app/components/Loader/Loader';
 import { SectionErrorBoundary } from '@/app/components/SectionErrorBoundary/SectionErrorBoundary';
 
 import { JSX, LazyExoticComponent, Suspense } from 'react';
+import { RouteObject } from 'react-router-dom';
 
 import { sections as htmlSections } from '@/app/pages/html-tests/sections';
 import { sections as cssSections } from '@/app/pages/css-tests/sections';
@@ -34,7 +35,12 @@ const Page = ({
   );
 };
 
-const baseRoutes = [
+type TRoute = RouteObject & {
+  navText?: string;
+  searchable?: boolean;
+};
+
+const baseRoutes: TRoute[] = [
   {
     path: '/',
     element: <IndexPage />,
@@ -42,46 +48,50 @@ const baseRoutes = [
   {
     path: '/html-tests',
     element: <Page sections={htmlSections} />,
+    searchable: true,
     navText: 'HTML',
   },
   {
     path: '/css-tests',
     element: <Page sections={cssSections} />,
+    searchable: true,
     navText: 'CSS',
   },
   {
     path: '/js-tests',
     element: <Page sections={jsSections} />,
+    searchable: true,
     navText: 'JS',
   },
   {
     path: '/misc-tests',
     element: <Page sections={miscSections} />,
-    navText: 'MISC',
+    searchable: true,
+    navText: 'Misc',
   },
   {
     path: '/others-projects',
     element: <OthersProjectsPage />,
-    navText: 'OTHER',
+    navText: 'Other',
   },
   {
     path: '/settings',
     element: <Settings />,
-    navText: 'SETTINGS',
+    navText: 'Settings',
   },
 ];
 
-const devRoutes = import.meta.env.DEV
+const devRoutes: TRoute[] = import.meta.env.DEV
   ? [
       {
         path: '/dev-demo',
         element: <DevDemoPage />,
-        navText: 'DEV',
+        navText: 'Dev',
       },
     ]
   : [];
 
-export const routes = [
+export const routes: TRoute[] = [
   ...baseRoutes,
   ...devRoutes,
   {

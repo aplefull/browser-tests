@@ -33,15 +33,22 @@ export const Settings = () => {
   return (
     <div className={styles.settings}>
       <h1>Settings</h1>
-      <div>
-        <span>Initial dropdowns states:</span>
+      <div className={styles.group}>
+        <h2>Open by default</h2>
         <div className={styles.dropdownsGrid}>
           {Object.entries(dropdowns.pages)
             .toSorted(sortByLetters)
             .map(([page, values]) => {
+              const openCount = values.filter((value) => value.initialState === DROPDOWN_STATE.OPEN).length;
+
               return (
                 <div key={page} className={styles.column}>
-                  <p>{page}</p>
+                  <div className={styles.columnHead}>
+                    <span>{page}</span>
+                    <span>
+                      {openCount}/{values.length}
+                    </span>
+                  </div>
                   <div className={styles.columnContent}>
                     {values.map((value) => {
                       return (

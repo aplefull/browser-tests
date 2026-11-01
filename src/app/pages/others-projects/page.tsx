@@ -24,7 +24,7 @@ const Project = ({ name, url, title }: TProjectProps) => {
         [styles.open]: open,
       })}
     >
-      <ChevronRight className={styles.icon} size={24} />
+      <ChevronRight className={styles.icon} size={18} />
       <span>{title}</span>
     </div>
   );

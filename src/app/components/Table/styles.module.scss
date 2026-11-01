@@ -1,9 +1,8 @@
 .table-container {
-  border-radius: var(--radius-1);
   overflow: hidden;
+  background: var(--bg-canvas);
   border: 1px solid var(--border-subtle);
-  background: var(--bg-subtle);
-  box-shadow: var(--shadow-2);
+  border-radius: var(--radius-lg);
 }
 
 .table {
@@ -13,25 +12,25 @@
 }
 
 .header {
-  display: flex;
-  background: var(--bg-ui);
-  border-bottom: 1px solid var(--border-ui);
   position: sticky;
   top: 0;
   z-index: 10;
+  display: flex;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .header-cell {
-  padding: var(--space-2) var(--space-3);
-  font-weight: var(--font-semibold);
-  font-size: var(--text-sm);
-  color: var(--text-primary);
-  border-right: 1px solid var(--border-subtle);
-  background: var(--bg-ui);
   display: flex;
-  align-items: center;
-  min-height: 48px;
   flex: 1;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
 
   &.first {
     border-left: none;
@@ -43,24 +42,25 @@
 }
 
 .body {
-  overflow-y: auto;
   @include scroll;
+
+  overflow-y: auto;
 }
 
 .row {
   display: flex;
   border-bottom: 1px solid var(--border-subtle);
-  transition: background-color 0.15s ease;
+  transition: background-color var(--transition-fast);
 
   &:hover {
-    background: var(--bg-hover);
+    background: var(--gray-a2);
   }
 
   &.striped {
     background: var(--bg-canvas);
 
     &:hover {
-      background: var(--bg-hover);
+      background: var(--gray-a2);
     }
   }
 
@@ -70,23 +70,23 @@
 
   &.compact {
     .cell {
-      padding: var(--space-2) var(--space-3);
-      min-height: 36px;
+      min-height: 2.25rem;
+      padding: var(--space-1) var(--space-3);
     }
   }
 }
 
 .cell {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-height: 2.75rem;
   padding: var(--space-2) var(--space-3);
-  font-size: var(--text-sm);
   color: var(--text-secondary);
   border-right: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  min-height: 44px;
-  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
   word-break: break-word;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 
   &.first {
     border-left: none;
@@ -102,13 +102,12 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-8);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-3);
   background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
 }
 
 .empty-message {
-  color: var(--text-disabled);
+  color: var(--text-muted);
   font-size: var(--text-sm);
-  font-style: italic;
 }

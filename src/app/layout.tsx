@@ -5,7 +5,7 @@ import { Error } from '@/app/components/Error/Error';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import { Init } from '@/app/components/Init/Init';
-import styles from './pages/home/styles.module.scss';
+import styles from './layout.module.scss';
 
 import './styles/globals.scss';
 

@@ -1,33 +1,38 @@
 .container {
   position: fixed;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  translate: 0 0;
-  transition: translate 0.3s ease-in-out;
-  z-index: 1000;
-  background-color: var(--overlay-3);
+  top: calc(var(--header-height) + var(--space-4));
+  left: 50%;
+  z-index: var(--z-overlay);
+  translate: -50% 0;
+  opacity: 1;
+  transition: translate 0.2s ease, opacity 0.2s ease;
 
   @starting-style {
-    translate: 0 -100%;
+    translate: -50% -1rem;
+    opacity: 0;
   }
 
   &:not(.open) {
-    translate: 0 -100%;
+    translate: -50% -1rem;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .input {
-    height: 56px;
-    width: min(600px, 90vw);
-    background-color: var(--color-surface);
-    border: 1px solid var(--gray-a7);
-    border-radius: var(--radius-3);
+    width: min(560px, calc(100vw - var(--space-8)));
+    height: 44px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-5);
-    backdrop-filter: blur(10px);
+
+    &:focus-within {
+      @include field-focus;
+    }
 
     input {
-      color: var(--color-text);
-      font-size: var(--font-size-5);
+      color: var(--text-primary);
+      font-size: var(--text-base);
     }
   }
 }

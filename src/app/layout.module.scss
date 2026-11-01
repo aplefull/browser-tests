@@ -1,0 +1,14 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  min-height: calc(100vh - var(--header-height));
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6) var(--space-16);
+  color: var(--text-primary);
+
+  @media (max-width: $bp-md) {
+    padding: var(--space-4) var(--space-4) var(--space-12);
+  }
+}

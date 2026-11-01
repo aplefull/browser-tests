@@ -1,92 +1,110 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
   width: 100%;
-  padding: 20px;
+
+  h1 {
+    margin: 0 0 var(--space-2);
+    color: var(--text-primary);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+  }
 
   h2 {
     @include subtitle;
+
+    margin: var(--space-6) 0 0;
   }
 
-  h1 {
-    width: 100%;
-    font-size: 1.4rem;
-    font-weight: 700;
-    text-align: center;
-    padding: 0 20%;
-    margin-bottom: 80px;
+  a {
+    width: fit-content;
+    color: var(--accent-text);
+    text-decoration: none;
+    text-underline-offset: 3px;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .iframes-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    a {
-      margin: 10px 0;
-      text-decoration: none;
-      color: var(--color-white);
-      cursor: pointer;
-      width: fit-content;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
 
     .iframe {
+      display: block;
       width: 100%;
       aspect-ratio: 16 / 9;
-      display: block;
       border: none;
+      border-radius: var(--radius-md);
     }
   }
 
   .links {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: var(--space-1);
 
     a {
-      text-decoration: none;
-      color: var(--color-white);
-      cursor: pointer;
-      width: fit-content;
-
-      &:hover {
-        text-decoration: underline;
-      }
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
     }
   }
 }
 
 .project {
-  margin-top: 10px;
+  padding: var(--space-4);
 }
 
 .with-url {
   &.project {
-    margin-top: 0;
+    padding-top: var(--space-2);
   }
 
   > a {
-    margin: 10px 0;
     display: block;
+    margin-bottom: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
   }
 }
 
 .collapse {
   padding: 0;
+  border-bottom: 1px solid var(--border-subtle);
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   .collapse-head {
-    padding-left: 0;
+    min-height: 3.25rem;
+    padding: var(--space-3) var(--space-5);
+    border-radius: 0;
+    background: var(--bg-surface);
+
+    &:hover {
+      background: var(--bg-ui);
+    }
 
     .head-content {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: var(--space-3);
       cursor: pointer;
 
+      span {
+        color: var(--text-primary);
+        font-size: var(--text-md);
+        font-weight: var(--font-medium);
+      }
+
       .icon {
-        transition: transform 1s;
+        color: var(--text-muted);
+        transition: transform 0.5s ease;
       }
 
       &.open {

@@ -6,19 +6,8 @@
 
   .summary {
     display: flex;
+    align-items: center;
     gap: var(--space-4);
-  }
-
-  .success {
-    color: var(--color-green);
-  }
-
-  .error {
-    color: var(--color-red);
-  }
-
-  .manual {
-    color: var(--color-text-muted);
   }
 
   .fixtures {

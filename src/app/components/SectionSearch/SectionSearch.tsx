@@ -5,6 +5,12 @@ import { useDoubleKeyPress } from '@/utils/hooks';
 import classNames from 'classnames';
 import { isActiveElementInput } from '@utils';
 
+const OPEN_EVENT = 'section-search-open';
+
+export const openSectionSearch = () => {
+  window.dispatchEvent(new Event(OPEN_EVENT));
+};
+
 export const SectionSearch = () => {
   const [inputValue, setInputValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +61,14 @@ export const SectionSearch = () => {
   useDoubleKeyPress('f', open);
 
   useEffect(() => {
+    window.addEventListener(OPEN_EVENT, open);
+
+    return () => {
+      window.removeEventListener(OPEN_EVENT, open);
+    };
+  });
+
+  useEffect(() => {
     // Yes, query selector in react. Fight me.
     const sectionTitles = Array.from(document.querySelectorAll('section > div:first-of-type > span'));
 
@@ -75,7 +89,8 @@ export const SectionSearch = () => {
     if (!filteredSections.length) return;
 
     const firstMatch = filteredSections[0];
-    const scrollOffset = 32;
+    const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+    const scrollOffset = headerHeight + 96;
 
     window.scrollTo({
       top: firstMatch.getBoundingClientRect().top + window.scrollY - scrollOffset,

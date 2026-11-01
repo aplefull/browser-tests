@@ -1,11 +1,13 @@
 .input-container {
+  @include field;
+
   display: flex;
   width: 100%;
-  height: 30px;
-  background-color: var(--color-surface);
-  border: 1px solid var(--gray-a7);
-  border-radius: 4px;
   overflow: hidden;
+
+  &:focus-within {
+    @include field-focus;
+  }
 
   &:hover {
     .buttons-container {
@@ -18,20 +20,27 @@
 .buttons-container {
   display: flex;
   flex-direction: column;
-  max-width: 30px;
+  width: 1.5rem;
   height: 100%;
-  margin-left: 5px;
+  border-left: 1px solid var(--border-subtle);
   opacity: 0;
   pointer-events: none;
+  transition: opacity var(--transition-fast);
 
   .button {
     display: grid;
     place-items: center;
-    border: none;
-    cursor: pointer;
     height: 50%;
     padding: 0;
-    background-color: var(--color-charcoal);
+    border: none;
+    color: var(--text-muted);
+    background-color: var(--bg-ui);
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      color: var(--text-primary);
+      background-color: var(--bg-hover);
+    }
 
     &:disabled {
       opacity: 0.5;
@@ -39,9 +48,9 @@
     }
 
     .icon {
-      stroke: var(--color-white);
       height: 80%;
       aspect-ratio: 1;
+      stroke: currentColor;
     }
   }
 }
@@ -49,11 +58,13 @@
 .input {
   width: 100%;
   height: 100%;
-  padding: 5px 0 5px 10px;
-  color: var(--color-white);
+  padding: 0 var(--space-3);
+  color: var(--text-primary);
   outline: none;
-  background-color: var(--color-surface);
+  background-color: var(--color-transparent);
   border: none;
+  font-family: var(--font-mono);
+  font-size: inherit;
 
   -moz-appearance: textfield;
   &::-webkit-outer-spin-button,
