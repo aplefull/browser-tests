@@ -116,7 +116,7 @@ export const PerformanceObserverTest = () => {
         if ((entryType === 'mark' || entryType === 'measure') && !name.startsWith('performance-observer-')) return;
 
         setPerformanceObserverResults((prevState) => {
-          if (prevState && prevState[entryType] && prevState[entryType][name]) {
+          if (prevState?.[entryType]?.[name]) {
             return prevState;
           }
 

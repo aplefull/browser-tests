@@ -13,7 +13,7 @@ type TTextAreaProps = {
 
 export const TextArea = ({ placeholder, disabled, readonly, value, onChange, className }: TTextAreaProps) => {
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    onChange && onChange(event.target.value);
+    onChange?.(event.target.value);
   };
 
   return (

@@ -81,8 +81,7 @@
   }
 }
 
-@each $color
-  in (
+@each $color in (
     'gray-1',
     'gray-2',
     'gray-3',

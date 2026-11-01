@@ -11,7 +11,7 @@ type TInfoProps = {
 export const Info = ({ text, className }: TInfoProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutIdRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const onMouseEnter = () => {
     if (timeoutIdRef.current) {

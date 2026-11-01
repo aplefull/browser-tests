@@ -13,7 +13,7 @@ const cartesianToPolar = (x: number, y: number) => {
 };
 
 const limitPointToCircle = (x: number, y: number, cx: number, cy: number, r: number) => {
-  const distance = Math.sqrt(Math.pow(x - cx, 2) + Math.pow(y - cy, 2));
+  const distance = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2);
 
   if (distance > r) {
     const angle = Math.atan2(y - cy, x - cx);

@@ -146,7 +146,7 @@ export const Masonry = ({ images, containerRef }: MasonryProps) => {
   };
 
   useEffect(() => {
-    if (!containerRef || !containerRef.current) return;
+    if (!containerRef?.current) return;
 
     const resizeObserver = new ResizeObserver((entries) => {
       const boundingRect = entries[0].contentRect;

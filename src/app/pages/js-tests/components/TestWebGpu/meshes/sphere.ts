@@ -21,12 +21,12 @@ export const createSphereMesh = (radius: number, widthSegments = 32, heightSegme
 
       if (j === widthSegments) {
         vec3.copy(firstVertex, currentVertexPosition);
-      } else if (j == 0 || (!isTopPole && !isBottomPole)) {
+      } else if (j === 0 || (!isTopPole && !isBottomPole)) {
         currentVertexPosition[0] = -radius * Math.cos(u * Math.PI * 2) * Math.sin(v * Math.PI);
         currentVertexPosition[1] = radius * Math.cos(v * Math.PI);
         currentVertexPosition[2] = radius * Math.sin(u * Math.PI * 2) * Math.sin(v * Math.PI);
 
-        if (j == 0) {
+        if (j === 0) {
           vec3.copy(currentVertexPosition, firstVertex);
         }
       }

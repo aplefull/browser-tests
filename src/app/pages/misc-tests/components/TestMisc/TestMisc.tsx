@@ -4,7 +4,7 @@ import { SpriteVideo } from '@/app/pages/misc-tests/components/subcomponents/Spr
 import { Collapse } from '@/app/components/Collapse/Collapse';
 import { DeepNesting } from '@/app/pages/misc-tests/components/TestDeepNesting/TestDeepNesting';
 import { Container } from '@/app/components/Container/Container';
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import crashCursorSvg from '@assets/images/cursors/crashSvg.svg';
 import { Json } from '@/app/pages/js-tests/components/subcomponents/Json/Json';

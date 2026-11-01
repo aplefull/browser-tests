@@ -280,12 +280,12 @@ export function createSphereMesh(radius: number, widthSegments = 32, heightSegme
         currentVertexPosition[0] = firstVertex[0];
         currentVertexPosition[1] = firstVertex[1];
         currentVertexPosition[2] = firstVertex[2];
-      } else if (j == 0 || (!isTopPole && !isBottomPole)) {
+      } else if (j === 0 || (!isTopPole && !isBottomPole)) {
         currentVertexPosition[0] = -radius * Math.cos(u * Math.PI * 2) * Math.sin(v * Math.PI);
         currentVertexPosition[1] = radius * Math.cos(v * Math.PI);
         currentVertexPosition[2] = radius * Math.sin(u * Math.PI * 2) * Math.sin(v * Math.PI);
 
-        if (j == 0) {
+        if (j === 0) {
           firstVertex[0] = currentVertexPosition[0];
           firstVertex[1] = currentVertexPosition[1];
           firstVertex[2] = currentVertexPosition[2];

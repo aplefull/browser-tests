@@ -98,9 +98,5 @@ export const Init = () => {
     };
   }, []);
 
-  return (
-    <>
-      <SectionSearch />
-    </>
-  );
+  return <SectionSearch />;
 };

@@ -7,9 +7,9 @@ export const Glow = ({ brightness }: { brightness: number }) => {
     const [r, g, b] = args;
 
     return {
-      r: parseInt(r),
-      g: parseInt(g),
-      b: parseInt(b),
+      r: parseInt(r, 10),
+      g: parseInt(g, 10),
+      b: parseInt(b, 10),
     };
   };
 

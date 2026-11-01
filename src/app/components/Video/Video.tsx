@@ -35,7 +35,7 @@ export const Video = ({ src, style, initialVolume = 0.5, className, videoClassNa
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const progressBarContainerRef = useRef<HTMLDivElement>(null);
-  const hideControlsTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  const hideControlsTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const isCursorOverControlsRef = useRef(false);
 
   const play = async () => {

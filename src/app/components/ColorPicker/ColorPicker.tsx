@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import styles from './styles.module.scss';
 import { nextElement } from '@/utils/utils';
 import { Popover } from '@/app/components/Popover/Popover';

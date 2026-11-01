@@ -2,7 +2,7 @@
   --state-transition-duration: 0.6s;
 
   overflow: hidden;
-  border-bottom: 1px solid #2a2627;
+  border-bottom: 1px solid var(--color-section-border);
 
   .head {
     display: flex;
@@ -11,10 +11,10 @@
     cursor: pointer;
     padding: var(--space-6) var(--space-7);
     color: var(--gray-12);
-    background-color: #1b1718;
+    background-color: var(--color-section-head);
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: var(--color-hover-overlay);
     }
   }
 
@@ -22,11 +22,9 @@
     height: 0;
     padding: 0 var(--space-4);
     overflow: hidden;
-    border-left: 1px solid #2a2627;
-    border-right: 1px solid #2a2627;
-    transition:
-      height var(--state-transition-duration) ease,
-      padding var(--state-transition-duration) ease;
+    border-left: 1px solid var(--color-section-border);
+    border-right: 1px solid var(--color-section-border);
+    transition: height var(--state-transition-duration) ease, padding var(--state-transition-duration) ease;
   }
 
   .chevron {

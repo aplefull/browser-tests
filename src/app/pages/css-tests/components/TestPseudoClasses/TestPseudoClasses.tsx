@@ -1,10 +1,10 @@
-import { useRef } from 'react';
-import classNames from 'classnames';
-import { SelectorChecks, TSelectorCase } from '@/app/components/SelectorChecks/SelectorChecks';
-import { Button } from '@/app/components/Button/Button';
 import video from '@assets/videos/1x1.webm';
 import catsVideo from '@assets/videos/cats_vp8.webm';
 import longVideo from '@assets/videos/long.webm';
+import classNames from 'classnames';
+import { useRef } from 'react';
+import { Button } from '@/app/components/Button/Button';
+import { SelectorChecks, TSelectorCase } from '@/app/components/SelectorChecks/SelectorChecks';
 import styles from './styles.module.scss';
 
 const unvisitedHref = `/${crypto.randomUUID()}`;

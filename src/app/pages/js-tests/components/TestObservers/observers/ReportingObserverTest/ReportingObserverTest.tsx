@@ -32,7 +32,7 @@ const runDeprecation = () => {
 };
 
 export const getReportData = (report: Report): TReport => {
-  const reportType = report.type;
+  const reportType = report.type ?? 'unknown';
 
   if (reportType === 'deprecation') {
     return {
@@ -45,14 +45,14 @@ export const getReportData = (report: Report): TReport => {
         sourceFile: report.body?.sourceFile,
       },
       type: reportType,
-      url: report.url,
+      url: report.url ?? '',
     };
   }
 
   return {
-    type: report.type,
-    url: report.url,
-    body: report.body?.toJSON() || JSON.parse(JSON.stringify(report.body)) || null,
+    type: reportType,
+    url: report.url ?? '',
+    body: report.body ? JSON.parse(JSON.stringify(report.body)) : null,
   };
 };
 
@@ -60,7 +60,7 @@ const updater = (reports: Report[]) => (prevState: TReportingObserverResults | n
   const currentState = prevState || {};
 
   reports.forEach((report) => {
-    const type = report.type;
+    const type = report.type ?? 'unknown';
     const data = getReportData(report);
 
     if (!currentState[type]) {

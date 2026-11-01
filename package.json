@@ -8,45 +8,34 @@
     "build": "vite build",
     "build-projects-cdn": "mkdir -p ./cdn && unzip -o ./src/assets/projects/projects.zip -d ./cdn",
     "preview": "vite preview",
-    "prettier": "prettier -w ./src/**/*.{ts,tsx,js,jsx,json,css,scss,html}",
+    "format": "biome format --write",
+    "lint": "biome lint --error-on-warnings",
+    "check": "biome check --write",
     "stylelint": "stylelint ./src/**/*.module.{css,scss}",
-    "lint": "eslint ./src --report-unused-disable-directives --max-warnings 0",
-    "typecheck": "tsc --noEmit --incremental false --p tsconfig.json"
+    "typecheck": "tsc --noEmit --incremental false -p tsconfig.json && tsc --noEmit -p tsconfig.node.json"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.13.0",
     "classnames": "^2.5.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-redux": "^9.3.1",
     "react-router-dom": "^7.18.5",
-    "sass": "^1.107.1",
     "tabler-icons-react": "^1.56.0"
   },
-  "prettier": {
-    "printWidth": 120,
-    "singleQuote": true
-  },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@reduxjs/toolkit": "^2.13.0",
+    "@biomejs/biome": "2.6.4",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@typescript-eslint/parser": "^8.72.1",
     "@vitejs/plugin-react-swc": "^4.3.3",
     "@webgpu/types": "^0.1.74",
-    "eslint": "^10.14.0",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.1.1",
     "postcss-scss": "^4.0.9",
-    "prettier": "^3.9.10",
     "rollup-plugin-visualizer": "^7.1.1",
+    "sass": "^1.107.1",
     "stylelint": "^17.16.0",
     "stylelint-scss": "^7.4.0",
-    "tsconfig-paths": "^4.2.0",
     "typescript": "^7.0.2",
-    "typescript-eslint": "^8.72.1",
-    "vite": "^8.3.5",
-    "vite-tsconfig-paths": "^6.1.1"
+    "vite": "^8.3.5"
   }
 }

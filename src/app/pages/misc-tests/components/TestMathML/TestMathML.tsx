@@ -47,7 +47,7 @@ const matrix = (type: 'vmatrix' | 'pmatrix', children: string[]) => {
     rows.push(row.join(' & '));
   }
 
-  return `${nl} \\begin{${type}} ${nl} ${rows.join(' \\\\ ' + nl)} ${nl} \\end{${type}}`;
+  return `${nl} \\begin{${type}} ${nl} ${rows.join(` \\\\ ${nl}`)} ${nl} \\end{${type}}`;
 };
 const vmatrix = (children: string[]) => matrix('vmatrix', children);
 const pmatrix = (children: string[]) => matrix('pmatrix', children);

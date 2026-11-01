@@ -1,9 +1,8 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import react from '@vitejs/plugin-react-swc';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, Plugin, ResolvedConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import path from 'path';
-import fs from 'fs';
 
 const redirectsPlugin = (): Plugin => {
   return {
@@ -71,7 +70,6 @@ export default defineConfig({
   plugins: [
     react(),
     scriptImportPlugin(),
-    tsconfigPaths(),
     redirectsPlugin(),
     visualizer({
       template: 'treemap',
@@ -91,13 +89,10 @@ export default defineConfig({
     },
   },
   resolve: {
+    tsconfigPaths: true,
     alias: {
       '@mixins': path.resolve(__dirname, 'src/app/styles/mixins.scss'),
       '@variables': path.resolve(__dirname, 'src/app/styles/variables.scss'),
-      '@assets/*': 'src/assets/*',
-      '@data/*': 'src/assets/data/*',
-      '@utils': path.resolve(__dirname, 'src/utils/utils.ts'),
-      '@math': path.resolve(__dirname, 'src/utils/math.ts'),
     },
   },
   build: {

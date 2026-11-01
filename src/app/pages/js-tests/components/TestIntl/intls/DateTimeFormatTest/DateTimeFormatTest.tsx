@@ -218,7 +218,7 @@ export const DateTimeFormatTest = () => {
   };
 
   const setFractionalSecondDigitsOption = (fractionalSecondDigits: string) => {
-    const value = isOneOf(fractionalSecondDigits, ['1', '2', '3']) ? parseInt(fractionalSecondDigits) : undefined;
+    const value = isOneOf(fractionalSecondDigits, ['1', '2', '3']) ? parseInt(fractionalSecondDigits, 10) : undefined;
 
     if (isOneOf(value, [1, 2, 3])) {
       setIntlOptions((options) => ({ ...options, fractionalSecondDigits: value }));

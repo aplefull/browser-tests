@@ -10,9 +10,7 @@
     background-color: var(--color-surface);
     box-shadow: inset 0 0 0 1px var(--gray-a7);
     cursor: pointer;
-    transition:
-      background-color 0.2s,
-      box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s;
 
     .radio-inner {
       width: 100%;

@@ -55,7 +55,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
           className={classNames(styles.input, inputClassName)}
           placeholder={placeholder}
           onChange={(event) => {
-            onChange && onChange(event.target.value);
+            onChange?.(event.target.value);
           }}
           value={value}
           style={style}

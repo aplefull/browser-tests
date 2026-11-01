@@ -8,7 +8,7 @@ export const NavigatorKeyboard = () => {
   const [keymap, setKeymap] = useState<Record<string, string> | null>({});
 
   const getKeyboardLayoutMap = async () => {
-    if (!navigator.keyboard || !navigator.keyboard.getLayoutMap) {
+    if (!navigator.keyboard?.getLayoutMap) {
       setKeymap(null);
       return;
     }

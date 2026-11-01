@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef } from 'react';
-import { SelectorChecks, TSelectorCase } from '@/app/components/SelectorChecks/SelectorChecks';
-import { Button } from '@/app/components/Button/Button';
 import catsVideo from '@assets/videos/cats_vp8.webm';
+import { useEffect, useMemo, useRef } from 'react';
+import { Button } from '@/app/components/Button/Button';
+import { SelectorChecks, TSelectorCase } from '@/app/components/SelectorChecks/SelectorChecks';
 import styles from './styles.module.scss';
 
 const HIGHLIGHT_NAME = 'pseudo-elements-check';

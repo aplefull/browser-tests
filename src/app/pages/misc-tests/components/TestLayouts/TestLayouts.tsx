@@ -1,5 +1,5 @@
 import styles from './layouts.module.scss';
-import React, { Fragment, useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { CSSMasonry } from '@/app/pages/misc-tests/components/subcomponents/CSSMasonry/CSSMasonry';
 import { TImageModule } from '@/types';

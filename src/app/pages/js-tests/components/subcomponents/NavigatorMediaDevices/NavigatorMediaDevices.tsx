@@ -191,7 +191,7 @@ export const NavigatorMediaDevices = () => {
   const testMediaDevices = async () => {
     const mediaDevices = navigator.mediaDevices;
 
-    if (!mediaDevices || !mediaDevices.enumerateDevices) {
+    if (!mediaDevices?.enumerateDevices) {
       setMediaDevicesData({
         error: 'Media devices are not supported',
       });

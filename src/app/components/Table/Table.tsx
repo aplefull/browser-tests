@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 interface TableColumn {
   key: string;

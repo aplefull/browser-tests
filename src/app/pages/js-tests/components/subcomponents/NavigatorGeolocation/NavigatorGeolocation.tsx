@@ -75,7 +75,7 @@ export const NavigatorGeolocation = () => {
   const testGeolocation = async () => {
     const geolocation = navigator.geolocation;
 
-    if (!geolocation || !geolocation.getCurrentPosition) {
+    if (!geolocation?.getCurrentPosition) {
       setGeolocationData({
         error: 'Geolocation is not supported',
       });

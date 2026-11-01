@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Color } from '@/app/components/ColorPicker/Color';
 import { HSVPalette } from '@/app/components/ColorPicker/Palettes/HSVPalette';
 import styles from '@/app/components/ColorPicker/styles.module.scss';

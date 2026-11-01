@@ -85,7 +85,7 @@ export const DevDemoPage = () => {
                   true,
                   false,
                   'string',
-                  function () {},
+                  () => {},
                   {
                     a: { b: {} },
                   },
@@ -106,7 +106,7 @@ export const DevDemoPage = () => {
                   null,
                   {
                     c: { e: [] },
-                    d: { f: [{}, function () {}, 123, [{}, { a: 'a' }], [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]] },
+                    d: { f: [{}, () => {}, 123, [{}, { a: 'a' }], [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]] },
                   },
                 ],
               },

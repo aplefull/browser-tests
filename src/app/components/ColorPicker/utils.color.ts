@@ -89,7 +89,7 @@ export const HSLToRGB = (h: number, s: number, l: number) => {
 export const RGBToHSV = (r: number, g: number, b: number) => {
   const v = Math.max(r, g, b);
   const c = v - Math.min(r, g, b);
-  const h = c && (v == r ? (g - b) / c : v == g ? 2 + (b - r) / c : 4 + (r - g) / c);
+  const h = c && (v === r ? (g - b) / c : v === g ? 2 + (b - r) / c : 4 + (r - g) / c);
 
   return {
     h: 60 * (h < 0 ? h + 6 : h),
