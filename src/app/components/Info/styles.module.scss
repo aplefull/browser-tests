@@ -3,7 +3,10 @@
   place-items: center;
   width: 1.25rem;
   aspect-ratio: 1;
+  padding: 0;
   color: var(--text-muted);
+  background: none;
+  border: none;
   border-radius: 50%;
   box-shadow: inset 0 0 0 1px var(--border-ui);
   cursor: pointer;
@@ -14,9 +17,8 @@
     box-shadow: inset 0 0 0 1px var(--border-hover);
   }
 
-  .icon {
-    height: 70%;
-    aspect-ratio: 1;
+  &:focus-visible {
+    @include focus-ring;
   }
 }
 
@@ -32,8 +34,9 @@
     width: 100%;
     max-width: 100%;
     margin: 0;
-    font-family: var(--font-mono);
+    color: var(--text-secondary);
     font-size: var(--text-xs);
-    word-break: break-word;
+    line-height: var(--leading-normal);
+    overflow-wrap: break-word;
   }
 }

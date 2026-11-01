@@ -1,7 +1,7 @@
-import { Header } from '@/app/components/Header/Header';
 import { ErrorMessage } from '@/app/components/ErrorMessage/ErrorMessage';
 import { ColorPreview } from '@/app/components/ColorPreview/ColorPreview';
 import { Json } from '@/app/pages/js-tests/components/subcomponents/Json/Json';
+import { Showcase } from './Showcase';
 import styles from './styles.module.scss';
 
 export const DevDemoPage = () => {
@@ -66,6 +66,13 @@ export const DevDemoPage = () => {
     float64Array: new Float64Array([1.123456789, 2.987654321]),
     deepArray: [[[[[[[[[[[[[[['Value']]]]]]]]]]]]]]],
     deepObject: { a: { b: { c: { d: { e: { f: { g: { h: { i: { j: 'Value' } } } } } } } } } },
+    invalidDate: new Date(NaN),
+    negativeZero: -0,
+    typeError: new TypeError('Bad type'),
+    objectKeyMap: new Map<unknown, string>([[{ id: 1 }, 'object key']]),
+    domRect: new DOMRect(1, 2, 3, 4),
+    largeArray: Array.from({ length: 450 }, (_, index) => index * 2),
+    multiline: 'first line\nsecond line',
     complex: [
       [
         [
@@ -117,6 +124,11 @@ export const DevDemoPage = () => {
     ],
   };
 
+  const circular: Record<string, unknown> = { name: 'circular' };
+  circular.self = circular;
+  circular.nested = { parent: circular };
+  Object.assign(jsonData, { circular });
+
   const jsonSettings = {
     maxStringLength: 100,
     collapseLevel: 3,
@@ -124,12 +136,7 @@ export const DevDemoPage = () => {
 
   return (
     <div className={styles.demoPage}>
-      <div className={styles.section}>
-        <h2>Header Component</h2>
-        <div className={styles.demo}>
-          <Header />
-        </div>
-      </div>
+      <Showcase />
 
       <div className={styles.section}>
         <h2>ErrorMessage Component</h2>
@@ -138,9 +145,6 @@ export const DevDemoPage = () => {
         </div>
         <div className={styles.demo}>
           <ErrorMessage message="Another error with a longer message that shows how it handles text wrapping" />
-        </div>
-        <div className={styles.demo}>
-          <ErrorMessage />
         </div>
       </div>
 

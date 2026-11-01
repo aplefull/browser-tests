@@ -90,7 +90,9 @@ const CopyButton = ({ text }: { text: string }) => {
 
   return (
     <div className={styles.contextMenu}>
-      <button onClick={handleCopy}>Copy</button>
+      <button type="button" role="menuitem" onClick={handleCopy}>
+        Copy LaTeX
+      </button>
     </div>
   );
 };

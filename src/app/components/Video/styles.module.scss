@@ -3,115 +3,110 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-}
+  border-radius: var(--radius-lg);
+  outline: none;
 
-.controls {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 0 10px;
-  margin-bottom: 20px;
-  gap: 5px;
-  transition: translate 0.2s ease-in-out;
+  &:focus-visible {
+    @include focus-ring(2px);
+  }
 
-  &.hidden {
-    translate: 0 200%;
+  &.full-screen {
+    border-radius: 0;
+  }
+
+  &.idle {
+    cursor: none;
+
+    .controls {
+      opacity: 0;
+      translate: 0 0.5rem;
+      pointer-events: none;
+    }
   }
 }
 
 .video {
+  display: block;
   width: 100%;
   height: 100%;
   outline: none;
 }
 
-.buttons {
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.error {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  color: var(--danger-text);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--danger-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
 
-  .buttons-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .button-with-icon {
-    display: grid;
-    place-items: center;
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 0;
-    color: var(--color-white-transparent-30);
-    transition: color 0.2s ease-in-out;
-
-    &:hover {
-      color: var(--color-white);
-    }
-  }
-
-  .volume-control {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    .volume-slider {
-      width: 80px;
-
-      > div {
-        height: 8px;
-      }
-    }
+  span {
+    color: inherit;
   }
 }
 
-.progress-bar-container {
-  position: relative;
-  width: 100%;
-  height: 14px;
+.big-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0 0 0 3px;
+  color: var(--gray-12);
+  background-color: var(--black-a8);
+  border: 1px solid var(--gray-a6);
+  border-radius: 50%;
+  cursor: pointer;
+  translate: -50% -50%;
+  backdrop-filter: blur(4px);
+  transition: background-color var(--transition-fast), scale var(--transition-fast);
+
+  &:hover {
+    background-color: var(--accent-9);
+    scale: 1.05;
+  }
+}
+
+.controls {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-8) var(--space-3) var(--space-2);
+  background: linear-gradient(to top, var(--black-a9), var(--black-a5) 60%, transparent);
+  transition: opacity 0.25s ease, translate 0.25s ease;
+}
+
+.row {
+  display: flex;
   align-items: center;
+  gap: var(--space-1);
+}
 
-  .progress-bar {
-    width: 100%;
-    height: 50%;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: var(--color-white-transparent-50);
-    cursor: pointer;
+.time {
+  color: var(--gray-12);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 
-    .progress-bar-progress {
-      width: 0;
-      height: 100%;
-      background-color: var(--color-white);
-      border-radius: 10px;
-    }
-
-    .progress-bar-loaded {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      background-color: var(--color-red);
-      border-radius: 10px;
-    }
-  }
-
-  .thumb {
-    position: absolute;
-    left: 0;
-    height: 100%;
-    aspect-ratio: 1;
-    background-color: var(--color-white);
-    border-radius: 50%;
-    cursor: pointer;
-    translate: -50% 0;
-  }
+.spacer {
+  flex: 1;
 }

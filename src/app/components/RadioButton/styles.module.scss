@@ -1,6 +1,13 @@
 .container {
+  position: relative;
+  display: inline-flex;
+
   input[type='radio'] {
-    display: none;
+    @include visually-hidden;
+
+    &:focus-visible + .radio {
+      @include focus-ring;
+    }
   }
 
   .radio {

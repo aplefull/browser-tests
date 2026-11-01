@@ -9,10 +9,14 @@ type NumberInputProps = {
   value: number;
   min?: number;
   max?: number;
+  step?: number;
   noButtons?: boolean;
+  disabled?: boolean;
   className?: string;
   inputClassName?: string;
 };
+
+const stripFloatError = (value: number) => Number(value.toFixed(10));
 
 export const NumberInput = ({
   placeholder,
@@ -22,55 +26,83 @@ export const NumberInput = ({
   onChange,
   min,
   max,
+  step,
   noButtons,
+  disabled,
 }: NumberInputProps) => {
+  const increment = step ?? 1;
+
+  const isBelowMin = (value: number) => min !== undefined && value < min;
+  const isAboveMax = (value: number) => max !== undefined && value > max;
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.valueAsNumber;
 
-    if (min && value < min) {
-      return;
-    }
-
-    if (max && value > max) {
+    if (isBelowMin(value) || isAboveMax(value)) {
       return;
     }
 
     onChange(value);
   };
 
+  const clamp = (value: number) => {
+    if (isBelowMin(value)) return min as number;
+    if (isAboveMax(value)) return max as number;
+
+    return value;
+  };
+
   const plus = () => {
     if (Number.isNaN(value)) {
-      onChange(1);
+      onChange(clamp(increment));
       return;
     }
 
-    onChange(value + 1);
+    onChange(clamp(stripFloatError(value + increment)));
   };
 
   const minus = () => {
     if (Number.isNaN(value)) {
-      onChange(0);
+      onChange(clamp(0));
       return;
     }
 
-    onChange(value - 1);
+    onChange(clamp(stripFloatError(value - increment)));
   };
 
   return (
-    <div className={classNames(styles.inputContainer, className)}>
+    <div className={classNames(styles.inputContainer, className, { [styles.disabled]: disabled })}>
       <input
         className={classNames(styles.input, inputClassName)}
         placeholder={placeholder}
         onChange={handleChange}
         value={value}
+        min={min}
+        max={max}
+        step={step ?? 'any'}
+        disabled={disabled}
         type="number"
       />
       {!noButtons && (
         <div className={styles.buttonsContainer}>
-          <button className={styles.button} onClick={plus} disabled={!!(min && value <= min)}>
+          <button
+            type="button"
+            tabIndex={-1}
+            aria-label="Increment"
+            className={styles.button}
+            onClick={plus}
+            disabled={disabled || (max !== undefined && value >= max)}
+          >
             <ChevronUp className={styles.icon} />
           </button>
-          <button className={styles.button} onClick={minus} disabled={!!(max && value >= max)}>
+          <button
+            type="button"
+            tabIndex={-1}
+            aria-label="Decrement"
+            className={styles.button}
+            onClick={minus}
+            disabled={disabled || (min !== undefined && value <= min)}
+          >
             <ChevronDown className={styles.icon} />
           </button>
         </div>

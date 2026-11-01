@@ -1,188 +1,117 @@
-// utils
+export type TRGBA = { r: number; g: number; b: number; a: number };
+export type THSVA = { h: number; s: number; v: number; a: number };
+export type THSLA = { h: number; s: number; l: number; a: number };
 
-import { Color } from '@/app/components/ColorPicker/Color';
+const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
 
-const componentToHex = (component: number) => {
-  return component.toString(16).padStart(2, '0');
-};
+const normalizeHue = (hue: number) => ((hue % 360) + 360) % 360;
 
-const alphaToHex = (alpha: number) => {
-  return Math.round(alpha * 255)
-    .toString(16)
-    .padStart(2, '0');
-};
-
-// HEX
-
-export const RGBToHex = (r: number, g: number, b: number) => {
-  return {
-    r: componentToHex(r),
-    g: componentToHex(g),
-    b: componentToHex(b),
-  };
-};
-
-export const RGBAToHex = (r: number, g: number, b: number, a: number) => {
-  return {
-    r: componentToHex(r),
-    g: componentToHex(g),
-    b: componentToHex(b),
-    a: alphaToHex(a),
-  };
-};
-
-export const hexToRGB = (hex: string) => {
-  return {
-    r: parseInt(hex.slice(1, 3), 16),
-    g: parseInt(hex.slice(3, 5), 16),
-    b: parseInt(hex.slice(5, 7), 16),
-  };
-};
-
-export const hexToRGBA = (hex: string) => {
-  const rgb = hexToRGB(hex);
-
-  return {
-    ...rgb,
-    a: hex.length === 9 ? parseInt(hex.slice(7, 9), 16) / 255 : 1,
-  };
-};
-
-// HSL
-
-export const RGBToHSL = (r: number, g: number, b: number) => {
-  r /= 255;
-  g /= 255;
-  b /= 255;
-
-  const l = Math.max(r, g, b);
-  const s = l - Math.min(r, g, b);
-  const h = s ? (l === r ? (g - b) / s : l === g ? 2 + (b - r) / s : 4 + (r - g) / s) : 0;
-
-  const result = {
-    h: 60 * h < 0 ? 60 * h + 360 : 60 * h,
-    s: 100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
-    l: (100 * (2 * l - s)) / 2,
-  };
-
-  return {
-    h: result.h,
-    s: result.s / 100,
-    l: result.l / 100,
-  };
-};
-
-export const HSLToRGB = (h: number, s: number, l: number) => {
-  const k = (n: number) => (n + h / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const f = (n: number) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-
-  return {
-    r: Math.round(f(0) * 255),
-    g: Math.round(f(8) * 255),
-    b: Math.round(f(4) * 255),
-  };
-};
-
-// HSV
+const toHexPart = (value: number) => Math.round(value).toString(16).padStart(2, '0');
 
 export const RGBToHSV = (r: number, g: number, b: number) => {
-  const v = Math.max(r, g, b);
-  const c = v - Math.min(r, g, b);
-  const h = c && (v === r ? (g - b) / c : v === g ? 2 + (b - r) / c : 4 + (r - g) / c);
+  const [rn, gn, bn] = [r / 255, g / 255, b / 255];
+  const max = Math.max(rn, gn, bn);
+  const delta = max - Math.min(rn, gn, bn);
 
-  return {
-    h: 60 * (h < 0 ? h + 6 : h),
-    s: v && c / v,
-    v: v / 255,
-  };
+  let h = 0;
+  if (delta) {
+    if (max === rn) h = ((gn - bn) / delta) % 6;
+    else if (max === gn) h = (bn - rn) / delta + 2;
+    else h = (rn - gn) / delta + 4;
+  }
+
+  return { h: normalizeHue(h * 60), s: max ? delta / max : 0, v: max };
 };
 
 export const HSVToRGB = (h: number, s: number, v: number) => {
-  const d = 0.0166666666666666 * h;
-  let c = v * s;
-  let x = c - c * Math.abs((d % 2.0) - 1.0);
-  let m = v - c;
-  c += m;
-  x += m;
-
-  m = Math.round(m * 255);
-  c = Math.round(c * 255);
-  x = Math.round(x * 255);
-
-  switch (d >>> 0) {
-    case 0:
-      return { r: c, g: x, b: m };
-    case 1:
-      return { r: x, g: c, b: m };
-    case 2:
-      return { r: m, g: c, b: x };
-    case 3:
-      return { r: m, g: x, b: c };
-    case 4:
-      return { r: x, g: m, b: c };
-  }
-
-  return { r: c, g: m, b: x };
-};
-
-export const HSVAToRGBA = (h: number, s: number, v: number, a: number) => {
-  const rgb = HSVToRGB(h, s, v);
-
-  return {
-    ...rgb,
-    a: a,
+  const f = (n: number) => {
+    const k = (n + normalizeHue(h) / 60) % 6;
+    return Math.round((v - v * s * Math.max(0, Math.min(k, 4 - k, 1))) * 255);
   };
+
+  return { r: f(5), g: f(3), b: f(1) };
 };
 
-// Parse
-
-export const parseColor = (color: string) => {
-  if (color === 'transparent') return new Color().fromRGBA(0, 0, 0, 0);
-
-  if (color.startsWith('#')) return new Color().fromHex(color);
-
-  if (color.startsWith('rgb')) {
-    if (color.startsWith('rgba')) {
-      const [r, g, b, a] = color
-        .slice(5, -1)
-        .split(',')
-        .map((value) => parseInt(value, 10));
-
-      return new Color().fromRGBA(r, g, b, a);
-    }
-
-    const [r, g, b] = color
-      .slice(4, -1)
-      .split(',')
-      .map((value) => parseInt(value, 10));
-
-    return new Color().fromRGB(r, g, b);
-  }
-
-  if (color.startsWith('hsl')) {
-    if (color.startsWith('hsla')) {
-      const [h, s, l, a] = color
-        .slice(5, -1)
-        .split(',')
-        .map((value) => parseInt(value, 10));
-
-      return new Color().fromHSLA(h, s, l, a);
-    }
-  }
-
-  if (color.startsWith('hsv')) {
-    if (color.startsWith('hsva')) {
-      const [h, s, v, a] = color
-        .slice(5, -1)
-        .split(',')
-        .map((value) => parseInt(value, 10));
-
-      return new Color().fromHSVA(h, s, v, a);
-    }
-  }
-
-  console.error('Unknown color format', color);
-
-  return new Color();
+export const RGBToHSL = (r: number, g: number, b: number) => {
+  const { h, s, v } = RGBToHSV(r, g, b);
+  return { h, ...HSVToHSL(s, v) };
 };
+
+export const HSLToRGB = (h: number, s: number, l: number) => {
+  const { s: sv, v } = HSLToHSV(s, l);
+  return HSVToRGB(h, sv, v);
+};
+
+export const HSVToHSL = (s: number, v: number) => {
+  const l = v * (1 - s / 2);
+  const sl = l === 0 || l === 1 ? 0 : (v - l) / Math.min(l, 1 - l);
+
+  return { s: sl, l };
+};
+
+export const HSLToHSV = (s: number, l: number) => {
+  const v = l + s * Math.min(l, 1 - l);
+  const sv = v === 0 ? 0 : 2 * (1 - l / v);
+
+  return { s: sv, v };
+};
+
+export const RGBAToHex = ({ r, g, b, a }: TRGBA, withAlpha = a < 1) => {
+  return `#${toHexPart(r)}${toHexPart(g)}${toHexPart(b)}${withAlpha ? toHexPart(a * 255) : ''}`;
+};
+
+export const hexToRGBA = (hex: string): TRGBA | null => {
+  const match = /^#?([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.exec(hex.trim());
+  if (!match) return null;
+
+  const digits = match[1].length <= 4 ? [...match[1]].map((digit) => digit + digit).join('') : match[1];
+  const [r, g, b, a = 255] = (digits.match(/../g) ?? []).map((part) => parseInt(part, 16));
+
+  return { r, g, b, a: a / 255 };
+};
+
+let context: CanvasRenderingContext2D | null = null;
+
+const parseCssColor = (color: string): TRGBA | null => {
+  context ??= document.createElement('canvas').getContext('2d');
+  const ctx = context;
+  if (!ctx) return null;
+
+  const results = ['#010203', '#040506'].map((sentinel) => {
+    ctx.fillStyle = sentinel;
+    ctx.fillStyle = color;
+    return String(ctx.fillStyle);
+  });
+
+  if (results[0] !== results[1]) return null;
+
+  const normalized = results[0];
+  if (normalized.startsWith('#')) return hexToRGBA(normalized);
+
+  const channels = /rgba?\(([^)]+)\)/
+    .exec(normalized)?.[1]
+    .split(/[\s,/]+/)
+    .filter(Boolean)
+    .map(Number);
+  if (!channels || channels.length < 3) return null;
+
+  const [r, g, b, a = 1] = channels;
+  return { r, g, b, a };
+};
+
+export const parseColor = (color: string): TRGBA | null => {
+  const hsv = /^hsva?\(\s*([\d.]+)(?:deg)?[\s,]+([\d.]+)%?[\s,]+([\d.]+)%?(?:[\s,/]+([\d.]+)(%?))?\s*\)$/i.exec(
+    color.trim(),
+  );
+
+  if (hsv) {
+    const [, h, s, v, a, alphaPercent] = hsv;
+    const alpha = a === undefined ? 1 : Number(a) / (alphaPercent ? 100 : 1);
+
+    return { ...HSVToRGB(Number(h), Number(s) / 100, Number(v) / 100), a: clamp01(alpha) };
+  }
+
+  return parseCssColor(color);
+};
+
+export { clamp01, normalizeHue };

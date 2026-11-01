@@ -16,11 +16,12 @@
     flex: none;
     width: var(--control-height);
     height: var(--control-height);
-    padding: var(--space-1);
+    padding: 0;
     color: var(--text-secondary);
     background-color: var(--bg-subtle);
     border: 1px solid var(--border-ui);
     border-radius: var(--radius-md);
+    font: inherit;
     user-select: none;
     cursor: pointer;
     transition:

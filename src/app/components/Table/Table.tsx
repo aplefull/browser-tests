@@ -18,6 +18,17 @@ interface TableProps {
   compact?: boolean;
 }
 
+const justify = {
+  left: 'flex-start',
+  center: 'center',
+  right: 'flex-end',
+};
+
+const getCellStyle = (column: TableColumn) => ({
+  justifyContent: justify[column.align || 'left'],
+  textAlign: column.align || 'left',
+});
+
 export const Table = ({ columns, data, maxHeight = 300, className, striped = true, compact = false }: TableProps) => {
   const bodyRef = useRef<HTMLDivElement>(null);
   const [scrollbarWidth, setScrollbarWidth] = useState(0);
@@ -41,6 +52,10 @@ export const Table = ({ columns, data, maxHeight = 300, className, striped = tru
     return () => resizeObserver.disconnect();
   }, [data]);
 
+  const gridTemplateColumns = columns
+    .map((column) => (column.width ? `minmax(${column.width}, 1fr)` : 'minmax(0, 1fr)'))
+    .join(' ');
+
   if (!columns.length || !data.length) {
     return (
       <div className={classNames(styles.table, styles.empty, className)}>
@@ -52,7 +67,7 @@ export const Table = ({ columns, data, maxHeight = 300, className, striped = tru
   return (
     <div className={classNames(styles.tableContainer, className)}>
       <div className={styles.table}>
-        <div className={styles.header} style={{ paddingRight: `${scrollbarWidth}px` }}>
+        <div className={styles.header} style={{ gridTemplateColumns, paddingRight: `${scrollbarWidth}px` }}>
           {columns.map((column, index) => (
             <div
               key={column.key}
@@ -60,10 +75,7 @@ export const Table = ({ columns, data, maxHeight = 300, className, striped = tru
                 [styles.first]: index === 0,
                 [styles.last]: index === columns.length - 1,
               })}
-              style={{
-                width: column.width || 'auto',
-                textAlign: column.align || 'left',
-              }}
+              style={getCellStyle(column)}
             >
               {column.header}
             </div>
@@ -78,6 +90,7 @@ export const Table = ({ columns, data, maxHeight = 300, className, striped = tru
                 [styles.striped]: striped && rowIndex % 2 === 1,
                 [styles.compact]: compact,
               })}
+              style={{ gridTemplateColumns }}
             >
               {columns.map((column, colIndex) => (
                 <div
@@ -86,10 +99,7 @@ export const Table = ({ columns, data, maxHeight = 300, className, striped = tru
                     [styles.first]: colIndex === 0,
                     [styles.last]: colIndex === columns.length - 1,
                   })}
-                  style={{
-                    width: column.width || 'auto',
-                    textAlign: column.align || 'left',
-                  }}
+                  style={getCellStyle(column)}
                 >
                   {row[column.key]}
                 </div>

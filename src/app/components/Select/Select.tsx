@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, MouseEvent, useCallback, useId, useMemo, useRef, useState } from 'react';
 import { ChevronDown, X } from 'tabler-icons-react';
 import { TSelectOption } from '@/types';
-import { Options } from '@/app/components/Select/Options';
+import { Options, TSelectRow } from '@/app/components/Select/Options';
 import { Popover } from '@/app/components/Popover/Popover';
 
 export type TSelectGroup = {
@@ -27,6 +27,12 @@ type TSelectProps = {
   searchable?: boolean;
   disabled?: boolean;
 };
+
+const MAX_LIST_HEIGHT = 300;
+const MIN_LIST_HEIGHT = 96;
+const SEARCH_HEIGHT = 33;
+const ANCHOR_MARGIN = 4;
+const POPOVER_OFFSET = ANCHOR_MARGIN + 10 + 2 + 8;
 
 const getLabel = (value: string | TSelectOption) => {
   if (typeof value === 'string') {
@@ -64,8 +70,47 @@ export const toSelectOption = (value: string | number | boolean | TSelectOption 
   return value;
 };
 
+const toRows = (options: TSelectAcceptedOptions[] | readonly TSelectAcceptedOptions[]): TSelectRow[] => {
+  const toOptionRow = (item: string | TSelectOption): TSelectRow => {
+    const option = toSelectOption(item);
+    return { type: 'option', option, search: option.label.toLowerCase() };
+  };
+
+  if (isGroup(options)) {
+    return options.flatMap((group) => [
+      { type: 'group', label: group.group } as const,
+      ...group.items.map(toOptionRow),
+    ]);
+  }
+
+  return options.map((option) => toOptionRow(option as string | TSelectOption));
+};
+
+const findSelected = (rows: TSelectRow[], value?: string | TSelectOption) => {
+  if (value === undefined) return undefined;
+
+  const target = typeof value === 'string' ? value : value.value;
+  let byLabel: TSelectOption | undefined;
+
+  for (const row of rows) {
+    if (row.type !== 'option') continue;
+    if (row.option.value === target) return row.option;
+    if (!byLabel && typeof value === 'string' && row.option.label === value) byLabel = row.option;
+  }
+
+  return byLabel;
+};
+
+const toValueString = (value: unknown) => {
+  if (typeof value === 'string') return value;
+  if (value === null) return 'null';
+  if (value === undefined) return 'undefined';
+
+  return String(value);
+};
+
 export function Select({
-  options: initialOptions,
+  options,
   onChange,
   onClear,
   value,
@@ -79,116 +124,71 @@ export function Select({
   disabled,
 }: TSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectWidth, setSelectWidth] = useState(0);
+  const [width, setWidth] = useState(0);
+  const [maxHeight, setMaxHeight] = useState(MAX_LIST_HEIGHT);
 
-  const ref = useRef<HTMLDivElement | null>(null);
-  const optionsRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<HTMLDivElement | null>(null);
+  const listboxId = useId();
 
-  const handleClick = () => {
-    if (disabled) return;
+  const rows = useMemo(() => toRows(options), [options]);
+  const selected = useMemo(() => findSelected(rows, value), [rows, value]);
 
-    setIsOpen((isOpen) => !isOpen);
+  const open = () => {
+    if (disabled || !triggerRef.current) return;
+
+    const rect = triggerRef.current.getBoundingClientRect();
+    const space = Math.max(window.innerHeight - rect.bottom, rect.top) - POPOVER_OFFSET;
+    const chrome = searchable ? SEARCH_HEIGHT : 0;
+
+    setWidth(rect.width);
+    setMaxHeight(Math.max(MIN_LIST_HEIGHT, Math.min(MAX_LIST_HEIGHT, space - chrome)));
+    setIsOpen(true);
   };
 
-  const handleChange = (option: TSelectOption) => {
+  const close = useCallback((restoreFocus = false) => {
     setIsOpen(false);
 
-    if (typeof option.value !== 'string') {
-      console.warn('[Temporal LOG]: Select option value is not a string', option.value);
+    if (restoreFocus) {
+      triggerRef.current?.focus({ preventScroll: true });
+    }
+  }, []);
 
-      if (option.value === null) {
-        onChange('null', option);
-        return;
-      }
+  const closeOnOutsideClick = useCallback(() => close(), [close]);
 
-      if (option.value === undefined) {
-        onChange('undefined', option);
-        return;
-      }
+  const handleSelect = useCallback(
+    (option: TSelectOption) => {
+      close(true);
+      onChange(toValueString(option.value), option);
+    },
+    [close, onChange],
+  );
 
-      if (typeof option.value === 'object') {
-        onChange(option.value.toString(), option);
-        return;
-      }
-
-      onChange(String(option.value), option);
+  const handleClick = () => {
+    if (isOpen) {
+      close();
       return;
     }
 
-    onChange(option.value, option);
+    open();
   };
 
-  const getButtonText = () => {
-    if (value !== undefined) {
-      return getLabel(value);
-    }
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (isOpen || event.target !== triggerRef.current) return;
 
-    return placeholder;
-  };
-
-  const scrollToOption = (option: TSelectOption | string) => {
-    const selectedOptionIndex = options.findIndex((element) => {
-      if (!('value' in element)) return false;
-
-      return element.value === option;
-    });
-
-    if (selectedOptionIndex === -1) return;
-
-    const optionElement = optionsRef.current?.children[0].children[selectedOptionIndex];
-
-    if (optionElement) {
-      optionElement.scrollIntoView({ block: 'nearest' });
+    if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+      open();
     }
   };
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false);
-      }
-
-      if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
-        if (!isOpen && document.activeElement === ref.current) {
-          event.preventDefault();
-          setIsOpen(true);
-        }
-      }
-    };
-
-    if (isOpen && value) {
-      scrollToOption(value);
-    }
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!ref.current) return;
-
-    const onResize = (entries: ResizeObserverEntry[]) => {
-      const { width } = entries[0].contentRect;
-      setSelectWidth(width);
-    };
-
-    const observer = new ResizeObserver(onResize);
-
-    observer.observe(ref.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  const options = isGroup(initialOptions) ? initialOptions : initialOptions.map(toSelectOption);
-
-  const optionsStyle = {
-    width: `${selectWidth}px`,
+  const handleClear = (event: MouseEvent) => {
+    event.stopPropagation();
+    close();
+    onClear?.();
   };
+
+  const hasValue = value !== undefined;
+  const buttonText = selected?.label ?? (hasValue ? getLabel(value) : placeholder);
 
   return (
     <div
@@ -199,10 +199,10 @@ export function Select({
       {label && <span className={styles.label}>{label}</span>}
       <Popover
         isOpen={isOpen}
-        onClickOutside={() => setIsOpen(false)}
+        onClickOutside={closeOnOutsideClick}
         className={styles.popover}
         zIndex={100}
-        anchorMargin={0}
+        anchorMargin={ANCHOR_MARGIN}
         closeWhenTriggerOutOfViewport={true}
         anchor={{
           horizontal: 'center',
@@ -214,33 +214,41 @@ export function Select({
         }}
         content={
           <Options
-            ref={optionsRef}
-            options={options}
-            onSelect={handleChange}
-            value={value === undefined ? undefined : toSelectOption(value)}
-            style={optionsStyle}
+            id={listboxId}
+            rows={rows}
+            selected={selected}
+            onSelect={handleSelect}
+            onClose={close}
+            width={width}
+            maxHeight={maxHeight}
             wrapWords={wrapWords}
             searchable={searchable}
           />
         }
       >
         <div
-          ref={ref}
-          tabIndex={0}
-          role="button"
+          ref={triggerRef}
+          tabIndex={disabled ? -1 : 0}
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-controls={isOpen ? listboxId : undefined}
+          aria-disabled={disabled}
+          aria-label={label}
           title={title}
           className={classNames(styles.select, {
             [styles.open]: isOpen,
           })}
           onClick={handleClick}
+          onKeyDown={handleKeyDown}
         >
-          <div className={styles.value}>{getButtonText()}</div>
+          <div className={classNames(styles.value, { [styles.placeholder]: !hasValue })}>{buttonText}</div>
           {clearable && value && (
-            <div className={classNames(styles.icon, styles.static)} onClick={onClear}>
-              <X size={20} />
+            <div className={classNames(styles.icon, styles.clear)} onClick={handleClear} title="Clear">
+              <X size={14} />
             </div>
           )}
-          <div className={styles.icon}>
+          <div className={classNames(styles.icon, styles.chevron)}>
             <ChevronDown size={16} />
           </div>
         </div>

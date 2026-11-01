@@ -98,15 +98,15 @@ export const TextPathSvg = ({ width, height }: TDimensions) => {
       <div className={styles.inputs}>
         <form>
           <label>
-            <RadioButton checked={option === '1'} onChange={() => setOption('1')} />
+            <RadioButton name="text-path-option" checked={option === '1'} onChange={() => setOption('1')} />
             <span>1</span>
           </label>
           <label>
-            <RadioButton checked={option === '2'} onChange={() => setOption('2')} />
+            <RadioButton name="text-path-option" checked={option === '2'} onChange={() => setOption('2')} />
             <span>2</span>
           </label>
           <label>
-            <RadioButton checked={option === '3'} onChange={() => setOption('3')} />
+            <RadioButton name="text-path-option" checked={option === '3'} onChange={() => setOption('3')} />
             <span>3</span>
           </label>
         </form>

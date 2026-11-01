@@ -1,18 +1,25 @@
 import styles from './styles.module.scss';
 import React, { useEffect, useRef, useState } from 'react';
 import {
+  AlertTriangle,
   Maximize,
   Minimize,
   PictureInPictureOff,
   PictureInPictureOn,
   PlayerPause,
   PlayerPlay,
-  Volume,
-  VolumeOff,
 } from 'tabler-icons-react';
 import classNames from 'classnames';
-import { calculateThumbPosition, clamp, formatTime } from '@/utils/utils';
-import { RangeInput } from '@/app/components/RangeInput/RangeInput';
+import {
+  formatMediaTime,
+  handleMediaKey,
+  MediaButton,
+  SeekBar,
+  togglePlay,
+  useMediaState,
+  VolumeControl,
+} from '@/app/components/MediaControls/MediaControls';
+import { Loader } from '@/app/components/Loader/Loader';
 
 type TVideoProps = {
   src?: string;
@@ -22,319 +29,173 @@ type TVideoProps = {
   videoClassName?: string;
 };
 
+type TWebkitVideo = HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+
+const HIDE_CONTROLS_DELAY = 2000;
+
 export const Video = ({ src, style, initialVolume = 0.5, className, videoClassName }: TVideoProps) => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isInPicInPic, setIsInPicInPic] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [isControlsPanelVisible, setIsControlsPanelVisible] = useState(true);
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [volume, setVolume] = useState(initialVolume);
+  const [isIdle, setIsIdle] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const progressBarContainerRef = useRef<HTMLDivElement>(null);
-  const hideControlsTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const isCursorOverControlsRef = useRef(false);
+  const idleTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  const play = async () => {
-    await videoRef.current?.play();
-    setIsPlaying(true);
-  };
+  const media = useMediaState(videoRef);
+  const canPicInPic = document.pictureInPictureEnabled === true;
+  const canFullScreen = document.fullscreenEnabled || 'webkitEnterFullscreen' in HTMLVideoElement.prototype;
+  const controlsVisible = !media.playing || !isIdle;
 
-  const pause = () => {
-    videoRef.current?.pause();
-    setIsPlaying(false);
-  };
+  const toggleFullScreen = () => {
+    const video = videoRef.current as TWebkitVideo | null;
 
-  const togglePlay = async () => {
-    if (isPlaying) {
-      pause();
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    } else if (document.fullscreenEnabled) {
+      containerRef.current?.requestFullscreen().catch(() => {});
     } else {
-      await play();
+      video?.webkitEnterFullscreen?.();
     }
   };
 
-  const toggleFullScreen = async () => {
-    if (isFullScreen) {
-      await document.exitFullscreen();
+  const togglePicInPic = () => {
+    if (document.pictureInPictureElement) {
+      document.exitPictureInPicture().catch(() => {});
     } else {
-      await containerRef.current?.requestFullscreen();
-    }
-
-    setIsFullScreen(!isFullScreen);
-  };
-
-  const togglePicInPic = async () => {
-    if (isInPicInPic) {
-      await document.exitPictureInPicture();
-    } else {
-      await videoRef.current?.requestPictureInPicture();
-    }
-
-    setIsInPicInPic(!isInPicInPic);
-  };
-
-  const toggleMute = () => {
-    if (!videoRef.current) return;
-
-    if (isMuted) {
-      //videoRef.current.volume = initialVolume;
-    } else {
-      //videoRef.current.volume = 0;
-    }
-
-    setIsMuted(!isMuted);
-  };
-
-  const startControlsTimeout = () => {
-    hideControlsTimeoutRef.current = setTimeout(() => {
-      if (isCursorOverControlsRef.current) return;
-
-      setIsControlsPanelVisible(false);
-    }, 2000);
-  };
-
-  const handleTimeUpdate = () => {
-    if (!videoRef.current) return;
-
-    setCurrentTime(videoRef.current.currentTime);
-  };
-
-  const handleDurationChange = () => {
-    if (!videoRef.current) return;
-
-    setDuration(videoRef.current.duration);
-  };
-
-  const handleLoadStart = () => {
-    if (!videoRef.current) return;
-
-    videoRef.current.volume = initialVolume;
-  };
-
-  const handleVolumeSliderChange = (newVolume: number) => {
-    if (!videoRef.current) return;
-
-    videoRef.current.volume = newVolume;
-    setVolume(newVolume);
-  };
-
-  const handleVideoKeyDown = async (event: React.KeyboardEvent) => {
-    const videoElement = videoRef.current;
-    if (!videoElement) return;
-
-    switch (event.code) {
-      case 'Space':
-      case 'KeyK':
-        event.preventDefault();
-        await togglePlay();
-        break;
-
-      case 'KeyF':
-        event.preventDefault();
-        await toggleFullScreen();
-        break;
-
-      case 'KeyP':
-        event.preventDefault();
-        await togglePicInPic();
-        break;
-
-      case 'KeyM':
-        event.preventDefault();
-        toggleMute();
-        break;
-
-      case 'ArrowLeft':
-        event.preventDefault();
-        videoElement.currentTime = Math.max((videoRef.current?.currentTime ?? 0) - 5, 0);
-        break;
-
-      case 'ArrowRight':
-        event.preventDefault();
-        videoElement.currentTime = Math.min((videoRef.current?.currentTime ?? 0) + 5, videoRef.current?.duration ?? 0);
-        break;
-
-      case 'KeyJ':
-        event.preventDefault();
-        videoElement.currentTime = Math.max((videoRef.current?.currentTime ?? 0) - 10, 0);
-        break;
-
-      case 'KeyL':
-        event.preventDefault();
-        videoElement.currentTime = Math.min((videoRef.current?.currentTime ?? 0) + 10, videoRef.current?.duration ?? 0);
-        break;
-
-      default:
-        break;
+      videoRef.current?.requestPictureInPicture().catch(() => {});
     }
   };
 
-  const handleProgressBarMouseDown = (event: React.MouseEvent) => {
-    const progressBarContainer = progressBarContainerRef.current;
-    const video = videoRef.current;
-
-    if (!progressBarContainer || !video) return;
-
-    document.body.style.userSelect = 'none';
-
-    const { left, width } = progressBarContainer.getBoundingClientRect();
-
-    const handleMouseMove = (event: MouseEvent) => {
-      const { clientX } = event;
-      const progress = clamp((clientX - left) / width, 0, 1);
-      const time = progress * video.duration;
-
-      video.currentTime = time;
-      setCurrentTime(time);
-    };
-
-    handleMouseMove(event.nativeEvent);
-
-    const handleMouseUp = () => {
-      document.body.style.userSelect = '';
-
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('focusout', handleMouseUp);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('blur', handleMouseUp);
+  const wakeControls = () => {
+    setIsIdle(false);
+    clearTimeout(idleTimeoutRef.current);
+    idleTimeoutRef.current = setTimeout(() => setIsIdle(true), HIDE_CONTROLS_DELAY);
   };
 
-  useEffect(() => {
-    const videoContainer = containerRef.current;
-    const video = videoRef.current;
-    if (!videoContainer || !video) return;
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    const target = event.target as HTMLElement;
+    if (target.getAttribute('role') === 'slider') return;
+    if (target.tagName === 'BUTTON' && (event.key === ' ' || event.key === 'Enter')) return;
 
-    videoContainer.addEventListener('fullscreenchange', () => {
-      setIsFullScreen(document.fullscreenElement !== null);
-    });
-
-    video.addEventListener('enterpictureinpicture', () => {
-      setIsInPicInPic(true);
-    });
-
-    video.addEventListener('leavepictureinpicture', () => {
-      setIsInPicInPic(false);
-    });
-  }, []);
-
-  useEffect(() => {
-    startControlsTimeout();
-
-    return () => {
-      clearTimeout(hideControlsTimeoutRef.current);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isPlaying) {
-      clearTimeout(hideControlsTimeoutRef.current);
-      setIsControlsPanelVisible(true);
+    if (event.code === 'KeyF') {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleFullScreen();
+    } else if (event.code === 'KeyP' && canPicInPic) {
+      event.preventDefault();
+      event.stopPropagation();
+      togglePicInPic();
+    } else if (!handleMediaKey(event, videoRef.current)) {
       return;
     }
 
-    clearTimeout(hideControlsTimeoutRef.current);
-    startControlsTimeout();
-  }, [isPlaying]);
-
-  const thumbElement = progressBarContainerRef.current?.querySelector(`.${styles.thumb}`);
-
-  const { width: thumbWidth = 10 } = thumbElement?.getBoundingClientRect() || {};
-  const { width: containerWidth = 100 } = progressBarContainerRef.current?.getBoundingClientRect() || {};
-
-  const minThumbLeft = calculateThumbPosition(0, 0, duration, thumbWidth, containerWidth);
-  const maxThumbLeft = calculateThumbPosition(duration, 0, duration, thumbWidth, containerWidth);
-
-  const progressStyle = {
-    width: `${(currentTime / duration) * 100}%`,
+    wakeControls();
   };
 
-  const thumbStyle = {
-    left: `${clamp((currentTime / duration) * 100, minThumbLeft, maxThumbLeft)}%`,
-  };
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.volume = Math.min(Math.max(initialVolume, 0), 1);
+
+    const onFullScreenChange = () => setIsFullScreen(document.fullscreenElement === containerRef.current);
+    const onEnterPicInPic = () => setIsInPicInPic(true);
+    const onLeavePicInPic = () => setIsInPicInPic(false);
+
+    document.addEventListener('fullscreenchange', onFullScreenChange);
+    video.addEventListener('enterpictureinpicture', onEnterPicInPic);
+    video.addEventListener('leavepictureinpicture', onLeavePicInPic);
+
+    return () => {
+      clearTimeout(idleTimeoutRef.current);
+      document.removeEventListener('fullscreenchange', onFullScreenChange);
+      video.removeEventListener('enterpictureinpicture', onEnterPicInPic);
+      video.removeEventListener('leavepictureinpicture', onLeavePicInPic);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (media.playing) wakeControls();
+  }, [media.playing]);
 
   return (
     <div
-      className={classNames(styles.container, className)}
       ref={containerRef}
-      onMouseMove={() => {
-        setIsControlsPanelVisible(true);
-        clearTimeout(hideControlsTimeoutRef.current);
-
-        if (!isPlaying) return;
-
-        startControlsTimeout();
-      }}
+      tabIndex={0}
+      className={classNames(styles.container, className, {
+        [styles.idle]: !controlsVisible,
+        [styles.fullScreen]: isFullScreen,
+      })}
+      onMouseMove={wakeControls}
+      onMouseLeave={() => media.playing && setIsIdle(true)}
+      onKeyDown={handleKeyDown}
+      onFocus={wakeControls}
     >
       <video
-        className={classNames(styles.video, videoClassName)}
-        style={style}
-        onTimeUpdate={handleTimeUpdate}
-        onDurationChange={handleDurationChange}
-        onLoadStart={handleLoadStart}
-        onKeyDown={handleVideoKeyDown}
-        onClick={togglePlay}
-        onDoubleClick={toggleFullScreen}
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onEnded={() => setIsPlaying(false)}
-        onError={() => setIsPlaying(false)}
         ref={videoRef}
         src={src}
-        tabIndex={0}
+        style={style}
+        className={classNames(styles.video, videoClassName)}
+        playsInline
+        onClick={() => togglePlay(videoRef.current)}
+        onDoubleClick={toggleFullScreen}
       />
-      <div
-        className={classNames(styles.controls, {
-          [styles.hidden]: !isControlsPanelVisible,
-        })}
-        onMouseEnter={() => (isCursorOverControlsRef.current = true)}
-        onMouseLeave={() => (isCursorOverControlsRef.current = false)}
-      >
-        <div className={styles.buttons}>
-          <div className={styles.buttonsGroup}>
-            <button onClick={togglePlay} className={styles.buttonWithIcon}>
-              {isPlaying ? <PlayerPause /> : <PlayerPlay />}
-            </button>
-            <div className={styles.time}>{`${formatTime(currentTime)} / ${formatTime(duration)}`}</div>
-          </div>
-          <div className={styles.buttonsGroup}>
-            <div className={styles.volumeControl}>
-              <button onClick={toggleMute} className={styles.buttonWithIcon}>
-                {isMuted ? <VolumeOff /> : <Volume />}
-              </button>
-              <RangeInput
-                className={styles.volumeSlider}
-                value={volume}
-                onChange={handleVolumeSliderChange}
-                min={0}
-                max={1}
-                step={0.01}
-              />
-            </div>
-            <button onClick={toggleFullScreen} className={styles.buttonWithIcon}>
-              {isFullScreen ? <Minimize /> : <Maximize />}
-            </button>
-            <button onClick={togglePicInPic} className={styles.buttonWithIcon}>
-              {isInPicInPic ? <PictureInPictureOff /> : <PictureInPictureOn />}
-            </button>
+
+      {media.error && (
+        <div className={styles.overlay}>
+          <div className={styles.error}>
+            <AlertTriangle size={18} />
+            <span>{media.error}</span>
           </div>
         </div>
-        <div
-          className={styles.progressBarContainer}
-          ref={progressBarContainerRef}
-          onMouseDown={handleProgressBarMouseDown}
+      )}
+
+      {!media.error && media.waiting && (
+        <div className={styles.overlay}>
+          <Loader size={36} />
+        </div>
+      )}
+
+      {!media.error && !media.playing && !media.waiting && (
+        <button
+          type="button"
+          aria-label="Play"
+          tabIndex={-1}
+          className={styles.bigPlay}
+          onClick={() => togglePlay(videoRef.current)}
         >
-          <div className={styles.progressBar}>
-            <div className={styles.progressBarProgress} style={progressStyle} />
-            <div className={styles.progressBarLoaded} />
-          </div>
-          <div className={styles.thumb} style={thumbStyle} />
+          <PlayerPlay size={26} fill="currentColor" />
+        </button>
+      )}
+
+      <div className={styles.controls}>
+        <SeekBar media={videoRef} currentTime={media.currentTime} duration={media.duration} buffered={media.buffered} />
+        <div className={styles.row}>
+          <MediaButton label={media.playing ? 'Pause (k)' : 'Play (k)'} onClick={() => togglePlay(videoRef.current)}>
+            {media.playing ? (
+              <PlayerPause size={18} fill="currentColor" />
+            ) : (
+              <PlayerPlay size={18} fill="currentColor" />
+            )}
+          </MediaButton>
+          <VolumeControl media={videoRef} volume={media.volume} muted={media.muted} />
+          <span className={styles.time}>{formatMediaTime(media.currentTime, media.duration)}</span>
+          <div className={styles.spacer} />
+          {canPicInPic && (
+            <MediaButton
+              label={isInPicInPic ? 'Exit picture-in-picture (p)' : 'Picture-in-picture (p)'}
+              active={isInPicInPic}
+              onClick={togglePicInPic}
+            >
+              {isInPicInPic ? <PictureInPictureOff size={18} /> : <PictureInPictureOn size={18} />}
+            </MediaButton>
+          )}
+          {canFullScreen && (
+            <MediaButton label={isFullScreen ? 'Exit full screen (f)' : 'Full screen (f)'} onClick={toggleFullScreen}>
+              {isFullScreen ? <Minimize size={18} /> : <Maximize size={18} />}
+            </MediaButton>
+          )}
         </div>
       </div>
     </div>

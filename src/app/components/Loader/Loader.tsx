@@ -34,7 +34,7 @@ export const Loader = ({
             size - strokeWidth
           }`}
           fill="none"
-          stroke="#fff"
+          stroke="currentColor"
           strokeWidth={strokeWidth}
         >
           <animateTransform

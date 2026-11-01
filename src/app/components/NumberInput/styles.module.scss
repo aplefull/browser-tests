@@ -9,10 +9,17 @@
     @include field-focus;
   }
 
-  &:hover {
-    .buttons-container {
-      opacity: 1;
-      pointer-events: all;
+  &.disabled {
+    background-color: var(--gray-a2);
+    cursor: not-allowed;
+
+    &:hover {
+      border-color: var(--border-ui);
+    }
+
+    .input {
+      color: var(--text-disabled);
+      cursor: not-allowed;
     }
   }
 }
@@ -23,9 +30,6 @@
   width: 1.5rem;
   height: 100%;
   border-left: 1px solid var(--border-subtle);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--transition-fast);
 
   .button {
     display: grid;
@@ -34,8 +38,13 @@
     padding: 0;
     border: none;
     color: var(--text-muted);
-    background-color: var(--bg-ui);
+    background-color: var(--color-transparent);
     cursor: pointer;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+
+    & + .button {
+      border-top: 1px solid var(--border-subtle);
+    }
 
     &:hover:not(:disabled) {
       color: var(--text-primary);
@@ -43,12 +52,12 @@
     }
 
     &:disabled {
-      opacity: 0.5;
+      color: var(--text-disabled);
       cursor: not-allowed;
     }
 
     .icon {
-      height: 80%;
+      height: 0.875rem;
       aspect-ratio: 1;
       stroke: currentColor;
     }

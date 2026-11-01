@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { ChevronLeft, ChevronRight } from 'tabler-icons-react';
-import { ReactNode, useEffect, useRef } from 'react';
+import { KeyboardEvent, ReactNode } from 'react';
 
 type TSwitcherProps = {
   className?: string;
@@ -11,35 +11,27 @@ type TSwitcherProps = {
 };
 
 export const Switcher = ({ className, onPrev, onNext, children }: TSwitcherProps) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget) return;
 
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (document.activeElement !== ref.current) return;
-
-      if (e.key === 'ArrowLeft') {
-        onPrev?.();
-      } else if (e.key === 'ArrowRight') {
-        onNext?.();
-      }
-    };
-
-    ref.current?.addEventListener('keydown', handleKeyPress);
-
-    return () => {
-      ref.current?.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [onPrev, onNext]);
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      onPrev?.();
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      onNext?.();
+    }
+  };
 
   return (
-    <div ref={ref} className={classNames(styles.switcher, className)} tabIndex={0}>
-      <div className={styles.button} onClick={onPrev}>
-        <ChevronLeft size={20} />
-      </div>
+    <div className={classNames(styles.switcher, className)} tabIndex={0} onKeyDown={handleKeyDown}>
+      <button type="button" tabIndex={-1} aria-label="Previous" className={styles.button} onClick={onPrev}>
+        <ChevronLeft size={16} />
+      </button>
       {children && <div className={styles.children}>{children}</div>}
-      <div className={styles.button} onClick={onNext}>
-        <ChevronRight size={20} />
-      </div>
+      <button type="button" tabIndex={-1} aria-label="Next" className={styles.button} onClick={onNext}>
+        <ChevronRight size={16} />
+      </button>
     </div>
   );
 };

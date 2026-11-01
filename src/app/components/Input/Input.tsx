@@ -7,6 +7,7 @@ export type TInputProps = {
   name?: string;
   disabled?: boolean;
   onChange?: (value: string) => void;
+  onBlur?: () => void;
   value: string;
   className?: string;
   style?: CSSProperties;
@@ -30,6 +31,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
       style,
       value,
       onChange,
+      onBlur,
       leftSlot,
       rightSlot,
       pattern,
@@ -57,6 +59,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
           onChange={(event) => {
             onChange?.(event.target.value);
           }}
+          onBlur={onBlur}
           value={value}
           style={style}
           type="text"

@@ -47,15 +47,16 @@
 .context-menu {
   button {
     width: 100%;
-    padding: var(--space-2) var(--space-4);
+    padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-md);
-    background-color: var(--bg-surface);
+    background-color: var(--color-transparent);
     color: var(--text-primary);
     font-family: inherit;
     text-align: left;
     cursor: pointer;
+    font-size: var(--text-sm);
     transition: background-color var(--transition-fast);
-    border: 1px solid var(--border-ui);
+    border: none;
 
     &:hover {
       background-color: var(--bg-hover);

@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { ChevronRight } from 'tabler-icons-react';
 
@@ -30,8 +30,15 @@ export const Collapse = ({
   const bodyRef = useRef<HTMLDivElement>(null);
 
   const toggle = () => {
-    if (onChange) {
-      onChange(!open);
+    onChange?.(!open);
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget) return;
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggle();
     }
   };
 
@@ -39,17 +46,21 @@ export const Collapse = ({
     const bodyElement = bodyRef.current;
     if (!bodyElement) return;
 
-    const handleTransitionEnd = (event: TransitionEvent) => {
-      if (event.target === bodyElement && event.propertyName === 'height') {
-        if (!open) {
-          setShouldRenderChildren(false);
-        }
-      }
-    };
-
     if (open) {
       setShouldRenderChildren(true);
+      return;
     }
+
+    if (!parseFloat(getComputedStyle(bodyElement).transitionDuration)) {
+      setShouldRenderChildren(false);
+      return;
+    }
+
+    const handleTransitionEnd = (event: TransitionEvent) => {
+      if (event.target === bodyElement && event.propertyName === 'grid-template-rows') {
+        setShouldRenderChildren(false);
+      }
+    };
 
     bodyElement.addEventListener('transitionend', handleTransitionEnd);
     return () => bodyElement.removeEventListener('transitionend', handleTransitionEnd);
@@ -57,21 +68,30 @@ export const Collapse = ({
 
   return (
     <div className={classNames(styles.collapse, className, { [styles.open]: open })}>
-      <div className={headClassName || styles.collapseHead} onClick={toggle}>
+      <div
+        role="button"
+        tabIndex={0}
+        aria-expanded={open}
+        className={headClassName || styles.collapseHead}
+        onClick={toggle}
+        onKeyDown={handleKeyDown}
+      >
         {head && head}
         {!head && (
           <div className={styles.left}>
             {showIcon && (
               <div className={classNames(styles.iconContainer, { [styles.open]: open })}>
-                <ChevronRight className={styles.icon} />
+                <ChevronRight className={styles.icon} size={16} />
               </div>
             )}
             {title && <span>{title}</span>}
           </div>
         )}
       </div>
-      <div ref={bodyRef} className={classNames(styles.collapseBody, bodyClassName)}>
-        {shouldRenderChildren && children}
+      <div ref={bodyRef} className={styles.collapseBody}>
+        <div className={styles.collapseInner}>
+          <div className={bodyClassName}>{shouldRenderChildren && children}</div>
+        </div>
       </div>
     </div>
   );

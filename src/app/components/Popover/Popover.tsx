@@ -46,6 +46,7 @@ export const Popover = ({
 
   const childrenRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const flippedRef = useRef(false);
 
   useEffect(() => {
     const childrenElement = childrenRef.current;
@@ -73,7 +74,7 @@ export const Popover = ({
     };
 
     const updateContentSize = (entries: ResizeObserverEntry[]) => {
-      setContentRect(entries[0].contentRect);
+      setContentRect(entries[0].target.getBoundingClientRect());
     };
 
     const resizeObserver = new ResizeObserver(updatePosition);
@@ -94,6 +95,7 @@ export const Popover = ({
     }
 
     if (!isOpen) {
+      flippedRef.current = false;
       setContentRect(null);
     }
 
@@ -197,6 +199,27 @@ export const Popover = ({
     }
 
     // Step 3:
+    if (keepInViewport && contentRect.height > 0) {
+      const opensDown = anchor.vertical === 'bottom' && target.vertical === 'top';
+      const opensUp = anchor.vertical === 'top' && target.vertical === 'bottom';
+      const spaceBelow = innerHeight - childrenRect.bottom - anchorMargin - viewportMargin;
+      const spaceAbove = childrenRect.top - anchorMargin - viewportMargin;
+
+      if (opensDown || opensUp) {
+        const [space, otherSpace] = opensDown ? [spaceBelow, spaceAbove] : [spaceAbove, spaceBelow];
+        const flippedFits = contentRect.height <= otherSpace;
+        const shouldFlip = flippedRef.current
+          ? flippedFits || otherSpace > space
+          : contentRect.height > space && (flippedFits || otherSpace > space);
+
+        flippedRef.current = shouldFlip;
+
+        if (shouldFlip) {
+          y = opensDown ? childrenRect.top - anchorMargin - contentRect.height : childrenRect.bottom + anchorMargin;
+        }
+      }
+    }
+
     if (keepInViewport && contentRect.width > 0 && contentRect.height > 0) {
       if (x < viewportMargin) {
         x = viewportMargin;

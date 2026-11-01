@@ -6,6 +6,12 @@
 
   .collapse-head {
     display: flex;
+    outline: none;
+
+    &:focus-visible {
+      @include focus-ring(-2px);
+    }
+
     align-items: center;
     justify-content: space-between;
     padding: var(--space-2) 0 var(--space-2) var(--space-3);
@@ -52,25 +58,32 @@
   }
 
   .collapse-body {
-    height: 0;
-    overflow: hidden;
+    display: grid;
+    grid-template-rows: 0fr;
     color: var(--text-secondary);
     background: var(--bg-subtle);
     font-size: var(--text-sm);
-    transition: height var(--state-transition-duration) ease;
+    transition: grid-template-rows var(--state-transition-duration) ease;
 
-    @media (max-width: $bp-md) {
-      padding: 0 var(--space-3);
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  .collapse-inner {
+    min-height: 0;
+    overflow: hidden;
+
+    > div {
+      @media (max-width: $bp-md) {
+        padding: var(--space-3);
+      }
     }
   }
 
   &.open {
     .collapse-body {
-      height: auto;
-
-      @media (max-width: $bp-md) {
-        padding: var(--space-3);
-      }
+      grid-template-rows: 1fr;
     }
   }
 }

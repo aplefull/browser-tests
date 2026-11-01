@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
-import React, { useEffect, useRef, useState } from 'react';
-import { calculateThumbPosition, clamp, map, wait } from '@/utils/utils';
+import React, { CSSProperties, useRef } from 'react';
+import { clamp, map } from '@/utils/utils';
 import classNames from 'classnames';
 import { TLabelPosition } from '@/types';
 
@@ -30,24 +30,17 @@ const getStartX = (event: PointerEvent) => {
   return 0;
 };
 
-const updateValue = (
-  event: MouseEvent | TouchEvent,
-  element: HTMLDivElement,
-  min: number,
-  max: number,
-  step: number,
-  onChange: (value: number) => void,
-) => {
-  const { left } = element.getBoundingClientRect();
-  const currentX = getStartX(event);
+const THUMB_SIZE = 14;
 
-  const value = map(currentX - left, 0, element.offsetWidth, min, max);
-  const stepValue = Math.round(value / step) * step;
+const getValueFromX = (clientX: number, element: HTMLDivElement, min: number, max: number, step: number) => {
+  const { left, width } = element.getBoundingClientRect();
+  const progress = clamp((clientX - left - THUMB_SIZE / 2) / (width - THUMB_SIZE), 0, 1);
+  const value = Math.round(map(progress, 0, 1, min, max) / step) * step;
 
-  onChange(clamp(stepValue, min, max));
+  return clamp(Number(value.toFixed(10)), min, max);
 };
 
-const updateValueOnPointerDown = (
+const updateValue = (
   event: PointerEvent,
   element: HTMLDivElement,
   min: number,
@@ -55,14 +48,7 @@ const updateValueOnPointerDown = (
   step: number,
   onChange: (value: number) => void,
 ) => {
-  const startX = getStartX(event);
-  const { left } = element.getBoundingClientRect();
-
-  const progress = (startX - left) / element.offsetWidth;
-  const value = map(progress, 0, 1, min, max);
-  const stepValue = Math.round(value / step) * step;
-
-  onChange(clamp(stepValue, min, max));
+  onChange(getValueFromX(getStartX(event), element, min, max, step));
 };
 
 export const RangeInput = ({
@@ -76,10 +62,7 @@ export const RangeInput = ({
   className,
   disabled,
 }: TRangeInputProps) => {
-  const [percentage, setPercentage] = useState(0);
-
   const ref = useRef<HTMLDivElement>(null);
-  const thumbRef = useRef<HTMLDivElement>(null);
 
   const onMouseDown = (event: React.MouseEvent) => {
     const element = ref.current;
@@ -87,7 +70,7 @@ export const RangeInput = ({
 
     document.body.style.userSelect = 'none';
 
-    updateValueOnPointerDown(event, element, min, max, step, onChange);
+    updateValue(event, element, min, max, step, onChange);
 
     const onMouseMove = (event: MouseEvent) => {
       updateValue(event, element, min, max, step, onChange);
@@ -98,7 +81,7 @@ export const RangeInput = ({
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
-      window.removeEventListener('focusout', onMouseUp);
+      window.removeEventListener('blur', onMouseUp);
     };
 
     document.addEventListener('mousemove', onMouseMove);
@@ -112,7 +95,7 @@ export const RangeInput = ({
 
     document.body.style.userSelect = 'none';
 
-    updateValueOnPointerDown(event, element, min, max, step, onChange);
+    updateValue(event, element, min, max, step, onChange);
 
     const onTouchMove = (event: TouchEvent) => {
       updateValue(event, element, min, max, step, onChange);
@@ -133,29 +116,34 @@ export const RangeInput = ({
     window.addEventListener('blur', onTouchEnd);
   };
 
-  const calculatePercentage = async (shouldWait?: boolean) => {
-    if (shouldWait) {
-      await wait(50);
-    }
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    const bigStep = Math.max(step, (max - min) / 10);
+    const steps: Record<string, number> = {
+      ArrowRight: step,
+      ArrowUp: step,
+      ArrowLeft: -step,
+      ArrowDown: -step,
+      PageUp: bigStep,
+      PageDown: -bigStep,
+      Home: -Infinity,
+      End: Infinity,
+    };
 
-    const { width: thumbWidth = 13 } = thumbRef.current?.getBoundingClientRect() || {};
-    const { width: containerWidth = 100 } = thumbRef.current?.parentElement?.getBoundingClientRect() || {};
+    if (!(event.key in steps)) return;
 
-    const minThumbLeft = calculateThumbPosition(min, min, max, thumbWidth, containerWidth);
-    const maxThumbLeft = calculateThumbPosition(max, min, max, thumbWidth, containerWidth);
+    event.preventDefault();
 
-    const percentage = clamp(map(value, min, max, 0, 100), minThumbLeft, maxThumbLeft);
+    const next = Number.isFinite(steps[event.key])
+      ? Number((Math.round((value + steps[event.key]) / step) * step).toFixed(10))
+      : steps[event.key] > 0
+        ? max
+        : min;
 
-    setPercentage(percentage);
+    onChange(clamp(next, min, max));
   };
 
-  useEffect(() => {
-    calculatePercentage(true).catch(console.error);
-  }, []);
-
-  useEffect(() => {
-    calculatePercentage().catch(console.error);
-  }, [value, min, max]);
+  const progress = max === min ? 0 : clamp((value - min) / (max - min), 0, 1);
+  const trackStyle = { '--progress': progress, '--thumb-size': `${THUMB_SIZE}px` } as CSSProperties;
 
   return (
     <div
@@ -168,10 +156,24 @@ export const RangeInput = ({
       })}
     >
       {label && <span>{label}</span>}
-      <div className={styles.input} onMouseDown={onMouseDown} onTouchStart={onTouchStart} ref={ref}>
+      <div
+        ref={ref}
+        role="slider"
+        tabIndex={disabled ? -1 : 0}
+        aria-label={label}
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={value}
+        aria-disabled={disabled}
+        className={styles.input}
+        style={trackStyle}
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+        onKeyDown={onKeyDown}
+      >
         <div className={styles.background} />
-        <div className={styles.foreground} style={{ width: `${percentage}%` }} />
-        <div ref={thumbRef} className={styles.thumb} style={{ left: `${percentage}%` }} />
+        <div className={styles.foreground} />
+        <div className={styles.thumb} />
       </div>
     </div>
   );

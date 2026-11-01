@@ -1,3 +1,13 @@
 .menu {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  min-width: 10rem;
+  padding: var(--space-1);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-ui);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-5);
+  visibility: hidden;
 }
