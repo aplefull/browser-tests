@@ -8,6 +8,7 @@
 :root {
   interpolate-size: allow-keywords;
   color-scheme: dark;
+  scroll-padding-top: calc(var(--header-height) + var(--space-4));
 }
 
 html,

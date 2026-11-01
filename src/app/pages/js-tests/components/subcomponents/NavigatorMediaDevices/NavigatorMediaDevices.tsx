@@ -1,4 +1,5 @@
 import { Button } from '@/app/components/Button/Button';
+import { Container } from '@/app/components/Container/Container';
 import { getErrorMessage } from '@/utils/utils';
 import { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
@@ -201,9 +202,6 @@ export const NavigatorMediaDevices = () => {
 
     testSupportedConstraints();
     await testEnumerateDevices();
-    await testScreenCapture();
-    await testCameraCapture();
-    await testImageCapture();
   };
 
   useEffect(() => {
@@ -229,7 +227,12 @@ export const NavigatorMediaDevices = () => {
   return (
     <div>
       <h2>Media devices</h2>
-      <Button text="Run" onClick={testMediaDevices} />
+      <Container direction="row" gap={10} wrap="wrap">
+        <Button text="Run" onClick={testMediaDevices} />
+        <Button variant="outline" text="Record screen (10s)" onClick={testScreenCapture} />
+        <Button variant="outline" text="Record camera (10s)" onClick={testCameraCapture} />
+        <Button variant="outline" text="Take photo" onClick={testImageCapture} />
+      </Container>
       <div className={styles.mediaDevices}>
         {mediaConstraintsData && (
           <>

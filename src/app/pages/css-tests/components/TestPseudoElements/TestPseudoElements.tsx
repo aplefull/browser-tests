@@ -9,7 +9,7 @@ const HIGHLIGHT_NAME = 'pseudo-elements-check';
 const subtitles = `WEBVTT
 
 00:00:00.000 --> 00:00:30.000
-One <00:00:02.000>two <00:00:04.000>three <00:00:06.000>four
+One <00:00:02.000><c>two</c> <00:00:04.000><c>three</c> <00:00:06.000><c>four</c>
 `;
 
 let transitionPseudos: Promise<string[]> | null = null;
@@ -250,10 +250,12 @@ export const TestPseudoElements = () => {
       </div>
       <div className={styles.demo}>
         <h3>::column</h3>
-        <div className={styles.columns}>
-          <p>1</p>
-          <p>2</p>
-          <p>3</p>
+        <div>
+          <div className={styles.columns}>
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+          </div>
         </div>
       </div>
     </div>

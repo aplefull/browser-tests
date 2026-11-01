@@ -1,6 +1,5 @@
 import video from '@assets/videos/1x1.webm';
 import catsVideo from '@assets/videos/cats_vp8.webm';
-import longVideo from '@assets/videos/long.webm';
 import classNames from 'classnames';
 import { useRef } from 'react';
 import { Button } from '@/app/components/Button/Button';
@@ -652,9 +651,6 @@ const cases: TSelectorCase[] = [
   { selector: ':autofill', supports: ':autofill', manual: true },
   { selector: ':fullscreen', supports: ':fullscreen', manual: true },
   { selector: ':picture-in-picture', supports: ':picture-in-picture', manual: true },
-  { selector: ':buffering', supports: ':buffering', manual: true },
-  { selector: ':stalled', supports: ':stalled', manual: true },
-  { selector: ':volume-locked', supports: ':volume-locked', manual: true },
   { selector: ':interest-source', supports: ':interest-source', manual: true },
   { selector: ':interest-target', supports: ':interest-target', manual: true },
   { selector: ':target-current', supports: ':target-current', manual: true },
@@ -727,20 +723,6 @@ export const TestPseudoClasses = () => {
           <span>Green in picture-in-picture</span>
         </div>
         <Button text="Toggle picture-in-picture" onClick={togglePictureInPicture} />
-      </div>
-      <div className={styles.demo}>
-        <h3>:buffering, :stalled, :volume-locked</h3>
-        <span>Throttle network to see :buffering and :stalled. :volume-locked matches on iOS.</span>
-        <div className={styles.media}>
-          <video src={longVideo} controls playsInline preload="none" />
-          <span data-state="playing">:playing</span>
-          <span data-state="paused">:paused</span>
-          <span data-state="seeking">:seeking</span>
-          <span data-state="buffering">:buffering</span>
-          <span data-state="stalled">:stalled</span>
-          <span data-state="muted">:muted</span>
-          <span data-state="volume-locked">:volume-locked</span>
-        </div>
       </div>
       <div className={styles.demo}>
         <h3>:interest-source, :interest-target</h3>

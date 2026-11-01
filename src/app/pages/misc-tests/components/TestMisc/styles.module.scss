@@ -14,44 +14,9 @@
     padding: var(--space-4);
   }
 
-  .glow {
-    width: 100%;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-12);
-    scale: 0.7;
-
-    @media (width < 600px) {
-      scale: 0.5;
-    }
-  }
-
   .examples {
     h2 {
       @include subtitle;
-    }
-
-    .replaced-element-container-size {
-      padding: 10px;
-      display: flex;
-      height: 60px;
-
-      > div {
-        outline: 1px solid var(--color-red);
-      }
-
-      .icon {
-        height: 100%;
-      }
-    }
-
-    .crash-on-hover {
-      padding: 10px;
-      width: 100px;
-      height: 100px;
-      background: var(--color-green);
     }
 
     .emojis {

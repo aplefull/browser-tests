@@ -1,7 +1,11 @@
 .math-ml {
+  --math-padding: var(--space-5);
+  --math-space: calc(100cqi - 2 * var(--math-padding) - 2px);
+
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  container-type: inline-size;
 
   math,
   math * {
@@ -19,27 +23,14 @@
     margin-inline: auto;
     @include frame;
 
-    padding: var(--space-5);
+    padding: var(--math-padding);
 
     &.f1 {
-      font-size: 1.2rem;
-
-      @media (width < 900px) {
-        font-size: 2.2vw;
-      }
-
-      @media (width < 600px) {
-        font-size: 1.7vw;
-      }
+      font-size: min(1.2rem, var(--math-space) / 36.5);
     }
 
     &.matrix {
-      font-size: 1vw;
-
-      @media (width < 600px) {
-        padding: 10px;
-        font-size: 0.85vw;
-      }
+      font-size: min(1rem, var(--math-space) / 80);
     }
   }
 }

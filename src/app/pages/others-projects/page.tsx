@@ -68,11 +68,6 @@ export const OthersProjectsPage = () => {
   ];
 
   const iframes: TIframeEntry[] = [
-    { name: 'rgb-cube', title: 'RGB Cube', url: 'https://codepen.io/roborich/pen/wRMKaK' },
-    {
-      name: 'cats-game',
-      title: 'Game',
-    },
     {
       name: 'css-art-nezuko',
       url: 'https://codepen.io/t_afif/pen/abEeMyY',

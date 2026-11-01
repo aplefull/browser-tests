@@ -13,22 +13,8 @@ type TReportingObserverResults = Record<string, (TReport | null)[]>;
 
 const runDeprecation = () => {
   const request = new XMLHttpRequest();
-  request.open('GET', 'https://api.spacexdata.com/v5/launches/latest', false);
+  request.open('GET', window.location.href, false);
   request.send(null);
-
-  const img = document.createElement('img');
-  img.style.overflow = 'visible';
-  img.style.position = 'fixed';
-  img.style.top = '-1000px';
-  img.style.left = '-1000px';
-  document.body.appendChild(img);
-
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      document.body.removeChild(img);
-      resolve();
-    }, 200);
-  });
 };
 
 export const getReportData = (report: Report): TReport => {
@@ -57,29 +43,19 @@ export const getReportData = (report: Report): TReport => {
 };
 
 const updater = (reports: Report[]) => (prevState: TReportingObserverResults | null) => {
-  const currentState = prevState || {};
+  const nextState: TReportingObserverResults = { ...prevState };
 
   reports.forEach((report) => {
     const type = report.type ?? 'unknown';
-    const data = getReportData(report);
-
-    if (!currentState[type]) {
-      currentState[type] = [];
-    }
-
-    currentState[type].push(data);
+    nextState[type] = [...(nextState[type] ?? []), getReportData(report)];
   });
 
-  return currentState;
+  return nextState;
 };
 
 export const ReportingObserverTest = () => {
   const [unsupported, setUnsupported] = useState(false);
   const [reportingObserverResults, setReportingObserverResults] = useState<TReportingObserverResults | null>(null);
-
-  const runTests = async () => {
-    await runDeprecation();
-  };
 
   const reset = () => {
     setReportingObserverResults(null);
@@ -119,11 +95,8 @@ export const ReportingObserverTest = () => {
 
   return (
     <div className={styles.reportingObserver}>
-      <p>
-        There should be 2 deprecation reports after running the tests. Note that deprecation violations should only be
-        reported once, so you'll have to reload the page to see them again if you clear the list.
-      </p>
-      <Button text="Simulate violations" onClick={runTests} />
+      <p>Expected: 1 deprecation report (once per page load)</p>
+      <Button text="Simulate violation" onClick={runDeprecation} />
       <Button text="Reset" onClick={reset} />
       {reportingObserverResults && <Json data={reportingObserverResults} settings={jsonSettings} />}
     </div>

@@ -53,9 +53,51 @@
   color: var(--color-white);
 }
 
+.placeholder,
+.spelling,
+.custom-select {
+  @include field;
+
+  padding: 0 var(--space-3);
+
+  &:focus {
+    outline: none;
+
+    @include field-focus;
+  }
+}
+
 .spelling {
   width: 240px;
   max-width: 100%;
+  height: 64px;
+  padding: var(--space-2) var(--space-3);
+  resize: none;
+  line-height: var(--leading-normal);
+}
+
+.file-selector-button {
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--text-sm);
+}
+
+.file-selector-button::file-selector-button {
+  height: var(--control-height);
+  margin-right: var(--space-3);
+  padding: 0 var(--space-4);
+  background-color: var(--color-transparent);
+  border: 1px solid var(--border-ui);
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-weight: var(--font-medium);
+  cursor: pointer;
+}
+
+.dialog {
+  @include frame;
+
+  padding: var(--space-4);
 }
 
 .dialog::backdrop {
@@ -63,17 +105,29 @@
 }
 
 .cue {
-  width: 240px;
-  max-width: 100%;
+  width: 100%;
 }
 
 .custom-select {
   appearance: base-select;
+  align-items: center;
 }
 
 .custom-select::picker(select) {
   appearance: base-select;
+  min-inline-size: anchor-size(self-inline);
+  margin-block: var(--space-1);
+  padding: var(--space-1);
+  color: var(--text-primary);
+  background-color: var(--bg-subtle);
   border: 1px solid var(--color-green);
+  border-radius: var(--radius-md);
+  position-try-order: normal;
+}
+
+.custom-select option {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
 }
 
 .carousel-wrapper {
@@ -86,6 +140,7 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-marker-group: after;
+  scrollbar-width: none;
 
   > div {
     display: flex;
@@ -119,8 +174,19 @@
 
 .carousel::scroll-button(*) {
   position: absolute;
-  top: 18px;
+  top: 16px;
+  width: 28px;
+  height: 28px;
   color: var(--color-green);
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-ui);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.carousel::scroll-button(*):disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .carousel::scroll-button(left) {
@@ -135,16 +201,19 @@
 
 .columns {
   width: 240px;
-  height: 40px;
+  height: 60px;
   overflow-x: auto;
   columns: 1;
   column-gap: 0;
   scroll-snap-type: x mandatory;
   scroll-marker-group: after;
+  scrollbar-width: none;
   background-color: var(--gray-6);
 
   p {
     break-after: column;
+    line-height: 60px;
+    text-align: center;
   }
 }
 

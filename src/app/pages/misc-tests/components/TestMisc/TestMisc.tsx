@@ -1,12 +1,9 @@
-import { Glow } from '@/app/pages/misc-tests/components/subcomponents/Glow/Glow';
-import { CounterAnimation } from '@/app/pages/misc-tests/components/subcomponents/CounterAnimation/CounterAnimation';
 import { SpriteVideo } from '@/app/pages/misc-tests/components/subcomponents/SpriteVideo/SpriteVideo';
 import { Collapse } from '@/app/components/Collapse/Collapse';
 import { DeepNesting } from '@/app/pages/misc-tests/components/TestDeepNesting/TestDeepNesting';
 import { Container } from '@/app/components/Container/Container';
 import { ReactNode, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
-import crashCursorSvg from '@assets/images/cursors/crashSvg.svg';
 import { Json } from '@/app/pages/js-tests/components/subcomponents/Json/Json';
 import { isTruthy } from '@utils';
 
@@ -480,14 +477,6 @@ export const TestMisc = () => {
 
   return (
     <div className={styles.misc}>
-      <Subsection title="Glow effect">
-        <div className={styles.glow}>
-          <Glow brightness={50} />
-        </div>
-      </Subsection>
-      <Subsection title="Counter-animation">
-        <CounterAnimation />
-      </Subsection>
       <Subsection title="A lot of nested divs">
         <DeepNesting />
       </Subsection>
@@ -505,22 +494,6 @@ export const TestMisc = () => {
       </Subsection>
       <Subsection title="Some things that are bugged or inconsistent in browsers">
         <Container className={styles.examples}>
-          <h2>
-            Firefox can't figure out the size of svg parent, when svg only has viewBox set. Even though it gets svg size
-            perfectly well.
-          </h2>
-          <div className={styles.replacedElementContainerSize}>
-            <div>
-              <svg fill="red" viewBox="0 0 30 30" className={styles.icon}></svg>
-            </div>
-          </div>
-          <h2>SVG that crashes chrome on hover</h2>
-          <div
-            className={styles.crashOnHover}
-            style={{
-              cursor: ` url(${crashCursorSvg}), not-allowed`,
-            }}
-          />
           <h2>Inconsistencies in emojis</h2>
           <div className={styles.emojis}>
             <div className={styles.container}>

@@ -2,6 +2,7 @@
   .canvas-container {
     width: 100%;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr 1fr;
     row-gap: var(--space-3);
   }
