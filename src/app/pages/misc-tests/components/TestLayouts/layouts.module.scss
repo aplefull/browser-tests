@@ -16,7 +16,7 @@
 
     height: min(500px, 80vh);
     overflow-y: auto;
-    padding-right: 15px;
+    padding-right: var(--space-3);
 
     .masonry {
       column-count: 4;
@@ -36,9 +36,9 @@
 
       .item {
         display: inline-block;
-        background-color: var(--color-white);
+        background-color: var(--bg-ui);
         margin: 0 0 1em;
-        border-radius: 5px;
+        border-radius: var(--radius-md);
         overflow: hidden;
         position: relative;
 
@@ -56,7 +56,7 @@
 
     height: min(500px, 80vh);
     overflow-y: auto;
-    padding-right: 15px;
+    padding-right: var(--space-3);
   }
 
   .table-container {
@@ -65,20 +65,19 @@
     width: 100%;
     overflow-y: auto;
     height: 500px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-lg);
     border: 1px solid var(--border-subtle);
     background: var(--bg-subtle);
-    box-shadow: var(--shadow-2);
 
     table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
-      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-      font-size: var(--text-sm);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
 
       th {
-        background: var(--bg-ui);
+        background: var(--bg-surface);
         color: var(--text-primary);
         font-weight: var(--font-semibold);
         padding: var(--space-2) var(--space-3);
@@ -155,19 +154,18 @@
     width: 100%;
     overflow-y: auto;
     height: 500px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-lg);
     border: 1px solid var(--border-subtle);
     background: var(--bg-subtle);
-    box-shadow: var(--shadow-2);
 
     .grid {
       display: grid;
       grid-template-columns: 450px repeat(8, 1fr);
-      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-      font-size: var(--text-sm);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
 
       .header-cell {
-        background: var(--bg-ui);
+        background: var(--bg-surface);
         color: var(--text-primary);
         font-weight: var(--font-semibold);
         padding: var(--space-2) var(--space-3);

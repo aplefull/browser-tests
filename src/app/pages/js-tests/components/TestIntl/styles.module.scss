@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 
   h2 {
     @include subtitle;
@@ -10,7 +10,7 @@
   .test-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: var(--space-5);
   }
 
   .select {
@@ -20,17 +20,16 @@
   .selects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
+    gap: var(--space-3);
   }
 
   .select-with-label {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    font-size: 14px;
+    gap: var(--space-1);
 
-    span {
-      opacity: 0.8;
+    > span {
+      @include caption;
     }
   }
 

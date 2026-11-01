@@ -2,6 +2,7 @@ import { useState } from 'react';
 import catImage from '@assets/images/gifs/cat-vibing.gif';
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
+import { Badge } from '@/app/components/Badge/Badge';
 import { generateRandomString, getErrorMessage, wait } from '@/utils/utils';
 import classNames from 'classnames';
 
@@ -11,7 +12,7 @@ type TIndexedDBResult = {
 };
 
 const RESULT = {
-  SUCCESS: 'Success',
+  SUCCESS: 'Pass',
   ERROR: 'Fail',
 };
 
@@ -294,44 +295,44 @@ export const TestWebStorage = () => {
     <div className={styles.webStorage}>
       <div>
         <h2>Local storage</h2>
-        <Button text="Run" width={70} onClick={testLocalStorage} />
-        <div
-          className={classNames({
-            [styles.success]: localStorageResult === RESULT.SUCCESS,
-            [styles.error]: localStorageResult === RESULT.ERROR,
-          })}
-        >
-          {localStorageResult}
+        <div className={styles.row}>
+          <Button text="Run" onClick={testLocalStorage} />
+          {localStorageResult && (
+            <Badge variant={localStorageResult === RESULT.SUCCESS ? 'success' : 'danger'}>{localStorageResult}</Badge>
+          )}
         </div>
       </div>
       <div>
         <h2>Session storage</h2>
-        <Button text="Run" width={70} onClick={testSessionStorage} />
-        <div
-          className={classNames({
-            [styles.success]: sessionStorageResult === RESULT.SUCCESS,
-            [styles.error]: sessionStorageResult === RESULT.ERROR,
-          })}
-        >
-          {sessionStorageResult}
+        <div className={styles.row}>
+          <Button text="Run" onClick={testSessionStorage} />
+          {sessionStorageResult && (
+            <Badge variant={sessionStorageResult === RESULT.SUCCESS ? 'success' : 'danger'}>
+              {sessionStorageResult}
+            </Badge>
+          )}
         </div>
       </div>
       <div>
         <h2>IndexedDB</h2>
-        <Button text="Run" width={70} onClick={testIndexedDB} />
-        <div>
-          {indexedDBResult.map((result, index) => (
-            <div
-              key={index}
-              className={classNames({
-                [styles.error]: result.type === 'error',
-                [styles.success]: result.type === 'success',
-              })}
-            >
-              {result.text}
-            </div>
-          ))}
+        <div className={styles.row}>
+          <Button text="Run" onClick={testIndexedDB} />
         </div>
+        {indexedDBResult.length > 0 && (
+          <div className={styles.log}>
+            {indexedDBResult.map((result, index) => (
+              <span
+                key={index}
+                className={classNames({
+                  [styles.error]: result.type === 'error',
+                  [styles.success]: result.type === 'success',
+                })}
+              >
+                {result.text}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

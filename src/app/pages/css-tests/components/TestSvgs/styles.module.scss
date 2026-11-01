@@ -6,7 +6,7 @@
   .svgs-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-4);
 
     > div {
       display: flex;
@@ -14,7 +14,8 @@
       align-items: center;
 
       svg {
-        border: 1px solid color.adjust(aliceblue, $alpha: -0.5);
+        border: 1px solid var(--border-ui);
+        border-radius: var(--radius-lg);
       }
     }
   }

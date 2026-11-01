@@ -1,15 +1,28 @@
 .container {
+  @include frame;
+
   display: grid;
   grid-template-columns: auto 1fr;
-  align-items: start;
-  row-gap: 5px;
-  column-gap: 20px;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--space-3) var(--space-4);
+  row-gap: var(--space-2);
+  column-gap: var(--space-8);
 
-  .pass {
-    color: var(--color-green);
+  > span:nth-child(odd) {
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
   }
 
-  .fail {
-    color: var(--color-red);
+  .result {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+
+    > span:last-child {
+      color: var(--text-muted);
+    }
   }
 }

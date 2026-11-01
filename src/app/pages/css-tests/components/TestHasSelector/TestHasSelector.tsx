@@ -1,4 +1,5 @@
 import { SelectorChecks, TSelectorCase } from '@/app/components/SelectorChecks/SelectorChecks';
+import { Badge } from '@/app/components/Badge/Badge';
 import styles from './styles.module.scss';
 
 const input = (root: HTMLElement) => root.querySelector('input') as HTMLInputElement;
@@ -185,7 +186,7 @@ export const TestHasSelector = () => {
   return (
     <SelectorChecks cases={cases} targetClassName={styles.target}>
       <span>
-        Supported: <span className={isSupported ? styles.success : styles.error}>{isSupported ? 'Yes' : 'No'}</span>
+        Supported: <Badge variant={isSupported ? 'success' : 'danger'}>{isSupported ? 'Yes' : 'No'}</Badge>
       </span>
     </SelectorChecks>
   );

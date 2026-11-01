@@ -1,18 +1,23 @@
 .supported-image-formats {
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  place-items: center;
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-4);
+  width: 100%;
 
   > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    @include tile;
 
     img {
-      width: 300px;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
+
+    span {
+      @include caption;
+
+      font-family: var(--font-mono);
     }
   }
 }

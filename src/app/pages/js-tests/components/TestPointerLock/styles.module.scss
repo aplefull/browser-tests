@@ -1,23 +1,24 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 }
 
 .error {
   padding: var(--space-3);
-  background-color: var(--red-a3);
-  border: 1px solid var(--red-a7);
-  color: var(--red-11);
-  border-radius: var(--radius-sm);
+  background-color: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  color: var(--danger-text);
+  border-radius: var(--radius-lg);
   text-align: center;
 }
 
 .lock-area {
   height: 200px;
   width: 100%;
-  border-radius: 5px;
-  border: 1px dashed var(--color-white);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-ui);
+  background-color: var(--bg-subtle);
   position: relative;
   overflow: hidden;
 
@@ -25,7 +26,8 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    background-color: var(--color-white);
+    background-color: var(--accent-9);
+    box-shadow: 0 0 0 4px var(--accent-a4);
     width: 10px;
     height: 10px;
     border-radius: 50%;

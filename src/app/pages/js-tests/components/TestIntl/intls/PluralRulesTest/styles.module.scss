@@ -1,7 +1,7 @@
 .test-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .number-input {
@@ -11,7 +11,7 @@
 .plural-rules {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-1);
 
   .plural-rules-code {
     min-width: 160px;

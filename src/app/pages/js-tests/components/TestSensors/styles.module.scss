@@ -1,11 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 
   .group {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: var(--space-1);
   }
 }

@@ -1,7 +1,7 @@
 .math-ml {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-4);
 
   math,
   math * {
@@ -17,9 +17,9 @@
     display: flex;
     width: fit-content;
     margin-inline: auto;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: var(--gray-2);
+    @include frame;
+
+    padding: var(--space-5);
 
     &.f1 {
       font-size: 1.2rem;
@@ -47,16 +47,18 @@
 .context-menu {
   button {
     width: 100%;
-    padding: 7px 15px;
-    border-radius: 5px;
-    background-color: var(--gray-2);
-    color: var(--color-white);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: inherit;
+    text-align: left;
     cursor: pointer;
-    transition: background-color 0.1s ease;
-    border: 1px solid var(--gray-7);
+    transition: background-color var(--transition-fast);
+    border: 1px solid var(--border-ui);
 
     &:hover {
-      background-color: var(--gray-3);
+      background-color: var(--bg-hover);
     }
   }
 }

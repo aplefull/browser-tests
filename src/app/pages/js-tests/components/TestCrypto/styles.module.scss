@@ -3,32 +3,56 @@
     @include subtitle;
   }
 
+  > h2:first-child {
+    margin-top: 0;
+  }
+
   .crypto-results {
-    margin: 10px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    @include log;
+
     word-break: break-word;
   }
 
-  .subtle-crypto-results {
-    margin: 10px 0;
+  .groups {
     display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: 10px;
-    row-gap: 2px;
-    width: fit-content;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-4);
 
-    .success {
-      color: var(--color-green);
+    > div {
+      @include frame;
+
+      padding: var(--space-4);
     }
 
-    .waiting {
-      color: var(--color-warning);
+    h3 {
+      margin: 0 0 var(--space-3);
+      color: var(--text-primary);
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+    }
+  }
+
+  .subtle-crypto-results {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+
+    > span:nth-child(odd) {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
     }
 
-    .error {
-      color: var(--color-red);
+    .status {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+
+      > span:not(:first-child) {
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+      }
     }
   }
 }

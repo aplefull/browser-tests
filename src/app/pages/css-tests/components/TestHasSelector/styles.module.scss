@@ -1,11 +1,3 @@
-.success {
-  color: var(--color-green);
-}
-
-.error {
-  color: var(--color-red);
-}
-
 .child .target:has(> .marker) {
   color: var(--color-green);
 }

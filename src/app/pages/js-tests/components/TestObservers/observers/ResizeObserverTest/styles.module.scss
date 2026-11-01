@@ -1,7 +1,7 @@
 .resize-observer {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 
   .select {
     max-width: 250px;
@@ -9,9 +9,9 @@
 
   .container {
     height: 120px;
-    border: 1px solid var(--color-white);
-    border-radius: 4px;
-    padding: 10px;
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3);
   }
 
   .resize-element {
@@ -21,7 +21,8 @@
     max-width: 100%;
     min-height: 34px;
     max-height: 100%;
-    background-color: var(--color-white);
+    @include demo-item;
+
     display: grid;
     place-items: center;
     resize: both;
@@ -29,8 +30,8 @@
     container-type: size;
 
     .text-container {
-      color: var(--color-black);
-      font-family: monospace;
+      color: inherit;
+      font-family: var(--font-mono);
       font-size: clamp(0.3rem, 8cqi, 34px);
 
       @container (width < 40px) {
@@ -42,6 +43,6 @@
   .results {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-3);
   }
 }

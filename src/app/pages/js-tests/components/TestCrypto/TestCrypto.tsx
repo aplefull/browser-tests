@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import { Fragment } from 'react';
+import { Badge } from '@/app/components/Badge/Badge';
 import { CryptoEncryptionDecryption } from '@/app/pages/js-tests/components/TestCrypto/subcomponents/CryptoEncryptionDecryption/CryptoEncryptionDecryption';
 import { CryptoSigningVerification } from '@/app/pages/js-tests/components/TestCrypto/subcomponents/CryptoSigningVerification/CryptoSigningVerification';
 import { CryptoHashing } from '@/app/pages/js-tests/components/TestCrypto/subcomponents/CryptoHashing/CryptoHashing';
@@ -40,11 +41,12 @@ export const SubtleCryptoResults = ({ results }: { results: TSubtleCryptoResult[
         return (
           <Fragment key={index}>
             <span>{text}</span>
-            {type === 'error' && <span className={styles.error}>error</span>}
-            {type === 'success' && (
-              <span className={styles.success}>pass {duration !== undefined && `(${duration.toFixed(2)}ms)`}</span>
-            )}
-            {type === 'waiting' && <span className={styles.waiting}>waiting</span>}
+            <span className={styles.status}>
+              {type === 'error' && <Badge variant="danger">Fail</Badge>}
+              {type === 'success' && <Badge variant="success">Pass</Badge>}
+              {type === 'success' && duration !== undefined && <span>{duration.toFixed(2)}ms</span>}
+              {type === 'waiting' && <Badge variant="warning">Waiting</Badge>}
+            </span>
           </Fragment>
         );
       })}
@@ -70,16 +72,24 @@ export const TestCrypto = () => {
       <h2>SubtleCrypto</h2>
       {!subtleCrypto && <p>Your browser does not support the SubtleCrypto API.</p>}
       {subtleCrypto && (
-        <div>
+        <div className={styles.groups}>
           <div>
             <h3>Encryption and Decryption</h3>
             <CryptoEncryptionDecryption message={message} />
+          </div>
+          <div>
             <h3>Signing and Verification</h3>
             <CryptoSigningVerification message={message} />
+          </div>
+          <div>
             <h3>Hashing</h3>
             <CryptoHashing message={message} />
+          </div>
+          <div>
             <h3>Keys and Bits Derivation</h3>
             <CryptoKeyBitsDerivation message={message} />
+          </div>
+          <div>
             <h3>Wrap and Unwrap</h3>
             <CryptoWrapUnwrap message={message} />
           </div>

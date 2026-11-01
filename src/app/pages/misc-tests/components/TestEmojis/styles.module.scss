@@ -4,8 +4,8 @@
   .inputs {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
 
     .range-container {
       display: flex;
@@ -19,9 +19,9 @@
     }
 
     .total-emojis {
-      font-style: italic;
-      font-size: var(--text-sm);
-      color: var(--text-secondary);
+      @include caption;
+
+      font-family: var(--font-mono);
     }
   }
 

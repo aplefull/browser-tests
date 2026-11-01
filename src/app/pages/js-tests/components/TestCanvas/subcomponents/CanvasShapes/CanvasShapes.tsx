@@ -5,12 +5,13 @@ import {
 } from '@/app/pages/js-tests/components/TestCanvas/utils.canvas';
 import { Canvas } from '@/app/components/Canvas/Canvas';
 import globalStyles from '../../styles.module.scss';
+import { getCssVariable } from '@/utils/utils';
 
 export const fillRect = (ctx: CanvasRenderingContext2D) => {
   const canvas = ctx.canvas;
   const shapeSize = 100;
 
-  ctx.fillStyle = '#8f44cc';
+  ctx.fillStyle = getCssVariable('--accent-9', canvas);
   ctx.fillRect(canvas.width / 2 - shapeSize / 2, canvas.height / 2 - shapeSize / 2, shapeSize, shapeSize);
 };
 
@@ -18,7 +19,7 @@ export const strokeRect = (ctx: CanvasRenderingContext2D) => {
   const canvas = ctx.canvas;
   const shapeSize = 100;
 
-  ctx.strokeStyle = '#8f44cc';
+  ctx.strokeStyle = getCssVariable('--accent-9', canvas);
   ctx.strokeRect(canvas.width / 2 - shapeSize / 2, canvas.height / 2 - shapeSize / 2, shapeSize, shapeSize);
 };
 
@@ -109,7 +110,7 @@ export const drawHeart = (ctx: CanvasRenderingContext2D) => {
   ctx.save();
   ctx.translate(centerX - newShapeWidth / 2, centerY - newShapeHeight / 2);
 
-  ctx.fillStyle = '#8f44cc';
+  ctx.fillStyle = getCssVariable('--accent-9', ctx.canvas);
 
   if (scale < 1) {
     ctx.scale(scale, scale);
@@ -127,7 +128,7 @@ export const drawHeart = (ctx: CanvasRenderingContext2D) => {
 };
 
 export const drawShape = (ctx: CanvasRenderingContext2D) => {
-  ctx.fillStyle = '#8f44cc';
+  ctx.fillStyle = getCssVariable('--accent-9', ctx.canvas);
   const shape = new Path2D(COMPLEX_PATH);
 
   ctx.moveTo(0, 0);

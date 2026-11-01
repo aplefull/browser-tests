@@ -8,6 +8,8 @@
     position: relative;
     margin-top: var(--space-4);
     overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
 
     .image-wrapper {
       width: 100%;

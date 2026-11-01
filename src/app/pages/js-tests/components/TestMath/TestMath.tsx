@@ -4,7 +4,14 @@ import { parseExpression } from '@/app/pages/css-tests/components/TestCssFunctio
 import { Select } from '@/app/components/Select/Select';
 import { Canvas } from '@/app/components/Canvas/Canvas';
 import { MATH_CONSTANTS, MATH_MAP, MATH_SPECIAL_VALUES } from '@/utils/constants';
-import { isDoubleArgumentFunction, isSingleArgumentFunction, isZeroArgumentsFunction, map, omit } from '@/utils/utils';
+import {
+  getCssVariable,
+  isDoubleArgumentFunction,
+  isSingleArgumentFunction,
+  isZeroArgumentsFunction,
+  map,
+  omit,
+} from '@/utils/utils';
 import { Table } from '@/app/components/Table/Table';
 import { Switcher } from '@/app/components/Switcher/Switcher';
 import { QMath } from '@math';
@@ -59,7 +66,7 @@ export const TestMath = () => {
     const numberOfLabels = to - from;
     const step = width / numberOfLabels;
 
-    context.strokeStyle = '#ccc';
+    context.strokeStyle = getCssVariable('--gray-7', canvas);
 
     // X axis
     context.beginPath();
@@ -94,8 +101,8 @@ export const TestMath = () => {
 
       if (isCenter) {
         context.save();
-        context.font = '10px Arial';
-        context.fillStyle = '#ccc';
+        context.font = `10px ${getCssVariable('--font-mono', canvas)}`;
+        context.fillStyle = getCssVariable('--gray-10', canvas);
         context.textAlign = 'left';
         context.textBaseline = 'top';
         context.fillText('0', width / 2 + 10, height / 2 + 10);
@@ -106,16 +113,16 @@ export const TestMath = () => {
 
       // Numbers
       context.save();
-      context.font = '10px Arial';
-      context.fillStyle = '#ccc';
+      context.font = `10px ${getCssVariable('--font-mono', canvas)}`;
+      context.fillStyle = getCssVariable('--gray-10', canvas);
       context.textAlign = 'center';
       context.textBaseline = 'top';
       context.fillText(`${Math.round(from + (val / width) * numberOfLabels)}`, val + numberOffset, height / 2 + 10);
       context.restore();
 
       context.save();
-      context.font = '10px Arial';
-      context.fillStyle = '#ccc';
+      context.font = `10px ${getCssVariable('--font-mono', canvas)}`;
+      context.fillStyle = getCssVariable('--gray-10', canvas);
       context.textAlign = 'left';
       context.textBaseline = 'middle';
       context.fillText(`${Math.round(to - (val / height) * numberOfLabels)}`, width / 2 + 10, val + numberOffset);
@@ -142,7 +149,7 @@ export const TestMath = () => {
 
     const func = mathMap[functionName];
 
-    context.strokeStyle = '#3b8bd5';
+    context.strokeStyle = getCssVariable('--accent-10', canvas);
 
     context.moveTo(0, 0);
     context.beginPath();

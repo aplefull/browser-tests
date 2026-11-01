@@ -23,24 +23,37 @@
     overflow-x: auto;
 
     p {
-      width: 100%;
-      text-align: center;
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-    }
+      @include caption;
 
-    .table-header-cell {
-      font-weight: bold;
-      font-size: 1.1rem;
-      text-align: center;
-      margin-bottom: 20px;
+      margin: 0 0 var(--space-3);
     }
 
     .table-body {
+      @include frame;
+
       display: grid;
-      grid-template-columns: minmax(200px, 1fr) repeat(2, 1fr);
-      column-gap: 40px;
-      row-gap: 5px;
+      grid-template-columns: minmax(200px, 1.5fr) repeat(2, 1fr);
+      overflow: hidden;
+      background-color: var(--bg-canvas);
+
+      > span {
+        padding: var(--space-1) var(--space-3);
+        border-bottom: 1px solid var(--border-subtle);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        line-height: var(--leading-loose-lg);
+      }
+
+      > span:nth-last-child(-n + 3) {
+        border-bottom: none;
+      }
+
+      .table-header-cell {
+        @include caption;
+
+        font-family: var(--font-sans);
+        background-color: var(--bg-surface);
+      }
 
       .expression {
         text-overflow: ellipsis;

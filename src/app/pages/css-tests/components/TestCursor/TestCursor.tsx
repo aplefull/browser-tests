@@ -67,7 +67,9 @@ export const TestCursor = () => {
       <span>Default:</span>
       <div className={styles.defaultCursors}>
         {defaultCursors.map((cursor) => (
-          <div key={cursor} className={styles.cursor} style={{ cursor }} title={cursor} />
+          <div key={cursor} className={styles.cursor} style={{ cursor }} title={cursor}>
+            {cursor}
+          </div>
         ))}
       </div>
       <span>Custom:</span>

@@ -1,12 +1,26 @@
 .gradients {
   width: 100%;
   display: grid;
-  gap: 10px;
+  gap: var(--space-5) var(--space-4);
   grid-template-columns: 1fr 1fr;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+
+    > p {
+      @include caption;
+
+      margin: 0;
+    }
+  }
 
   > div > div {
     width: 100%;
     aspect-ratio: 5 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
   }
 
   .gradient-mesh {

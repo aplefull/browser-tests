@@ -1,4 +1,14 @@
 .style {
+  @include frame;
+
   display: block;
+  width: fit-content;
+  padding: var(--space-2) var(--space-3);
   outline: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+
+  &:focus-visible {
+    border-color: var(--accent-8);
+  }
 }

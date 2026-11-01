@@ -2,7 +2,7 @@
   display: flex;
   align-items: start;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 
   .mutation-element {
     display: none;
@@ -11,19 +11,19 @@
   .results {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-3);
 
     .success {
-      color: var(--color-green);
+      color: var(--success-text);
     }
 
     .error {
-      color: var(--color-red);
+      color: var(--danger-text);
 
       .buttons {
-        margin-top: 10px;
+        margin-top: var(--space-3);
         display: flex;
-        gap: 10px;
+        gap: var(--space-3);
       }
     }
   }

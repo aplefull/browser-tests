@@ -10,13 +10,13 @@
   .parent {
     contain: size;
     min-height: 20px;
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--border-strong);
   }
 
   .child {
     width: 100px;
     height: 100px;
-    background-color: var(--color-red);
+    background-color: var(--accent-9);
   }
 }
 
@@ -28,14 +28,14 @@
     position: relative;
     width: 100px;
     height: 100px;
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--border-strong);
   }
 
   .child {
     width: 300px;
     height: 300px;
     float: left;
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--border-strong);
   }
 
   .uncle {
@@ -43,7 +43,7 @@
     width: 100px;
     aspect-ratio: 1;
     float: left;
-    background-color: var(--color-red);
+    background-color: var(--accent-9);
   }
 }
 
@@ -51,26 +51,26 @@
   .parent {
     width: 100px;
     aspect-ratio: 1;
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--border-strong);
     contain: paint;
   }
 
   .child {
     width: 200px;
     aspect-ratio: 1;
-    background-color: var(--color-red);
+    background-color: var(--accent-9);
   }
 }
 
 .strict {
   .parent {
     contain: strict;
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--border-strong);
   }
 
   .child {
     width: 200px;
     height: 200px;
-    background-color: var(--color-red);
+    background-color: var(--accent-9);
   }
 }

@@ -9,7 +9,7 @@
     align-items: flex-start;
     width: 100%;
     max-width: 700px;
-    gap: 10px;
+    gap: var(--space-3);
 
     .video-player {
       margin-bottom: 20px;
@@ -35,7 +35,7 @@
     .color-control {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: var(--space-5);
     }
 
     .reset-color {

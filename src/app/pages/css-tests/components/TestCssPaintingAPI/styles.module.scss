@@ -1,22 +1,22 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 
   .dots-container {
     height: 200px;
     width: 100%;
-    border-radius: 4px;
-    padding: 10px;
+    border-radius: var(--radius-sm);
+    padding: var(--space-3);
     background: paint(outline);
-    --outline-color: #{var(--color-white)};
+    --outline-color: #{var(--border-strong)};
     --outline-width: 2px;
   }
 
   .dots {
     --dot-size: 10px;
     --gap-size: 5px;
-    --dot-color: var(--color-green);
+    --dot-color: var(--accent-9);
 
     max-width: 100%;
     max-height: 100%;
@@ -47,6 +47,9 @@
     background-clip: text;
     background-attachment: local;
     resize: horizontal;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-lg);
     outline: none;
   }
 
@@ -57,6 +60,7 @@
     place-items: center;
     background-image: paint(gradient-text);
     mask-image: paint(polygon, 10);
-    color: var(--gray-4);
+    color: var(--gray-3);
+    font-weight: var(--font-semibold);
   }
 }

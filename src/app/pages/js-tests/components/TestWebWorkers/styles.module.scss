@@ -1,23 +1,28 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  @include frame;
 
-  h2 {
-    @include subtitle;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--space-3) var(--space-4);
+  row-gap: var(--space-2);
+  column-gap: var(--space-8);
+
+  > span {
+    color: var(--text-primary);
   }
 
-  .success {
-    color: var(--color-green);
+  .result {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
   }
 
   .error {
-    color: var(--color-red);
-  }
-
-  .service-worker-results {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    color: var(--danger-text);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
   }
 }

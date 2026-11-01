@@ -133,6 +133,10 @@ export const CSS = {
 
 export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+export const getCssVariable = (name: string, element: Element = document.documentElement) => {
+  return getComputedStyle(element).getPropertyValue(name).trim();
+};
+
 export const getErrorMessage = (error: unknown, defaultError?: string) => {
   if (typeof error === 'string') {
     return error;

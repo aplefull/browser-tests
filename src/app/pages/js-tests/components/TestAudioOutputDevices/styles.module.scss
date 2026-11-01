@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 
   .button {
     min-width: fit-content;
@@ -10,7 +10,7 @@
   .row {
     width: 100%;
     display: flex;
-    gap: 5px;
+    gap: var(--space-1);
     align-items: center;
   }
 }

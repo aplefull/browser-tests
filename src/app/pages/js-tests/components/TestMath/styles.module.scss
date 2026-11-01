@@ -6,7 +6,7 @@
   .constants {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: var(--space-5);
 
     @media (width < 700px) {
       flex-direction: column;
@@ -19,7 +19,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-3);
 
     .scale {
       display: flex;
@@ -35,8 +35,8 @@
     canvas {
       width: 100%;
       aspect-ratio: 1;
-      outline: 1px solid var(--color-white);
-      border-radius: 4px;
+      outline: 1px solid var(--border-ui);
+      border-radius: var(--radius-md);
     }
   }
 }

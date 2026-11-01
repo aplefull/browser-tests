@@ -51,6 +51,49 @@
   padding-right: 5px;
 }
 
+@mixin caption {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-normal);
+}
+
+@mixin frame {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+@mixin tile {
+  @include frame;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  overflow: hidden;
+}
+
+@mixin log {
+  @include frame;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+}
+
+@mixin demo-item {
+  color: var(--accent-11);
+  background-color: var(--accent-a3);
+  border: 1px solid var(--accent-a6);
+  border-radius: var(--radius-md);
+}
+
 @mixin focus-ring($offset: 2px) {
   outline: 2px solid var(--focus-ring);
   outline-offset: $offset;

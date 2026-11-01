@@ -1,13 +1,15 @@
 .select {
   max-width: 300px;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-4);
 }
 
 .json {
+  @include frame;
+
   contain: layout paint;
   overflow-x: auto;
   max-width: 100%;
-  padding-bottom: 10px;
+  padding: var(--space-3) var(--space-4);
 
   > div {
     width: max-content;
@@ -19,19 +21,24 @@
   flex-direction: column;
 
   p {
-    font-size: 18px;
-    margin-bottom: 10px;
+    @include subtitle;
   }
 
   span {
-    margin-bottom: 15px;
-    margin-top: 10px;
+    @include caption;
+
+    margin: var(--space-3) 0 var(--space-1);
   }
 
   pre {
-    font-family: monospace;
-    cursor: pointer;
-    margin: 0 0 2px;
+    width: fit-content;
+    margin: 0 0 var(--space-1);
+    font-size: var(--text-xs);
     white-space: pre-wrap;
+    cursor: help;
+
+    &:hover {
+      color: var(--text-primary);
+    }
   }
 }

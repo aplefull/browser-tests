@@ -3,7 +3,7 @@ import textData from '@data/blns.txt?raw';
 import gzippedData from '@data/blns-gzipped.txt?url';
 import styles from './styles.module.scss';
 import { Container } from '@/app/components/Container/Container';
-import classNames from 'classnames';
+import { Badge } from '@/app/components/Badge/Badge';
 import { getErrorMessage } from '@utils';
 
 const readTextFromStream = async (stream: ReadableStream<Uint8Array>) => {
@@ -107,17 +107,27 @@ export const CompressionStreams = () => {
     test().catch(console.error);
   }, []);
 
+  const renderResult = (success: boolean | null, errorMessage?: string) => {
+    if (success === null) return <Badge>Pending</Badge>;
+    if (success) return <Badge variant="success">Pass</Badge>;
+
+    return (
+      <>
+        <Badge variant="danger">Fail</Badge>
+        {errorMessage && <span className={styles.error}>{errorMessage}</span>}
+      </>
+    );
+  };
+
   return (
     <Container gap={20} className={styles.container}>
       <div>
         <h2>Stream Decompression</h2>
         <div className={styles.results}>
           {streamDecompressionResult.map(({ name, errorMessage, success }) => (
-            <div key={name} className={styles.resultRow}>
-              <span>{name}:</span>
-              <span className={classNames(styles.result, { [styles.success]: success, [styles.error]: !success })}>
-                {success === null ? 'Pending' : success ? 'Success' : `Error: ${errorMessage}`}
-              </span>
+            <div key={name}>
+              <span>{name}</span>
+              {renderResult(success, errorMessage)}
             </div>
           ))}
         </div>
@@ -125,18 +135,10 @@ export const CompressionStreams = () => {
       <div>
         <h2>File Decompression</h2>
         <div className={styles.results}>
-          <span
-            className={classNames(styles.result, {
-              [styles.success]: fileDecompressionResult.success,
-              [styles.error]: !fileDecompressionResult.success,
-            })}
-          >
-            {fileDecompressionResult.success === null
-              ? 'Pending'
-              : fileDecompressionResult.success
-                ? 'Success'
-                : `Error: ${fileDecompressionResult.errorMessage}`}
-          </span>
+          <div>
+            <span>gzip file</span>
+            {renderResult(fileDecompressionResult.success, fileDecompressionResult.errorMessage)}
+          </div>
         </div>
       </div>
     </Container>

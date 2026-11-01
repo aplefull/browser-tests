@@ -15,7 +15,7 @@ const Subsection = ({ title, children }: { title: string; children: ReactNode })
 
   return (
     <Collapse className={styles.collapse} title={title} open={open} onChange={setOpen}>
-      {children}
+      <div className={styles.collapseContent}>{children}</div>
     </Collapse>
   );
 };

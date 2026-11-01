@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import { Fragment, useEffect, useState } from 'react';
+import { Badge } from '@/app/components/Badge/Badge';
 
 export const CookieStore = () => {
   const [testResults, setTestResults] = useState<Record<string, [string, 'pass' | 'fail']>>({});
@@ -82,7 +83,10 @@ export const CookieStore = () => {
       {Object.entries(testResults).map(([key, value]) => (
         <Fragment key={key}>
           <span>{key}</span>
-          <span className={value[1] === 'fail' ? styles.fail : styles.pass}>{value[0]}</span>
+          <span className={styles.result}>
+            <Badge variant={value[1] === 'fail' ? 'danger' : 'success'}>{value[1] === 'fail' ? 'Fail' : 'Pass'}</Badge>
+            <span>{value[0]}</span>
+          </span>
         </Fragment>
       ))}
     </div>

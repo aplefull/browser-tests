@@ -2,8 +2,8 @@ import { Fragment, useMemo, useState } from 'react';
 import { isOneOf, nextElement, prevElement } from '@/utils/utils';
 import allLocales from '@assets/data/locales.json';
 import styles from './styles.module.scss';
-import classNames from 'classnames';
 import { Code } from '@/app/components/Code/Code';
+import { Badge } from '@/app/components/Badge/Badge';
 import { Checkbox } from '@/app/components/Checkbox/Checkbox';
 import { Input } from '@/app/components/Input/Input';
 import { Button } from '@/app/components/Button/Button';
@@ -221,14 +221,8 @@ export const CollatorTest = () => {
 
             return (
               <Fragment key={index}>
-                <span
-                  title={title}
-                  className={classNames({
-                    [styles.pass]: pass,
-                    [styles.fail]: !pass,
-                  })}
-                >
-                  {pass ? 'Pass' : 'Fail'}
+                <span title={title}>
+                  <Badge variant={pass ? 'success' : 'danger'}>{pass ? 'Pass' : 'Fail'}</Badge>
                 </span>
                 <Code title={title}>{`${test.input.join(', ')} => ${actualString}`}</Code>
               </Fragment>

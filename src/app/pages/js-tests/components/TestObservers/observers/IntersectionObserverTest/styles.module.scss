@@ -1,7 +1,7 @@
 .intersection-observer {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 
   .scroll-container {
     @include scroll;
@@ -11,7 +11,8 @@
     justify-content: safe center;
     align-items: safe center;
     overflow: auto;
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-lg);
     container-type: size;
 
     &.horizontal {
@@ -36,33 +37,33 @@
   .intersection-element {
     aspect-ratio: 1;
     height: 90cqh;
-    background-color: var(--color-white);
+    @include demo-item;
   }
 
   .checkboxes {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: var(--space-1);
   }
 
   .number-inputs {
     max-width: 200px;
-    margin: 10px 0 20px;
+    margin: var(--space-2) 0 var(--space-4);
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 10px;
+    gap: var(--space-3);
   }
 
   .results {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-3);
 
     > div {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: var(--space-1);
     }
   }
 }

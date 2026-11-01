@@ -1,12 +1,19 @@
 .text-fill-color {
   p {
     width: fit-content;
-    font-weight: bold;
+    margin: 0;
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
   }
 
   h2 {
-    font-weight: normal;
-    font-size: 1.1rem;
+    @include caption;
+
+    margin: var(--space-5) 0 var(--space-1);
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   .plain-color {

@@ -3,6 +3,6 @@
     width: 100%;
     display: grid;
     grid-template-rows: auto 1fr 1fr;
-    row-gap: 10px;
+    row-gap: var(--space-3);
   }
 }

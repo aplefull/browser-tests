@@ -14,7 +14,8 @@
       margin: 0 0 var(--space-3) 0;
       padding: var(--space-3);
       background: var(--bg-subtle);
-      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -27,7 +28,7 @@
     span {
       word-break: break-all;
       color: var(--text-primary);
-      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-family: var(--font-mono);
       font-size: var(--text-lg);
       line-height: 1.4;
       margin-bottom: var(--space-1);
@@ -42,7 +43,7 @@
 
       text {
         fill: var(--accent-9);
-        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        font-family: var(--font-mono);
       }
     }
   }

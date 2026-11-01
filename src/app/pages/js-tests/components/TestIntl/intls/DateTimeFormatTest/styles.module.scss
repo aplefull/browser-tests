@@ -1,13 +1,13 @@
 .test-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .dates {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-1);
 }
 
 .number-input {
@@ -17,7 +17,7 @@
 .warning {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-1);
 
   span {
     color: var(--color-warning);

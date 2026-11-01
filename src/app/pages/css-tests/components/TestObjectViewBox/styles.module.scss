@@ -1,18 +1,25 @@
 .object-view-box {
   p {
+    @include caption;
+
+    margin: 0 0 var(--space-3);
     text-align: center;
   }
 
   > div {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: var(--space-4);
 
     div {
       width: 300px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
     }
 
     img {
+      display: block;
       width: 100%;
       object-fit: cover;
       aspect-ratio: 1;

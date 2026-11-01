@@ -1,16 +1,16 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 
   .buttons {
     display: flex;
-    gap: 5px;
+    gap: var(--space-1);
   }
 
   .results {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: var(--space-1);
   }
 }

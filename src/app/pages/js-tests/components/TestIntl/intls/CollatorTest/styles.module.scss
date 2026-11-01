@@ -1,27 +1,20 @@
 .test-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .collator {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-1);
 
   .collator-test {
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-row-gap: 5px;
-    grid-column-gap: 10px;
-
-    .pass {
-      color: var(--color-green);
-    }
-
-    .fail {
-      color: var(--color-red);
-    }
+    align-items: center;
+    grid-row-gap: var(--space-1);
+    grid-column-gap: var(--space-3);
   }
 }
 
@@ -32,7 +25,7 @@
 
 .test-string-input {
   display: flex;
-  gap: 10px;
+  gap: var(--space-3);
 }
 
 .test-string-output {
@@ -40,7 +33,7 @@
 
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: var(--space-1);
   max-height: 300px;
   overflow-y: auto;
 }
@@ -49,6 +42,6 @@
   display: flex;
   flex-direction: column;
   max-width: 300px;
-  gap: 5px;
+  gap: var(--space-1);
   margin-bottom: 15px;
 }

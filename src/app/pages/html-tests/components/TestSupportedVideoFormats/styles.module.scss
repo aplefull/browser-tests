@@ -1,19 +1,21 @@
 .supported-video-formats {
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  place-items: center;
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  width: 100%;
 
   > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: min(400px, 100%);
+    @include tile;
 
     video {
       width: 100%;
+      border-radius: var(--radius-md);
+    }
+
+    span {
+      @include caption;
+
+      font-family: var(--font-mono);
     }
   }
 }

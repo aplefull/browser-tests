@@ -1,18 +1,29 @@
 .web-storage {
   h2 {
     @include subtitle;
-    margin-bottom: 10px;
   }
 
-  button {
-    margin: 10px 0;
+  > div:first-child h2 {
+    margin-top: 0;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .log {
+    @include log;
+
+    margin-top: var(--space-3);
   }
 
   .error {
-    color: var(--color-red);
+    color: var(--danger-text);
   }
 
   .success {
-    color: var(--color-green);
+    color: var(--success-text);
   }
 }

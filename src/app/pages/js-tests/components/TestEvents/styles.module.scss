@@ -10,16 +10,17 @@
       width: 100%;
       height: 200px;
       display: flex;
-      gap: 10px;
+      gap: var(--space-3);
 
       div {
         width: 50%;
         display: grid;
         place-items: center;
-        border-radius: 5px;
-        border: 1px dashed var(--color-white);
-        color: var(--color-white-transparent-50);
-        font-size: 1.6rem;
+        border-radius: var(--radius-lg);
+        border: 1px dashed var(--border-ui);
+        background-color: var(--bg-subtle);
+        color: var(--text-muted);
+        font-size: var(--text-xl);
 
         @media (width < 600px) {
           font-size: 1rem;
@@ -32,56 +33,68 @@
     .test-area {
       width: 100%;
       height: 200px;
-      border: 1px dashed var(--color-white);
-      border-radius: 5px;
       display: grid;
       place-items: center;
-      font-size: 1.6rem;
-      color: var(--color-white-transparent-50);
+      border-radius: var(--radius-lg);
+      border: 1px dashed var(--border-ui);
+      background-color: var(--bg-subtle);
+      color: var(--text-muted);
+      font-size: var(--text-xl);
     }
 
     .stats {
+      @include frame;
+
       height: fit-content;
-      margin-top: 10px;
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-4);
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 2px;
+      gap: var(--space-1) var(--space-4);
 
       p {
         text-align: left;
         margin: 0;
-        font-family: monospace;
-        font-size: 1rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
       }
     }
   }
 
   .kbd-events {
     input {
+      @include field;
+
       width: 100%;
-      height: 50px;
-      font-size: 20px;
-      padding: 0 10px;
-      margin-bottom: 10px;
+      height: 2.75rem;
+      padding: 0 var(--space-3);
+      font-size: var(--text-base);
       outline: none;
-      border-radius: 4px;
-      border: none;
-      background-color: var(--gray-2);
-      color: var(--gray-11);
+
+      &:focus {
+        @include field-focus;
+      }
+
+      &::placeholder {
+        color: var(--text-muted);
+      }
     }
 
     .stats {
+      @include frame;
+
       height: fit-content;
-      margin-top: 10px;
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-4);
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 4px;
+      gap: var(--space-1) var(--space-4);
 
       p {
         text-align: left;
         margin: 0;
-        font-family: monospace;
-        font-size: 1rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
         word-break: break-all;
       }
     }
@@ -90,8 +103,8 @@
   @media (width < 600px) {
     .kbd-events,
     .mouse-events {
-      .stats p {
-        font-size: 0.7rem;
+      .stats {
+        grid-template-columns: 1fr 1fr;
       }
     }
   }

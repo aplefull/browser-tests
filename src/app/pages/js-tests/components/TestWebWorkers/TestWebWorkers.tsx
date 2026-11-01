@@ -2,7 +2,8 @@ import styles from './styles.module.scss';
 import dedicatedWorker from './workers/dedicatedWorker?script';
 import sharedWorker from './workers/sharedWorker?script';
 import serviceWorker from '../../../../../../serviceWorker?script';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
+import { Badge } from '@/app/components/Badge/Badge';
 import { getErrorMessage } from '@/utils/utils';
 import { BROADCAST_CHANNEL_ID } from '@/utils/constants';
 
@@ -116,17 +117,30 @@ export const TestWebWorkers = () => {
     messageChannelApi: null,
   });
 
-  const getResult = (value: string | null, message?: string) => {
+  const getResult = (value: string | null) => {
     if (value === null) {
-      return <span>Working...</span>;
+      return <Badge>Running</Badge>;
     }
 
     if (value === '200') {
-      return <span className={styles.success}>{message}</span>;
+      return <Badge variant="success">Pass</Badge>;
     }
 
-    return <span className={styles.error}>{value}</span>;
+    return (
+      <>
+        <Badge variant="danger">Fail</Badge>
+        <span className={styles.error}>{value}</span>
+      </>
+    );
   };
+
+  const results = [
+    { name: 'Dedicated worker', value: dedicatedWorkerResult },
+    { name: 'Shared worker', value: sharedWorkerResult },
+    { name: 'Service worker: Client API', value: serviceWorkerResult.clientApi },
+    { name: 'Service worker: BroadcastChannel', value: serviceWorkerResult.broadcastChannelApi },
+    { name: 'Service worker: MessageChannel', value: serviceWorkerResult.messageChannelApi },
+  ];
 
   useEffect(() => {
     const testDedicatedWorker = async () => {
@@ -210,16 +224,12 @@ export const TestWebWorkers = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Dedicated web worker</h2>
-      {getResult(dedicatedWorkerResult, 'Pass')}
-      <h2>Shared web worker</h2>
-      {getResult(sharedWorkerResult, 'Pass')}
-      <h2>Service worker</h2>
-      <div className={styles.serviceWorkerResults}>
-        {getResult(serviceWorkerResult.clientApi, 'Client API works!')}
-        {getResult(serviceWorkerResult.broadcastChannelApi, 'Broadcast channel API works!')}
-        {getResult(serviceWorkerResult.messageChannelApi, 'Message channel API works!')}
-      </div>
+      {results.map(({ name, value }) => (
+        <Fragment key={name}>
+          <span>{name}</span>
+          <div className={styles.result}>{getResult(value)}</div>
+        </Fragment>
+      ))}
     </div>
   );
 };

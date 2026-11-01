@@ -32,7 +32,7 @@
 .foreign-object-svg form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-3);
 }
 
 .foreign-object-svg form label {

@@ -1,31 +1,40 @@
 .colors {
   h2 {
-    width: 100%;
-    border-bottom: 1px solid var(--color-white);
-    font-weight: normal;
+    @include subtitle;
+  }
+
+  > div:first-child h2 {
+    margin-top: 0;
   }
 
   .color {
     > div {
       display: flex;
+      gap: var(--space-1);
+      padding-bottom: var(--space-6);
     }
 
     .inputs {
       flex-direction: column;
-      max-width: 200px;
-      margin-bottom: 10px;
+      gap: var(--space-2);
+      max-width: 220px;
+      margin-bottom: var(--space-4);
+      padding-bottom: 0;
     }
 
     .color-square {
       width: 80px;
       aspect-ratio: 1;
       position: relative;
+      border-radius: var(--radius-sm);
 
       pre {
+        @include caption;
+
         position: absolute;
-        bottom: 0;
+        bottom: calc(-1 * var(--space-1));
         transform: translateY(100%);
-        font-size: 0.6rem;
+        font-size: 0.625rem;
         margin: 0;
 
         @media (width < 900px) {
@@ -38,18 +47,23 @@
   .wide-gamut {
     > div {
       display: flex;
+      gap: var(--space-1);
+      padding-bottom: var(--space-6);
     }
 
     .color-space-block {
       width: 80px;
       aspect-ratio: 1;
       position: relative;
+      border-radius: var(--radius-sm);
 
       pre {
+        @include caption;
+
         position: absolute;
-        bottom: 0;
+        bottom: calc(-1 * var(--space-1));
         transform: translateY(100%);
-        font-size: 0.6rem;
+        font-size: 0.625rem;
         margin: 0;
       }
     }
@@ -58,7 +72,8 @@
   .relative-colors {
     .relative-colors-container {
       display: flex;
-      margin-bottom: 20px;
+      gap: var(--space-1);
+      margin-bottom: var(--space-2);
 
       > div {
         width: 80px;
@@ -67,12 +82,14 @@
 
         &::before {
           content: 'Not supported';
-          font-size: 0.6rem;
+          font-size: 0.625rem;
           position: absolute;
           inset: 0;
           display: grid;
           place-items: center;
-          border: 1px solid var(--color-red);
+          color: var(--danger-text);
+          border: 1px solid var(--danger-border);
+          border-radius: var(--radius-sm);
         }
 
         &::after {
@@ -81,6 +98,7 @@
           inset: 0;
           display: grid;
           place-items: center;
+          border-radius: var(--radius-sm);
         }
 
         &:nth-of-type(1)::after {

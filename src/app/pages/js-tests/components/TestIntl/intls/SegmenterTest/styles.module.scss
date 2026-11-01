@@ -1,19 +1,19 @@
 .test-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .segments-container {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--space-1);
 
   .segments {
     @include scroll;
 
     display: flex;
-    gap: 5px;
+    gap: var(--space-1);
     flex-wrap: wrap;
     max-height: 300px;
     overflow-y: auto;
@@ -30,5 +30,5 @@
 
 .test-string-input-container {
   display: flex;
-  gap: 5px;
+  gap: var(--space-1);
 }
