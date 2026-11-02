@@ -7,7 +7,7 @@ import { Section } from '@/app/components/Section/Section';
 import { Loader } from '@/app/components/Loader/Loader';
 import { SectionErrorBoundary } from '@/app/components/SectionErrorBoundary/SectionErrorBoundary';
 
-import { JSX, LazyExoticComponent, Suspense } from 'react';
+import { ComponentType, Suspense } from 'react';
 import { RouteObject } from 'react-router-dom';
 
 import { sections as htmlSections } from '@/app/pages/html-tests/sections';
@@ -15,11 +15,7 @@ import { sections as cssSections } from '@/app/pages/css-tests/sections';
 import { sections as jsSections } from '@/app/pages/js-tests/sections';
 import { sections as miscSections } from '@/app/pages/misc-tests/sections';
 
-const Page = ({
-  sections,
-}: {
-  sections: { Component: (() => JSX.Element | null) | LazyExoticComponent<() => JSX.Element>; name: string }[];
-}) => {
+const Page = ({ sections }: { sections: { Component: ComponentType; name: string }[] }) => {
   return (
     <div>
       {sections.map(({ Component, name }, index) => (

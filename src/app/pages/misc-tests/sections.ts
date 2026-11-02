@@ -1,59 +1,46 @@
-import { TestDifficultStrings, TestEmojis, TestLargeImage, TestVideos } from '@/app/pages/misc-tests/components';
 import { DROPDOWN_STATE } from '@/utils/constants';
-import { lazy } from 'react';
-
-const TestLayouts = lazy(() =>
-  import('@/app/pages/misc-tests/components').then(({ TestLayouts }) => {
-    return { default: TestLayouts };
-  }),
-);
-
-const TestMathMl = lazy(() =>
-  import('@/app/pages/misc-tests/components').then(({ TestMathMl }) => {
-    return { default: TestMathMl };
-  }),
-);
-
-const TestMisc = lazy(() =>
-  import('@/app/pages/misc-tests/components').then(({ TestMisc }) => {
-    return { default: TestMisc };
-  }),
-);
+import { lazyNamed } from '@utils';
 
 export const sections = [
   {
     name: 'Very large image',
-    Component: TestLargeImage,
+    Component: lazyNamed(
+      () => import('@/app/pages/misc-tests/components/TestLargeImage/TestLargeImage'),
+      'TestLargeImage',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Different Layouts',
-    Component: TestLayouts,
+    Component: lazyNamed(() => import('@/app/pages/misc-tests/components/TestLayouts/TestLayouts'), 'TestLayouts'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Difficult strings',
-    Component: TestDifficultStrings,
+    Component: lazyNamed(
+      () => import('@/app/pages/misc-tests/components/TestDifficultStrings/TestDifficultStrings'),
+      'TestDifficultStrings',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'All current emojis',
-    Component: TestEmojis,
+    Component: lazyNamed(() => import('@/app/pages/misc-tests/components/TestEmojis/TestEmojis'), 'TestEmojis'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Videos',
-    Component: TestVideos,
+    Component: lazyNamed(() => import('@/app/pages/misc-tests/components/TestVideos/TestVideos'), 'TestVideos'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'MathML',
-    Component: TestMathMl,
+    Component: lazyNamed(() => import('@/app/pages/misc-tests/components/TestMathML/TestMathML'), 'TestMathMl'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Miscellaneous tests',
-    Component: TestMisc,
+    Component: lazyNamed(() => import('@/app/pages/misc-tests/components/TestMisc/TestMisc'), 'TestMisc'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
 ];

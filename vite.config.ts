@@ -1,23 +1,7 @@
-import fs from 'node:fs';
 import path from 'node:path';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, Plugin, ResolvedConfig } from 'vite';
-
-const redirectsPlugin = (): Plugin => {
-  return {
-    name: 'redirects',
-    apply: 'build',
-    writeBundle(options) {
-      if (!options.dir) return;
-
-      const dest = path.resolve(options.dir, '_redirects');
-      const redirectsContent = '/* /index.html 200';
-
-      fs.writeFileSync(dest, redirectsContent);
-    },
-  };
-};
 
 const scriptImportPlugin = (): Plugin => {
   let config: ResolvedConfig | null = null;
@@ -29,30 +13,35 @@ const scriptImportPlugin = (): Plugin => {
     resolveId: {
       order: 'pre',
       async handler(id, importer, options) {
-        if (id.endsWith('?script')) {
-          if (config?.command === 'build') {
-            const resolvedPath = path.resolve(path.dirname(importer || ''), id).replace(/\?script$/, '.ts');
+        if (!id.endsWith('?script')) return;
 
-            const assetId = this.emitFile({
-              type: 'chunk',
-              id: resolvedPath,
-              fileName: resolvedPath.includes('serviceWorker') ? 'serviceWorker.js' : undefined,
-            });
+        const resolved = await this.resolve(id.replace(/\?script$/, '.ts'), importer, {
+          ...options,
+          skipSelf: true,
+        });
 
-            files.set(id, assetId);
+        if (!resolved) return;
 
-            return id;
-          }
-
-          if (config?.command === 'serve') {
-            const transformedPath = `${id.replace(/\?script$/, '.ts')}?url`;
-
-            return await this.resolve(transformedPath, importer, {
-              skipSelf: true,
-              ...options,
-            });
-          }
+        if (config?.command === 'serve') {
+          return await this.resolve(`${resolved.id}?url`, importer, {
+            ...options,
+            skipSelf: true,
+          });
         }
+
+        const scriptId = `\0script:${resolved.id}`;
+
+        if (!files.has(scriptId)) {
+          const referenceId = this.emitFile({
+            type: 'chunk',
+            id: resolved.id,
+            fileName: path.basename(resolved.id) === 'serviceWorker.ts' ? 'serviceWorker.js' : undefined,
+          });
+
+          files.set(scriptId, referenceId);
+        }
+
+        return scriptId;
       },
     },
     configResolved(resolvedConfig) {
@@ -66,16 +55,16 @@ const scriptImportPlugin = (): Plugin => {
   };
 };
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     scriptImportPlugin(),
-    redirectsPlugin(),
-    visualizer({
-      template: 'treemap',
-      open: false,
-      gzipSize: true,
-    }),
+    mode === 'stats' &&
+      visualizer({
+        template: 'treemap',
+        open: false,
+        gzipSize: true,
+      }),
   ],
   assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.adts', '**/*.tiff', '**/*.bmp', '**/*.cur', '**/*.jxl'],
   css: {
@@ -91,8 +80,8 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
     alias: {
-      '@mixins': path.resolve(__dirname, 'src/app/styles/mixins.scss'),
-      '@variables': path.resolve(__dirname, 'src/app/styles/variables.scss'),
+      '@mixins': path.resolve(import.meta.dirname, 'src/app/styles/mixins.scss'),
+      '@variables': path.resolve(import.meta.dirname, 'src/app/styles/variables.scss'),
     },
   },
   build: {
@@ -111,4 +100,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

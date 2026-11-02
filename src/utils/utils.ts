@@ -8,7 +8,7 @@ import {
   TSettingsPages,
   TSingleArgumentFunction,
 } from '@/types';
-import { ForwardedRef, RefObject } from 'react';
+import { ComponentType, ForwardedRef, lazy, RefObject } from 'react';
 
 export const lorem = (n: number, start = 0) => {
   const sentences = LOREM_TEXT.split(/(?<=[.?!])\s+/);
@@ -551,3 +551,6 @@ export const decompressResponse = async (response: Response) => {
 export const isTruthy = <T>(value: T | null | undefined): value is T => {
   return value !== null && value !== undefined;
 };
+
+export const lazyNamed = <K extends string>(load: () => Promise<Record<K, ComponentType>>, name: K) =>
+  lazy(() => load().then((module) => ({ default: module[name] })));

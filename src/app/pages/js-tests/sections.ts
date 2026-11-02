@@ -1,150 +1,155 @@
 import { DROPDOWN_STATE } from '@/utils/constants';
-import {
-  TestCanvas,
-  TestCrypto,
-  TestDates,
-  TestEvents,
-  TestIntl,
-  TestMath,
-  TestNavigatorFeatures,
-  TestObservers,
-  TestTabInteractions,
-  TestWebGpu,
-  TestWebStorage,
-  TestWebWorkers,
-  TestEyeDropper,
-  TestIdleDetection,
-  TestAudioOutputDevices,
-  TestSensors,
-  TestWebSpeech,
-  TestPointerLock,
-  CustomHighlight,
-  TestWebGl,
-  CompressionStreams,
-  ContactPicker,
-  CookieStore,
-  LocalFonts,
-} from '@/app/pages/js-tests/components';
+import { lazyNamed } from '@utils';
 
 export const sections = [
   {
     name: 'Interactions with tab',
-    Component: TestTabInteractions,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/TestTabInteractions/TestTabInteractions'),
+      'TestTabInteractions',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Different js events',
-    Component: TestEvents,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestEvents/TestEvents'), 'TestEvents'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Navigator features',
-    Component: TestNavigatorFeatures,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/TestNavigatorFeatures/TestNavigatorFeatures'),
+      'TestNavigatorFeatures',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Different Web Storage APIs',
-    Component: TestWebStorage,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/TestWebStorage/TestWebStorage'),
+      'TestWebStorage',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Canvas features',
-    Component: TestCanvas,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestCanvas/TestCanvas'), 'TestCanvas'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Crypto API',
-    Component: TestCrypto,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestCrypto/TestCrypto'), 'TestCrypto'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Math',
-    Component: TestMath,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestMath/TestMath'), 'TestMath'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Dates',
-    Component: TestDates,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestDates/TestDates'), 'TestDates'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Intl',
-    Component: TestIntl,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestIntl/TestIntl'), 'TestIntl'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Web Workers',
-    Component: TestWebWorkers,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/TestWebWorkers/TestWebWorkers'),
+      'TestWebWorkers',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Web GPU',
-    Component: TestWebGpu,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestWebGpu/TestWebGpu'), 'TestWebGpu'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'WebGL',
-    Component: TestWebGl,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestWebGl/TestWebGl'), 'TestWebGl'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Observers',
-    Component: TestObservers,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestObservers/TestObservers'), 'TestObservers'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Eye Dropper',
-    Component: TestEyeDropper,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/TestEyeDropper/TestEyeDropper'),
+      'TestEyeDropper',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Idle detection API',
-    Component: TestIdleDetection,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/TestIdleDetection/TestIdleDetection'),
+      'TestIdleDetection',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Audio output devices',
-    Component: TestAudioOutputDevices,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/TestAudioOutputDevices/TestAudioOutputDevices'),
+      'TestAudioOutputDevices',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Sensor API',
-    Component: TestSensors,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestSensors/TestSensors'), 'TestSensors'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Web Speech API',
-    Component: TestWebSpeech,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestWebSpeech/TestWebSpeech'), 'TestWebSpeech'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Pointer Lock API',
-    Component: TestPointerLock,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/TestPointerLock/TestPointerLock'),
+      'TestPointerLock',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'CSS Custom Highlight API',
-    Component: CustomHighlight,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/CustomHighlight/CustomHighlight'),
+      'CustomHighlight',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Compression Streams API',
-    Component: CompressionStreams,
+    Component: lazyNamed(
+      () => import('@/app/pages/js-tests/components/CompressionStreams/CompressionStreams'),
+      'CompressionStreams',
+    ),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Contact Picker API',
-    Component: ContactPicker,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/ContactPicker/ContactPicker'), 'ContactPicker'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Cookie Store API',
-    Component: CookieStore,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/CookieStore/CookieStore'), 'CookieStore'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
     name: 'Local Font Access API',
-    Component: LocalFonts,
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestLocalFonts/TestLocalFonts'), 'LocalFonts'),
     initialState: DROPDOWN_STATE.CLOSED,
   },
 ];
