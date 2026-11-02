@@ -3,10 +3,11 @@ import classNames from 'classnames';
 import styles from './styles.module.scss';
 import { Button } from '@/app/components/Button/Button';
 import { decompressResponse, getErrorMessage } from '@/utils/utils';
+import videoCssUrl from '@data/css-video.bin?url';
 
 const fetchVideoCss = async (controller: AbortController, onComplete: () => void) => {
   try {
-    const response = await fetch('https://files.catbox.moe/p9ddvn.gz', {
+    const response = await fetch(videoCssUrl, {
       signal: controller.signal,
     });
 

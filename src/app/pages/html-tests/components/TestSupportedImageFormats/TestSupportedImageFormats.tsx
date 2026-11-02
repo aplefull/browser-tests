@@ -9,7 +9,7 @@ import flyingCatIco from '@assets/images/flying_cat/flying-cat.ico';
 import flyingCatCur from '@assets/images/flying_cat/flying-cat.cur';
 import flyingCatTiff from '@assets/images/flying_cat/flying-cat.tiff';
 import flyingCatAvif from '@assets/images/flying_cat/flying-cat.avif';
-import flyingCatJfif from '@assets/images/flying_cat/flying-cat.jfif';
+import flyingCatJxl from '@assets/images/flying_cat/flying-cat.jxl';
 
 export const TestSupportedImageFormats = () => {
   return (
@@ -55,8 +55,8 @@ export const TestSupportedImageFormats = () => {
         <span>AVIF</span>
       </div>
       <div>
-        <img src={flyingCatJfif} alt="jfif image" />
-        <span>JFIF</span>
+        <img src={flyingCatJxl} alt="jxl image" />
+        <span>JXL</span>
       </div>
     </div>
   );

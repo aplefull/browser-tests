@@ -41,10 +41,10 @@
 }
 
 .container {
-  width: 100%;
-  aspect-ratio: 1;
+  width: min(100%, (100dvh - var(--header-height) - var(--space-8)) * 4 / 3);
+  aspect-ratio: 4 / 3;
   position: relative;
-  margin-top: 20px;
+  margin: 20px auto 0;
 }
 
 .component {

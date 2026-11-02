@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import textData from '@data/blns.txt?raw';
-import gzippedData from '@data/blns-gzipped.txt?url';
+import gzippedData from '@data/blns-gzipped.bin?url';
 import styles from './styles.module.scss';
 import { Container } from '@/app/components/Container/Container';
 import { Badge } from '@/app/components/Badge/Badge';

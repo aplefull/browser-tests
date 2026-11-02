@@ -223,10 +223,10 @@ export const CanvasText = () => {
 
   useEffect(() => {
     const load = async () => {
-      const emojis = await requestEmojis();
-      setEmojis(emojis.map((emoji) => emoji.char));
+      const emojis = (await requestEmojis()).map((emoji) => emoji.char);
+      setEmojis(emojis);
 
-      await loadNotoFont();
+      await loadNotoFont(emojis.join(''));
       setLoaded(true);
     };
 

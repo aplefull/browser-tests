@@ -8,6 +8,11 @@ declare module '*.tiff' {
   export default content;
 }
 
+declare module '*.jxl' {
+  const content: string;
+  export default content;
+}
+
 declare module '*.avi' {
   const content: string;
   export default content;

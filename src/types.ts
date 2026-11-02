@@ -22,12 +22,10 @@ export type TImageModule = {
 };
 
 export type TRawEmoji = {
-  category: string;
-  char: string;
-  codes: string;
-  group: string;
-  name: string;
-  subgroup: string;
+  label: string;
+  emoji: string;
+  order?: number;
+  skins?: TRawEmoji[];
 };
 
 export type TEmoji = {

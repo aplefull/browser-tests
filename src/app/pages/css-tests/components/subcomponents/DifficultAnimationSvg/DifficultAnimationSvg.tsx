@@ -1,63 +1,56 @@
 import styles from './styles.module.scss';
 import { TDimensions } from '@/types';
-import { decompressResponse, fitToBox } from '@/utils/utils';
+import { decompressResponse } from '@/utils/utils';
 import { useEffect, useState } from 'react';
 import { Button } from '@/app/components/Button/Button';
+import svgDataUrl from '@data/bad-apple-smil.bin?url';
 
-type TSvgProps = {
+type TSvgData = {
   width: number;
   height: number;
-  fitWidth: number;
-  fitHeight: number;
-  xOffset: number;
-  yOffset: number;
-  scale: number;
-  data: {
-    values: string;
-    keyTimes: string;
-  };
+  dur: string;
+  transform: string;
+  values: string;
+  keyTimes: string;
 };
 
-const Svg = ({ width, height, fitWidth, fitHeight, data, yOffset, xOffset, scale }: TSvgProps) => {
-  const transform = `scale(${scale})`;
-  const style = { transform };
-  const viewBox = `0 0 ${fitWidth} ${fitHeight}`;
+type TSvgProps = TDimensions & {
+  data: TSvgData;
+};
+
+const Svg = ({ width, height, data }: TSvgProps) => {
+  const firstFrame = data.values.split(';', 1)[0];
 
   return (
-    <svg width={width} height={height}>
-      <svg
-        version="1.0"
-        xmlns="http://www.w3.org/2000/svg"
-        x={xOffset}
-        y={yOffset}
-        width={fitWidth}
-        height={fitHeight}
-        viewBox={viewBox}
-      >
-        <defs>
-          <animate
-            xmlns="http://www.w3.org/2000/svg"
-            xlinkHref="#frame"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            attributeName="d"
-            values={data.values}
-            keyTimes={data.keyTimes}
-            dur="219.1s"
-            repeatCount="1"
-            calcMode="discrete"
-          />
-        </defs>
-        <path id="frame" d="M0 192v192h512V0H0v192z" style={style} />
-      </svg>
+    <svg width={width} height={height} viewBox={`0 0 ${data.width} ${data.height}`}>
+      <rect className={styles.background} width={data.width} height={data.height} />
+      <path className={styles.frame} transform={data.transform} d={firstFrame}>
+        <animate
+          attributeName="d"
+          values={data.values}
+          keyTimes={data.keyTimes}
+          dur={data.dur}
+          calcMode="discrete"
+          fill="freeze"
+        />
+      </path>
     </svg>
   );
 };
 
-const isSvgData = (data: unknown): data is { values: string; keyTimes: string } => {
+const isSvgData = (data: unknown): data is TSvgData => {
   return (
     data instanceof Object &&
+    'width' in data &&
+    'height' in data &&
+    'dur' in data &&
+    'transform' in data &&
     'values' in data &&
     'keyTimes' in data &&
+    typeof data.width === 'number' &&
+    typeof data.height === 'number' &&
+    typeof data.dur === 'string' &&
+    typeof data.transform === 'string' &&
     typeof data.values === 'string' &&
     typeof data.keyTimes === 'string'
   );
@@ -65,24 +58,13 @@ const isSvgData = (data: unknown): data is { values: string; keyTimes: string } 
 
 export const DifficultAnimationSvg = ({ width, height }: TDimensions) => {
   const [show, setShow] = useState(false);
-  const [svgData, setSvgData] = useState<{
-    values: string;
-    keyTimes: string;
-  } | null>(null);
-
-  const animationWidth = 512;
-  const animationHeight = 384;
-
-  const { width: fitWidth, height: fitHeight } = fitToBox(animationWidth, animationHeight, width, height);
-
-  const xOffset = (width - fitWidth) / 2;
-  const yOffset = (height - fitHeight) / 2;
-
-  const scale = fitWidth / animationWidth;
+  const [svgData, setSvgData] = useState<TSvgData | null>(null);
 
   useEffect(() => {
+    if (!show || svgData) return;
+
     const loadSvgData = async () => {
-      const response = await fetch('https://files.catbox.moe/5znk46.gz');
+      const response = await fetch(svgDataUrl);
       const decompressedResponse = await decompressResponse(response);
       const svgData = await decompressedResponse.json();
 
@@ -92,24 +74,13 @@ export const DifficultAnimationSvg = ({ width, height }: TDimensions) => {
     };
 
     loadSvgData().catch(console.error);
-  }, []);
+  }, [show, svgData]);
 
   return (
     <>
       <p>This animation is pretty heavy, so it's hidden by default. You can open/close it with the button below.</p>
       <Button className={styles.button} text={show ? 'Hide' : 'Show'} onClick={() => setShow(!show)} />
-      {show && svgData && (
-        <Svg
-          width={width}
-          height={height}
-          fitWidth={fitWidth}
-          fitHeight={fitHeight}
-          xOffset={xOffset}
-          yOffset={yOffset}
-          scale={scale}
-          data={svgData}
-        />
-      )}
+      {show && svgData && <Svg width={width} height={height} data={svgData} />}
     </>
   );
 };

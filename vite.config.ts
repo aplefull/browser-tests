@@ -77,7 +77,7 @@ export default defineConfig({
       gzipSize: true,
     }),
   ],
-  assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.adts', '**/*.tiff', '**/*.bmp', '**/*.cur'],
+  assetsInclude: ['**/*.avi', '**/*.mpeg', '**/*.3gp', '**/*.adts', '**/*.tiff', '**/*.bmp', '**/*.cur', '**/*.jxl'],
   css: {
     modules: {
       localsConvention: 'camelCaseOnly',

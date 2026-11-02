@@ -285,12 +285,16 @@ export const isDoubleArgumentFunction = (
 ): func is TDoubleArgumentFunction => func.length === 2;
 
 export const requestEmojis = async () => {
-  const emojiListUrl = 'https://unpkg.com/emoji.json@16.0.0/emoji.json';
+  const emojiListUrl = 'https://unpkg.com/emojibase-data@18.0.0/en/data.json';
 
   const response = await fetch(emojiListUrl);
   const data: TRawEmoji[] = await response.json();
 
-  return data;
+  return data
+    .flatMap((emoji) => [emoji, ...(emoji.skins ?? [])])
+    .filter((emoji) => emoji.order !== undefined)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    .map((emoji) => ({ name: emoji.label, char: emoji.emoji }));
 };
 
 export const nextElement = <T>(elements: T[] | readonly T[], currentElement: T): T => {
