@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { DetailedHTMLProps } from 'react';
 
 declare module 'react' {
   interface ImgHTMLAttributes<T> extends React.HTMLAttributes<T> {
@@ -44,12 +44,6 @@ declare module 'react' {
         columnalign?: string;
       };
       mroot: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
-      img: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
-        elementtiming?: string;
-      };
-      p: DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> & {
-        elementtiming?: string;
-      };
     }
   }
 }

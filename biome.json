@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!public", "!src/assets", "!**/*.d.ts"]
+    "includes": ["**", "!public", "!src/assets"]
   },
   "formatter": {
     "indentStyle": "space",
@@ -50,7 +50,7 @@
       "suspicious": {
         "noApproximativeNumericConstant": "off",
         "noArrayIndexKey": "off",
-        "noExplicitAny": "off",
+        "noExplicitAny": "error",
         "noShadowRestrictedNames": "off",
         "useIterableCallbackReturn": "off"
       }

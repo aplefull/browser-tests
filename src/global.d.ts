@@ -4,24 +4,20 @@ declare global {
   const registerPaint: ((name: string, classRef: PaintWorkletImplementer) => void) | undefined;
 
   interface Window {
-    registerPaint;
     SpeechRecognition?: SpeechRecognition;
     webkitSpeechRecognition?: SpeechRecognition;
     SpeechGrammarList?: SpeechGrammarList;
     webkitSpeechGrammarList?: SpeechGrammarList;
-    cookieStore?: CookieStore;
     queryLocalFonts?: () => Promise<FontData[]>;
   }
 
   interface CookieListItem {
-    name: string;
-    value: string;
-    domain: string;
-    path: string;
-    expires: number;
-    secure: boolean;
-    partitioned: boolean;
-    sameSite: 'strict' | 'lax' | 'none';
+    domain?: string | null;
+    path?: string;
+    expires?: DOMHighResTimeStamp | null;
+    secure?: boolean;
+    sameSite?: CookieSameSite;
+    partitioned?: boolean;
   }
 
   interface PaintWorkletImplementer {
@@ -50,10 +46,10 @@ declare global {
     dischargingTime: number;
     level: number;
 
-    onchargingchange: EventHandlerNonNull;
-    onchargingtimechange: EventHandlerNonNull;
-    ondischargingtimechange: EventHandlerNonNull;
-    onlevelchange: EventHandlerNonNull;
+    onchargingchange: ((event: Event) => void) | null;
+    onchargingtimechange: ((event: Event) => void) | null;
+    ondischargingtimechange: ((event: Event) => void) | null;
+    onlevelchange: ((event: Event) => void) | null;
   }
 
   interface Navigator {
@@ -94,27 +90,6 @@ declare global {
     icon: Blob[];
     name: string[];
     tel: string[];
-  }
-
-  interface CanvasRenderingContext2D {
-    reset: () => void;
-  }
-
-  interface PhotoSettings {
-    fillLightMode?: 'auto' | 'off' | 'flash';
-    imageHeight?: number;
-    imageWidth?: number;
-    redEyeReduction?: boolean;
-  }
-
-  interface ImageCapture {
-    takePhoto: (photoSettings?: PhotoSettings) => Promise<Blob>;
-    getPhotoSettings: () => Promise<PhotoSettings>;
-    grabFrame: () => Promise<ImageBitmap>;
-  }
-
-  interface PaintWorkletGlobalScope {
-    registerPaint: (name: string, paintCtor: any) => void;
   }
 
   interface ReportBody {
@@ -200,12 +175,12 @@ declare global {
     ) => void;
     screenState: 'locked' | 'unlocked';
     userState: 'active' | 'idle';
-    onchange: EventHandlerNonNull;
+    onchange: ((event: Event) => void) | null;
   }
 
   abstract class Sensor extends EventTarget {
-    onreading: EventHandlerNonNull;
-    onerror: EventHandlerNonNull;
+    onreading: ((event: Event) => void) | null;
+    onerror: ((event: Event) => void) | null;
     start: () => void;
     stop: () => void;
   }
@@ -245,21 +220,6 @@ declare global {
 
   interface LinearAccelerationSensor extends Accelerometer {}
 
-  interface Highlight {
-    priority: number;
-    readonly size: number;
-    type: string;
-
-    add: (range: Range) => void;
-    clear: () => void;
-    delete: (range: Range) => void;
-    entries: () => IterableIterator<Highlight>;
-    forEach: (callback: (value: Highlight, key: Highlight, map: Map<Highlight, Highlight>) => void) => void;
-    has: (range: Range) => boolean;
-    keys: () => IterableIterator<Highlight>;
-    values: () => IterableIterator<Highlight>;
-  }
-
   interface SpeechGrammar {
     src: string;
     weight?: number;
@@ -281,17 +241,17 @@ declare global {
     maxAlternatives: number;
     serviceURI: string;
 
-    onaudiostart: EventHandlerNonNull;
-    onaudioend: EventHandlerNonNull;
-    onend: EventHandlerNonNull;
-    onerror: EventHandlerNonNull;
-    onnomatch: EventHandlerNonNull;
-    onresult: EventHandlerNonNull;
-    onsoundstart: EventHandlerNonNull;
-    onsoundend: EventHandlerNonNull;
-    onspeechend: EventHandlerNonNull;
-    onspeechstart: EventHandlerNonNull;
-    onstart: EventHandlerNonNull;
+    onaudiostart: ((event: Event) => void) | null;
+    onaudioend: ((event: Event) => void) | null;
+    onend: ((event: Event) => void) | null;
+    onerror: ((event: Event) => void) | null;
+    onnomatch: ((event: Event) => void) | null;
+    onresult: ((event: Event) => void) | null;
+    onsoundstart: ((event: Event) => void) | null;
+    onsoundend: ((event: Event) => void) | null;
+    onspeechend: ((event: Event) => void) | null;
+    onspeechstart: ((event: Event) => void) | null;
+    onstart: ((event: Event) => void) | null;
 
     abort: () => void;
     start: () => void;
@@ -314,88 +274,19 @@ declare global {
 
     addEventListener(
       type: 'error',
-      listener: (event: SpeechRecognitionErrorEvent) => void | null,
+      listener: ((event: SpeechRecognitionErrorEvent) => void) | null,
       options?: boolean | AddEventListenerOptions | undefined,
     ): void;
 
     addEventListener(
       type: 'result',
-      listener: (event: SpeechRecognitionEvent) => void | null,
+      listener: ((event: SpeechRecognitionEvent) => void) | null,
       options?: boolean | AddEventListenerOptions | undefined,
     ): void;
-  }
-
-  interface SpeechRecognitionAlternative {
-    readonly confidence: number;
-    readonly transcript: string;
-  }
-
-  interface SpeechRecognitionResult {
-    readonly isFinal: boolean;
-    readonly length: number;
-
-    item: (index: number) => SpeechRecognitionAlternative;
-  }
-
-  interface SpeechRecognitionEvent extends Event {
-    readonly resultIndex: number;
-    readonly results: SpeechRecognitionResultList;
-  }
-
-  interface SpeechRecognitionErrorEvent extends Event {
-    readonly error: string;
-    readonly message: string;
-  }
-
-  interface SpeechRecognitionResultList {
-    readonly length: number;
-
-    item: (index: number) => SpeechRecognitionResult;
   }
 
   interface MediaDevices {
     selectAudioOutput?: () => Promise<MediaDeviceInfo>;
-  }
-
-  interface HTMLAudioElement {
-    setSinkId?: (sinkId: string) => Promise<void>;
-  }
-
-  interface CookieStore extends EventTarget {
-    delete: (name: string) => Promise<void>;
-    get: (name: string) => Promise<Cookie | null>;
-    getAll: () => Promise<Cookie[]>;
-    set: (options: {
-      name: string;
-      value: string;
-      domain?: string;
-      expires?: number;
-      partitioned?: boolean;
-      path?: string;
-      sameSite?: 'strict' | 'lax' | 'none';
-    }) => Promise<void>;
-
-    addEventListener(
-      type: 'change',
-      listener: (event: CookieChangeEvent) => void | null,
-      options?: boolean | AddEventListenerOptions | undefined,
-    ): void;
-  }
-
-  interface Cookie {
-    domain: string | null;
-    expires: number | null;
-    name: string;
-    partitioned: boolean;
-    path: string | null;
-    sameSite: 'strict' | 'lax' | 'none' | null;
-    secure: boolean;
-    value: string;
-  }
-
-  interface CookieChangeEvent extends Event {
-    changed: Cookie[];
-    deleted: Cookie[];
   }
 
   interface FontData {
@@ -407,5 +298,3 @@ declare global {
     blob: () => Promise<Blob>;
   }
 }
-
-export {};

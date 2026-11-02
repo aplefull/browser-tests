@@ -13,7 +13,7 @@
     "lint": "biome lint --error-on-warnings",
     "check": "biome check --write",
     "stylelint": "stylelint ./src/**/*.module.{css,scss}",
-    "typecheck": "tsc --noEmit --incremental false -p tsconfig.json && tsc --noEmit -p tsconfig.node.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.worker.json && tsc --noEmit -p tsconfig.node.json"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.13.0",
@@ -30,7 +30,6 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
-    "@webgpu/types": "^0.1.74",
     "postcss-scss": "^4.0.9",
     "rollup-plugin-visualizer": "^7.1.1",
     "sass": "^1.107.1",

@@ -1,14 +1,14 @@
-import { isSharedWorkerGlobalScope } from '@utils';
+declare const self: SharedWorkerGlobalScope;
 
-if (isSharedWorkerGlobalScope(self)) {
-  self.onconnect = (event: MessageEvent) => {
-    const port = event.ports[0];
+self.onconnect = (event) => {
+  const port = event.ports[0];
 
-    port.onmessage = () => {
-      port.postMessage({
-        result: '200',
-        type: 'SHARED_WORKER_API',
-      });
-    };
+  port.onmessage = () => {
+    port.postMessage({
+      result: '200',
+      type: 'SHARED_WORKER_API',
+    });
   };
-}
+};
+
+export {};

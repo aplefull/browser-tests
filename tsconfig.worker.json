@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "lib": ["esnext", "webworker"]
+  },
+  "include": ["serviceWorker.ts", "src/app/pages/js-tests/components/TestWebWorkers/workers/sharedWorker.ts"],
+  "exclude": []
+}

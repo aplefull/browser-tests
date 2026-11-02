@@ -5,7 +5,7 @@ import serviceWorker from '../../../../../../serviceWorker?script';
 import { Fragment, useEffect, useState } from 'react';
 import { Badge } from '@/app/components/Badge/Badge';
 import { getErrorMessage } from '@/utils/utils';
-import { BROADCAST_CHANNEL_ID } from '@/utils/constants';
+import { BROADCAST_CHANNEL_ID } from './workers/constants';
 
 type TServiceWorkerResult = {
   clientApi: string | null;

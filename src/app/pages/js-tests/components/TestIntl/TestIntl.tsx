@@ -66,45 +66,36 @@ export const getSupportedLocales = (intlFormat?: TIntlFormats) => () => {
   return [];
 };
 
-// TODO: this any is wrong, but it's incredibly hard to type this properly.
-// createSelects accepts handlers taht should have specific parameters. And these parameters should match select
-// options. This is kind of a disaster for typescript. Maybe this function is too generic and architecture
-// should be changed, no clue for now.
-export const createSelects = <THandlers extends Record<string, (value: any) => void>>(
-  values: Record<
-    keyof THandlers & string,
-    {
-      label: string;
-      options: readonly string[];
-      value: string | number | boolean | undefined;
-      disabled?: boolean;
-    }
-  >,
-  handlers: THandlers,
-  clearOption?: (key: keyof THandlers & string) => () => void,
-) => {
-  return Object.entries(values).map(([key, value]) => {
-    if (key in handlers) {
-      return {
-        ...value,
-        onChange: handlers[key as keyof THandlers],
-        onClear: clearOption ? clearOption(key as keyof THandlers & string) : undefined,
-      };
-    }
+type TSelectConfig = {
+  label: string;
+  options: readonly string[];
+  value: string | number | boolean | undefined;
+  disabled?: boolean;
+};
 
-    console.warn(`Handler for ${key} is not defined`);
-    return {
-      ...value,
-      onChange: () => {},
-      onClear: () => {},
-    };
-  });
+type TSelectItem = TSelectConfig & {
+  onChange: (value: string) => void;
+  onClear?: () => void;
+};
+
+export const createSelects = <TValues extends Record<string, TSelectConfig>>(
+  values: TValues,
+  handlers: { [K in keyof TValues]: (value: TValues[K]['options'][number]) => void },
+  clearOption?: (key: keyof TValues & string) => () => void,
+): TSelectItem[] => {
+  const keys = Object.keys(values) as (keyof TValues & string)[];
+
+  return keys.map((key) => ({
+    ...values[key],
+    onChange: handlers[key] as (value: string) => void,
+    onClear: clearOption?.(key),
+  }));
 };
 
 type TSelectsLayoutProps = {
   totalLocales: number;
   supportedLocales: number;
-  selects: ReturnType<typeof createSelects>;
+  selects: TSelectItem[];
   onNext: () => void;
   onPrev: () => void;
   selectOptions: string[];

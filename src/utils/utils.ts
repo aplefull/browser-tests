@@ -418,14 +418,6 @@ export const calculateThumbPosition = (
   return map(value, min, max, minPosition, maxPosition);
 };
 
-export const isSharedWorkerGlobalScope = (self: unknown): self is SharedWorkerGlobalScope => {
-  return typeof self === 'object' && self !== null && 'onconnect' in self;
-};
-
-export const isServiceWorkerGlobalScope = (self: unknown): self is ServiceWorkerGlobalScope => {
-  return typeof self === 'object' && self !== null && 'clients' in self;
-};
-
 export const isArrayOfArrays = <T>(array: T[] | T[][]): array is T[][] => {
   return Array.isArray(array[0]);
 };

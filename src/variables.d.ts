@@ -1,8 +1,3 @@
-declare var ImageCapture: {
-  prototype: ImageCapture;
-  new (track: MediaStreamTrack): ImageCapture;
-};
-
 declare var LayoutShift: {
   prototype: LayoutShift;
   new (): LayoutShift;
@@ -70,11 +65,6 @@ declare var LinearAccelerationSensor: {
   new (options?: { frequency?: number; referenceFrame?: 'device' | 'screen' }): LinearAccelerationSensor;
 };
 
-declare var Highlight: {
-  prototype: Highlight;
-  new (...args: Range[]): Highlight;
-};
-
 declare var SpeechRecognition: {
   prototype: SpeechRecognition;
   new (): SpeechRecognition;
@@ -84,3 +74,43 @@ declare var SpeechGrammarList: {
   prototype: SpeechGrammarList;
   new (): SpeechGrammarList;
 };
+
+declare var GPUBufferUsage: {
+  readonly MAP_READ: GPUFlagsConstant;
+  readonly MAP_WRITE: GPUFlagsConstant;
+  readonly COPY_SRC: GPUFlagsConstant;
+  readonly COPY_DST: GPUFlagsConstant;
+  readonly INDEX: GPUFlagsConstant;
+  readonly VERTEX: GPUFlagsConstant;
+  readonly UNIFORM: GPUFlagsConstant;
+  readonly STORAGE: GPUFlagsConstant;
+  readonly INDIRECT: GPUFlagsConstant;
+  readonly QUERY_RESOLVE: GPUFlagsConstant;
+};
+
+declare var GPUTextureUsage: {
+  readonly COPY_SRC: GPUFlagsConstant;
+  readonly COPY_DST: GPUFlagsConstant;
+  readonly TEXTURE_BINDING: GPUFlagsConstant;
+  readonly STORAGE_BINDING: GPUFlagsConstant;
+  readonly RENDER_ATTACHMENT: GPUFlagsConstant;
+};
+
+declare var GPUShaderStage: {
+  readonly VERTEX: GPUFlagsConstant;
+  readonly FRAGMENT: GPUFlagsConstant;
+  readonly COMPUTE: GPUFlagsConstant;
+};
+
+declare var GPUMapMode: {
+  readonly READ: GPUFlagsConstant;
+  readonly WRITE: GPUFlagsConstant;
+};
+
+interface HTMLCanvasElement {
+  getContext(contextId: 'webgpu'): GPUCanvasContext | null;
+}
+
+interface OffscreenCanvas {
+  getContext(contextId: 'webgpu'): GPUCanvasContext | null;
+}
