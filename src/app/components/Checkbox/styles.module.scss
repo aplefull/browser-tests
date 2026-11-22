@@ -39,7 +39,9 @@
     border-radius: var(--radius-sm);
     background-color: var(--bg-subtle);
     box-shadow: inset 0 0 0 1px var(--border-ui);
-    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition:
+      background-color var(--transition-fast),
+      box-shadow var(--transition-fast);
 
     .check-mark {
       width: 85%;
@@ -47,7 +49,9 @@
       opacity: 0;
       scale: 0;
       transform-origin: center;
-      transition: opacity var(--transition-fast), scale 50ms ease-in-out;
+      transition:
+        opacity var(--transition-fast),
+        scale 50ms ease-in-out;
     }
 
     &.checked {

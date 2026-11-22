@@ -107,7 +107,9 @@
   height: 16px;
   border: 2px solid var(--gray-12);
   border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--black-a5), 0 1px 4px var(--black-a6);
+  box-shadow:
+    0 0 0 1px var(--black-a5),
+    0 1px 4px var(--black-a6);
   translate: -50% -50%;
   pointer-events: none;
 }

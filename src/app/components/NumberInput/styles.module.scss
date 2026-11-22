@@ -40,7 +40,9 @@
     color: var(--text-muted);
     background-color: var(--color-transparent);
     cursor: pointer;
-    transition: color var(--transition-fast), background-color var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast);
 
     & + .button {
       border-top: 1px solid var(--border-subtle);

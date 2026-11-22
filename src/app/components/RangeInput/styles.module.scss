@@ -88,7 +88,9 @@
     aspect-ratio: 1;
     background-color: var(--gray-12);
     border-radius: 50%;
-    box-shadow: 0 0 0 3px var(--accent-solid), 0 1px 3px var(--black-a6);
+    box-shadow:
+      0 0 0 3px var(--accent-solid),
+      0 1px 3px var(--black-a6);
     cursor: pointer;
     translate: -50% -50%;
   }

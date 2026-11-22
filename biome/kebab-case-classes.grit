@@ -1,0 +1,6 @@
+language css
+
+CssClassSelector() as $sel where {
+  not $sel <: r"^\.(?:[a-z0-9]|#\{[^}]*\})+(?:-(?:[a-z0-9]|#\{[^}]*\})+)*$",
+  register_diagnostic(span=$sel, message="Use kebab-case class names")
+}

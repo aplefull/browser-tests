@@ -12,7 +12,10 @@
   font-weight: var(--font-medium);
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    color var(--transition-fast);
 
   &:focus {
     outline: none;

@@ -10,7 +10,9 @@
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: color var(--transition-fast), background-color var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
 
   &:hover {
     color: var(--text-primary);
@@ -80,7 +82,9 @@
     height: 12px;
     background-color: var(--gray-12);
     border-radius: 50%;
-    box-shadow: 0 0 0 3px var(--accent-9), 0 1px 3px var(--black-a6);
+    box-shadow:
+      0 0 0 3px var(--accent-9),
+      0 1px 3px var(--black-a6);
     translate: -50% -50%;
     scale: 0;
     transition: scale var(--transition-fast);

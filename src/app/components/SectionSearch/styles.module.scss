@@ -5,7 +5,9 @@
   z-index: var(--z-overlay);
   translate: -50% 0;
   opacity: 1;
-  transition: translate 0.2s ease, opacity 0.2s ease;
+  transition:
+    translate 0.2s ease,
+    opacity 0.2s ease;
 
   @starting-style {
     translate: -50% -1rem;

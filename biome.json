@@ -24,9 +24,16 @@
       "quoteStyle": "single"
     },
     "linter": {
-      "enabled": false
+      "enabled": true
     }
   },
+  "plugins": [
+    {
+      "path": "./biome/no-literal-colors.grit",
+      "includes": ["**", "!src/app/styles/theme.scss", "!src/app/pages/css-tests/components/TestColors/**"]
+    },
+    "./biome/kebab-case-classes.grit"
+  ],
   "linter": {
     "rules": {
       "preset": "recommended",
@@ -35,6 +42,8 @@
         "noUnusedImports": "error",
         "noUnusedVariables": "error",
         "noPrecisionLoss": "off",
+        "noUnknownProperty": "off",
+        "noUnknownTypeSelector": "off",
         "useExhaustiveDependencies": "off",
         "useHookAtTopLevel": {
           "level": "error",
@@ -44,6 +53,7 @@
         }
       },
       "style": {
+        "noDescendingSpecificity": "off",
         "noNonNullAssertion": "off",
         "useImportType": "off"
       },

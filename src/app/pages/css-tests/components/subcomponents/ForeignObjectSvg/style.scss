@@ -1,5 +1,7 @@
 .foreign-object-svg > div {
   container-type: inline-size;
+  background-color: var(--bg-ui);
+  padding: 10px;
 }
 
 .foreign-object-svg *:not(button) {
@@ -10,19 +12,19 @@
   font-family: sans-serif;
   font-size: 24px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .foreign-object-svg p {
   font-family: sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .foreign-object-svg button {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--accent-solid);
+  color: var(--accent-contrast);
   padding: 8px 16px;
   border: none;
   cursor: pointer;
@@ -37,6 +39,7 @@
 
 .foreign-object-svg form label {
   display: flex;
+  color: var(--text-primary);
   align-items: center;
 }
 

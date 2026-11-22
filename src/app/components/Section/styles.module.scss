@@ -15,7 +15,9 @@
     padding: var(--space-3) var(--space-5);
     cursor: pointer;
     background-color: var(--bg-surface);
-    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition:
+      background-color var(--transition-fast),
+      box-shadow var(--transition-fast);
 
     > span {
       color: var(--text-primary);
@@ -37,7 +39,9 @@
     height: 0;
     padding: 0 var(--space-5);
     overflow: hidden;
-    transition: height var(--state-transition-duration) ease, padding var(--state-transition-duration) ease;
+    transition:
+      height var(--state-transition-duration) ease,
+      padding var(--state-transition-duration) ease;
   }
 
   .body > * > h2:first-child,
@@ -48,7 +52,9 @@
   .chevron {
     flex: none;
     color: var(--text-muted);
-    transition: transform var(--state-transition-duration) ease, color var(--transition-fast);
+    transition:
+      transform var(--state-transition-duration) ease,
+      color var(--transition-fast);
   }
 
   &.open {
