@@ -11,28 +11,6 @@
   .collapse-content {
     padding: var(--space-4);
   }
-
-  .examples {
-    h2 {
-      @include subtitle;
-    }
-
-    .emojis {
-      padding: 10px;
-
-      .container {
-        overflow-y: auto;
-        width: 130px;
-        outline: 1px solid var(--color-red);
-        word-break: break-all;
-        font-size: 16px;
-
-        span {
-          font-family: 'Noto Color Emoji', sans-serif;
-        }
-      }
-    }
-  }
 }
 
 .sprite-container {

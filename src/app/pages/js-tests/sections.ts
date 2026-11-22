@@ -138,6 +138,11 @@ export const sections = [
     initialState: DROPDOWN_STATE.CLOSED,
   },
   {
+    name: 'Encoding API',
+    Component: lazyNamed(() => import('@/app/pages/js-tests/components/TestEncoding/TestEncoding'), 'TestEncoding'),
+    initialState: DROPDOWN_STATE.CLOSED,
+  },
+  {
     name: 'Contact Picker API',
     Component: lazyNamed(() => import('@/app/pages/js-tests/components/ContactPicker/ContactPicker'), 'ContactPicker'),
     initialState: DROPDOWN_STATE.CLOSED,
